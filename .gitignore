@@ -1,0 +1,9 @@
+**/index_cache/
+**/__pycache__
+**/.Rhistory
+*.Rproj*
+*.code-workspace
+**/.ipynb_checkpoints
+**/*_cache/
+/.luarc.json
+/.quarto/

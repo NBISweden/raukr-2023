@@ -1,0 +1,89 @@
+# questions
+- flexdashboards for quarto?
+- xaringan for quarto?
+- css based pdf styling
+- self-contained, embed-resources, standalone
+- add filename as class to body, quarto-content, quarto-document-content
+- freeze vs cache
+
+# html issues
+- figure numbering doesn't work
+- figure cross referencing doesn't work
+- three dot incremental operator does not work within columns
+
+# slide issues
+- responsive slides
+- call-out with collapse does not work
+- blockquote does not work? maybe
+- section number decimal
+
+
+[x] improve footer similar to https://www.quantumjitter.com/
+[x] move slide format options to config
+[x] add 404
+[x] improve 404
+[x] improve index layout and style
+[x] Add logo to website
+[x] home page cover image
+[x] slides title slide dual logo
+[x] check em and rem in css
+[x] reticulate slides and lab
+[x] add ml topic slides and lab
+[x] removed empty #|
+[x] added classroom photos
+[ ] 404 page broken
+[x] update featured images for remaining topics
+[x] panel tab style update
+[ ] website sidebar. cannot hide demo.
+[x] slides cover and end images graphics
+[ ] slide title slide vertical alignment
+[ ] load assets locally (fonts)
+
+[ ] reproducible reserach
+    - git
+    - github
+    - projects
+    - renv
+    - conda
+    - notebooks
+    https://the-turing-way.netlify.app/reproducible-research/reproducible-research.html
+[ ] publishing with quarto
+    - markdown
+    - rmarkdown
+    - reports (html/pdf)
+    - revealjs
+    - xaringan
+
+[ ] slack upgrade?
+[ ] add shinylive, shiny for python
+
+- profr deprecated in favour of profvis
+- lab reticulate python sql error
+
+AttributeError: 'OptionEngine' object has no attribute 'execute'
+NameError: name 'movies' is not defined
+conda install "sqlalchemy<=2.0"
+
+- slide debuggung gpuR
+- tidyverse slide 23, readr challenge does not give an error
+- vectorisation slide 5, failure, set to error: true
+
+- setting up r in vscode
+http://aeturrell.com/2021/11/04/setting-up-r-in-vscode/
+https://renkun.me/2022/03/06/my-recommendations-of-vs-code-extensions-for-r/
+
+
+# Colors
+
+primary: #4ab4ac;
+secondary: #b3dbdb;
+link-color: #3c7b75;
+
+# when format is missing
+ERROR: NotFound: No such file or directory (os error 2), rename '/home/roy/Documents/github/raukr-2023/about/index.html' -> '/home/roy/Documents/github/raukr-2023/docs/about/index.html'
+       
+# replace in all files
+grep -RiIl '^#| $' **/*.qmd | xargs sed -i 's/^#| $//g'
+grep -RiIl '^image: assets/featured.jpg$' **/*.qmd | xargs sed -i 's/^#| $//g'  
+
+687mb               

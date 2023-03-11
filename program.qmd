@@ -1,0 +1,75 @@
+---
+title: "Program"
+toc: false
+date: ""
+sidebar: false
+format:
+  html:
+    number-sections: false
+---
+
+We will be covering a number of topics in R programming with focus on R features helpful in bioinformatics and computational biology data analyses workflow:
+
+- Reproducible research in R (Quarto, Rmarkdown, Knitr)
+- Collaborative work using Git and GitHub, CD/CI
+- R code style guide & best practices
+- Code debugging, optimization and profiling
+- Parallelisation and vectorization in R
+- Writing own functions
+- Understanding and using the system of R classes: S3, S4, R6 and RC
+- Anatomy of an R package: writing your own package from scratch
+- Tidy data flow with tidyverse
+- Using the language of graphics, ggplot2
+- Developing simple web applications using shiny
+- R and Python integration using reticulate
+- Streamlined modelling using tidymodels
+- Team project work - developing data analyses workflow in R using acquired skills
+
+Course materials will be made available at the beginning of the course and will remain open and publicly accessible online for at least a year.
+
+## Invited speakers
+
+::: {.guests-parent}
+::: {.guests-child}
+
+![](assets/profile/jenny-bryan.jpg)
+
+[Jenny Bryan](https://jennybryan.org/)
+
+Software engineer at Posit, Data science professor at UBC.
+
+:::
+::: {.guests-child}
+
+![](assets/profile/max-kuhn.jpg)
+
+[Max Kuhn](https://www.linkedin.com/in/max-kuhn-864a9110/)
+
+Software engineer at Posit
+
+:::
+::: {.guests-child}
+
+![](assets/profile/yihui-xie.jpg)
+
+[Yihui Xie](https://yihui.name/en/about/)
+
+Software engineer at Posit
+
+:::
+::: {.guests-child}
+
+![](assets/profile/christophe-dervieux.jpg)
+
+[Christophe Dervieux](https://github.com/cderv)
+
+Software engineer at Posit
+
+:::
+:::
+
+## Schedule
+
+The morning session begins every day at 08:30 until 12:30 with breakfast at 08:30 to 09:00 and 30 min break at 10:30. The lunch break is 12:30 to 13:30. The afternoon session runs from 13:30 till 17:00 with a 30 min coffee break at 15:00.
+
+Note! Due to time differences, guest lectures may happen later in the evening (after 17:00).

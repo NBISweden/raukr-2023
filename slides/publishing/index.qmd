@@ -1,0 +1,412 @@
+---
+title: "Publishing with Quarto"
+author: "Roy Francis"
+image: "assets/featured.jpg"
+format: revealjs
+---
+
+## Publishing
+
+- [Literate programming](https://en.wikipedia.org/wiki/Literate_programming): Combining code with narrative
+- Documentation and reporting
+- Presentation
+- Websites
+- E-books
+- PDFs
+
+. . .
+
+[[https://quarto.org/docs/gallery/](https://quarto.org/docs/gallery/)]{.large}
+
+## [Quarto](https://quarto.org/)
+
+**An open-source scientific and technical publishing system built on Pandoc.**
+
+:::: {.columns}
+::: {.column width="70"}
+
+- Command-line tool enabling weaving code and documentation using Python, R, Julia, and Observable.
+- Supports Knitr (plain text, markdown) or Jupyter engines.
+- Supports many IDEs
+  - RStudio
+  - JupyterLab
+  - VS Code
+  - Neovim
+- Numerous output formats
+  - Documents (HTML, PDF, MS Word)
+  - Presentations (RevealJS, Powerpoint, Beamer)
+  - Websites, Blogs, E-Books
+  - Interactive (ObservableJS, Shiny)
+
+:::
+::: {.column width="30"}
+
+- Features and components
+  - Scientific markdown
+  - Tables & Figures
+  - Equations
+  - Citations
+  - Call-Out
+  - Layout
+
+:::
+::::
+
+## How it all works
+
+![](assets/flow.jpg){width="90%"}
+
+## Output formats
+
+::: {style='text-align="left"'}
+|Rmd                    |Quarto                      |
+|-----------------------|----------------------------|
+|html_document          |html                        |
+|pdf_document           |pdf                         |
+|word_document          |docx                        |
+|beamer_presentation    |beamer                      |
+|powerpoint_presentation|pptx                        |
+|revealjs               |revealjs                    |
+|xaringan               |                            |
+|distill/tufte          |quarto article layout       |
+|html_document2         |quarto crossref             |
+|pdf_document2          |quarto crossref             |
+|word_document2         |quarto crossref             |
+|blogdown/distill       |quarto website/quarto blog  |
+|bookdown               |quarto books                |
+|shiny documents        |quarto interactive documents|
+|pagedown               |TBA                         |
+|rticles                |TBA                         |
+|flexdashboard          |TBA                         |
+:::
+
+## Markdown
+
+Human readable markup
+
+:::: {.columns}
+::: {.column width="25%"}
+
+```
+### Heading 3
+
+#### Heading 4
+
+*italic text*  
+**bold text**  
+`code text`  
+
+~~strikethrough~~  
+2^10^  
+2~10~  
+$2^{10}$  
+$2_{10}$  
+
+```
+
+:::
+
+::: {.column width="25%"}
+
+### Heading 3
+#### Heading 4
+
+*italic text*  
+**bold text**  
+`code text`  
+~~strikethrough~~  
+2<sup>10</sup>  
+2<sub>10</sub>  
+$2^{10}$  
+$2_{10}$  
+
+:::
+
+::: {.column width="30%"}
+
+```
+$\sum\limits_{n=1}^{10} \frac{3}{2}\cdot n$
+
+- bullet point
+
+Link to [this](somewhere.com)
+
+![](https://www.r-project.org/Rlogo.png)
+
+![](https://www.r-project.org/Rlogo.png){width="50%"}
+```
+
+:::
+
+::: {.column width="20%"}
+
+
+$\sum\limits_{n=1}^{10} \frac{3}{2}\cdot n$
+
+- bullet point
+
+Link to [this](somewhere.com)
+
+![](https://www.r-project.org/Rlogo.png)
+
+![](https://www.r-project.org/Rlogo.png){width="20%"}
+
+:::
+::::
+
+::: {.notes}
+
+- Support pure HTML for complex formatting
+- Many variations
+  - [John Gruber's original](https://daringfireball.net/projects/markdown/syntax)
+  - [GitHub Flavored Markdown (GFM)](https://github.github.com/gfm/)
+  - [Pandoc](https://pandoc.org/MANUAL.html#pandocs-markdown)
+  - [MultiMarkdown](https://fletcherpenney.net/multimarkdown/)
+  - [![](assets/cm.png)](https://commonmark.org/)
+- Pandoc supports conversion to multiple output formats
+- To compare MD variants [![](assets/bm.png)](https://babelmark.github.io)
+:::
+
+## RMarkdown
+
+- Markdown + embedded R chunks
+- RMarkdown mostly uses [Pandoc markdown](https://rmarkdown.rstudio.com/authoring_pandoc_markdown.html%23raw-tex#pandoc_markdown)
+- R code can be executed inline
+
+Today's date is `` `r "\u0060r date()\u0060"` ``    
+Today's date is `r date()`  
+
+- R code can be executed in code chunks as shown below
+
+````
+```{{r}}
+date()
+```
+````
+
+- By default shows input source code and output results.
+
+```{r}
+date()
+```
+
+## RMarkdown • Chunk options
+
+- Setting chunk options
+
+````
+```{{r}}
+#| eval: false
+date()
+```
+````
+
+- Chunk options define how chunks behave
+  - `eval: false` to not evaluate a code chunk
+  - `echo: false` to hide input code
+  - `output: true` to show output, `asis` to skip styling
+  - `warning: false` hides warnins
+  - `message: false` hides messages
+  - `error: true` shows error message and continues code execution
+  - `include: false` supresses all output
+
+- Other chunk options include figure options and captions
+
+::: {.aside}
+
+[Chunk option documentation](https://quarto.org/docs/computations/execution-options.html)
+:::
+
+## Installation
+
+- Install the latest [quarto executable](https://quarto.org/docs/get-started/)
+- If using [RStudio](https://posit.co/download/rstudio-desktop/), you need a version *v2022.07.1* or newer
+- Optionally, [Visual Studio Code](https://code.visualstudio.com/) along with quarto extension is a great option too
+
+:::: {.columns}
+::: {.column width="50%"}
+
+![](assets/rstudio-preview.png)
+
+:::
+::: {.column width="50%"}
+
+![](assets/vscode-preview.png)
+
+:::
+::::
+
+## RStudio • Notebook
+
+- Create a file that ends in `.qmd`  
+**File > New File > Quarto Document**
+
+- Add YAML matter to top
+
+```
+---
+title: "This is a title"
+format: html
+---
+```
+
+- Text & visual editor
+- Render interactively using the **Render** button
+- Render from R console `quarto::quarto_render("report.qmd")`
+- Render from terminal `quarto render report.qmd`
+
+::: {.notes}
+R Notebook demonstration.
+- Text editor
+- Visual editor
+:::
+
+## YAML
+
+```
+title: Report
+subtitle: Topic
+date: today
+author: "John Doe"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-fold: true
+    df-print: paged
+
+execute:
+  eval: true
+  echo: false
+  warning: false
+  message: false
+  freeze: true
+```
+
+::: {.aside}
+[HTML YAML documentation](https://quarto.org/docs/reference/formats/html.html)  
+[PDF YAML documentation](https://quarto.org/docs/reference/formats/pdf.html)  
+:::
+
+## PDF
+## RevealJS
+
+## parameterised reports
+
+## Projects
+
+:::: {.columns}
+::: {.column width="50%"}
+
+- Render all files as a project
+- Share YAML configuration across formats
+- Examples of project: **website**, **book**
+- Defined in `_quarto.yml`
+
+```
+project:
+  output-dir: _output
+
+toc: true
+number-sections: true
+  
+format:
+  html:
+    css: styles.css
+  pdf:
+    documentclass: report
+    margin-left: 30mm
+```
+
+:::
+
+::: {.column width="50%"}
+
+- Directory level metadata is also allowed
+
+```
+project:
+  type: website
+  
+metadata-files:
+  - _website.yml
+```
+
+- YAML merging priority:  
+  **root < directory level < document**
+- Render all files: `quarto render`
+
+:::
+::::
+
+::: {.aside}
+[Project documentation](https://quarto.org/docs/projects/quarto-projects.html)
+:::
+
+
+
+## Interactive documents
+## Quarto from the terminal
+
+```
+🢒  quarto --help
+
+  Commands:
+
+    render          [input] [args...]     - Render files or projects to various document types.        
+    preview         [file] [args...]      - Render and preview a document or website project.          
+    serve           [input]               - Serve a Shiny interactive document.                        
+    create          [type] [commands...]  - Create a Quarto project or extension                       
+    create-project  [dir]                 - Create a project for rendering multiple documents          
+    convert         <input>               - Convert documents to alternate representations.            
+    pandoc          [args...]             - Run the version of Pandoc embedded within Quarto.          
+    run             [script] [args...]    - Run a TypeScript, R, Python, or Lua script.                
+    add             <extension>           - Add an extension to this folder or project                 
+    install         [target...]           - Installs an extension or global dependency.                
+    publish         [provider] [path]     - Publish a document or project. Available providers include:
+    check           [target]              - Verify correct functioning of Quarto installation.         
+    help            [command]             - Show this help or the help of a sub-command. 
+```
+
+## Extending Quarto
+## Compared to Rmd
+
+- Quarto is a command-line tool independent of R
+- Supports multiple languages seamlessly (R, Python, Julia, Observable)
+- YAML options maybe slightly different in quarto. Quarto uses hyphens instead of underscores.
+  - `toc_depth` becomes `toc-depth`
+  - `number_sections` becomes `number-sections`
+  - `code_folding` becomes `code-fold`
+- Chunk options are specified inside the chunk like `#| echo: false` rather than `r{echo=FALSE}`
+- Many more chunk options are available including figure captions and layout
+- CSS classes are easier to use using `:::` notation
+- Many additional functionality out of the box
+  - Page layouts
+  - Figure layouts
+  - Figure captions and numbering
+  - Call-Outs
+  - Cross referencing
+  - Citation
+  - Bibliography
+  - Margin content
+- Quarto supports htmlwidgets in R and jupyter widgets for Python/Julia
+- Interactivity
+  - Client-side interactivity using ObservableJS
+  - Server-side interactivity using Shiny
+
+## Acknowledgements
+
+- [Quarto workshop by Tom Mock](https://www.youtube.com/watch?v=yvi5uXQMvu4)
+- [Quarto introduction by Julia Müller](https://www.youtube.com/watch?v=shVSmYna3GM)
+
+## {background-image="../../assets/images/cover.jpg"}
+
+### Thank you! Questions?
+
+```{r}
+#| echo: false
+R.version[c("platform","os","major","minor")]
+```
+
+[2023 • [SciLifeLab](https://www.scilifelab.se/) • [NBIS](https://nbis.se/) • [RaukR](https://nbisweden.github.io/workshop-RaukR-2306/)]{.smaller}

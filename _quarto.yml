@@ -1,0 +1,96 @@
+project:
+  type: website
+  output-dir: docs
+  render: 
+    - "*.qmd"
+    - "*.md"
+
+website:
+  image: "assets/logos/raukr.png"
+  favicon: "assets/favicon.svg"
+  navbar:
+    logo: "assets/logos/raukr.png"
+    logo-alt: "RaukR logo."
+    right:
+      - text: "HOME"
+        href: "index.html"
+      - text: "CONTENTS"
+        href: "contents.html"
+      - text: "PROGRAM"
+        href: "program.html"
+      - text: ABOUT
+        href: "about.html"
+      - icon: "twitter"
+        href: "https://twitter.com/NBISwe"
+  page-footer:
+    border: false
+    left: "2023 [NBIS](about.html) | [GPL-3 License](https://choosealicense.com/licenses/gpl-3.0/)"
+    right: "Published with [Quarto](https://quarto.org/) v<?quarto.version?>"
+  sidebar:
+    contents:
+        - section: Slides
+          contents: slides
+        - section: Labs
+          contents: labs
+format:
+  html:
+    theme: "assets/css/custom.scss"
+    smooth-scroll: true
+    toc: true
+    toc-depth: 4
+    toc-location: right
+    number-sections: true
+    number-depth: 4
+    code-fold: false
+    code-tools: false
+    code-copy: true
+    code-overflow: wrap
+    df-print: kable
+    standalone: false
+    fig-align: left
+    title-block-banner: "assets/images/banner.jpg"
+    subtitle: "RaukR 2023 • Advanced R for Bioinformatics"
+    date:  last-modified
+    date-format: "DD-MMM-YYYY"
+    lightbox: 
+      match: auto
+  revealjs:
+    width: 1280
+    height: 720
+    theme: ["default","assets/css/custom.scss"]
+    transition: "fade"
+    transition-speed: "fast"
+    smaller: false
+    incremental: false
+    scrollable: false
+    slide-number: true
+    progress: true
+    date:  last-modified
+    date-format: "DD-MMM-YYYY"
+    fig-align: left
+    chalkboard: true
+    title-slide-attributes:
+      data-background-image: "assets/images/cover.jpg"
+      data-background-size: "cover"
+      data-background-opacity: "1"
+    subtitle: "RaukR 2023 • Advanced R for Bioinformatics"
+    header-logo-left: ../../assets/logos/raukr.png
+    header-logo-right: ../../assets/logos/nbis-scilifelab.svg
+    
+
+knitr:
+  opts_chunk:
+    results: hold
+
+execute:
+  eval: true
+  echo: true
+  warning: false
+  message: false
+  freeze: auto
+
+filters:
+  - quarto-version.lua
+  - reveal-header
+  - lightbox
+  
