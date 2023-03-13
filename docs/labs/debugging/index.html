@@ -214,7 +214,7 @@ background-size: cover;
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">11-Mar-2023</p>
+        <p class="date">13-Mar-2023</p>
       </div>
     </div>
     
@@ -280,7 +280,7 @@ background-size: cover;
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../slides/parallelisation/index.html" class="sidebar-item-text sidebar-link">Parallelisation in R</a>
+  <a href="../../slides/parallelization/index.html" class="sidebar-item-text sidebar-link">Parallelization in R</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -370,17 +370,12 @@ background-size: cover;
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../labs/parallelisation/index.html" class="sidebar-item-text sidebar-link">Parallelisation</a>
+  <a href="../../labs/parallelization/index.html" class="sidebar-item-text sidebar-link">Parallelization</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../labs/ggplot/index.html" class="sidebar-item-text sidebar-link">Plotting with ggplot2</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../labs/publishing/index.html" class="sidebar-item-text sidebar-link">Publishing</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -551,7 +546,7 @@ Tip
 <p>Put the value of your double <span class="math inline">\(\epsilon\)</span> into <a href="https://docs.google.com/spreadsheets/d/1_2tDeEkDVS06RkB437yBI1XEB5SUebtHWyxAf_aRJu4/edit?usp=sharing">this spreadsheet</a> (Best Coding Practises Lab sheet).</p>
 <pre><code>vec &lt;- seq(0.1, 0.9, by=0.1)
 vec == 0.7</code></pre>
-<div class="cell" data-answer="true">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One way is to use epsilon</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Check machine's floating point representation</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>vec <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>, <span class="at">by=</span><span class="fl">0.1</span>)</span>
@@ -581,7 +576,7 @@ vec == 0.7</code></pre>
 <section id="task-filling-a-large-matrix." class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="task-filling-a-large-matrix."><span class="header-section-number">2.1</span> Task: Filling A Large Matrix.</h3>
 <p>Create a 10 000 x 10 000 matrix and fill it with random numbers (from 1 to 42), first row by row and later column by column. Use <code>proc.time</code> to see if there is any difference. Is the measurement reliable? Record the values you got in this spreadsheet:</p>
-<div class="cell" data-answer="true" data-hash="index_cache/html/unnamed-chunk-3_9d2cea0ddf6be516b5849e414b0eee89">
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-3_281cd3ef6ca72e753cc8a35ab0a6d331">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fl">10e3</span> <span class="sc">*</span> <span class="fl">10e3</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># By row</span></span>
@@ -602,7 +597,7 @@ vec == 0.7</code></pre>
 <p>In the lecture slides, you have seen how to time sampling from Gaussian distribution:</p>
 <pre><code>system.time(rnorm(n = 10e6))</code></pre>
 <p>Is such single measurement reliable? Run the code 100 times, plot and record the mean and the variance of the <code>elapsed</code> time. Put these values (elapsed.time mean and variance) into <a href="https://docs.google.com/spreadsheets/d/1_2tDeEkDVS06RkB437yBI1XEB5SUebtHWyxAf_aRJu4/edit?usp=sharing">this spreadsheet</a> (Best Coding Practises Lab sheet).</p>
-<div class="cell" data-answer="true" data-hash="index_cache/html/unnamed-chunk-4_8e04a0679319317e5d7b91a308c3bd71">
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-4_6a11bdd5169c90e6693bc9fb874a949b">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>timing <span class="ot">&lt;-</span> <span class="fu">double</span>(<span class="dv">100</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  st <span class="ot">&lt;-</span> <span class="fu">system.time</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="fl">10e6</span>))</span>
@@ -613,7 +608,7 @@ vec == 0.7</code></pre>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(timing)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>An alternative approach or, more exactly, an alternative notation that achieves the same as the previous chunk of code but in a more compact way makes use of the <code>replicate</code>, a wrapper function around <code>sapply</code> that simplifies repeated evaluation of expressions. The drawback is you do not get the vector of the actual timing values but the results of calling <code>system.time</code> are already averaged for you. Try to read about the <code>replicate</code> and use it to re-write the code above. Put the <code>elapsed.time</code> into <a href="https://docs.google.com/spreadsheets/d/1_2tDeEkDVS06RkB437yBI1XEB5SUebtHWyxAf_aRJu4/edit?usp=sharing">this spreadsheet</a> (Best Coding Practises Lab sheet). How does this value compare to calling <code>system.time</code> within a loop in the previous chunk of code? Are the values similar?</p>
-<div class="cell" data-answer="true" data-hash="index_cache/html/unnamed-chunk-5_a9b04f20ec3a1d8ca95b553732150f30">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>st2 <span class="ot">&lt;-</span> <span class="fu">system.time</span>(<span class="fu">replicate</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="fl">10e6</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -628,7 +623,7 @@ vec == 0.7</code></pre>
 <section id="checking-system-time." class="level4" data-number="2.3.1">
 <h4 data-number="2.3.1" class="anchored" data-anchor-id="checking-system-time."><span class="header-section-number">2.3.1</span> Checking System Time.</h4>
 <p>Check the current value of the platform’s timer.</p>
-<div class="cell" data-answer="true">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>microbenchmark<span class="sc">::</span><span class="fu">get_nanotime</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Modify the code below so that it uses the current value of platform’s timer:</p>
@@ -639,7 +634,7 @@ for (i in 1:100) {
 }
 boxplot(timing)</code></pre>
 <p>Put the mean and the variance into <a href="https://docs.google.com/spreadsheets/d/1_2tDeEkDVS06RkB437yBI1XEB5SUebtHWyxAf_aRJu4/edit?usp=sharing">this spreadsheet</a> (Best Coding Practises Lab sheet, Microbenchmark – loop)</p>
-<div class="cell" data-answer="true">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(microbenchmark)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>timing <span class="ot">&lt;-</span> <span class="fu">double</span>(<span class="dv">100</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
@@ -657,13 +652,13 @@ boxplot(timing)</code></pre>
 <h4 data-number="2.3.2" class="anchored" data-anchor-id="microtiming-precision."><span class="header-section-number">2.3.2</span> Microtiming Precision.</h4>
 <p>There is an experimental function in the <code>microbenchmark</code> package that helps the package estimate granularity and resolution of your particular timing subsystem. According to the documentation, <em>the function measures the overhead of timing a C function call rounds times and returns all non-zero timings observed.</em></p>
 <p><br> Run the <code>microtiming_precision</code> function and put the mean and the variance of the resulting vector into <a href="https://docs.google.com/spreadsheets/d/1_2tDeEkDVS06RkB437yBI1XEB5SUebtHWyxAf_aRJu4/edit?usp=sharing">this spreadsheet</a> (Best Coding Practises Lab sheet, Microbenchmark – precision)</p>
-<div class="cell" data-answer="true">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>precision <span class="ot">&lt;-</span> microbenchmark<span class="sc">::</span><span class="fu">microtiming_precision</span>()</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(precision)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(precision)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Run the function one time without assigning its value to a variable and consult the documentation. Compare the output of running the function without assigning the value to a variable, the values stored in the variable by the function upon assignment and the value specified in the documentation.</p>
-<div class="cell" data-answer="true">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In version 1.4-4 of the package, all three ways give different results!</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>microbenchmark<span class="sc">::</span><span class="fu">microtiming_precision</span>()</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>precision <span class="ot">&lt;-</span> microbenchmark<span class="sc">::</span><span class="fu">microtiming_precision</span>()</span>
@@ -679,7 +674,7 @@ boxplot(timing)</code></pre>
 <li>look at the summary of the benchmark,</li>
 <li>how long does it take to dispatch a simple function that does nothing compared to evaluating a constant and adding two integers?</li>
 </ul>
-<div class="cell" data-answer="true">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(microbenchmark)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>mb <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="fl">10e6</span>))</span>
@@ -719,11 +714,11 @@ Warning
 </div>
 <p>Following this and using <code>rnorm(1000, mean = 0, sd = 1)</code>:</p>
 <ul>
-<li>use <code>Rprof</code> to profile the functinos using the same seed and N=100,</li>
+<li>use <code>Rprof</code> to profile the functions using the same seed and N=100,</li>
 <li>use <code>Rprof</code> to check whether there is a difference between initializing the matrix using <code>NULL</code> and 0 in <code>fill_alloc</code>,</li>
 <li>what happens if <span class="math inline">\(N = 10\)</span> compared to <span class="math inline">\(N = 20\)</span> to <span class="math inline">\(N = 100\)</span>?</li>
 </ul>
-<div class="cell" data-answer="true">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fill_noloop <span class="ot">&lt;-</span> <span class="cf">function</span>(N, bag, <span class="at">seed =</span> <span class="dv">42</span>) {</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(seed)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  values <span class="ot">&lt;-</span> <span class="fu">sample</span>(bag, <span class="at">size =</span> N<span class="sc">^</span><span class="dv">2</span>, <span class="at">replace =</span> T)</span>
@@ -783,7 +778,7 @@ Warning
 <ul>
 <li>How can you optimize the <code>fill_alloc</code> even further (call the optimized version <code>fill_alloc_opt</code>)?</li>
 </ul>
-<div class="cell" data-answer="true">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fill_alloc_opt <span class="ot">&lt;-</span> <span class="cf">function</span>(N, bag, <span class="at">seed =</span> <span class="dv">42</span>, <span class="at">init =</span> <span class="cn">NA</span>) {</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(seed)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  values <span class="ot">&lt;-</span> <span class="fu">sample</span>(bag, <span class="at">size =</span> N<span class="sc">^</span><span class="dv">2</span>, <span class="at">replace =</span> T)</span>
@@ -801,7 +796,7 @@ Warning
 <ul>
 <li>Optimize the <code>fill_noloop</code> to <code>fill_noloops</code> that does not use any loops at all.</li>
 </ul>
-<div class="cell" data-answer="true">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fill_noloops <span class="ot">&lt;-</span> <span class="cf">function</span>(N, bag, <span class="at">seed =</span> <span class="dv">42</span>) {</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  values <span class="ot">&lt;-</span> <span class="fu">sample</span>(bag, <span class="at">size =</span> N<span class="sc">^</span><span class="dv">2</span>, <span class="at">replace =</span> T)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  inc <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span>N, <span class="at">times =</span> N)</span>
@@ -816,7 +811,7 @@ Warning
 <li>Install and load the <code>profr</code> package.</li>
 <li>Use <code>profr</code> to profile <code>fill_noloop</code>, <code>fill_noloops</code> and <code>fill_alloc_opt</code>.</li>
 </ul>
-<p>Please use the following fucntion, if you were not able to run <strong>profr::ggplot.profr</strong>.</p>
+<p>Please use the following function, if you were not able to run <code>profr::ggplot.profr</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>ggplot.profr <span class="ot">&lt;-</span> <span class="cf">function</span>(data, ..., <span class="at">minlabel =</span> <span class="fl">0.1</span>, <span class="at">angle=</span><span class="dv">0</span>) {</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"ggplot2"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
@@ -840,26 +835,27 @@ Warning
 <span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">scale_x_continuous</span>(<span class="st">"level"</span>)</span>
 <span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-answer="true">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(profr)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Rprof</span>(<span class="st">"profr_noloop.out"</span>, <span class="at">interval =</span> <span class="fl">0.01</span>)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fill_noloop</span>(<span class="dv">1000</span>, <span class="fu">rnorm</span>(<span class="dv">1000</span>), <span class="at">seed =</span> <span class="dv">42</span>)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">Rprof</span>(<span class="cn">NULL</span>)</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>profile_noloop_df <span class="ot">&lt;-</span> <span class="fu">parse_rprof</span>(<span class="st">'profr_noloop.out'</span>)</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="fu">Rprof</span>(<span class="st">"profr_noloops.out"</span>, <span class="at">interval =</span> <span class="fl">0.01</span>)</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="fu">fill_noloops</span>(<span class="dv">100</span>, <span class="fu">rnorm</span>(<span class="dv">1000</span>), <span class="at">seed =</span> <span class="dv">42</span>)</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="fu">Rprof</span>(<span class="cn">NULL</span>)</span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>profile_noloops_df <span class="ot">&lt;-</span> <span class="fu">parse_rprof</span>(<span class="st">'profr_noloops.out'</span>)</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="fu">Rprof</span>(<span class="st">"profr_alloc_opt.out"</span>, <span class="at">interval =</span> <span class="fl">0.01</span>)</span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="fu">fill_alloc_opt</span>(<span class="dv">10</span>, <span class="fu">rnorm</span>(<span class="dv">1000</span>), <span class="at">seed =</span> <span class="dv">42</span>)</span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="fu">Rprof</span>(<span class="cn">NULL</span>)</span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>profile_alloc_opt_df <span class="ot">&lt;-</span> <span class="fu">parse_rprof</span>(<span class="st">'profr_alloc_opt.out'</span>)</span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>profr<span class="sc">::</span><span class="fu">ggplot.profr</span>(profile_noloop_df)</span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>profr<span class="sc">::</span><span class="fu">ggplot.profr</span>(profile_noloops_df)</span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>profr<span class="sc">::</span><span class="fu">ggplot.profr</span>(profile_alloc_opt_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">Rprof</span>(<span class="st">"profr_noloop.out"</span>, <span class="at">interval =</span> <span class="fl">0.01</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">fill_noloop</span>(<span class="dv">1000</span>, <span class="fu">rnorm</span>(<span class="dv">1000</span>), <span class="at">seed =</span> <span class="dv">42</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">Rprof</span>(<span class="cn">NULL</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>profile_noloop_df <span class="ot">&lt;-</span> <span class="fu">parse_rprof</span>(<span class="st">'profr_noloop.out'</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="fu">Rprof</span>(<span class="st">"profr_noloops.out"</span>, <span class="at">interval =</span> <span class="fl">0.01</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="fu">fill_noloops</span>(<span class="dv">100</span>, <span class="fu">rnorm</span>(<span class="dv">1000</span>), <span class="at">seed =</span> <span class="dv">42</span>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="fu">Rprof</span>(<span class="cn">NULL</span>)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>profile_noloops_df <span class="ot">&lt;-</span> <span class="fu">parse_rprof</span>(<span class="st">'profr_noloops.out'</span>)</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="fu">Rprof</span>(<span class="st">"profr_alloc_opt.out"</span>, <span class="at">interval =</span> <span class="fl">0.01</span>)</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="fu">fill_alloc_opt</span>(<span class="dv">10</span>, <span class="fu">rnorm</span>(<span class="dv">1000</span>), <span class="at">seed =</span> <span class="dv">42</span>)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="fu">Rprof</span>(<span class="cn">NULL</span>)</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>profile_alloc_opt_df <span class="ot">&lt;-</span> <span class="fu">parse_rprof</span>(<span class="st">'profr_alloc_opt.out'</span>)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>profr<span class="sc">::</span><span class="fu">ggplot.profr</span>(profile_noloop_df)</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>profr<span class="sc">::</span><span class="fu">ggplot.profr</span>(profile_noloops_df)</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>profr<span class="sc">::</span><span class="fu">ggplot.profr</span>(profile_alloc_opt_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="using-the-profvis-package." class="level3" data-number="2.7">

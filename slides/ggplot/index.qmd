@@ -43,17 +43,15 @@ Graphing is an essential part of data analyses. Data with same summary statistic
 ::::
 
 ::: {.aside}
-[Anscombe's quartet](https://en.wikipedia.org/wiki/Anscombe%27s_quartet), [Datasaurus](https://www.autodesk.com/research/publications/same-stats-different-graphs)  
+[Anscombe's quartet](https://en.wikipedia.org/wiki/Anscombe%27s_quartet), [Datasaurus](https://www.autodesk.com/research/publications/same-stats-different-graphs)
 :::
 
 ## Graph quality
 
-::: {layout-ncol=2}
-
+::: {layout-ncol="2"}
 ![](assets/scientific_paper_graph_quality.jpg)
 
-![](assets/excel.png)
-
+![](assets/excel.png){width="100%"}
 :::
 
 ::: {.aside}
@@ -78,7 +76,7 @@ Graphing is an essential part of data analyses. Data with same summary statistic
 
 ![](assets/bbc.png){width="95%"}
 
-::: {.aside}
+::: {.smaller}
 [How BBC works with R graphics](https://medium.com/bbc-visual-and-data-journalism/how-the-bbc-visual-and-data-journalism-team-works-with-graphics-in-r-ed0b35693535)
 :::
 
@@ -86,23 +84,22 @@ Graphing is an essential part of data analyses. Data with same summary statistic
 
 :::: {.columns}
 ::: {.column width="50%"}
-
-```{r,fig.height=4.5,fig.width=4}
+```{r}
+#| fig-height: 4.5
+#| fig-width: 4
 hist(iris$Sepal.Length)
 ```
 :::
 
 ::: {.column width="50%"}
-
 ```{r}
-#| fig.height: 4
-#| fig.width: 4
+#| fig-height: 4
+#| fig-width: 4
 
 library(ggplot2)
 ggplot(iris,aes(x=Sepal.Length))+
   geom_histogram(bins=8)
 ```
-
 :::
 ::::
 
@@ -110,7 +107,7 @@ ggplot(iris,aes(x=Sepal.Length))+
 For simple graphs, the base plot seem to take minimal coding effort compared to a ggplot graph.
 :::
 
-##
+## 
 
 ![](assets/meme-confused.jpg)
 
@@ -118,10 +115,9 @@ For simple graphs, the base plot seem to take minimal coding effort compared to 
 
 :::: {.columns}
 ::: {.column width="50%"}
-
 ```{r}
-#| fig.height: 4.5
-#| fig.width: 4
+#| fig-height: 4.5
+#| fig-width: 4
 
 plot(iris$Petal.Length,iris$Petal.Width,
      col=c("red","green","blue")[iris$Species],
@@ -134,8 +130,8 @@ legend(x=1,y=2.5,
 
 ::: {.column width="50%"}
 ```{r}
-#| fig.height: 4
-#| fig.width: 5
+#| fig-height: 4
+#| fig-width: 5
 
 ggplot(iris,aes(Petal.Length,Sepal.Length,color=Species))+
   geom_point()
@@ -146,7 +142,6 @@ ggplot(iris,aes(Petal.Length,Sepal.Length,color=Species))+
 ::: {.notes}
 
 For anything beyond extremely basic plots, base plotting quickly become complex. More importantly, base plots do not have consistency in it's functions or plotting strategy.
-
 :::
 
 ## Why `ggplot2`?
@@ -159,11 +154,11 @@ For anything beyond extremely basic plots, base plotting quickly become complex.
 - Numerous add-ons/extensions
 - Nearly complete structured graphing solution
 - Adapted to other programming languages
-  - [Gadfly](http://gadflyjl.org/stable/) in Julia  
-  - [gramm](https://se.mathworks.com/matlabcentral/fileexchange/54465-gramm-complete-data-visualization-toolbox-ggplot2-r-like) in MatLab  
-  - [GGPlot](https://metacpan.org/pod/Chart::GGPlot) in Perl  
-  - [Vega](https://vega.github.io/vega/) in Javascript  
-  - [PlotNine](https://plotnine.readthedocs.io/en/stable/) , [ggpy](https://github.com/yhat/ggpy), [lets-plot](https://lets-plot.org/) in Python  
+  - [Gadfly](http://gadflyjl.org/stable/) in Julia
+  - [gramm](https://se.mathworks.com/matlabcentral/fileexchange/54465-gramm-complete-data-visualization-toolbox-ggplot2-r-like) in MatLab
+  - [GGPlot](https://metacpan.org/pod/Chart::GGPlot) in Perl
+  - [Vega](https://vega.github.io/vega/) in Javascript
+  - [PlotNine](https://plotnine.readthedocs.io/en/stable/) , [ggpy](https://github.com/yhat/ggpy), [lets-plot](https://lets-plot.org/) in Python
 
 ::: {.notes}
 
@@ -174,7 +169,7 @@ Why can't we just do everything is base plot? Of course, we could, but it's easi
 
 :::: {.columns}
 ::: {.column width="30%"}
-![](assets/gog.jpg)
+![](assets/gog.jpg)  
 ![](assets/gog.png)
 :::
 
@@ -197,7 +192,6 @@ Why can't we just do everything is base plot? Of course, we could, but it's easi
 Different graphs have always been considered as independent entities and also labelled differently such as barplots, scatterplots, boxplots etc. Each graph has it's own function and plotting strategy.
 
 Grammar of graphics (GOG) tries to unify all graphs under a common umbrella. GOG brings the idea that graphs are made up of discrete components which can be mixed and matched to create any plot. This creates a consistent underlying framework to graphing.
-
 :::
 
 ## Building A Graph: Syntax
@@ -208,14 +202,18 @@ Grammar of graphics (GOG) tries to unify all graphs under a common umbrella. GOG
 
 :::: {.columns}
 ::: {.column width="50%"}
-```{r,bag-1,fig.height=5,fig.width=5,eval=FALSE}
+```{r,bag-1}
+#| eval: false
 data(iris)
 ggplot(iris)
 ```
 :::
 
 ::: {.column width="50%"}
-```{r,bag-1,fig.height=5,fig.width=5,echo=FALSE}
+```{r,bag-1}
+#| echo: false
+#| fig-height: 5
+#| fig-width: 5
 ```
 :::
 ::::
@@ -224,14 +222,18 @@ ggplot(iris)
 
 :::: {.columns}
 ::: {.column width="50%"}
-```{r,bag-2,fig.height=5,fig.width=5,eval=FALSE,echo=TRUE}
+```{r,bag-2}
+#| eval: false
 ggplot(iris,aes(x=Sepal.Length,
                 y=Sepal.Width))
 ```
 :::
 
 ::: {.column width="50%"}
-```{r,bag-2,fig.height=5,fig.width=5,echo=FALSE}
+```{r,bag-2}
+#| echo: false
+#| fig-height: 5
+#| fig-width: 5
 ```
 :::
 ::::
@@ -240,7 +242,8 @@ ggplot(iris,aes(x=Sepal.Length,
 
 :::: {.columns}
 ::: {.column width="50%"}
-```{r,bag-3,fig.height=5,fig.width=5,eval=FALSE,echo=TRUE}
+```{r,bag-3}
+#| eval: false
 ggplot(iris,aes(x=Sepal.Length,
                 y=Sepal.Width))+
   geom_point()
@@ -248,7 +251,10 @@ ggplot(iris,aes(x=Sepal.Length,
 :::
 
 ::: {.column width="50%"}
-```{r,bag-3,fig.height=5,fig.width=5,echo=FALSE}
+```{r,bag-3}
+#| echo: false
+#| fig-height: 5
+#| fig-width: 5
 ```
 :::
 ::::
@@ -257,7 +263,8 @@ ggplot(iris,aes(x=Sepal.Length,
 
 :::: {.columns}
 ::: {.column width="50%"}
-```{r,bag-4,fig.height=5,fig.width=5,eval=FALSE,echo=TRUE}
+```{r,bag-4}
+#| eval: false
 ggplot(iris,aes(x=Sepal.Length,
                 y=Sepal.Width,
                 colour=Species))+
@@ -268,7 +275,10 @@ ggplot(iris,aes(x=Sepal.Length,
 :::
 
 ::: {.column width="50%"}
-```{r,bag-4,fig.height=5,fig.width=5,echo=FALSE}
+```{r,bag-4}
+#| echo: false
+#| fig-height: 5
+#| fig-width: 5
 ```
 :::
 ::::
@@ -277,7 +287,8 @@ ggplot(iris,aes(x=Sepal.Length,
 
 - Input data is always an R `data.frame` object
 
-```{r,echo=FALSE}
+```{r}
+#| echo: false
 iris %>% head() %>%
   kable("html",escape=F,align="c") %>%
   kable_styling(bootstrap_options=c("striped","hover","responsive","condensed"),
@@ -291,12 +302,12 @@ str(iris)
 ::: {.notes}
 
 It's a good idea to use `str()` to check the input dataframe to make sure that numbers are actually numbers and not characters, for example. Verify that factors are correctly assigned.
-
 :::
 
 ## Data • `diamonds`
 
-```{r,echo=FALSE}
+```{r}
+#| echo: false
 head(diamonds) %>% na.omit() %>%
   kable("html",escape=F,align="c") %>%
   kable_styling(bootstrap_options=c("striped","hover","responsive","condensed"),
@@ -319,7 +330,8 @@ R `data.frame` is a tabular format with rows and columns just like a spreadsheet
 
 **Wide**
 
-```{r,echo=FALSE}
+```{r}
+#| echo: false
 iris %>% head(n=3) %>%
   kable("html",escape=F,align="c") %>%
   kable_styling(bootstrap_options=c("striped","hover","responsive","condensed"),
@@ -328,7 +340,8 @@ iris %>% head(n=3) %>%
 
 **Long**
 
-```{r,echo=FALSE}
+```{r}
+#| echo: false
 iris %>%
   gather(key=variable,value=value,-Species) %>%
   head(n=3) %>%
@@ -346,8 +359,11 @@ The data must be cleaned up and prepared for plotting. The data must be 'tidy'. 
 ## Geoms
 
 ![geoms](assets/geoms.png)
+
 . . .
-```{r,eval=FALSE,echo=TRUE}
+
+```{r}
+#| eval: false
 p <- ggplot(iris)
 # scatterplot
 p+geom_point(aes(x=Sepal.Length,y=Sepal.Width))
@@ -373,7 +389,9 @@ Geoms are the geometric components of a graph such as points, lines etc used to 
 
 - Geoms have default stats.
 
-```{r,echo=TRUE,fig.height=1.7,fig.width=8}
+```{r}
+#| fig-height: 1.7
+#| fig-width: 8
 x <- ggplot(iris) + geom_bar(aes(x=Sepal.Length),stat="bin")
 y <- ggplot(iris) + geom_bar(aes(x=Species),stat="count")
 z <- ggplot(iris) + geom_bar(aes(x=Species,y=Sepal.Length),stat="identity")
@@ -384,7 +402,9 @@ wrap_plots(x,y,z,nrow=1)
 
 - Plots can be built with stats.
 
-```{r,echo=TRUE,fig.height=1.7,fig.width=8}
+```{r}
+#| fig-height: 1.7
+#| fig-width: 8
 x <- ggplot(iris) + stat_bin(aes(x=Sepal.Length),geom="bar")
 y <- ggplot(iris) + stat_count(aes(x=Species),geom="bar")
 z <- ggplot(iris) + stat_identity(aes(x=Species,y=Sepal.Length),geom="bar")
@@ -402,7 +422,8 @@ wrap_plots(x,y,z,nrow=1)
 
 - Stats have default geoms.
 
-```{r,echo=FALSE}
+```{r}
+#| echo: false
 data.frame("plot"=c("histogram","smooth","boxplot","density","freqpoly"),
            "stat"=c("bin","smooth","boxplot","density","freqpoly"),
            "geom"=c("bar","line","boxplot","line","line")) %>%
@@ -411,7 +432,9 @@ data.frame("plot"=c("histogram","smooth","boxplot","density","freqpoly"),
               position="left",full_width = F)
 ```
 
-```{r,eval=FALSE,echo=FALSE}
+```{r}
+#| echo: false
+#| eval: false
 stat_bin()
 stat_count()
 stat_density()
@@ -432,7 +455,9 @@ Use `args(geom_bar)` to check arguments.
 :::: {.columns}
 ::: {.column width="50%"}
 
-```{r,fig.height=4,fig.width=5.5,echo=TRUE}
+```{r}
+#| fig-height: 4
+#| fig-width: 5.5
 ggplot(iris)+
   geom_point(aes(x=Sepal.Length,
                  y=Sepal.Width,
@@ -446,7 +471,9 @@ ggplot(iris)+
 
 ::: {.column width="50%"}
 
-```{r,fig.height=4,fig.width=5,echo=TRUE}
+```{r}
+#| fig-height: 4
+#| fig-width: 5
 ggplot(iris)+
   geom_point(aes(x=Sepal.Length,
                  y=Sepal.Width),
@@ -465,7 +492,7 @@ Aesthetics are used to assign values to geometries. For example, a set of points
 
 This would be an incorrect way to do it.
 
-```
+```         
 ggplot(iris)+
 geom_point(aes(x=Sepal.Length,y=Sepal.Width,size=2)
 ```
@@ -474,7 +501,9 @@ geom_point(aes(x=Sepal.Length,y=Sepal.Width,size=2)
 
 ## Aesthetics
 
-```{r,echo=TRUE,fig.height=5,fig.width=10}
+```{r}
+#| fig-height: 5
+#| fig-width: 10
 x1 <- ggplot(iris) +
   geom_point(aes(x=Sepal.Length,y=Sepal.Width))+
   stat_smooth(aes(x=Sepal.Length,y=Sepal.Width))
@@ -493,7 +522,11 @@ If the same aesthetics are used in multiple geoms, they can be moved to `ggplot(
 
 ## Multiple Geoms
 
-```{r,fig.height=6,fig.width=12,echo=TRUE}
+```{r}
+#| eval: false
+#| echo: false
+#| fig-height: 6
+#| fig-width: 12
 ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width))+
       geom_point()+
       geom_line()+
@@ -509,7 +542,7 @@ Multiple geoms can be plotted one after the other. The order in which items are 
 
 In this case, the points appear over the lines.
 
-```
+```         
 ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width))+
       geom_point()+
       geom_line()+
@@ -517,7 +550,7 @@ ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width))+
 
 while here the lines appear above the points.
 
-```
+```         
 ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width))+
       geom_line()+
       geom_point()+
@@ -529,7 +562,7 @@ Each geom takes input from `ggplot()` inputs. If extra input is required to a ge
 
 :::
 
-##
+## 
 
 ![](assets/complicated-graphs.jpg)
 
@@ -544,11 +577,13 @@ Just because you can doesn't mean you should!
 - scales: position, color, fill, size, shape, alpha, linetype
 - syntax: `scale_<aesthetic>_<type>`
 
-<img src="assets/scales.png" alt="scales-syntax" style="width:50%;">
+![](assets/scales.png){width="50%""}
 
 :::: {.columns}
 ::: {.column width="50%"}
-```{r,fig.height=2.8,fig.width=5,echo=TRUE}
+```{r}
+#| fig-height: 2.8
+#| fig-width: 5
 p <- ggplot(iris)+geom_point(aes(x=Sepal.Length,
                      y=Sepal.Width,color=Species))
 p
@@ -556,7 +591,9 @@ p
 :::
 
 ::: {.column width="50%"}
-```{r,fig.height=2.8,fig.width=5,echo=TRUE}
+```{r}
+#| fig-height: 2.8
+#| fig-width: 5
 p + scale_color_manual(
      name="Manual",
      values=c("#5BC0EB","#FDE74C","#9BC53D"))
@@ -578,8 +615,9 @@ Scales are used to control the aesthetics. For example the aesthetic color is ma
 
 :::: {.columns}
 ::: {.column width="50%"}
-
-```{r,fig.height=5,fig.width=5.5}
+```{r}
+#| fig-height: 5
+#| fig-width: 5.5
 p <- ggplot(iris)+
       geom_point(aes(x=Sepal.Length,
                      y=Sepal.Width,
@@ -589,7 +627,9 @@ p
 :::
 
 ::: {.column width="50%"}
-```{r,fig.height=5,fig.width=5.5}
+```{r}
+#| fig-height: 5
+#| fig-width: 5.5
 p +
 scale_color_gradient(name="Pet Len",
   breaks=range(iris$Petal.Length),
@@ -602,7 +642,7 @@ scale_color_gradient(name="Pet Len",
 
 ::: {.notes}
 
-Continuous colours can be changed using `scale_color_gradient()` for two colour gradient. Any number of breaks and colours can be specified using `scale_color_gradientn()`.  
+Continuous colours can be changed using `scale_color_gradient()` for two colour gradient. Any number of breaks and colours can be specified using `scale_color_gradientn()`.
 
 :::
 
@@ -610,8 +650,9 @@ Continuous colours can be changed using `scale_color_gradient()` for two colour 
 
 :::: {.columns}
 ::: {.column width="50%"}
-
-```{r,fig.height=5,fig.width=5.5}
+```{r}
+#| fig-height: 5
+#| fig-width: 5.5
 p <- ggplot(iris)+
       geom_point(aes(x=Sepal.Length,
                      y=Sepal.Width,
@@ -621,7 +662,9 @@ p
 :::
 
 ::: {.column width="50%"}
-```{r,fig.height=5,fig.width=5.5}
+```{r}
+#| fig-height: 5
+#| fig-width: 5.5
 p +
 scale_color_manual(name="New",
    values=c("blue","green","red"))+
@@ -647,22 +690,22 @@ Shape scale can be adjusted using `scale_shape_manual()`. Multiple mappings for 
 
 :::: {.columns}
 ::: {.column width="50%"}
-
-```{r,fig.height=5,fig.width=5}
+```{r}
+#| fig-height: 5
+#| fig-width: 5
 p <- ggplot(iris)+geom_point(
   aes(x=Sepal.Length,y=Sepal.Width))
 p
 ```
-
 :::
 
 ::: {.column width="50%"}
-
-```{r,fig.height=5,fig.width=5}
+```{r}
+#| fig-height: 5
+#| fig-width: 5
 p + scale_x_continuous(name="Sepal Length",
         breaks=seq(1,8),limits=c(3,5))
 ```
-
 :::
 ::::
 
@@ -687,27 +730,29 @@ When setting limits using `scale_`, the data outside the limits are dropped. Lim
 
 :::: {.columns}
 ::: {.column width="50%"}
-
-```{r,fig.height=4,fig.width=5}
+```{r}
+#| fig-height: 4
+#| fig-width: 5
 p <- ggplot(iris)+
       geom_point(aes(x=Sepal.Length,
                      y=Sepal.Width,
                      color=Species))
 p
 ```
-
 :::
 
 ::: {.column width="50%"}
-
-```{r,fig.height=2.4,fig.width=4.5}
+```{r}
+#| fig-height: 2.4
+#| fig-width: 4.5
 p + facet_wrap(~Species)
 ```
 
-```{r,fig.height=2.5,fig.width=4.5}
+```{r}
+#| fig-height: 2.5
+#| fig-width: 4.5
 p + facet_wrap(~Species,nrow=3)
 ```
-
 :::
 ::::
 
@@ -723,29 +768,28 @@ p + facet_wrap(~Species,nrow=3)
 
 :::: {.columns}
 ::: {.column width="50%"}
-
-```{r,fig.height=3.8,fig.width=5}
+```{r}
+#| fig-height: 3.8
+#| fig-width: 5
 p <- diamonds %>%
      ggplot(aes(carat,price))+
      geom_point()
 p + facet_grid(~cut+clarity)
 ```
-
 :::
 
 ::: {.column width="50%"}
-
-```{r,fig.height=5,fig.width=5}
+```{r}
+#| fig-height: 5
+#| fig-width: 5
 p + facet_grid(cut~clarity)
 ```
-
 :::
 ::::
 
 ::: {.notes}
 
 `facet_grid` is also used to split a plot into subplots based on the categories in one or more variables. `facet_grid` can be used to create a matrix-like grid of two variables.
-
 :::
 
 ## Coordinates
@@ -763,7 +807,9 @@ p + facet_grid(cut~clarity)
 :::: {.columns}
 ::: {.column width="50%"}
 
-```{r,fig.height=4,fig.width=5}
+```{r}
+#| fig-height: 4
+#| fig-width: 5
 p <- ggplot(iris,aes(x="",y=Petal.Length,fill=Species))+
   geom_bar(stat="identity")
 p
@@ -773,7 +819,9 @@ p
 
 ::: {.column width="50%"}
 
-```{r,fig.height=3.8,fig.width=5}
+```{r}
+#| fig-height: 3.8
+#| fig-width: 5
 p+coord_polar("y",start=0)
 ```
 
@@ -802,7 +850,9 @@ The coordinate system defines the surface used to represent numbers. Most plots 
 :::: {.columns}
 ::: {.column width="50%"}
 
-```{r,fig.height=4,fig.width=5}
+```{r}
+#| fig-height: 4
+#| fig-width: 5
 ggplot(iris,aes(Petal.Length))+
   geom_histogram()+
   facet_wrap(~Species,nrow=2)+
@@ -813,7 +863,9 @@ ggplot(iris,aes(Petal.Length))+
 
 ::: {.column width="50%"}
 
-```{r,fig.height=4,fig.width=5}
+```{r}
+#| fig-height: 4
+#| fig-width: 5
 ggplot(iris,aes(Petal.Length))+
   geom_histogram()+
   facet_wrap(~Species,nrow=2)+
@@ -831,7 +883,9 @@ Themes allow to modify all non-data related components of the plot. This is the 
 
 ## Theme • Legend
 
-```{r,fig.height=4.5,fig.width=5.5}
+```{r}
+#| fig-height: 4.5
+#| fig-width: 5.5
 p <- ggplot(iris)+
       geom_point(aes(x=Sepal.Length,
                      y=Sepal.Width,
@@ -840,29 +894,32 @@ p <- ggplot(iris)+
 
 :::: {.columns}
 ::: {.column width="50%"}
-
-```{r,fig.height=4,fig.width=4}
+```{r}
+#| fig-height: 4
+#| fig-width: 4
 p + theme(legend.position="top")
 ```
 :::
 
 ::: {.column width="50%"}
-
-```{r,fig.height=4,fig.width=4}
+```{r}
+#| fig-height: 4
+#| fig-width: 4
 p + theme(legend.position="bottom")
 ```
-
 :::
 ::::
 
 ## Theme • Text
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 element_text(family=NULL,face=NULL,color=NULL,size=NULL,hjust=NULL,
              vjust=NULL, angle=NULL,lineheight=NULL,margin = NULL)
 ```
 
-```{r,echo=FALSE}
+```{r}
+#| echo: false
 p <- diamonds %>%
       filter(cut=="Fair"|cut=="Good",color=="D"|color=="E") %>%
       droplevels() %>%
@@ -884,7 +941,10 @@ p <- p + theme(
 )
 ```
 
-```{r,fig.height=4.6,fig.width=9,echo=FALSE}
+```{r}
+#| fig-height: 4.6
+#| fig-width: 9
+#| echo: false
 dfr <- data.frame(value=rep(1,7),label=c("axis.title","axis.text","plot.title","plot.subtitle","legend.text","legend.title","strip.text"),stringsAsFactors=FALSE) %>%
   mutate(label=factor(label,levels=c("axis.title","axis.text","plot.title","plot.subtitle","legend.text","legend.title","strip.text")))
 
@@ -905,11 +965,13 @@ wrap_plots(p,q,nrow=1,widths=c(3,1))
 
 ## Theme • Rect
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 element_rect(fill=NULL,color=NULL,size=NULL,linetype=NULL)
 ```
 
-```{r,echo=FALSE}
+```{r}
+#| echo: false
 p <- diamonds %>%
       filter(cut=="Fair"|cut=="Good",color=="D"|color=="E") %>%
       droplevels() %>%
@@ -930,7 +992,10 @@ p <- p + theme(
 )
 ```
 
-```{r,fig.height=4.8,fig.width=9,echo=FALSE}
+```{r}
+#| fig-height: 4.8
+#| fig-width: 9
+#| echo: false
 dfr <- data.frame(value=rep(1,6),label=c("plot.background","panel.background","panel.border","legend.background","legend.box.background","strip.background"),stringsAsFactors=FALSE) %>%
   mutate(label=factor(label,levels=c("plot.background","panel.background","panel.border","legend.background","legend.box.background","strip.background")))
 
@@ -951,7 +1016,8 @@ wrap_plots(p,q,nrow=1,widths=c(3,1))
 
 ## Theme • Reuse
 
-```{r,echo=FALSE}
+```{r}
+#| echo: false
 p <- diamonds %>%
       filter(cut=="Fair"|cut=="Good"|cut=="Very Good") %>%
       droplevels() %>%
@@ -959,7 +1025,7 @@ p <- diamonds %>%
             geom_point()
 ```
 
-```{r,echo=TRUE}
+```{r}
 newtheme <- theme_bw() + theme(
   axis.ticks=element_blank(),
   panel.background=element_rect(fill="white"),
@@ -974,24 +1040,26 @@ newtheme <- theme_bw() + theme(
 
 :::: {.columns}
 ::: {.column width="50%"}
-
-```{r,echo=TRUE,fig.height=4,fig.width=5}
+```{r}
+#| fig-height: 4
+#| fig-width: 5
 p
 ```
 :::
 
 ::: {.column width="50%"}
-
-```{r,fig.height=4,fig.width=4.5}
+```{r}
+#| fig-height: 4
+#| fig-width: 4.5
 p + newtheme
 ```
-
 :::
 ::::
 
 ## Position
 
-```{r,echo=FALSE}
+```{r}
+#| echo: false
 USArrests %>% head(n=3) %>%
   kable("html",escape=F,align="c") %>%
   kable_styling(bootstrap_options=c("striped","hover","responsive","condensed"),
@@ -1006,32 +1074,34 @@ p <- ggplot(us,aes(x=state,y=value,fill=type))
 
 :::: {.columns}
 ::: {.column width="50%"}
-
-```{r,fig.height=4,fig.width=5}
+```{r}
+#| fig-height: 4
+#| fig-width: 5
 p + geom_bar(stat="identity",position="stack")
 ```
-
 :::
 
 ::: {.column width="50%"}
-
-```{r,fig.height=4,fig.width=5}
+```{r}
+#| fig-height: 4
+#| fig-width: 5
 p + geom_bar(stat="identity",position="dodge")
 ```
-
 :::
 ::::
 
 ## Saving plots
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 p <- ggplot(iris,aes(Petal.Length,Sepal.Length,color=Species))+
   geom_point()
 ```
 
 - `ggplot2` plots can be saved just like base plots  
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 png("plot.png",height=5,width=7,units="cm",res=200)
 print(p)
 dev.off()
@@ -1039,7 +1109,8 @@ dev.off()
 
 - `ggplot2` package offers a convenient function  
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 ggsave("plot.png",p,height=5,width=7,units="cm",dpi=200,type="cairo")
 ```
 
@@ -1048,7 +1119,8 @@ ggsave("plot.png",p,height=5,width=7,units="cm",dpi=200,type="cairo")
 
 ## Combining Plots
 
-```{r,echo=FALSE}
+```{r}
+#| echo: false
 us <- USArrests %>% mutate(state=rownames(.)) %>% slice(1:4) %>%
                     gather(key=type,value=value,-state)
 ```
@@ -1058,7 +1130,9 @@ p <- ggplot(us,aes(x=state,y=value,color=type))+geom_point()
 q <- ggplot(us,aes(x=state,y=value,fill=type))+geom_bar(stat="identity")
 ```
 
-```{r,fig.height=5,fig.width=12}
+```{r}
+#| fig-height: 5
+#| fig-width: 12
 patchwork::wrap_plots(p,q)
 ```
 
@@ -1066,7 +1140,8 @@ patchwork::wrap_plots(p,q)
 
 Combining two or more `ggplot2` plots is often required and several packages exist to help with this situation. Some functions allow plots to be placed adjacently, also allowing varying heights or widths of each plot. Some functions allow one plot to be plotted on another plot like a subset plot. Here are alternative options.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 gridExtra::grid.arrange(p,q,ncol=2)
 ggpubr::ggarrange(p,q,ncol=2,widths=c(1.5,1),common.legend=T)
 cowplot::plot_grid()
@@ -1084,14 +1159,18 @@ p <- ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width,col=Species))
 
 :::: {.columns}
 ::: {.column width="50%"}
-```{r,fig.height=4,fig.width=4}
+```{r}
+#| fig-height: 4
+#| fig-width: 4
 p1 <- p+geom_point()
 plotly::ggplotly(p1,width=400,height=300)
 ```
 :::
 
 ::: {.column width="50%"}
-```{r,fig.height=4.5,fig.width=4.5}
+```{r}
+#| fig-height: 4.5
+#| fig-width: 4.5
 p2 <- p+ggiraph::geom_point_interactive(
   aes(tooltip=paste0("<b>Species: </b>",Species)))+
   theme_bw(base_size=12)
@@ -1101,9 +1180,7 @@ ggiraph::ggiraph(code=print(p2))
 ::::
 
 ::: {.notes}
-
 Most interactive plotting libraries are not as complete as `ggplot2`. Therefore, some packages explore ways of converting `ggplot2` objects into interactive graphics
-
 :::
 
 ## Extensions
@@ -1131,7 +1208,7 @@ A collection of ggplot extension packages: [https://exts.ggplot2.tidyverse.org/]
 - [**StackOverflow**](https://stackoverflow.com/)  
 - Blogs, for example; [R-Bloggers](https://www.r-bloggers.com/), [Cedric Scherer](https://www.cedricscherer.com/tags/ggplot2/) etc.  
 
-##
+## 
 
 ![](assets/meme-end-of-pres.jpg)
 

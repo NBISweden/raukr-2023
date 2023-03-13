@@ -216,7 +216,7 @@ background-size: cover;
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">11-Mar-2023</p>
+        <p class="date">13-Mar-2023</p>
       </div>
     </div>
     
@@ -282,7 +282,7 @@ background-size: cover;
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../slides/parallelisation/index.html" class="sidebar-item-text sidebar-link">Parallelisation in R</a>
+  <a href="../../slides/parallelization/index.html" class="sidebar-item-text sidebar-link">Parallelization in R</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -372,17 +372,12 @@ background-size: cover;
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../labs/parallelisation/index.html" class="sidebar-item-text sidebar-link">Parallelisation</a>
+  <a href="../../labs/parallelization/index.html" class="sidebar-item-text sidebar-link">Parallelization</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../labs/ggplot/index.html" class="sidebar-item-text sidebar-link">Plotting with ggplot2</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../labs/publishing/index.html" class="sidebar-item-text sidebar-link">Publishing</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -477,8 +472,8 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This is the R packages exercise from RaukR. It will take you through creating an R package with code, data, documentation, creating or generating a correct DESCRIPTION and NAMESPACE, importing packages, checking your package for warnings. There are also some advanced excercises you can do if you have time.</p>
-<p>The exercise will show how to do things from R console, but many of the functionalities are so common they are built into Rstudio. Because of this I have included a cheatsheet which can be useful if you are developing packages in Rstudio in the future.</p>
+<p>This is the R packages exercise from RaukR. It will take you through creating an R package with code, data, documentation, creating or generating a correct DESCRIPTION and NAMESPACE, importing packages, checking your package for warnings. There are also some advanced exercises you can do if you have time.</p>
+<p>The exercise will show how to do things from R console, but many of the functionality are so common they are built into Rstudio. Because of this I have included a cheatsheet which can be useful if you are developing packages in Rstudio in the future.</p>
 <p>It is fine if you do not have time for the whole thing, as all components may not be important to you. You can always come back later :).</p>
 </div>
 </div>
@@ -589,7 +584,7 @@ Select *File > New Project > New Directory > R package*, give your package a nam
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>When you are happy with your function, save it. To access and test your newly created function we have to attach it to make it available. But rather than bundle, install and attach we can use the function <code>devtools::load_all()</code> while developing the package. <code>load_all()</code> simulates the behaviour of bundling, installing and attaching the package, without actually having to do it.</p>
+<p>When you are happy with your function, save it. To access and test your newly created function we have to attach it to make it available. But rather than bundle, install and attach we can use the function <code>devtools::load_all()</code> while developing the package. <code>load_all()</code> simulates the behavior of bundling, installing and attaching the package, without actually having to do it.</p>
 <p>Now test your function in the console!</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">trianguletter</span>(<span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -621,22 +616,7 @@ l l l l l l l l l l l l </code></pre>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(your_object)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This created the <strong>data/</strong> folder and <strong>your_object.rda</strong> inside it.</p>
-<!-- Notice that we are not giving it our packages location. This is because it will default to using the package in the working directory, if your current R session is not in the package root it will complain.
-
-
-::: {.cell}
-
-```{.r .cell-code}
-# Change working directory
-setwd("..")
-
-# Try to save data
-usethis::use_data(your_object)
-# Error: Could not find package root.
-```
-:::
-
--->
+<!-- Notice that we are not giving it our packages location. This is because it will default to using the package in the working directory, if your current R session is not in the package root it will complain. -->
 <p>Now when our package is loaded, <code>your_object</code> will be made available to the user. To test this, remove all objects from your working directory, and load all functions. Check that you can access the object, despite just removing it from your workspace.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Clear workspace</span></span>
@@ -721,7 +701,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The <span class="citation" data-cites="export">@export</span> tag should always be last in documentation and grants the user access to the function. It is very important, if you want the user to be able to call the function. For internal functions, this may not be the case.</p>
+<p>The <code>@export</code> tag should always be last in documentation and grants the user access to the function. It is very important, if you want the user to be able to call the function. For internal functions, this may not be the case.</p>
 </div>
 </div>
 <p>An example functional documentation:</p>
@@ -731,7 +711,7 @@ Note
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' A right sided triangle of alphabetic letters</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#' This function takes a number as input and outputs an increasing</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#'     number of alphabetic letters on top of eachother, resembling</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#'     number of alphabetic letters on top of each other, resembling</span></span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#'     a right sided triangle.</span></span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">#' @section Warning:</span></span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">#' Not tested for numbers over 26!</span></span>
@@ -760,7 +740,7 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You may have gotten a warning message that your NAMESPACE was not generated by roxygen2. This is good behaviour by roxygen2, it doesn’t want to change something the user has created a certain way. In this case however, we want the NAMESPACE to be handled by roxygen2, so delete the NAMESPACE file and run <code>devtools::document()</code> again to have roxygen2 create it.</p>
+<p>You may have gotten a warning message that your NAMESPACE was not generated by roxygen2. This is good behavior by roxygen2, it doesn’t want to change something the user has created a certain way. In this case however, we want the NAMESPACE to be handled by roxygen2, so delete the NAMESPACE file and run <code>devtools::document()</code> again to have roxygen2 create it.</p>
 </div>
 </div>
 <p>Go ahead and preview your function as you would any method and make sure that it looks the way you were expecting.</p>
@@ -975,12 +955,13 @@ Duration: 18.1s
 </figure>
 </div>
 <p>Well done! You have built a functional package. Maybe it is even time to update the version number in <strong>DESCRIPTION</strong> and take it out of development?</p>
-<p>If you want to know even more about this topic, I recommend Hadley Wickham and Jenny Bryans excellent online resource <a href="http://r-pkgs.had.co.nz/check.html">http://r-pkgs.had.co.nz/check.html</a>.</p>
+<p>If you want to know even more about this topic, I recommend Hadley Wickham and Jenny Bryan’s excellent online resource <a href="http://r-pkgs.had.co.nz/check.html">http://r-pkgs.had.co.nz/check.html</a>.</p>
 <p>The next sections are optional and cover vignettes, testing, including C++ code in your package using <code>Rcpp</code> and pushing your R package to github and setting up github actions for it.</p>
 </section>
 <section id="vignette" class="level2" data-number="7">
 <h2 data-number="7" class="anchored" data-anchor-id="vignette"><span class="header-section-number">7</span> Vignette</h2>
-<p>Vignettes are long-form documentation for your package. Like a manual detailing what the purpose of your package and its functions are. To initialise your vignette, you can use the command:</p>
+<p>Vignettes are long-form documentation for your package. Like a manual detailing what the purpose of your package and its functions are.</p>
+<p>To initialize your vignette, you can use the command:</p>
 <pre><code>usethis::use_vignette("packagename_vignette")</code></pre>
 <p>What this does:</p>
 <ol type="1">
@@ -1003,54 +984,51 @@ Note
 </div>
 <p>To preview your vignette while working on it, press the <em>knit</em> button in Rstudio.</p>
 <p>Example <strong>vignette.Rmd</strong>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>        <span class="sc">---</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>        title<span class="sc">:</span> <span class="st">"How to write more and more letters, in a triangle"</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>        author<span class="sc">:</span> <span class="st">"Sebastian DiLorenzo"</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>        date<span class="sc">:</span> <span class="st">"`r Sys.Date()`"</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>        output<span class="sc">:</span> rmarkdown<span class="sc">::</span>html_vignette</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>        vignette<span class="sc">:</span> <span class="er">&gt;</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>          %\VignetteIndexEntry{How to write more and more letters, <span class="cf">in</span> a triangle}</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>          %\VignetteEngine{knitr<span class="sc">::</span>rmarkdown}</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>          %\VignetteEncoding{UTF<span class="dv">-8</span>}</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>        <span class="sc">---</span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">```</span><span class="at">{r setup, include = FALSE}</span></span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="at">        knitr::opts_chunk$set(</span></span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="at">          collapse = TRUE,</span></span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="at">          comment = "#&gt;"</span></span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="at">        )</span></span>
+<div class="sourceCode" id="cb28"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "How to write more and more letters, in a triangle"</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Sebastian DiLorenzo"</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2023-03-13"</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="an">output:</span><span class="co"> rmarkdown::html_vignette</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="an">vignette:</span><span class="co"> &gt;</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co">  %\VignetteIndexEntry{How to write more and more letters, in a triangle}</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co">  %\VignetteEngine{knitr::rmarkdown}</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co">  %\VignetteEncoding{UTF-8}</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="in">```{r setup, include=FALSE}</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">collapse =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">comment =</span> <span class="st">"#&gt;"</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="at">        # replace this with your package name</span></span>
-<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="at">        library(newpkg)</span></span>
-<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="st">```</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="co"># replace this with your package name</span></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(newpkg)</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># The greatest package for a very specific purpose</span></span>
-<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a>        If you thought that it was impossible to write letters</span>
-<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>        alphabetically from top to bottom with each number represented</span>
-<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a>        the same number of times asits position <span class="cf">in</span> the alphabet</span>
-<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a>         <span class="sc">-</span> think again<span class="sc">!</span></span>
-<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a>        This package and its sole <span class="cf">function</span>, trianguletter, solves just this problem<span class="sc">!</span></span>
-<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a>        But you do not have to take my word <span class="cf">for</span> it, see <span class="cf">for</span> yourself<span class="sc">:</span></span>
-<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">```</span><span class="at">{r,echo=T}</span></span>
-<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a><span class="at">        # With just a simple number we specify how long into the alphabet we go.</span></span>
-<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a><span class="at">        trianguletter(10)</span></span>
-<span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-38"><a href="#cb28-38" aria-hidden="true" tabindex="-1"></a><span class="at">        # Also, this package has this random dataset:</span></span>
-<span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a><span class="at">        your_object</span></span>
-<span id="cb28-40"><a href="#cb28-40" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="st">```</span></span>
-<span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Future plans</span></span>
-<span id="cb28-43"><a href="#cb28-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-44"><a href="#cb28-44" aria-hidden="true" tabindex="-1"></a>        We plan do add features so that you can give it</span>
-<span id="cb28-45"><a href="#cb28-45" aria-hidden="true" tabindex="-1"></a>        a letter, rather than a number, and output a</span>
-<span id="cb28-46"><a href="#cb28-46" aria-hidden="true" tabindex="-1"></a>        bunch of numbers instead<span class="sc">!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a><span class="fu"># The greatest package for a very specific purpose</span></span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>If you thought that it was impossible to write letters</span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a>alphabetically from top to bottom with each number represented</span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>the same number of times asits position in the alphabet</span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>think again!</span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a>This package and its sole function, trianguletter, solves just this problem!</span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a>But you do not have to take my word for it, see for yourself:</span>
+<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a><span class="co"># With just a simple number we specify how long into the alphabet we go.</span></span>
+<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a><span class="fu">trianguletter</span>(<span class="dv">10</span>)</span>
+<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Also, this package has this random dataset:</span></span>
+<span id="cb28-38"><a href="#cb28-38" aria-hidden="true" tabindex="-1"></a>your_object</span>
+<span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-40"><a href="#cb28-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a><span class="fu"># Future plans</span></span>
+<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-43"><a href="#cb28-43" aria-hidden="true" tabindex="-1"></a>We plan to add features so that you can give it</span>
+<span id="cb28-44"><a href="#cb28-44" aria-hidden="true" tabindex="-1"></a>a letter, rather than a number, and output a</span>
+<span id="cb28-45"><a href="#cb28-45" aria-hidden="true" tabindex="-1"></a>bunch of numbers instead!</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <!-- > Note: Because I am writing this in rmarkdown I added backslashes before the code or it would not render properly for this exercise instruction. In your rmarkdown there should **not** be backslashes before code chunks.  See the \\``` in the vignette code. -->
 <p>And the beautiful rendered version:</p>
 <div class="quarto-figure quarto-figure-left">
@@ -1351,7 +1329,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-right">Published with <a href="https://quarto.org/">Quarto</a> v1.2.335</div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","loop":true,"descPosition":"bottom","openEffect":"zoom","closeEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"loop":true,"openEffect":"zoom","selector":".lightbox","descPosition":"bottom","closeEffect":"zoom"});</script>
 
 
 

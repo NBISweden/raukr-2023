@@ -17,7 +17,6 @@
 - blockquote does not work? maybe
 - section number decimal
 
-
 [x] improve footer similar to https://www.quantumjitter.com/
 [x] move slide format options to config
 [x] add 404
@@ -31,12 +30,16 @@
 [x] add ml topic slides and lab
 [x] removed empty #|
 [x] added classroom photos
-[ ] 404 page broken
 [x] update featured images for remaining topics
 [x] panel tab style update
-[ ] website sidebar. cannot hide demo.
 [x] slides cover and end images graphics
-[ ] slide title slide vertical alignment
+[ ] fix publishing lab
+[ ] link from slides to home
+[ ] add category to qmd file
+[ ] 404 page broken
+[ ] website sidebar. cannot hide demo.
+[ ] quarto topic publishing slide/lab
+[ ] quarto topic rep research slide/lab
 [ ] load assets locally (fonts)
 
 [ ] reproducible reserach
@@ -53,9 +56,11 @@
     - reports (html/pdf)
     - revealjs
     - xaringan
-
-[ ] slack upgrade?
-[ ] add shinylive, shiny for python
+[ ] shiny
+    - add shinylive
+    - shiny for python
+    - progressive web apps (marcin)
+    - profiling for shiny
 
 - profr deprecated in favour of profvis
 - lab reticulate python sql error
@@ -86,4 +91,6 @@ ERROR: NotFound: No such file or directory (os error 2), rename '/home/roy/Docum
 grep -RiIl '^#| $' **/*.qmd | xargs sed -i 's/^#| $//g'
 grep -RiIl '^image: assets/featured.jpg$' **/*.qmd | xargs sed -i 's/^#| $//g'  
 
-687mb               
+quartoextra
+https://github.com/debruine/quartoExtra
+       

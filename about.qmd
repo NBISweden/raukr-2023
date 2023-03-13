@@ -17,8 +17,7 @@ format:
 
 [Marcin Kierczak](http://www.kierczak.net/)
 
-Associate professor in bioinformatics and data analyst at NBIS long-term support with long experience in R programming and data analyses using statistical learning and focus on computational genetics.
-
+Associate professor in bioinformatics at Uppsala university. Bioinformatics data scientist at NBIS focusing on computational genetics.
 :::
 ::: {.organisers-child}
 
@@ -26,8 +25,7 @@ Associate professor in bioinformatics and data analyst at NBIS long-term support
 
 [Sebastian DiLorenzo](http://nbis.se/about/staff/sebastian-dilorenzo/)
 
-Bioinformatics data analyst at NBIS short/medium-term support long experience in R programming and data analyses with focus on cancer genomics. 
-
+Bioinformatics data scientist at NBIS with long experience in R programming and data analyses on cancer genomics.
 :::
 ::: {.organisers-child}
 
@@ -35,8 +33,7 @@ Bioinformatics data analyst at NBIS short/medium-term support long experience in
 
 [Roy Francis](http://nbis.se/about/staff/roy-francis/)
 
-Bioinformatics data analyst at NBIS short/medium-term support with long experience in R programming and data analyses with focus on Bulk and single-cell RNAseq. 
-
+Bioinformatics data scientist at NBIS with interest in R programming focusing on Bulk and single-cell RNAseq.
 :::
 ::: {.organisers-child}
 
@@ -44,8 +41,7 @@ Bioinformatics data analyst at NBIS short/medium-term support with long experien
 
 [Jessica Lindvall](http://nbis.se/about/staff/jessica-lindvall/)
 
-Co-ordinator for training at NBIS. 
-
+Coordinator for training at NBIS.
 :::
 ::: {.organisers-child}
 
@@ -53,17 +49,16 @@ Co-ordinator for training at NBIS.
 
 [Björn Nystedt](http://nbis.se/about/staff/bjorn-nystedt/)
 
-Co-director of NBIS and research area manager. Mainly interested in genomics and multi-omics data. 
-
+Co-director of NBIS.
 :::
 :::
 
 ## Venue
 
-![](assets/images/venue/visby.jpg)  
+![](assets/images/venue/visby.jpg)\
 [Source: [VisitSweden](https://visitsweden.com/where-to-go/southern-sweden/gotland/visby/)]{.small}
 
-The workshop is organised on the Uppsala university campus in Visby situated on the island of Gotland, Sweden. Visby is an enchanting medieval town dating back to the 12th century and a UNESCO world heritage site. More information on [Visit Sweden](https://visitsweden.com/where-to-go/southern-sweden/gotland/visby/) and [Gotland Toursim](https://gotland.com/). 
+The workshop is organised on the Uppsala university campus in Visby situated on the island of Gotland, Sweden. Visby is an enchanting medieval town dating back to the 12th century and a UNESCO world heritage site. More information on [Visit Sweden](https://visitsweden.com/where-to-go/southern-sweden/gotland/visby/) and [Gotland Toursim](https://gotland.com/).
 
 ::: {.venue-parent}
 ::: {.venue-child}

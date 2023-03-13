@@ -12,7 +12,9 @@ execute:
 ---
 
 ## [**RaukR** • Summer School 2023]{.large}
+
 ### Advanced R for Bioinformatics
+
 ##### 11-22 June 2023, Visby, Gotland, Sweden.
 
 <br>
@@ -25,6 +27,6 @@ This workshop is organised by the National Bioinformatics Infrastructure, Sweden
 
 ---
 
-::: {.small}
-Updated: {{< fa calendar >}} `r format(Sys.time(),format='%d-%b-%Y')` at {{< fa clock >}} `r format(Sys.time(),format='%X')`.
+::: small
+Updated: <?lua.date?> at <?lua.time?>..
 :::

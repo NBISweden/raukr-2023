@@ -6,7 +6,8 @@ image: "assets/featured.jpg"
 format: html
 ---
 
-```{r,echo=FALSE,results='hide',message=FALSE,warning=FALSE}
+```{r}
+#| echo: false
 library(ggplot2)
 library(tidyverse)
 library(bsplus)
@@ -30,11 +31,12 @@ Welcome to the hands-on workshop "Tidy Work in Tidyverse". Most of the things ne
 Datasets are available [here](https://www.dropbox.com/s/dxxt959g6iefeaf/tidyverse_lab_data.zip?dl=0).
 
 ### Pipes
+
 #### Chunk 1
 
 Rewrite the following code chunks as pipes (Load package `magrittr` because `tidyverse` supports only the `%>%` pipe!):
 
-```
+```         
 my_cars <- mtcars[, c(1:4, 10)]
 my_cars <- my_cars[my_cars$disp > mean(my_cars$disp), ]
 my_cars <- colMeans(my_cars)
@@ -62,7 +64,7 @@ What is wrong with our solution?
 
 The `summary(x)` function is a bit special: when you type `summary(x)` in the console, `print` is called in an implicit way. Pipe call does not do, so you will have to invoke `print` in an explicit way. But the `%T>%` does unbranch for one call only, you will have to make printing of the `summary` a one single composed call using `{}`.
 
-```
+```         
 summary(cars)
 colSums(cars)
 ```
@@ -77,7 +79,7 @@ cars %T>% {print(summary(.))} %>% colSums()
 
 Rewrite correlations to pipes.
 
-```
+```         
 cor(mtcars$gear, mtcars$mpg)
 ```
 
@@ -87,7 +89,7 @@ cor(mtcars$gear, mtcars$mpg)
 mtcars %$% cor(gear, mpg)
 ```
 
-```
+```         
 cor(mtcars)
 ```
 
@@ -101,7 +103,7 @@ mtcars %>% cor()
 
 Given is the `dim_summary(nrows, ncols)` function which takes matrix `nrows` and `ncols` as arguments and prints this info about its dimensions:
 
-```
+```         
 dim_summary <- function(nrows, ncols) {
   print(
     paste0('Matrix M has: ', nrows, ' rows and ', ncols, ' columns.')
@@ -111,7 +113,7 @@ dim_summary <- function(nrows, ncols) {
 
 Rewrite the code chunks below as pipes:
 
-```
+```         
 distr1 <- rnorm(16)
 M <- matrix(distr1, ncol = 4)
 plot(M)
@@ -119,7 +121,7 @@ M <- M + sample(M)
 dim_summary(nrows = nrow(M), ncols = ncol(M))
 ```
 
-```
+```         
 distr2 <- rnorm(16)
 N <- matrix(distr2, ncol = 4)
 colnames(N) <- (letters[1:4])
@@ -127,7 +129,7 @@ summary(N)
 N <- N + 0
 ```
 
-```
+```         
 P <- M %x% t(N)
 heatmap(P)
 colnames(P) <- letters[1:dim(P)[2]]
@@ -168,6 +170,7 @@ P <- M %>%
 ```
 
 ### Tibbles
+
 #### Task 1
 
 - Convert the `mtcars` dataset to a tibble `vehicles`.
@@ -178,7 +181,7 @@ P <- M %>%
 - Do the same selection as above, but using pipe and placeholders (use all three ways of accessing a variable).
 - Print the tibble.
 - Print the 30 first rows of the tibble.
-- Change the default behaviour of printing a tibble so that at least 15 and at most 30 rows are printed.
+- Change the default behavior of printing a tibble so that at least 15 and at most 30 rows are printed.
 - What is the difference between the `tibble.print_max` and `dplyr.print_min`? Is there any? Test it.
 - Convert `vehicles` back to a `data.frame` called `automobiles`.
 
@@ -587,10 +590,10 @@ flights %>%
 
 ::: {.callout-tip}
 ## Note on `ungroup`
+
 Depending on the version of `dplyr`, you may or may need to use the `ungroup()` if you want to group your data on some other variables. In the newer versions, `summarise` and `mutate` drop one aggregation level.
 
-
-```
+```         
 flights %>%
   group_by(origin) %>%
   mutate(mean_delay_orig = (mean(dep_delay, na.rm = T) + mean(arr_delay, na.rm = T)) / 2) %>%
@@ -599,7 +602,6 @@ flights %>%
   mutate(mean_delay_carr = (mean(dep_delay, na.rm = T) + mean(arr_delay, na.rm = T)) / 2) %>%
   select(origin, carrier, mean_delay_orig, mean_delay_carr)
 ```
-
 :::
 
 ### Task 5: Joins
@@ -742,9 +744,10 @@ tidy_storms %>% unite(col = "date", 4:6, sep = "/")
 ```
 
 ## Nanopore Channel Activity Challenge
+
 ### Introduction
 
-You will be given a `fastq` file coming from MinION sequencer (Oxford Nanopore). This file contains test reads from the chicken genome. The flow-cell used here has 512 channels, each channel consists of 4 pores and only one pore is active at a time. Once your sequence gets stuck for some reason, the device will attempt to remove it from the pore by playing with reversing polarity on that pore. If this was successful, the pore will be re-used. Your task will be to visualise reading events from the meta-data in the `fastq` dataset and to see how each and every channel behaved. Also, you will plot the distribution of reading times.
+You will be given a `fastq` file coming from MinION sequencer (Oxford Nanopore). This file contains test reads from the chicken genome. The flow-cell used here has 512 channels, each channel consists of 4 pores and only one pore is active at a time. Once your sequence gets stuck for some reason, the device will attempt to remove it from the pore by playing with reversing polarity on that pore. If this was successful, the pore will be re-used. Your task will be to visualize reading events from the meta-data in the `fastq` dataset and to see how each and every channel behaved. Also, you will plot the distribution of reading times.
 
 Datasets are available [here](https://www.dropbox.com/s/dxxt959g6iefeaf/tidyverse_lab_data.zip?dl=0).
 
@@ -790,14 +793,14 @@ We will use the `stringr` package for string manipulation. Use `str_split()` to 
 
 - To split string on a particular character, group of characters use `str_split`. Here we split on comma.
 
-```
+```         
 text <- "This text is long, or not?"
 str_split(text, ',')
 ```
 
 - To remove everything following a given character, e.g. comma:
 
-```
+```         
 str_remove_all(text, ",.*")
 ```
 
@@ -848,7 +851,7 @@ Here, we want to see what was happening in each channel over time. Plot the data
 - Each point is the start of a new read,
 - Colour corresponds to the lag to the next read.
 
-Can you visualise this in a better way? Different geometry?
+Can you visualize this in a better way? Different geometry?
 
 ```{r plot_events}
 #| code-fold: true
@@ -882,7 +885,7 @@ hist(as.numeric(tmp$time_diff), breaks = 1000, las=1)
 
 ## Species Identification Challenge
 
-In this challenge, your task will be to analyse species composition of some samples. The samples, were actual products containing parts of plants. DNA has been isolated form the samples and an amplicon metabarcoding was performed using two sets of primers: for the ITS1 and the ITS2 region. Each sample had 3 technical replicates. Your task will be to transform BLAST output to a tidy form suitable for further analyses or visualisation.
+In this challenge, your task will be to analyze species composition of some samples. The samples, were actual products containing parts of plants. DNA has been isolated form the samples and an amplicon metabarcoding was performed using two sets of primers: for the ITS1 and the ITS2 region. Each sample had 3 technical replicates. Your task will be to transform BLAST output to a tidy form suitable for further analyses or visualization.
 
 ### Load necessary libraries
 
@@ -899,7 +902,7 @@ library(here)
 Here, we will define our input variables. We need:
 
 - `file` that contains the path to the dataset,
-- `sample_name` is a string, the name of the sample you want to analyse,
+- `sample_name` is a string, the name of the sample you want to analyze,
 - `threshold` is an integer saying what is a the minimal number of replicates that have to contain an OTU in order to call it a true positive (TP),
 - `strict` a logical. If set to TRUE, only the OTUs deemed TP will be shown.
 
@@ -913,7 +916,7 @@ threshold <- 1
 strict <- F
 ```
 
-```
+```         
 # Change the path to your project path, where your data is
 file <- here::here("docs/tidyverse_Marcin/lab/assets/blast_result.csv")
 sample_name <- 'SAMPLE12'
@@ -961,8 +964,7 @@ head(species,n = 10)
 
 ### Filter out unwanted samples
 
-Now, your task is to filter out all but your `sample_name` samples from the dataset.
-Call the resulting dataset `my_sample`.
+Now, your task is to filter out all but your `sample_name` samples from the dataset. Call the resulting dataset `my_sample`.
 
 ```{r}
 #| code-fold: true
@@ -972,8 +974,7 @@ my_sample <- species %>%
 
 ### Missing observations
 
-What happens if a set of primers failed to amplify or if one replicate was lost?
-Use `complete()` to make sure you have `NA` values in such cases.
+What happens if a set of primers failed to amplify or if one replicate was lost? Use `complete()` to make sure you have `NA` values in such cases.
 
 ```{r}
 #| code-fold: true
@@ -984,8 +985,7 @@ my_sample <- my_sample %>%
 
 ### Sorting issue
 
-Look, the first sample in the table is `SAMPLE10`. Why not `SAMPLE1`?
-That's a sorting issue: if sorted as character, 10 will come before 1. WE have to fix this by adding trailing zero to the values in `OTU`. We do not expect more than 99 OTUs in a sample, so it is ok with only one trailing 0 (otherwise the 100-th sample will spoil our sorting and come out like: SAMPLE100, SAMPLE01, SAMPLE10). We will need to use regular expression:
+Look, the first sample in the table is `SAMPLE10`. Why not `SAMPLE1`? That's a sorting issue: if sorted as character, 10 will come before 1. WE have to fix this by adding trailing zero to the values in `OTU`. We do not expect more than 99 OTUs in a sample, so it is ok with only one trailing 0 (otherwise the 100th sample will spoil our sorting and come out like: SAMPLE100, SAMPLE01, SAMPLE10). We will need to use regular expression:
 
 - All values in the `OTU` column that follow pattern "OTU*digit*" we need to change to "OTU0*digit*". Regular expression that matches this is `OTU([0-9]$)` and it should be replaced by: `OTU0\\1`. Ask your TAs to explain this if you do not know much about regular expressions and pattern matching.
 
@@ -1043,12 +1043,12 @@ head(my_sample,n=10)
 
 ### Visualising the data
 
-Can you think of a good way of visualising the data? Think of:
+Can you think of a good way of visualizing the data? Think of:
 
 - Type of plot you want. The simpler the better?
-- Which variables you would like to visualise? We have chosen `ITS`, `replicate`, `n_reads`, `n_replicates`, `OTU`, `threshold`, `n_species` and `specie`. Well, pretty much all of them :-)
-- How do you represent variables: colours, shapes, separate plots, sizes?
-- What transformations do you need to apply before visualising the data?
+- Which variables you would like to visualize? We have chosen `ITS`, `replicate`, `n_reads`, `n_replicates`, `OTU`, `threshold`, `n_species` and `specie`. Well, pretty much all of them :-)
+- How do you represent variables: colors, shapes, separate plots, sizes?
+- What transformations do you need to apply before visualizing the data?
 
 Our example solution involves some `ggplot2` magics. But would base-R be good enough for this type of plot?
 
@@ -1089,4 +1089,3 @@ pl
 ## Wildlife Aircraft Strikes Challenge
 
 Use the [FAA report](https://www.kaggle.com/faa/wildlife-strikes) and `tidyverse` to learn more about aircraft incidents with wildlife. Use your imagination and [NYC data science blog](https://nycdatascience.com/blog/student-works/exploring-aviation-accidents-from-1908-through-the-present/) for inspiration!
-

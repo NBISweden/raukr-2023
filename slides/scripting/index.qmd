@@ -23,7 +23,6 @@ library(optparse)
 
 :::: {.columns}
 ::: {.column width="50%"}
-
 Without a function
 
 ```{r}
@@ -41,11 +40,9 @@ b + b
 ::: {.notes}
 An R function is something you have probably used many times already.. Functions perform a set task within R. Lets looks at a quick example.
 :::
-
 :::
 
 ::: {.column width="50%"}
-
 With a function
 
 ```{r}
@@ -74,7 +71,7 @@ function_name <- function(arg1, arg2 = 20, ...){
   arg1*2 # operational space
   arg1+arg2 # What is returned. Alt, use return(arg1+arg2)
 }
-``` 
+```
 
 - `function_name` : Name of the function
 - `function(){}` : The function body
@@ -174,7 +171,6 @@ If you want to run it without giving path, its folder must be in you $PATH varia
 ::: {.notes}
 
 Here for example we are using the Rscript as an **executable** file, giving it an **inputfile** and specifying what we want the **outputfile** to be named.
-
 :::
 
 . . .
@@ -186,7 +182,6 @@ Here for example we are using the Rscript as an **executable** file, giving it a
 ::: {.notes}
 
 **Short flags** are when you give a single dash and usually a shortened version of the keyword, here *i for input* and *o for output* for example.
-
 :::
 
 . . .
@@ -196,7 +191,6 @@ Here for example we are using the Rscript as an **executable** file, giving it a
 ::: {.notes}
 
 And here **long flags** with *two dashes*
-
 :::
 
 . . .
@@ -206,7 +200,6 @@ And here **long flags** with *two dashes*
 ::: {.notes}
 
 A part of the **flexibility** of this is that you can give the flags in **any order**.
-
 :::
 
 . . .
@@ -216,7 +209,6 @@ A part of the **flexibility** of this is that you can give the flags in **any or
 ::: {.notes}
 
 And you can also *mix* the *long/short flag order and styles*. It is the coding in the script that determines how it handles this input.
-
 :::
 
 ## Parsing arguments
@@ -231,11 +223,8 @@ Use **commandArgs()** to capture whatever was **passed** into R as it was **exec
 
 Add `trailingOnly = TRUE` to suppress the first few items and get the arguments **you** passed to the script.
 
-
 ::: {.notes}
-
-A **standard parameter**, but **not default**, that you can use when invoking commandArgs() is **trailingOnly = TRUE**, which basically tells it to start counting the input from **after** the **Rscript arguments**. As you can see here when we invoke it without this parameter it returns the script itself, in this case R studio. But with it the invocation is clear, there were no trailing command line arguments.
-
+A **standard parameter**, but **not default**, that you can use when invoking `commandArgs()` is `trailingOnly = TRUE`, which basically tells it to start counting the input from **after** the **Rscript arguments**. As you can see here when we invoke it without this parameter it returns the script itself, in this case R studio. But with it the invocation is clear, there were no trailing command line arguments.
 :::
 
 . . .
@@ -255,7 +244,6 @@ The flexible way: short and long flags
 ::: {.notes}
 
 So how do we do it with **flags**?
-
 :::
 
 . . .
@@ -285,10 +273,7 @@ parse_args(OptionParser(option_list=my_options))
 ```
 
 ::: {.notes}
-
-And then you use the **my_options** object we defined together with **parse_args and OptionParser** to **check our input** for those **flags**
-We also see an option, **help**, that we did not make, this is a **standard flag** that optparse always looks for and can generate what arguments it is looking for.
-
+And then you use the **my_options** object we defined together with **parse_args and OptionParser** to **check our input** for those **flags** We also see an option, **help**, that we did not make, this is a **standard flag** that optparse always looks for and can generate what arguments it is looking for.
 :::
 
 ## Text streams
@@ -296,9 +281,7 @@ We also see an option, **help**, that we did not make, this is a **standard flag
 - Text streams allow for piping of data through a set of applications without writing intermediate files.
 
 ::: {.notes}
-
 What I am sure most of you will think of when you read this is the bash pipe sign.
-
 :::
 
 . . .
@@ -306,9 +289,7 @@ What I am sure most of you will think of when you read this is the bash pipe sig
 `samtools mpileup -uf ref.fa aln.bam | bcftools call -mv | myPythonscript.py | myRscript.R > variants.vcf`
 
 ::: {.notes}
-
 So how does R handle taking input piped to it. And the answer is that we have to write some special code if this is the use case.
-
 :::
 
 . . .
@@ -326,9 +307,7 @@ close(input_con)
 ```
 
 ::: {.notes}
-
 What we do is **open** a connection from **standard input** and then read this **text stream** for **n** number of lines at a time. It is also good to close this connection afterwards.
-
 :::
 
 . . .
@@ -336,22 +315,17 @@ What we do is **open** a connection from **standard input** and then read this *
 - Tidyverse can read a `tibble` from text stream: `read_csv(file("stdin"))`
 
 ::: {.notes}
-
 Alternatively you can read a text stream into a **tibble** from tidyverse by using **read_csv**, note that it isnt **read.csv** the generic R command, which can take our **input connection** and create the tibble in R.
-
 :::
 
 ## Text streams
 
-### Writing 
+### Writing
 
 - Any `stdout` produced by the code (`print()`, `cat()`, etc) can be piped to a new process: `...myRscript.R | myNewScript`
 
 ::: {.notes}
-
-What about **piping from** your R script to something else? Continuing the stream?
-So just writing these commands. print, cat etc, can be piped to a new process.
-
+What about **piping from** your R script to something else? Continuing the stream? So just writing these commands. print, cat etc, can be piped to a new process.
 :::
 
 . . .
@@ -363,9 +337,7 @@ So just writing these commands. print, cat etc, can be piped to a new process.
 - To write a `tibble` as a text stream: `cat(format_csv(my_tibble))`
 
 ::: {.notes}
-
 If you already have a tibble, you can stream it out of R using this command.
-
 :::
 
 ## Summary
@@ -373,13 +345,12 @@ If you already have a tibble, you can stream it out of R using this command.
 <!-- ![](http://www.azquotes.com/picture-quotes/quote-this-is-the-unix-philosophy-write-programs-that-do-one-thing-and-do-it-well-write-programs-douglas-mcilroy-81-95-07.jpg) -->
 
 - Functions are great for organizing code and repeating tasks.
-- R scripts are great for performing tasks from commandline.
+- R scripts are great for performing tasks from command line.
 - R scripts can be built in different ways to take arguments or text streams
 
 ::: {.notes}
 
 So to summarize, R scripts are powerful tools to solve a specific problem that you define, and often fit well together with other tools. And now you have learned to execute them in different ways, with inputs and outputs and with other programs. All that is left is to actually write the content.
-
 :::
 
 ## {background-image="../../assets/images/cover.jpg"}

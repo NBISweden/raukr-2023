@@ -15,11 +15,15 @@ library(rmarkdown)
 ```
 
 ::: {.callout-note}
-This is the R packages exercise from RaukR. It will take you through creating an R package with code, data, documentation, creating or generating a correct DESCRIPTION and NAMESPACE, importing packages, checking your package for warnings. There are also some advanced excercises you can do if you have time.
+This is the R packages exercise from RaukR.
+It will take you through creating an R package with code, data, documentation, creating or generating a correct DESCRIPTION and NAMESPACE, importing packages, checking your package for warnings.
+There are also some advanced exercises you can do if you have time.
 
-The exercise will show how to do things from R console, but many of the functionalities are so common they are built into Rstudio. Because of this I have included a cheatsheet which can be useful if you are developing packages in Rstudio in the future.
+The exercise will show how to do things from R console, but many of the functionality are so common they are built into Rstudio.
+Because of this I have included a cheatsheet which can be useful if you are developing packages in Rstudio in the future.
 
-It is fine if you do not have time for the whole thing, as all components may not be important to you. You can always come back later :).
+It is fine if you do not have time for the whole thing, as all components may not be important to you.
+You can always come back later :).
 :::
 
 ## Cheatsheet
@@ -49,8 +53,9 @@ If you haven't already, install [RStudio](https://posit.co/download/rstudio-desk
 
 ## Create a package backbone
 
-First of all we will create the standard files that are required in an R package. 
+First of all we will create the standard files that are required in an R package.
 
+```{=html}
 <!-- You can do this from within Rstudio **or** using `devtools`. 
 
 ### Option 1: In Rstudio
@@ -60,12 +65,11 @@ Select *File > New Project > New Directory > R package*, give your package a nam
 ### Option 2: In R devtools suite
 
 -->
-
 ```
-usethis::create_package("path/to/your/package/packagename")
-```
+    usethis::create_package("path/to/your/package/packagename")
 
-If you execute this command from within Rstudio, it should open a new instance of Rstudio located within your newly created package. If you didn't and want to work on your package in Rstudio, double click the **.Rproj** file or select it from Rstudio.
+If you execute this command from within Rstudio, it should open a new instance of Rstudio located within your newly created package.
+If you didn't and want to work on your package in Rstudio, double click the **.Rproj** file or select it from Rstudio.
 
 Take a look at the "Files" pane of Rstudio to see what `create_package()` actually created for you.
 
@@ -75,7 +79,9 @@ Now that we have a R package backbone lets fill it with stuff!
 
 ### R code
 
-Let's create the first function of your package. We can use the handy helper-function `usethis::use_r()` to create or navigate between the R files in your **R/** folder. You can also just create a **.R** file there if you wish.
+Let's create the first function of your package.
+We can use the handy helper-function `usethis::use_r()` to create or navigate between the R files in your **R/** folder.
+You can also just create a **.R** file there if you wish.
 
 ```
 usethis::use_r("trianguletter")
@@ -83,9 +89,12 @@ usethis::use_r("trianguletter")
 
 This should create and open the file `R/trianguletter.R` for editing.
 
-Feel free to rewrite the function to perform some simple task. From adding two numbers to creating a basic plot from some input. It's up to you!
+Feel free to rewrite the function to perform some simple task.
+From adding two numbers to creating a basic plot from some input.
+It's up to you!
 
 Here is an example that I threw together:
+
 ```{r}
 trianguletter <- function(x) {
   for(i in 1:x){
@@ -94,7 +103,10 @@ trianguletter <- function(x) {
 }
 ```
 
-When you are happy with your function, save it. To access and test your newly created function we have to attach it to make it available. But rather than bundle, install and attach we can use the function `devtools::load_all()` while developing the package. `load_all()` simulates the behaviour of bundling, installing and attaching the package, without actually having to do it.
+When you are happy with your function, save it.
+To access and test your newly created function we have to attach it to make it available.
+But rather than bundle, install and attach we can use the function `devtools::load_all()` while developing the package.
+`load_all()` simulates the behavior of bundling, installing and attaching the package, without actually having to do it.
 
 Now test your function in the console!
 
@@ -106,7 +118,9 @@ trianguletter(12)
 
 ### Data
 
-Lets add some data to our package, create an R object with whatever information you want. A string, a vector or a data.frame, as long as you recognize it, it doesn't matter. First we will save it to our **data/** folder using `usethis::use_data()`.
+Lets add some data to our package, create an R object with whatever information you want.
+A string, a vector or a data.frame, as long as you recognize it, it doesn't matter.
+First we will save it to our **data/** folder using `usethis::use_data()`.
 
 ```{r}
 #| eval: false
@@ -120,10 +134,11 @@ usethis::use_data(your_object)
 
 This created the **data/** folder and **your_object.rda** inside it.
 
-<!-- Notice that we are not giving it our packages location. This is because it will default to using the package in the working directory, if your current R session is not in the package root it will complain.
+<!-- Notice that we are not giving it our packages location. This is because it will default to using the package in the working directory, if your current R session is not in the package root it will complain. -->
 
 ```{r}
 #| eval: false
+#| include: false
 
 # Change working directory
 setwd("..")
@@ -132,11 +147,14 @@ setwd("..")
 usethis::use_data(your_object)
 # Error: Could not find package root.
 ```
--->
 
-Now when our package is loaded, `your_object` will be made available to the user. To test this, remove all objects from your working directory, and load all functions. Check that you can access the object, despite just removing it from your workspace.
+Now when our package is loaded, `your_object` will be made available to the user.
+To test this, remove all objects from your working directory, and load all functions.
+Check that you can access the object, despite just removing it from your workspace.
 
-```{r,eval=F}
+```{r}
+#| eval: false
+
 # Clear workspace
 rm(list=ls())
 
@@ -148,8 +166,11 @@ your_object
 [1] "red"   "green" "blue"
 ```
 
-The data in **data/** folder is available to the user, needs to be documented, and is where you would store data if the purpose of your package is to distribute one or more datasets in an R friendly way. 
-If there is some data that you don't want to make easily accessible to the users, AKA not document, but that your functions use, you can put it in **sysdata.rda**. Lets create a second object. Like the last one it does not matter what it is. Use the same command as before to save the object, except this time specify that this data is intended for internal use.
+The data in **data/** folder is available to the user, needs to be documented, and is where you would store data if the purpose of your package is to distribute one or more datasets in an R friendly way.
+If there is some data that you don't want to make easily accessible to the users, AKA not document, but that your functions use, you can put it in **sysdata.rda**.
+Lets create a second object.
+Like the last one it does not matter what it is.
+Use the same command as before to save the object, except this time specify that this data is intended for internal use.
 
 ```{r}
 #| eval: false
@@ -161,7 +182,8 @@ second_object <- "It works!"
 usethis::use_data(second_object, internal = TRUE)
 ```
 
-To check that this worked, clear your workspace and edit your packages function, the **.R** file, to include the object in some way. Load the package and see if it executes as expected.
+To check that this worked, clear your workspace and edit your packages function, the **.R** file, to include the object in some way.
+Load the package and see if it executes as expected.
 
 ```{r}
 #| eval: false
@@ -180,7 +202,9 @@ trianguletter <- function(x) {
   cat(second_object)
 }
 ```
-```{r, echo=F}
+
+```{r}
+#| echo: false
 # Create object just for exercise purposes.
 second_object <- "It works!"
 ```
@@ -196,7 +220,8 @@ devtools::load_all()
 trianguletter(5)
 ```
 
-Great work! You have created external and internal datasets and shown that they can be used when your package is loaded in the console and in your packages own functions!
+Great work!
+You have created external and internal datasets and shown that they can be used when your package is loaded in the console and in your packages own functions!
 
 ### Documentation
 
@@ -204,20 +229,24 @@ Now that we have a function and a dataset, lets use `roxygen2` to create some do
 
 #### Function documentation
 
-As was discussed in the presentation, the `roxygen2` documentation for a function is directly before it in so called "comment blocks", or `#'`. Here is a brief refresher:
+As was discussed in the presentation, the `roxygen2` documentation for a function is directly before it in so called "comment blocks", or `#'`.
+Here is a brief refresher:
 
-* Comment block : `#'`
-* Tags : `@tagname`
-  + `@param` : parameter
-  + `@example` : examples
-  + `@return` : what does the function return. The *value* field in R documentation
-  + `@section` : create any section you want
-  + `@export` : export the function so it can be used externally
+- Comment block : `#'`
+- Tags : `@tagname`
+  - `@param` : parameter
+  - `@example` : examples
+  - `@return` : what does the function return. The *value* field in R documentation
+  - `@section` : create any section you want
+  - `@export` : export the function so it can be used externally
 
-Go ahead and create documentation for your function. Add at least a title, a description, multi-section details, the parameters, the expected return value or output, an example of how to use your function and the export tag.
+Go ahead and create documentation for your function.
+Add at least a title, a description, multi-section details, the parameters, the expected return value or output, an example of how to use your function and the export tag.
 
 ::: {.callout-note}
-The @export tag should always be last in documentation and grants the user access to the function. It is very important, if you want the user to be able to call the function. For internal functions, this may not be the case.
+The `@export` tag should always be last in documentation and grants the user access to the function.
+It is very important, if you want the user to be able to call the function.
+For internal functions, this may not be the case.
 :::
 
 An example functional documentation:
@@ -230,7 +259,7 @@ An example functional documentation:
 #' A right sided triangle of alphabetic letters
 #'
 #' This function takes a number as input and outputs an increasing
-#'     number of alphabetic letters on top of eachother, resembling
+#'     number of alphabetic letters on top of each other, resembling
 #'     a right sided triangle.
 #' @section Warning:
 #' Not tested for numbers over 26!
@@ -249,10 +278,14 @@ trianguletter <- function(x) {
 }
 ```
 
-When you are satisfied with your documentation, build it using `devtools::document()`. This creates the **.Rd** file in **man/** which is parsed by R when you request the functions documentation. Additionally, the first time you build documentation it will make some edits to your **DESCRIPTION** and check on your **NAMESPACE**.
+When you are satisfied with your documentation, build it using `devtools::document()`.
+This creates the **.Rd** file in **man/** which is parsed by R when you request the functions documentation.
+Additionally, the first time you build documentation it will make some edits to your **DESCRIPTION** and check on your **NAMESPACE**.
 
 ::: {.callout-tip}
-You may have gotten a warning message that your NAMESPACE was not generated by roxygen2. This is good behaviour by roxygen2, it doesn't want to change something the user has created a certain way. In this case however, we want the NAMESPACE to be handled by roxygen2, so delete the NAMESPACE file and run `devtools::document()` again to have roxygen2 create it.
+You may have gotten a warning message that your NAMESPACE was not generated by roxygen2.
+This is good behavior by roxygen2, it doesn't want to change something the user has created a certain way.
+In this case however, we want the NAMESPACE to be handled by roxygen2, so delete the NAMESPACE file and run `devtools::document()` again to have roxygen2 create it.
 :::
 
 Go ahead and preview your function as you would any method and make sure that it looks the way you were expecting.
@@ -266,15 +299,19 @@ Go ahead and preview your function as you would any method and make sure that it
 
 #### Data documentation
 
-Data documentation is a bit different from functional documentation. Remember that you do not need to document datasets not intended for users, so don't worry about **sysdata.rda**. What we want to document in this case is the data you created in **man/your_object.rda**, or whichever name you have given it.
+Data documentation is a bit different from functional documentation.
+Remember that you do not need to document datasets not intended for users, so don't worry about **sysdata.rda**.
+What we want to document in this case is the data you created in **man/your_object.rda**, or whichever name you have given it.
 
-The principle is very similar to functional documentation, but not all tags that are applicable to functions are applicable to data, and should not be used. Similarly, there are some tags that are applicable to data, but not to functions. Usually this is the information you would give a dataset:
+The principle is very similar to functional documentation, but not all tags that are applicable to functions are applicable to data, and should not be used.
+Similarly, there are some tags that are applicable to data, but not to functions.
+Usually this is the information you would give a dataset:
 
-* Data documentation
-  + Title
-  + Description
-  + `@format` : what rows and variables are in the data?
-  + `@source` : where is the data from?
+- Data documentation
+  - Title
+  - Description
+  - `@format` : what rows and variables are in the data?
+  - `@source` : where is the data from?
 
 First of all, lets check what the output of requesting help for your dataset is currently.
 
@@ -284,7 +321,9 @@ First of all, lets check what the output of requesting help for your dataset is 
 ```
 
 As expected, it is undocumented.
-Since we cannot add this information to the dataset file, **your_object.rda**, like we did with the functions documentation, lets create an R file in **R/** called **data.R** and add the documentation there. The name we document has to be the same name as the dataset object you created earlier. Go ahead and document your dataset now.
+Since we cannot add this information to the dataset file, **your_object.rda**, like we did with the functions documentation, lets create an R file in **R/** called **data.R** and add the documentation there.
+The name we document has to be the same name as the dataset object you created earlier.
+Go ahead and document your dataset now.
 
 ```{r}
 #| eval: false
@@ -320,23 +359,21 @@ Well done! You have successfully created documentation for a function and a data
 
 Now lets take a look at our **DESCRIPTION** file, at this point it should look similar to this:
 
-```
-Package: newpkg
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
-Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
-Depends: 
-    R (>= 2.10)
-LazyData: true
-```
+    Package: newpkg
+    Title: What the Package Does (One Line, Title Case)
+    Version: 0.0.0.9000
+    Authors@R: 
+        person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
+               comment = c(ORCID = "YOUR-ORCID-ID"))
+    Description: What the package does (one paragraph).
+    License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+        license
+    Encoding: UTF-8
+    Roxygen: list(markdown = TRUE)
+    RoxygenNote: 7.2.0
+    Depends: 
+        R (>= 2.10)
+    LazyData: true
 
 ::: {.callout-note}
 The information can look slightly different depending on how the package was created.
@@ -348,9 +385,9 @@ Update the *Title*, *Author* and *Description* fields.
 
 When it comes to the *License* field, Just in case you don't want to consider which license to give your package, why not choose one of the most common ones that were mentioned during the lecture?
 
-* MIT : Free, but your license must be included in any following work.
-* GPL-3 : Even more free. If someone uses your code, whatever they are doing must also be GPL compatible.
-* CC0 : Totally free.
+- MIT : Free, but your license must be included in any following work.
+- GPL-3 : Even more free. If someone uses your code, whatever they are doing must also be GPL compatible.
+- CC0 : Totally free.
 
 One good way of adding the license is not to just update the **DESCRIPTION**, but to use a function such as `use_mit_license()`. It not only updates your **DESCRIPTION**, but also adds the file **LICENSE** and **LICENSE.md** to your package, with relevant license information.
 
@@ -378,6 +415,7 @@ NULL
 To update the **NAMESPACE** run `devtools::document()`.
 
 Now your **NAMESPACE** should look like this:
+
 ```
 # Generated by roxygen2: do not edit by hand
 
@@ -458,39 +496,38 @@ An alternative way of achieving the behaviour of a correct NAMESPACE is writing 
 
 Now that we have a pretty complete package, lets run some checks on it. You can use the standard `R CMD check pkgname` from your terminal, or you can use `devtools::check()`, which we recommend, as it performs some additional operations such as updating the documentation and bundling the package before checking.
 
-```
-── R CMD check results ───────────────────────────────── newpkg 0.0.0.9000 ────
-Duration: 18.1s
+    ── R CMD check results ───────────────────────────────── newpkg 0.0.0.9000 ────
+    Duration: 18.1s
 
-❯ checking R code for possible problems ... NOTE
-  trianguletter: no visible global function definition for ‘head’
-  trianguletter: no visible binding for global variable ‘iris’
-  Undefined global functions or variables:
-    head iris
-  Consider adding
-    importFrom("datasets", "iris")
-    importFrom("utils", "head")
-  to your NAMESPACE file.
+    ❯ checking R code for possible problems ... NOTE
+      trianguletter: no visible global function definition for ‘head’
+      trianguletter: no visible binding for global variable ‘iris’
+      Undefined global functions or variables:
+        head iris
+      Consider adding
+        importFrom("datasets", "iris")
+        importFrom("utils", "head")
+      to your NAMESPACE file.
 
-0 errors ✔ | 0 warnings ✔ | 1 note ✖
-```
+    0 errors ✔ | 0 warnings ✔ | 1 note ✖
 
 Did you get any **NOTE**s, **ERROR**s or **WARNING**s? I know I did! Among other things it didn't like my usage of the `iris` dataset without specifying it in the NAMESPACE. This one is a bit tricky, but you can try to solve it if you want.
 
 ## Finish line
 
-![](assets/small_package.jpg){width=40%}
+![](assets/small_package.jpg){width="40%"}
 
 Well done! You have built a functional package. Maybe it is even time to update the version number in **DESCRIPTION** and take it out of development?
 
-If you want to know even more about this topic, I recommend Hadley Wickham and Jenny Bryans excellent online resource [http://r-pkgs.had.co.nz/check.html](http://r-pkgs.had.co.nz/check.html).
+If you want to know even more about this topic, I recommend Hadley Wickham and Jenny Bryan's excellent online resource [http://r-pkgs.had.co.nz/check.html](http://r-pkgs.had.co.nz/check.html).
 
 The next sections are optional and cover vignettes, testing,  including C++ code in your package using `Rcpp` and pushing your R package to github and setting up github actions for it.
 
 ## Vignette
 
 Vignettes are long-form documentation for your package. Like a manual detailing what the purpose of your package and its functions are.
-To initialise your vignette, you can use the command:
+
+To initialize your vignette, you can use the command:
 
 ```
 usethis::use_vignette("packagename_vignette")
@@ -511,55 +548,54 @@ To preview your vignette while working on it, press the *knit* button in Rstudio
 
 Example **vignette.Rmd**:
 
-```{r}
-#| eval: false
-        ---
-        title: "How to write more and more letters, in a triangle"
-        author: "Sebastian DiLorenzo"
-        date: "`r Sys.Date()`"
-        output: rmarkdown::html_vignette
-        vignette: >
-          %\VignetteIndexEntry{How to write more and more letters, in a triangle}
-          %\VignetteEngine{knitr::rmarkdown}
-          %\VignetteEncoding{UTF-8}
-        ---
-        
-        ```{r setup, include = FALSE}
-        knitr::opts_chunk$set(
-          collapse = TRUE,
-          comment = "#>"
-        )
+````
+---
+title: "How to write more and more letters, in a triangle"
+author: "Sebastian DiLorenzo"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How to write more and more letters, in a triangle}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
-        # replace this with your package name
-        library(newpkg)
-        ```
-        
-        # The greatest package for a very specific purpose
+```{{r setup, include=FALSE}}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
 
-        If you thought that it was impossible to write letters
-        alphabetically from top to bottom with each number represented
-        the same number of times asits position in the alphabet
-         - think again!
-
-        This package and its sole function, trianguletter, solves just this problem!
-
-        But you do not have to take my word for it, see for yourself:
-        ```{r,echo=T}
-        # With just a simple number we specify how long into the alphabet we go.
-        trianguletter(10)
-
-        # Also, this package has this random dataset:
-        your_object
-        ```
-
-        # Future plans
-
-        We plan do add features so that you can give it
-        a letter, rather than a number, and output a
-        bunch of numbers instead!
-
+# replace this with your package name
+library(newpkg)
 ```
 
+# The greatest package for a very specific purpose
+
+If you thought that it was impossible to write letters
+alphabetically from top to bottom with each number represented
+the same number of times asits position in the alphabet
+  - think again!
+
+This package and its sole function, trianguletter, solves just this problem!
+
+But you do not have to take my word for it, see for yourself:
+
+```{{r}}
+# With just a simple number we specify how long into the alphabet we go.
+trianguletter(10)
+
+# Also, this package has this random dataset:
+your_object
+```
+
+# Future plans
+
+We plan to add features so that you can give it
+a letter, rather than a number, and output a
+bunch of numbers instead!
+
+````
 <!-- > Note: Because I am writing this in rmarkdown I added backslashes before the code or it would not render properly for this exercise instruction. In your rmarkdown there should **not** be backslashes before code chunks.  See the \\``` in the vignette code. -->
 
 And the beautiful rendered version:
@@ -576,7 +612,8 @@ Testing is a powerful way to add tests to your package. They can for example mak
 
 To add tests to your package you can use
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 usethis::use_testthat()
 ```
 
@@ -615,6 +652,7 @@ test_that("given a 9 the output is 3", {
 ```
 
 You can run the test by using the command
+
 ```
 devtools::test()
 ```
@@ -740,7 +778,7 @@ Check that you can install your package directly from the github repository usin
 Github actions are only free for public repositories. Do not create a private repository, for example under your organisation, for this exercise!
 :::
 
-Let's set up our R package so that it will test if it passes R CMD CHECK on three major operating systems. 
+Let's set up our R package so that it will test if it passes R CMD CHECK on three major operating systems.
 
 The first thing you will need to do is make sure your github account can use actions/workflows. If you are using a personal access token go to *(user, not repo) Settings>Developer settings>Personal access tokens* on your github account and make sure you have selected a *Scope* called *workflow*. 
 

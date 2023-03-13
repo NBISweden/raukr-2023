@@ -52,7 +52,7 @@ y <- c(0, 0, 1, 1)
 y
 ```
 
-Now, let us define a sequential Keras model of the ANN corresponding to the scheme above and print the summary of the model. Here, we are going to use Sigmoid activation function on the output node because we have a binary classification problem. 
+Now, let us define a sequential Keras model of the ANN corresponding to the scheme above and print the summary of the model. Here, we are going to use Sigmoid activation function on the output node because we have a binary classification problem.
 
 ```{r}
 library(keras)
@@ -91,7 +91,7 @@ model %>% predict(X) %>% `>`(0.5) %>% k_cast("int32")
 
 It looks like the Keras model successfully can assign correct labels to the four data points.
 
-## Coding ANN from scratch in R  
+## Coding ANN from scratch in R
 
 Now we are going to implement the same ANN architecture from scratch in R. This will allow us to better understand the concepts like learning rate, gradient descent as well as to get an intuition of forward- and back-propagation. First of all, let us denote the sigmoid activation function on the output node as
 

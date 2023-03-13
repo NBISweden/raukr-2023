@@ -216,7 +216,7 @@ background-size: cover;
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">11-Mar-2023</p>
+        <p class="date">13-Mar-2023</p>
       </div>
     </div>
     
@@ -282,7 +282,7 @@ background-size: cover;
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../slides/parallelisation/index.html" class="sidebar-item-text sidebar-link">Parallelisation in R</a>
+  <a href="../../slides/parallelization/index.html" class="sidebar-item-text sidebar-link">Parallelization in R</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -372,17 +372,12 @@ background-size: cover;
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../labs/parallelisation/index.html" class="sidebar-item-text sidebar-link">Parallelisation</a>
+  <a href="../../labs/parallelization/index.html" class="sidebar-item-text sidebar-link">Parallelization</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../labs/ggplot/index.html" class="sidebar-item-text sidebar-link active">Plotting with ggplot2</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../labs/publishing/index.html" class="sidebar-item-text sidebar-link">Publishing</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -486,7 +481,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>These are a series of excercises to help you get started and familiarise yourself with ggplot2 syntax, plot building logic and fine modification of plots. Practice using the <em>Basics</em> section and then move on to slightly more complex plots: a scatterplot and a heatmap.</p>
+<p>These are a series of exercises to help you get started and familiarize yourself with ggplot2 syntax, plot building logic and fine modification of plots. Practice using the <em>Basics</em> section and then move on to slightly more complex plots: a scatterplot and a heatmap.</p>
 </div>
 </div>
 <p><br></p>
@@ -584,7 +579,7 @@ Note
 </div>
 <section id="building-a-plot" class="level3" data-number="1.1">
 <h3 data-number="1.1" class="anchored" data-anchor-id="building-a-plot"><span class="header-section-number">1.1</span> Building a plot</h3>
-<p>ggplot2 plots are initialised by specifying the dataset. This can be saved to a variable or it draws a blank plot.</p>
+<p>ggplot2 plots are initialized by specifying the dataset. This can be saved to a variable or it draws a blank plot.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1271,7 +1266,7 @@ Tip
 <section id="custom-font" class="level3" data-number="2.5">
 <h3 data-number="2.5" class="anchored" data-anchor-id="custom-font"><span class="header-section-number">2.5</span> Custom Font</h3>
 <p>Custom font can be used for the labels by providing the font name to argument <code>family</code> like so <code>geom_text(family="fontname")</code>. If you do not want to bother with fonts, just avoid the <code>family</code> argument in <code>geom_text</code> and skip this part.</p>
-<p>Using custom fonts can be tricky business. To use a font name, it must be installed on your system and it should be imported into the R environment. This can be done using the <code>extrafont</code> package. Try importing one of the fonts available on your system. Not all fonts work. <code>extrafont</code> prefers ‘.ttf’ fonts. If a font doesn’t work, try another.</p>
+<p>Using custom fonts can be tricky business. To use a font name, it must be installed on your system and it should be imported into the R environment. This can be done using the <code>extrafont</code> package. Try importing one of the fonts available on your system. Not all fonts work. <code>extrafont</code> prefers <strong>.ttf</strong> fonts. If a font doesn’t work, try another.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(extrafont)</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">font_import</span>(<span class="at">pattern=</span><span class="st">"Gidole"</span>,<span class="at">prompt=</span><span class="cn">FALSE</span>)</span>
@@ -1392,7 +1387,7 @@ Tip
 <ul>
 <li>Turn off minor gridlines</li>
 <li>Turn off major gridlines on x-axis</li>
-<li>Remove the grey background</li>
+<li>Remove the gray background</li>
 <li>Remove panel border</li>
 <li>Remove legend titles</li>
 <li>Make axes titles italic</li>
@@ -1426,7 +1421,7 @@ Tip
 <p><a href="assets/economist-scatterplot.png" class="lightbox" data-gallery="quarto-lightbox-gallery-42"><img src="assets/economist-scatterplot.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
-<p>The full script for this challenge is summarised here:</p>
+<p>The full script for this challenge is summarized here:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read data</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>ec <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"assets/data_economist.csv"</span>,<span class="at">header=</span>T)</span>
@@ -1476,7 +1471,7 @@ Tip
 </section>
 <section id="wsj-heatmap" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="wsj-heatmap"><span class="header-section-number">3</span> WSJ Heatmap</h2>
-<p>The aim of this challenge is to recreate the plot below originally published in <a href="http://graphics.wsj.com/infectious-diseases-and-vaccines/">The Wall Street Journal</a>. The plot is a heatmap showing the normalised number of cases of measles across 51 US states from 1928 to 2003. X-axis shows years and y-axis shows the names of states. The color of the tiles denote the number of measles cases per 100,000 people. Introduction of the measles vaccine is shown as the black line in 1963.</p>
+<p>The aim of this challenge is to recreate the plot below originally published in <a href="http://graphics.wsj.com/infectious-diseases-and-vaccines/">The Wall Street Journal</a>. The plot is a heatmap showing the normalized number of cases of measles across 51 US states from 1928 to 2003. X-axis shows years and y-axis shows the names of states. The color of the tiles denote the number of measles cases per 100,000 people. Introduction of the measles vaccine is shown as the black line in 1963.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
 <p><a href="assets/wsj-heatmap.png" class="lightbox" data-gallery="quarto-lightbox-gallery-43"><img src="assets/wsj-heatmap.png" class="img-fluid figure-img"></a></p>
@@ -2326,7 +2321,7 @@ Tip
 </section>
 <section id="scales" class="level3" data-number="3.4">
 <h3 data-number="3.4" class="anchored" data-anchor-id="scales"><span class="header-section-number">3.4</span> Scales</h3>
-<p>The extra space on left and right (grey) of the plot is removed using argument <code>expand</code> in <code>scales</code>. X-axis breaks are redefined at 10 year intervals from 1930 to 2010. Custom colors are used for the tiles: <code>"#e7f0fa","#c9e2f6","#95cbee","#0099dc","#4ab04a", "#ffd73e","#eec73a","#e29421","#f05336","#ce472e"</code>. Since the color scale is a fill color on a continuous value and we want to supply n new colors, we use <code>scale_fill_gradientn</code>. Tiles with missing value is set to the color <code>"grey90"</code>.</p>
+<p>The extra space on left and right (gray) of the plot is removed using argument <code>expand</code> in <code>scales</code>. X-axis breaks are redefined at 10 year intervals from 1930 to 2010. Custom colors are used for the tiles: <code>"#e7f0fa","#c9e2f6","#95cbee","#0099dc","#4ab04a", "#ffd73e","#eec73a","#e29421","#f05336","#ce472e"</code>. Since the color scale is a fill color on a continuous value and we want to supply n new colors, we use <code>scale_fill_gradientn</code>. Tiles with missing value is set to the color <code>"grey90"</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#e7f0fa"</span>,<span class="st">"#c9e2f6"</span>,<span class="st">"#95cbee"</span>,<span class="st">"#0099dc"</span>,<span class="st">"#4ab04a"</span>, <span class="st">"#ffd73e"</span>,<span class="st">"#eec73a"</span>,<span class="st">"#e29421"</span>,<span class="st">"#f05336"</span>,<span class="st">"#ce472e"</span>)</span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -2644,7 +2639,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-right">Published with <a href="https://quarto.org/">Quarto</a> v1.2.335</div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","closeEffect":"zoom","openEffect":"zoom","descPosition":"bottom","loop":true});</script>
+<script>var lightboxQuarto = GLightbox({"loop":true,"selector":".lightbox","openEffect":"zoom","descPosition":"bottom","closeEffect":"zoom"});</script>
 
 
 

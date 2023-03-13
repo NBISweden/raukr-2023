@@ -214,7 +214,7 @@ background-size: cover;
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">11-Mar-2023</p>
+        <p class="date">13-Mar-2023</p>
       </div>
     </div>
     
@@ -280,7 +280,7 @@ background-size: cover;
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../slides/parallelisation/index.html" class="sidebar-item-text sidebar-link">Parallelisation in R</a>
+  <a href="../../slides/parallelization/index.html" class="sidebar-item-text sidebar-link">Parallelization in R</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -370,17 +370,12 @@ background-size: cover;
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../labs/parallelisation/index.html" class="sidebar-item-text sidebar-link">Parallelisation</a>
+  <a href="../../labs/parallelization/index.html" class="sidebar-item-text sidebar-link">Parallelization</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../labs/ggplot/index.html" class="sidebar-item-text sidebar-link">Plotting with ggplot2</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../labs/publishing/index.html" class="sidebar-item-text sidebar-link">Publishing</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -501,7 +496,7 @@ for(haystack in (2-1):col.NUM){
 if(haystack&gt;=myIterAtoR.max){
 fwzy45[haystack, needle]&lt;-NA}
 }}</code></pre>
-<div class="cell" data-answer="true">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>iter_max <span class="ot">&lt;-</span> <span class="dv">5</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>col_num <span class="ot">&lt;-</span> <span class="dv">10</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>row_num <span class="ot">&lt;-</span> <span class="dv">10</span></span>
@@ -530,7 +525,7 @@ fwzy45[haystack, needle]&lt;-NA}
   tmp &lt;- sample( c('AA','AB','BB'), size =N, prob=f_gt, replace=T )
   return(tmp)
 }</code></pre>
-<div class="cell" data-answer="true">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>simulate_genotype <span class="ot">&lt;-</span> <span class="cf">function</span>(q, <span class="at">N =</span> <span class="dv">100</span>) {</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(q) <span class="sc">==</span> <span class="dv">1</span>) {</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> q)</span>
@@ -548,7 +543,7 @@ fwzy45[haystack, needle]&lt;-NA}
 <section id="task-hidden-variable." class="level3" data-number="1.4">
 <h3 data-number="1.4" class="anchored" data-anchor-id="task-hidden-variable."><span class="header-section-number">1.4</span> Task: Hidden Variable.</h3>
 <p>Assign a vector of three last months (abbreviated in English) in a year to a hidden variable <code>my_months</code>.</p>
-<div class="cell" data-answer="true">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>.my_months <span class="ot">&lt;-</span> <span class="fu">rev</span>(<span class="fu">rev</span>(month.abb)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -561,7 +556,7 @@ fwzy45[haystack, needle]&lt;-NA}
   return(data)
 }</code></pre>
 <p><strong>Note</strong> you need to have the <code>magrittr</code> or <code>tidyverse</code> package loaded in order to be able to use the pipe <code>%&gt;%</code>!</p>
-<div class="cell" data-answer="true">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>my_filter <span class="ot">&lt;-</span> <span class="cf">function</span>(data, <span class="at">threshold =</span> <span class="dv">1</span>, <span class="at">scalar =</span> <span class="dv">5</span>) {</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  data[data <span class="sc">&gt;=</span> threshold] <span class="ot">&lt;-</span> <span class="cn">NA</span> </span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">*</span> scalar</span>
@@ -587,7 +582,7 @@ fwzy45[haystack, needle]&lt;-NA}
   dat &lt;- data.frame(gt = gtype, raw_pheno = pheno, effect = effect, pheno = pheno + effect)
   return(dat)
 }</code></pre>
-<div class="cell" data-answer="true">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Maybe some small improvements can be done, but <span class="cf">in</span> principle the code is clean<span class="sc">!</span> Except that... the N is not initialized anywhere.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -610,7 +605,7 @@ Tip
 <p>Consider that you may want to re-use some computed values in future, e.g.&nbsp;variance.</p>
 </div>
 </div>
-<div class="cell" data-answer="true">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sample_mean <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(x) <span class="sc">/</span> <span class="fu">length</span>(x)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>} </span>
@@ -648,7 +643,7 @@ randomSampleLetter &lt;- function(N, silent=T, lett) {
   sample &lt;- sample(x = lett, size = N, replace = TRUE)
   return(sample)
 }</code></pre>
-<div class="cell" data-answer="true">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>randomSampleLetterWrapper <span class="ot">&lt;-</span> <span class="cf">function</span>(x, verbose, length, <span class="at">seed =</span> <span class="dv">42</span>) {</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(seed)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">randomSampleLetter</span>(<span class="at">N =</span> length, <span class="at">silent =</span> <span class="sc">!</span>verbose, <span class="at">lett =</span> x)</span>
@@ -657,7 +652,7 @@ randomSampleLetter &lt;- function(N, silent=T, lett) {
 </section>
 <section id="task-customizing-plot." class="level3" data-number="2.3">
 <h3 data-number="2.3" class="anchored" data-anchor-id="task-customizing-plot."><span class="header-section-number">2.3</span> Task: Customizing <code>plot</code>.</h3>
-<p>Write a wrapper around the <code>graphics::plot</code> function that modifies its default behaviour so that it plots red crosses instead of black points. Do it in a way that enables the user to modify other function arguments.</p>
+<p>Write a wrapper around the <code>graphics::plot</code> function that modifies its default behavior so that it plots red crosses instead of black points. Do it in a way that enables the user to modify other function arguments.</p>
 <div class="callout-tip callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -671,7 +666,7 @@ Tip
 <p>You may want to have a look at <code>graphics::plot.default</code>.</p>
 </div>
 </div>
-<div class="cell" data-answer="true">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>my_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(x, ...) {</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(x, <span class="at">pch =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">'red'</span>, ...) </span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -697,7 +692,7 @@ Tip
 <pre><code>red_plot &lt;- function(x, y) { 
   plot(x, y, las=1, cex.axis=.8, ...)
 }</code></pre>
-<div class="cell" data-answer="true">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>red_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) { </span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(x, y, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">cex.axis =</span> .<span class="dv">8</span>, ...)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>}</span>
@@ -723,7 +718,7 @@ Tip
 <p>Check what options are stored in the <strong>hidden</strong> variable called <em>Options</em>.</p>
 </div>
 </div>
-<div class="cell" data-answer="true">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">prompt =</span> <span class="st">"hello :-) &gt; "</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>.Options</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">prompt =</span> <span class="st">"&gt; "</span>) <span class="co"># restoring the default</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

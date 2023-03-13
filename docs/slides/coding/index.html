@@ -404,7 +404,7 @@ Marcin Kierczak
 </div>
 </div>
 
-  <p class="date">11-Mar-2023</p>
+  <p class="date">13-Mar-2023</p>
 </section>
 
 <section id="learning-outcomes" class="slide level2">
@@ -439,19 +439,19 @@ Marcin Kierczak
 <h2>Topics of This Presentation</h2>
 <p><br></p>
 <ul>
-<li><p><strong>Style</strong> — __howTo_style.yourCode?</p></li>
+<li><p><strong>Style</strong> — _howTo_style.yourCode?</p></li>
 <li><p><strong>Structure</strong> — how to think 🤔 about the code and manufacture your own building 🚧 blocks</p></li>
 </ul>
 <div class="fragment">
 <ul>
-<li><p><strong>Debugging</strong> — my code does not run 😭</p></li>
+<li><p><strong>Debugging</strong> — my code does not run 😞</p></li>
 <li><p><strong>Profiling</strong> — now it does run but… out of memory 💣</p></li>
-<li><p><strong>Optimization</strong> — making things better 👷‍♂️</p></li>
+<li><p><strong>Optimization</strong> — making things better 👨‍🏭</p></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li><p><strong>Vectorization</strong> — more details on optimization via vectorization 🔛</p></li>
+<li><p><strong>Vectorization</strong> — more details on optimization via vectorization 🔝</p></li>
 <li><p><strong>Parallelization</strong> — run things in parallel, rule them all! 💍</p></li>
 </ul>
 </div>
@@ -480,8 +480,8 @@ Marcin Kierczak
 <ul>
 <li><p>Consists of:</p>
 <ul>
-<li>letters: <code>abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</code></li>
-<li>digits: <code>0123456789</code></li>
+<li>letters: abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</li>
+<li>digits: 0123456789</li>
 <li>period: <code>.</code></li>
 <li>underscore: <code>_</code></li>
 </ul></li>
@@ -492,7 +492,7 @@ Marcin Kierczak
 </section>
 <section id="naming-style" class="slide level2">
 <h2>Naming Style</h2>
-<p>Variable names that are legal are not necessarily a good style and they may be dangerous ☠️:</p>
+<p>Variable names that are legal are not necessarily a good style and they may be dangerous 💀:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>F</span>
 <span id="cb1-2"><a href="#cb1-2"></a>T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -554,8 +554,12 @@ Marcin Kierczak
 <p>People use different notation styles throughout their code:</p>
 <div class="fragment">
 <ul>
-<li><p><code>snake_notation_looks_like_this</code> . . .</p></li>
-<li><p><code>camelNotationLooksLikeThis</code></p></li>
+<li><code>snake_notation_looks_like_this</code></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><code>camelNotationLooksLikeThis</code></li>
 </ul>
 </div>
 <div class="fragment">
@@ -575,7 +579,10 @@ Marcin Kierczak
 <p>Try to be consistent and stick to one of them. Bear in mind <code>period.notation</code> is used by S3 classes to create generic functions, e.g.&nbsp;<code>plot.my.object</code>. A good-enough reason to avoid it?</p>
 </div>
 <div class="fragment">
-<p>It is also important to maintain code readability by having your variable names: - informative, e.g.&nbsp;<code>genotypes</code> vs.&nbsp;<code>fsjht45jkhsdf4</code></p>
+<p>It is also important to maintain code readability by having your variable names:</p>
+<ul>
+<li>informative, e.g.&nbsp;<code>genotypes</code> vs.&nbsp;<code>fsjht45jkhsdf4</code></li>
+</ul>
 </div>
 <div class="fragment">
 <ul>
@@ -599,11 +606,11 @@ Marcin Kierczak
 <ul>
 <li><p>There are built-in variable names:</p>
 <ul>
-<li><p><code>LETTERS</code>: the 26 upper-case letters of the Roman alphabet</p></li>
-<li><p><code>letters</code>: the 26 lower-case letters of the Roman alphabet</p></li>
-<li><p><code>month.abb</code>: the three-letter abbreviations for the English month names</p></li>
-<li><p><code>month.name</code>: the English names for the months of the year</p></li>
-<li><p><code>pi</code>: the ratio of the circumference of a circle to its diameter</p></li>
+<li><code>LETTERS</code>: the 26 upper-case letters of the Roman alphabet</li>
+<li><code>letters</code>: the 26 lower-case letters of the Roman alphabet</li>
+<li><code>month.abb</code>: the three-letter abbreviations for the English month names</li>
+<li><code>month.name</code>: the English names for the months of the year</li>
+<li><code>pi</code>: the ratio of the circumference of a circle to its diameter</li>
 </ul></li>
 <li><p>Variable names beginning with period are <strong>hidden</strong>: <code>.my_secret_variable</code> 👻 will not be shown but can be accessed</p></li>
 </ul>
@@ -630,7 +637,8 @@ Marcin Kierczak
 <h2>Structure Your Code</h2>
 <p>Decompose the problem 🧩 🧩!</p>
 <p><span class="center"><img data-src="assets/Philip-ii-of-macedon.jpg" height="200"> <img data-src="assets/Julius_Ceasar.jpg" height="200"> <img data-src="assets/Napoleon_Bonaparte.jpg" height="200"><br>
-<span class="smaller">source: Wikimedia Commons</span></span></p>
+<span class="smaller">source: Wikimedia Commons</span><br>
+</span></p>
 <div class="fragment">
 <ul>
 <li><p><em>divide et impera</em> / top-down approach — split your BIG problem into a number of small sub-problems recursively and, <strong>at some level</strong>, encapsulate your code in functional blocks (functions)</p></li>
@@ -649,7 +657,7 @@ Marcin Kierczak
 <ul>
 <li>avoid accessing and modifying globals
 <ul>
-<li>avoid 🙉 <code>a &lt;&lt;- 42</code></li>
+<li>avoid 🚳 <code>a &lt;&lt;- 42</code></li>
 <li>and 🆗 use a closure instead</li>
 </ul></li>
 </ul>
@@ -684,7 +692,7 @@ Marcin Kierczak
 <li>use <strong>data</strong> as the <strong>very first</strong> argument for <code>%&gt;%</code> pipes sake:
 <ul>
 <li><code>myfun &lt;- function(x, arg)</code> 🆗</li>
-<li><code>myfun &lt;- function(arg, x)</code> 🙅‍♀️</li>
+<li><code>myfun &lt;- function(arg, x)</code> 🙅</li>
 </ul></li>
 </ul>
 <div class="fragment">
@@ -692,7 +700,7 @@ Marcin Kierczak
 <li>set arguments to defaults — better too many args than too few:
 <ul>
 <li><code>myfun &lt;- function(x, seed = 42)</code> 🆗</li>
-<li><code>myfun &lt;- function(x, ...)</code> 🙉</li>
+<li><code>myfun &lt;- function(x, ...)</code> ⛔</li>
 </ul></li>
 </ul>
 </div>
@@ -703,9 +711,9 @@ Marcin Kierczak
 </div>
 <div class="fragment">
 <ul>
-<li>if you are re-using functions wtitten by someone else — write a wrapper function around them</li>
+<li>if you are re-using functions written by someone else — write a wrapper function around them</li>
 </ul>
-<div class="cell" data-bty="n">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>my_awesome_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(...) {</span>
 <span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">plot</span>(..., <span class="at">col=</span><span class="st">'red'</span>, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">cex.axis=</span>.<span class="dv">7</span>, <span class="at">las=</span><span class="dv">1</span>)</span>
 <span id="cb13-3"><a href="#cb13-3"></a>}</span>

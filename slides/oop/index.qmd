@@ -64,7 +64,7 @@ library(ggplot2)
 
 S4 classes are more advanced as you actually define the structure of the data within the object of your particular class:
 
-```{r S4, echo=T}
+```{r S4}
 setClass('gene', 
          representation(name='character', 
                         coords='numeric')

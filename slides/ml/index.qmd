@@ -29,12 +29,10 @@ library("spatstat")
 
 :::: {.columns}
 ::: {.column width="40%"}
-
 ![](assets/DarkMagic.jpg)
-
 :::
-::: {.column width="60%"}
 
+::: {.column width="60%"}
 **This is how data looks like in high dimensions:**
 
 ![](assets/ndim_ball.jpg)
@@ -75,6 +73,7 @@ for(i in 1:length(p)) {
 ```
 
 :::
+
 ::: {.column width="30%"}
 
 ```{r Hist_Plot}
@@ -116,6 +115,7 @@ for(p in num_dim) {
 ```
 
 :::
+
 ::: {.column width="30%"}
 
 ```{r Neighbors Plot}
@@ -170,6 +170,7 @@ Y <- rnorm(n); X <- matrix(rnorm(n*p),n,p); summary(lm(Y~X))
 - Genomics, epigenomics: 30 000 000
 
 :::
+
 ::: {.column width="60%"}
 
 ![](assets/DataLifeSciences.jpg)
@@ -179,10 +180,10 @@ Y <- rnorm(n); X <- matrix(rnorm(n*p),n,p); summary(lm(Y~X))
 
 ## Ways to Overcome The Curse of Dimensionality
 
-* Increasing sample size - often cannot afford
-* Dimensionality reduction - PCA, UMAP etc.
-* Regularizations - LASSO, Ridge, Elastic Net, Dropout etc.
-* Bayesian statistics - Prior plays a role of Regularization
+- Increasing sample size - often cannot afford
+- Dimensionality reduction - PCA, UMAP etc.
+- Regularizations - LASSO, Ridge, Elastic Net, Dropout etc.
+- Bayesian statistics - Prior plays a role of Regularization
 
 ![](assets/Overcome_CD.jpg)
 
@@ -237,7 +238,7 @@ $$-\log{P(\, \beta_1,\beta_2 \,|\, \rm{Y}\,)} \sim (Y-\beta_1X_1-\beta_2X_2)^2 +
 A few peculiarities of data analysis that are typical for Machine Learning:
 
 - Very focused on **prediction** instead of biomarker discovery
-- Focus on **cross-validation** and regularizations
+- Focus on **cross-validation** and regularization
 - More **algorithmic** and less "pen-and-paper" derivations
 - More **Python** speaking than R speaking community
 
@@ -428,5 +429,4 @@ summary(lm(predict(lm(y~x+PC1+PC2,data=train),newdata=test)~test$y))
 R.version[c("platform","os","major","minor")]
 ```
 
-[Graphics from [freepik](https://www.freepik.com), [Pexels](https://www.pexels.com)]{.small}  
 [2023 • [SciLifeLab](https://www.scilifelab.se/) • [NBIS](https://nbis.se/) • [RaukR](https://nbisweden.github.io/workshop-RaukR-2306/)]{.smaller}

@@ -39,6 +39,7 @@ format: revealjs
   - Interactive (ObservableJS, Shiny)
 
 :::
+
 ::: {.column width="30"}
 
 - Features and components
@@ -86,8 +87,7 @@ Human readable markup
 
 :::: {.columns}
 ::: {.column width="25%"}
-
-```
+```         
 ### Heading 3
 
 #### Heading 4
@@ -101,14 +101,12 @@ Human readable markup
 2~10~  
 $2^{10}$  
 $2_{10}$  
-
 ```
-
 :::
 
 ::: {.column width="25%"}
-
 ### Heading 3
+
 #### Heading 4
 
 *italic text*  
@@ -118,13 +116,11 @@ $2_{10}$
 2<sup>10</sup>  
 2<sub>10</sub>  
 $2^{10}$  
-$2_{10}$  
-
+$2_{10}$
 :::
 
 ::: {.column width="30%"}
-
-```
+```         
 $\sum\limits_{n=1}^{10} \frac{3}{2}\cdot n$
 
 - bullet point
@@ -135,12 +131,9 @@ Link to [this](somewhere.com)
 
 ![](https://www.r-project.org/Rlogo.png){width="50%"}
 ```
-
 :::
 
 ::: {.column width="20%"}
-
-
 $\sum\limits_{n=1}^{10} \frac{3}{2}\cdot n$
 
 - bullet point
@@ -150,7 +143,6 @@ Link to [this](somewhere.com)
 ![](https://www.r-project.org/Rlogo.png)
 
 ![](https://www.r-project.org/Rlogo.png){width="20%"}
-
 :::
 ::::
 
@@ -174,15 +166,13 @@ Link to [this](somewhere.com)
 - R code can be executed inline
 
 Today's date is `` `r "\u0060r date()\u0060"` ``    
-Today's date is `r date()`  
+Today's date is `r date()`
 
 - R code can be executed in code chunks as shown below
 
-````
-```{{r}}
+```{{{r}}}
 date()
 ```
-````
 
 - By default shows input source code and output results.
 
@@ -209,11 +199,9 @@ date()
   - `message: false` hides messages
   - `error: true` shows error message and continues code execution
   - `include: false` supresses all output
-
 - Other chunk options include figure options and captions
 
 ::: {.aside}
-
 [Chunk option documentation](https://quarto.org/docs/computations/execution-options.html)
 :::
 
@@ -225,14 +213,11 @@ date()
 
 :::: {.columns}
 ::: {.column width="50%"}
-
 ![](assets/rstudio-preview.png)
-
 :::
+
 ::: {.column width="50%"}
-
 ![](assets/vscode-preview.png)
-
 :::
 ::::
 
@@ -243,7 +228,7 @@ date()
 
 - Add YAML matter to top
 
-```
+```         
 ---
 title: "This is a title"
 format: html
@@ -263,7 +248,7 @@ R Notebook demonstration.
 
 ## YAML
 
-```
+```         
 title: Report
 subtitle: Topic
 date: today
@@ -286,10 +271,11 @@ execute:
 
 ::: {.aside}
 [HTML YAML documentation](https://quarto.org/docs/reference/formats/html.html)  
-[PDF YAML documentation](https://quarto.org/docs/reference/formats/pdf.html)  
+[PDF YAML documentation](https://quarto.org/docs/reference/formats/pdf.html)
 :::
 
 ## PDF
+
 ## RevealJS
 
 ## parameterised reports
@@ -304,7 +290,7 @@ execute:
 - Examples of project: **website**, **book**
 - Defined in `_quarto.yml`
 
-```
+```         
 project:
   output-dir: _output
 
@@ -318,14 +304,13 @@ format:
     documentclass: report
     margin-left: 30mm
 ```
-
 :::
 
 ::: {.column width="50%"}
 
 - Directory level metadata is also allowed
 
-```
+```         
 project:
   type: website
   
@@ -344,12 +329,11 @@ metadata-files:
 [Project documentation](https://quarto.org/docs/projects/quarto-projects.html)
 :::
 
-
-
 ## Interactive documents
+
 ## Quarto from the terminal
 
-```
+```         
 🢒  quarto --help
 
   Commands:
@@ -370,6 +354,7 @@ metadata-files:
 ```
 
 ## Extending Quarto
+
 ## Compared to Rmd
 
 - Quarto is a command-line tool independent of R

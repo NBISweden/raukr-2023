@@ -5,9 +5,10 @@ image: "assets/featured.jpg"
 format: revealjs
 ---
 
-## {visibility="hidden"}
+##  {visibility="hidden"}
 
-```{r,echo=FALSE}
+```{r}
+#| echo: false
 # remotes::install_github("hadley/emo")
 library(emo)
 ```
@@ -40,7 +41,7 @@ After this module:
 
 <br>
 
-- **Style** &mdash; __howTo_style.yourCode?
+- **Style** &mdash; _howTo_style.yourCode?
 
 - **Structure** &mdash; how to think `r emo::ji('thinking')` about the code and manufacture your own building `r emo::ji('construction')` blocks
 
@@ -62,15 +63,14 @@ After this module:
 
 :::: {.columns}
 ::: {.column width="50%"}
+- Naming conventions --- assigning names to variables
 
-- Naming conventions &mdash; assigning names to variables 
-
-- Code formatting &mdash; placement of braces, use of white space characters etc.
-
+- Code formatting --- placement of braces, use of white space characters etc.
 :::
+
 ::: {.column width="50%"}
 
-![[From: [Behind The Lines](http://geekandpoke.typepad.com/geekandpoke/2010/09/behind-the-lines.html) 2010-09-23. By Oliver Widder, Webcomics Geek And Poke.]{.smaller}](assets/coding_style.jpg){height="600px" .left}
+![[From: [Behind The Lines](http://geekandpoke.typepad.com/geekandpoke/2010/09/behind-the-lines.html) 2010-09-23. By Oliver Widder, Webcomics Geek And Poke.]{.smaller}](assets/coding_style.jpg){.left height="600px"}
 :::
 ::::
 
@@ -79,8 +79,8 @@ After this module:
 A syntactically valid name:
 
 - Consists of:
-  - letters: ``r paste0(paste0(letters, collapse=''), paste0(LETTERS, collapse=''))``
-  - digits: ``r paste(0:9, collapse='')``
+  - letters: `r paste0(paste0(letters, collapse=''), paste0(LETTERS, collapse=''))`
+  - digits: `r paste(0:9, collapse='')`
   - period: `.`
   - underscore: `_`
 
@@ -94,21 +94,22 @@ A syntactically valid name:
 
 Variable names that are legal are not necessarily a good style and they may be dangerous `r emo::ji('danger')`:
 
-```{r logical_values, echo=TRUE}
+```{r logical_values}
 F
 T
 ```
 
-```{r the_TF_trap, echo=TRUE}
+```{r the_TF_trap}
 F + T  
 ```
 
-```{r the_TF_trap_cted, echo=TRUE}
+```{r the_TF_trap_cted}
 F <- 3  
 F + T  
 ```
 
-```{r reset_false, include=FALSE}
+```{r reset_false}
+#| include: false
 T <- TRUE
 F <- FALSE
 ```
@@ -142,6 +143,7 @@ Also, there is a number of variable names that are traditionally used to name pa
 - `tmp` &mdash; temporary variables
 
 :::
+
 ::: {.column}
 
 Sometimes these are domain-specific:
@@ -152,7 +154,7 @@ Sometimes these are domain-specific:
 [Try to avoid using these in this way to avoid possible confusion.]{.large}
 
 :::
-::::
+:::
 
 ## Different Notations
 
@@ -161,6 +163,7 @@ People use different notation styles throughout their code:
 . . .
 
 - `snake_notation_looks_like_this`
+
 . . .
 
 - `camelNotationLooksLikeThis`
@@ -184,6 +187,7 @@ Try to be consistent and stick to one of them. Bear in mind `period.notation` is
 . . .
 
 It is also important to maintain code readability by having your variable names:
+
 - informative, e.g. `genotypes` vs. `fsjht45jkhsdf4`
 
 . . .
@@ -202,21 +206,17 @@ It is also important to maintain code readability by having your variable names:
 
 Few more things to consider:
 
-- There are built-in variable names: 
+- There are built-in variable names:
 
-  + `LETTERS`: the 26 upper-case letters of the Roman alphabet
-
-  + `letters`: the 26 lower-case letters of the Roman alphabet
-
-  + `month.abb`: the three-letter abbreviations for the English month names
-
-  + `month.name`: the English names for the months of the year
-
-  + `pi`: the ratio of the circumference of a circle to its diameter
+  - `LETTERS`: the 26 upper-case letters of the Roman alphabet
+  - `letters`: the 26 lower-case letters of the Roman alphabet
+  - `month.abb`: the three-letter abbreviations for the English month names
+  - `month.name`: the English names for the months of the year
+  - `pi`: the ratio of the circumference of a circle to its diameter
 
 - Variable names beginning with period are **hidden**: `.my_secret_variable` `r emo::ji('ghost')` will not be shown but can be accessed
 
-```{r hidden_vars, echo=TRUE}
+```{r hidden_vars}
 .the_hidden_answer <- 42
 ls()
 ```
@@ -224,7 +224,8 @@ ls()
 . . .
 
 but with a bit of effort you can see them:
-```{r show_hidden_vars, echo=TRUE}
+
+```{r show_hidden_vars}
 ls(all.names = TRUE)
 ```
 
@@ -236,7 +237,7 @@ Decompose the problem `r emo::ji('puzzle')` `r emo::ji('puzzle')`!
   ![](assets/Philip-ii-of-macedon.jpg){height="200px"}
   ![](assets/Julius_Ceasar.jpg){height="200px"}
   ![](assets/Napoleon_Bonaparte.jpg){height="200px"}  
-  [source: Wikimedia Commons]{.smaller}
+  [source: Wikimedia Commons]{.smaller}  
 ]{.center}
 
 . . .
@@ -254,7 +255,7 @@ consider creating an S4 or even an R6 class &mdash; data-type safety!
 
 ## How to write functions
 
-- avoid accessing and modifying globals 
+- avoid accessing and modifying globals
   - avoid `r emo::ji('no')` `a <<- 42`
   - and `r emo::ji('yes')` use a closure instead
 
@@ -281,15 +282,15 @@ counter2()
 
 ## How to write functions
 
-- use **data** as the **very first** argument for `%>%` pipes sake: 
+- use **data** as the **very first** argument for `%>%` pipes sake:
   - `myfun <- function(x, arg)` `r emo::ji('yes')`
   - `myfun <- function(arg, x)` `r emo::ji('no')`
 
 . . .
 
 - set arguments to defaults &mdash; better too many args than too few:
-    + `myfun <- function(x, seed = 42)` `r emo::ji('yes')`
-    + `myfun <- function(x, ...)` `r emo::ji('no')`
+  - `myfun <- function(x, seed = 42)` `r emo::ji('yes')`
+  - `myfun <- function(x, ...)` `r emo::ji('no')`
 
 . . .
 
@@ -297,8 +298,11 @@ counter2()
 
 . . .
 
-- if you are re-using functions wtitten by someone else &mdash; write a wrapper function around them
-```{r wrapper-fn, eval=T, fig.height=3, fig.width=4, bty='n'}
+- if you are re-using functions written by someone else &mdash; write a wrapper function around them
+
+```{r wrapper-fn}
+#| fig-height: 3
+#| fig-width: 4
 my_awesome_plot <- function(...) {
   plot(..., col='red', pch=19, cex.axis=.7, las=1)
 }

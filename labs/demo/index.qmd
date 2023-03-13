@@ -15,9 +15,11 @@ library(tidyr)
 library(stringr)
 
 # tables
+library(htmlTable) # enchanced markdown table
 library(kableExtra) # complete table
 library(formattable) # table with conditional formatting
 library(DT) # interactive table
+library(reactable) # interactive table
 
 # graphics
 library(ggplot2) # static graphics
@@ -62,6 +64,10 @@ quarto::quarto_render("report.qmd")
 ```
 
 ## Layout
+
+### Inner columns
+
+Organisation of content into columns within the body container.
 
 ```         
 :::: {.columns}
@@ -132,6 +138,148 @@ Nested right.
 :::
 :::
 
+### Outer columns
+
+Extending content outside the body container.
+
+```         
+::: {.column-body style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-body
+:::
+
+::: {.column-body-outset style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-body-outset
+:::
+
+::: {.column-page-inset style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-page-inset
+:::
+
+::: {.column-page style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-page
+:::
+
+::: {.column-screen-inset style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-screen-inset
+:::
+
+::: {.column-screen style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-screen
+:::
+
+::: {.column-body-outset-right style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-body-outset-right
+:::
+
+::: {.column-page-inset-right style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-page-inset-right
+:::
+
+::: {.column-page-right style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-page-right
+:::
+
+::: {.column-screen-inset-right style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-screen-inset-right
+:::
+
+::: {.column-screen-right style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-screen-right
+:::
+
+::: {.column-body-outset-left style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-body-outset-left
+:::
+
+::: {.column-page-inset-left style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-page-inset-left
+:::
+
+::: {.column-page-left style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-page-left
+:::
+
+::: {.column-screen-inset-left style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-screen-inset-left
+:::
+
+::: {.column-screen-left style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-screen-left
+:::
+
+::: {.column-margin style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-margin
+:::
+```
+
+::: {.column-body style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-body
+:::
+
+::: {.column-body-outset style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-body-outset
+:::
+
+::: {.column-page-inset style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-page-inset
+:::
+
+::: {.column-page style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-page
+:::
+
+::: {.column-screen-inset style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-screen-inset
+:::
+
+::: {.column-screen style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-screen
+:::
+
+::: {.column-body-outset-right style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-body-outset-right
+:::
+
+::: {.column-page-inset-right style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-page-inset-right
+:::
+
+::: {.column-page-right style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-page-right
+:::
+
+::: {.column-screen-inset-right style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-screen-inset-right
+:::
+
+::: {.column-screen-right style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-screen-right
+:::
+
+::: {.column-body-outset-left style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-body-outset-left
+:::
+
+::: {.column-page-inset-left style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-page-inset-left
+:::
+
+::: {.column-page-left style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-page-left
+:::
+
+::: {.column-screen-inset-left style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-screen-inset-left
+:::
+
+::: {.column-screen-left style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-screen-left
+:::
+
+::: {.column-margin style="background-color: lightgray; margin-bottom:0.5em;"}
+.column-margin
+:::
+
 ### Panel layout
 
 ```         
@@ -181,7 +329,7 @@ Headings can be defined as shown below.
 
 Character styles can be set as below.
 
-```
+```         
 [Largest text]{.largest}  
 [Larger text]{.larger}  
 [Large text]{.large}  
@@ -197,7 +345,7 @@ Normal text
 Normal text  
 [Small text]{.small}  
 [Smaller text]{.smaller}  
-[Smallest text]{.smallest}  
+[Smallest text]{.smallest}
 
 A horizontal line can be created using three or more `*` or `-`.
 
@@ -250,9 +398,11 @@ This is code
 
 R code is executed inside code blocks like this
 
-```{r,echo=FALSE,comment=""}
-cat(paste0("```{r}\n","Sys.Date()\n","``` \n"))
+````
+```{{r}}
+Sys.Date()
 ```
+````
 
 which shows the code and output.
 
@@ -349,7 +499,7 @@ This image below is 30% size.\
 
 ### Using R
 
-R chunks in RMarkdown can be used to control image display size using the arguemnt `out.width`.
+R chunks in RMarkdown can be used to control image display size using the argument `out.width`.
 
 This image below is displayed at a size of 300 pixels.
 
@@ -362,7 +512,7 @@ knitr::include_graphics("assets/featured.jpg")
 
 ```{r}
 #| echo: false
-#| out-width: 300px
+#| out-width: "300px"
 knitr::include_graphics("assets/featured.jpg")
 ```
 
@@ -378,7 +528,7 @@ knitr::include_graphics("assets/featured.jpg")
 
 ```{r}
 #| echo: false
-#| out-width: 75px
+#| out-width: "75px"
 #| fig-cap: This is a caption
 knitr::include_graphics("assets/featured.jpg")
 ```
@@ -433,21 +583,58 @@ $\begin{eqnarray} P(|X-\mu| > k) & = & P(|X-\mu|^2 > k^2)\\ & \leq & \frac{\math
 
 ## Tables
 
-### Paged
+### Manual
 
-View of the data using paged tables. This is the default output for RMarkdown.
+For simple cases, tables can be manually created in markdown.
+
+```         
+|speed|dist|
+|-----|----|
+|4    |   2|
+|4    |  10|
+|7    |   4|
+```
+
+| speed | dist |
+|-------|------|
+| 4     | 2    |
+| 4     | 10   |
+| 7     | 4    |
+
+### htmlTable
+
+Markdown tables can be enhanced using the R package [htmlTable](https://github.com/gforge/htmlTable).
 
 ```{r}
-#| tbl-cap: Table using paged tibble.
-iris[1:15,]
+library(htmlTable)
+
+iris1 <- iris[c(1:4,51:53,105:108),]
+htmlTable(iris1, rgroup=unique(iris1$Species), n.rgroup=rle(as.character(iris1$Species))$lengths)
 ```
 
 ### kable
 
-The most simple table using `kable` from R package `knitr`.
+Simple table using `kable` from R package `knitr`. This is the default output for quarto.
 
 ```{r}
-knitr::kable(head(iris), 'html')
+head(iris)
+```
+
+#### Margin table
+
+```{{{r}}}
+#| fig-caption: This table is in the margin.
+#| column: margin
+
+head(cars)
+```
+
+```{r}
+#| fig-caption: This table is in the margin.
+#| column: margin
+#| echo: false
+
+head(cars)
 ```
 
 ### kableExtra
@@ -456,6 +643,7 @@ More advanced table using [`kableExtra`](https://cran.r-project.org/web/packages
 
 ```{r}
 #| tbl-cap: Table using kableextra.
+library(kableExtra)
 
 iris[c(1:4,51:53,105:108),] %>%
   mutate(Sepal.Length=color_bar("lightsteelblue")(Sepal.Length)) %>%
@@ -474,11 +662,34 @@ Interactive table using R package [`DT`](https://rstudio.github.io/DT/).
 
 ```{r}
 #| tbl-cap: Table using datatable.
+library(DT)
 
 iris %>%
   slice(1:15) %>%
   datatable(options=list(pageLength=7))
 ```
+
+### reactable
+
+Advanced interactive tables with [reactable](https://glin.github.io/reactable/index.html).
+
+```{r}
+library(reactable)
+
+reactable(iris[sample(1:150,10),],
+  columns = list(
+    Sepal.Length = colDef(name = "Sepal Length"),
+    Sepal.Width = colDef(name = "Sepal Width"),
+    Petal.Width = colDef(name = "Petal Width"),
+    Petal.Width = colDef(name = "Petal Width")
+  ),
+  striped = TRUE,
+  highlight = TRUE,
+  filterable = TRUE
+)
+```
+
+reactable creation can be simplified as well as enhanced by using [reactablefmtr](https://github.com/kcuilla/reactablefmtr/).
 
 ## Static plots
 
@@ -487,7 +698,7 @@ iris %>%
 -   Plots using base R are widely used and may be good enough for most situations.
 -   But they lack a consistent coding framework.
 
-```{r,fig.height=6,fig.width=6}
+```{r}
 #| fig-height: 6
 #| fig-width: 6
 #| label: plot-base
@@ -502,7 +713,7 @@ legend(x=7,y=4.47,legend=c("setosa","versicolor","virginica"),
 
 Refer to @plot-base to see an example of base plot.
 
-### Multiple plots
+#### Multiple plots
 
 ````
 ```{{r}}
@@ -525,6 +736,20 @@ plot(iris)
 plot(pressure)
 ```
 
+#### Margin plot
+
+```{{{r}}}
+#| column: margin
+
+plot(cars)
+```
+
+```{r}
+#| column: margin
+
+plot(cars)
+```
+
 ### ggplot2
 
 R package [`ggplot2`](http://ggplot2.org/) is one of the most versatile and complete plotting solutions.
@@ -535,6 +760,7 @@ R package [`ggplot2`](http://ggplot2.org/) is one of the most versatile and comp
 #| label: plot-ggplot
 #| fig-cap: Static plot using ggplot2.
 #| cap-location: margin
+library(ggplot2)
 
 iris %>%
   ggplot(aes(x=Sepal.Length,y=Sepal.Width,col=Species))+
@@ -552,6 +778,7 @@ R package [`highcharter`](http://jkunst.com/highcharter/) is a wrapper around ja
 ```{r}
 #| label: plot-highcharter
 #| fig-cap: Interactive scatterplot using highcharter.
+library(highcharter)
 
 h <- iris %>%
   hchart(.,"scatter",hcaes(x="Sepal.Length",y="Sepal.Width",group="Species")) %>%
@@ -570,6 +797,7 @@ R package [`plotly`](https://plot.ly/r/) provides R binding around javascript pl
 
 ```{r}
 #| fig-cap: Interactive scatterplot using plotly.
+library(plotly)
 
 p <- iris %>%
   plot_ly(x=~Sepal.Length,y=~Sepal.Width,color=~Species,width=500,height=400) %>%
@@ -585,6 +813,7 @@ p
 #| fig-height: 5
 #| fig-width: 7
 #| fig-cap: Interactive scatterplot using ggplotly.
+library(plotly)
 
 p <- iris %>%
   ggplot(aes(x=Sepal.Length,y=Sepal.Width,col=Species))+
@@ -603,6 +832,7 @@ ggplotly(p,width=500,height=400)
 #| fig-height: 5
 #| fig-width: 7
 #| fig-cap: Interactive scatterplot using ggiraph.
+library(ggiraph)
 
 p <- ggplot(iris,aes(x=Sepal.Length,y=Petal.Length,colour=Species))+
       geom_point_interactive(aes(tooltip=paste0("<b>Petal Length:</b> ",Petal.Length,"\n<b>Sepal Length: </b>",Sepal.Length,"\n<b>Species: </b>",Species)),size=2)+
@@ -621,6 +851,7 @@ R package [`dygraphs`](http://rstudio.github.io/dygraphs/) provides R bindings f
 #| fig-height: 5
 #| fig-width: 9
 #| fig-cap: Interactive time series plot using dygraph.
+library(dygraphs)
 
 lungDeaths <- cbind(ldeaths, mdeaths, fdeaths)
 dygraph(lungDeaths,main="Deaths from Lung Disease (UK)") %>%
@@ -633,6 +864,7 @@ R package `networkD3` allows the use of interactive network graphs from the [D3.
 
 ```{r}
 #| fig-cap: Interactive network plot.
+library(networkD3)
 
 data(MisLinks,MisNodes)
 forceNetwork(Links=MisLinks,Nodes=MisNodes,Source="source",
@@ -646,6 +878,7 @@ R package [`leaflet`](https://rstudio.github.io/leaflet/) provides R bindings fo
 
 ```{r}
 #| fig-cap: Interactive map using leaflet.
+library(leaflet)
 
 leaflet(height=500,width=700) %>%
   addTiles(urlTemplate='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png') %>%
@@ -661,6 +894,7 @@ R package [`crosstalk`](https://rstudio.github.io/crosstalk/index.html) allows `
 ```{r}
 #| fig-height: 8
 #| fig-cap: Linking independent plots using crosstalk.
+library(crosstalk)
 
 shared_quakes <- SharedData$new(quakes[sample(nrow(quakes), 100),])
 lf <- leaflet(shared_quakes,height=300) %>%
@@ -672,11 +906,7 @@ py <- plot_ly(shared_quakes,x=~depth,y=~mag,size=~stations,height=300) %>%
 htmltools::div(lf,py)
 ```
 
-## Advanced
-
-These are features implemented in this workshop material.
-
-### Icons
+## Icons
 
 To use [fontawesome](https://fontawesome.com/search?m=free) icons as shortcodes, quarto extension [fontawesome](https://github.com/quarto-ext/fontawesome) needs to be installed.
 
@@ -715,7 +945,7 @@ Optional arguments are height and fill.
 
 For full list of icons check out [FontAwesome](https://fontawesome.com/search?m=free).
 
-### Call-Outs
+## Call-Outs
 
 Call-Out blocks are explained [here](https://quarto.org/docs/authoring/callouts.html).
 
@@ -773,7 +1003,7 @@ This is a call-out.
 This content is hidden by default.
 :::
 
-### Alerts
+## Alerts
 
 ```         
 ::: {.alert .alert-primary}
@@ -826,5 +1056,5 @@ This content is hidden by default.
 -   Use quarto style chunk options
 -   warnings and messages has been turned off in chunks globally
 -   Declare all libraries at the beginning of the document
--   Check out the [Quarto](https://quarto.org/) website
 -   Add custom css under YAML if needed `css: "my-theme.css"`
+-   Check out the [Quarto](https://quarto.org/) website

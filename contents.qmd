@@ -19,7 +19,7 @@ execute:
 |-------------------------------------|---------------------------------------|-----|
 |[**12-Jun-2023 (Mon)**]{.highlight}|||
 |Introduction to RaukR                |Marcin Kierczak & Sebastian DiLorenzo  ||
-|Documentation & Publishing           |Roy Francis                            |[Slides](slides/publishing/index.html), [Lab](labs/publishing/index.html)|
+|Documentation & Publishing           |Roy Francis                            |Slides, Lab|
 |Best Coding Practices in R           |Marcin Kierczak                        |[Slides](slides/coding/index.html), [Lab](labs/coding/index.html)|
 |RMarkdown                            |Chris Dervieux and Yihui Xie, RStudio  |[Slides](https://raukr-2022-rmd-skills.netlify.app), [GitHub](https://github.com/cderv/raukr-2022-rmd-skills)|
 |[**13-Jun-2023 (Tue)**]{.highlight}|||
@@ -29,8 +29,8 @@ execute:
 |Guest Lecture                        |Jenny Bryan, RStudio                   |[Slides](https://rstats-wtf.github.io/wtf-2022-rsc/day1_4), [happygitwithr.com](https://happygitwithr.com/)|
 |[**14-Jun-2023 (Wed)**]{.highlight}|||
 |Object-oriented programming          |Marcin Kierczak                        |[Slides](slides/oop/index.html), [Lab](labs/oop/index.html)|
-|Vectorisation                        |Sebastian DiLorenzo and Marcin Kierczak|[Slides](slides/vectorization/index.html), [Lab](labs/vectorization/index.html)|
-|Parallelisation                      |Sebastian DiLorenzo and Marcin Kierczak|[Slides](slides/parallelisation/index.html), [Lab](labs/parallelisation/index.html)|
+|Vectorization                        |Sebastian DiLorenzo and Marcin Kierczak|[Slides](slides/vectorization/index.html), [Lab](labs/vectorization/index.html)|
+|Parallelization                      |Sebastian DiLorenzo and Marcin Kierczak|[Slides](slides/parallelization/index.html), [Lab](labs/parallelization/index.html)|
 |reticulate: Combining R with Python  |Nina Norgren                           |[Slides](slides/reticulate/index.html), [Lab](labs/reticulate/index.html)|
 |[**15-Jun-2023 (Thu)**]{.highlight}|||
 |Tidyverse                            |Marcin Kierczak, Roy Francis           |[Slides](slides/tidyverse/index.html), [Lab](labs/tidyverse/index.html)|

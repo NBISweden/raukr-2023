@@ -216,7 +216,7 @@ background-size: cover;
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">11-Mar-2023</p>
+        <p class="date">13-Mar-2023</p>
       </div>
     </div>
     
@@ -282,7 +282,7 @@ background-size: cover;
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../slides/parallelisation/index.html" class="sidebar-item-text sidebar-link">Parallelisation in R</a>
+  <a href="../../slides/parallelization/index.html" class="sidebar-item-text sidebar-link">Parallelization in R</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -372,17 +372,12 @@ background-size: cover;
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../labs/parallelisation/index.html" class="sidebar-item-text sidebar-link">Parallelisation</a>
+  <a href="../../labs/parallelization/index.html" class="sidebar-item-text sidebar-link">Parallelization</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../labs/ggplot/index.html" class="sidebar-item-text sidebar-link">Plotting with ggplot2</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../labs/publishing/index.html" class="sidebar-item-text sidebar-link">Publishing</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -652,7 +647,7 @@ Tip
 <li>Do the same selection as above, but using pipe and placeholders (use all three ways of accessing a variable).</li>
 <li>Print the tibble.</li>
 <li>Print the 30 first rows of the tibble.</li>
-<li>Change the default behaviour of printing a tibble so that at least 15 and at most 30 rows are printed.</li>
+<li>Change the default behavior of printing a tibble so that at least 15 and at most 30 rows are printed.</li>
 <li>What is the difference between the <code>tibble.print_max</code> and <code>dplyr.print_min</code>? Is there any? Test it.</li>
 <li>Convert <code>vehicles</code> back to a <code>data.frame</code> called <code>automobiles</code>.</li>
 </ul>
@@ -1521,7 +1516,7 @@ Note on <code>ungroup</code>
 <h2 data-number="4" class="anchored" data-anchor-id="nanopore-channel-activity-challenge"><span class="header-section-number">4</span> Nanopore Channel Activity Challenge</h2>
 <section id="introduction" class="level3" data-number="4.1">
 <h3 data-number="4.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">4.1</span> Introduction</h3>
-<p>You will be given a <code>fastq</code> file coming from MinION sequencer (Oxford Nanopore). This file contains test reads from the chicken genome. The flow-cell used here has 512 channels, each channel consists of 4 pores and only one pore is active at a time. Once your sequence gets stuck for some reason, the device will attempt to remove it from the pore by playing with reversing polarity on that pore. If this was successful, the pore will be re-used. Your task will be to visualise reading events from the meta-data in the <code>fastq</code> dataset and to see how each and every channel behaved. Also, you will plot the distribution of reading times.</p>
+<p>You will be given a <code>fastq</code> file coming from MinION sequencer (Oxford Nanopore). This file contains test reads from the chicken genome. The flow-cell used here has 512 channels, each channel consists of 4 pores and only one pore is active at a time. Once your sequence gets stuck for some reason, the device will attempt to remove it from the pore by playing with reversing polarity on that pore. If this was successful, the pore will be re-used. Your task will be to visualize reading events from the meta-data in the <code>fastq</code> dataset and to see how each and every channel behaved. Also, you will plot the distribution of reading times.</p>
 <p>Datasets are available <a href="https://www.dropbox.com/s/dxxt959g6iefeaf/tidyverse_lab_data.zip?dl=0">here</a>.</p>
 </section>
 <section id="preparations" class="level3" data-number="4.2">
@@ -1637,7 +1632,7 @@ Tip
 <li>Each point is the start of a new read,</li>
 <li>Colour corresponds to the lag to the next read.</li>
 </ul>
-<p>Can you visualise this in a better way? Different geometry?</p>
+<p>Can you visualize this in a better way? Different geometry?</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -1689,7 +1684,7 @@ Tip
 </section>
 <section id="species-identification-challenge" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="species-identification-challenge"><span class="header-section-number">5</span> Species Identification Challenge</h2>
-<p>In this challenge, your task will be to analyse species composition of some samples. The samples, were actual products containing parts of plants. DNA has been isolated form the samples and an amplicon metabarcoding was performed using two sets of primers: for the ITS1 and the ITS2 region. Each sample had 3 technical replicates. Your task will be to transform BLAST output to a tidy form suitable for further analyses or visualisation.</p>
+<p>In this challenge, your task will be to analyze species composition of some samples. The samples, were actual products containing parts of plants. DNA has been isolated form the samples and an amplicon metabarcoding was performed using two sets of primers: for the ITS1 and the ITS2 region. Each sample had 3 technical replicates. Your task will be to transform BLAST output to a tidy form suitable for further analyses or visualization.</p>
 <section id="load-necessary-libraries" class="level3" data-number="5.1">
 <h3 data-number="5.1" class="anchored" data-anchor-id="load-necessary-libraries"><span class="header-section-number">5.1</span> Load necessary libraries</h3>
 <p>We will obviously need <code>tidyverse</code>, we will also do some string manipulations with <code>stringr</code> also <code>here</code> package is good to have.</p>
@@ -1704,7 +1699,7 @@ Tip
 <p>Here, we will define our input variables. We need:</p>
 <ul>
 <li><code>file</code> that contains the path to the dataset,</li>
-<li><code>sample_name</code> is a string, the name of the sample you want to analyse,</li>
+<li><code>sample_name</code> is a string, the name of the sample you want to analyze,</li>
 <li><code>threshold</code> is an integer saying what is a the minimal number of replicates that have to contain an OTU in order to call it a true positive (TP),</li>
 <li><code>strict</code> a logical. If set to TRUE, only the OTUs deemed TP will be shown.</li>
 </ul>
@@ -2079,7 +2074,7 @@ strict &lt;- F</code></pre>
 </section>
 <section id="sorting-issue" class="level3" data-number="5.7">
 <h3 data-number="5.7" class="anchored" data-anchor-id="sorting-issue"><span class="header-section-number">5.7</span> Sorting issue</h3>
-<p>Look, the first sample in the table is <code>SAMPLE10</code>. Why not <code>SAMPLE1</code>? That’s a sorting issue: if sorted as character, 10 will come before 1. WE have to fix this by adding trailing zero to the values in <code>OTU</code>. We do not expect more than 99 OTUs in a sample, so it is ok with only one trailing 0 (otherwise the 100-th sample will spoil our sorting and come out like: SAMPLE100, SAMPLE01, SAMPLE10). We will need to use regular expression:</p>
+<p>Look, the first sample in the table is <code>SAMPLE10</code>. Why not <code>SAMPLE1</code>? That’s a sorting issue: if sorted as character, 10 will come before 1. WE have to fix this by adding trailing zero to the values in <code>OTU</code>. We do not expect more than 99 OTUs in a sample, so it is ok with only one trailing 0 (otherwise the 100th sample will spoil our sorting and come out like: SAMPLE100, SAMPLE01, SAMPLE10). We will need to use regular expression:</p>
 <ul>
 <li>All values in the <code>OTU</code> column that follow pattern “OTU<em>digit</em>” we need to change to “OTU0<em>digit</em>”. Regular expression that matches this is <code>OTU([0-9]$)</code> and it should be replaced by: <code>OTU0\\1</code>. Ask your TAs to explain this if you do not know much about regular expressions and pattern matching.</li>
 </ul>
@@ -2607,19 +2602,19 @@ strict &lt;- F</code></pre>
 </section>
 <section id="visualising-the-data" class="level3" data-number="5.11">
 <h3 data-number="5.11" class="anchored" data-anchor-id="visualising-the-data"><span class="header-section-number">5.11</span> Visualising the data</h3>
-<p>Can you think of a good way of visualising the data? Think of:</p>
+<p>Can you think of a good way of visualizing the data? Think of:</p>
 <ul>
 <li>Type of plot you want. The simpler the better?</li>
-<li>Which variables you would like to visualise? We have chosen <code>ITS</code>, <code>replicate</code>, <code>n_reads</code>, <code>n_replicates</code>, <code>OTU</code>, <code>threshold</code>, <code>n_species</code> and <code>specie</code>. Well, pretty much all of them :-)</li>
-<li>How do you represent variables: colours, shapes, separate plots, sizes?</li>
-<li>What transformations do you need to apply before visualising the data?</li>
+<li>Which variables you would like to visualize? We have chosen <code>ITS</code>, <code>replicate</code>, <code>n_reads</code>, <code>n_replicates</code>, <code>OTU</code>, <code>threshold</code>, <code>n_species</code> and <code>specie</code>. Well, pretty much all of them :-)</li>
+<li>How do you represent variables: colors, shapes, separate plots, sizes?</li>
+<li>What transformations do you need to apply before visualizing the data?</li>
 </ul>
 <p>Our example solution involves some <code>ggplot2</code> magics. But would base-R be good enough for this type of plot?</p>
 <div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="index_files/figure-html/unnamed-chunk-58-1.png" class="lightbox" title="Red – only one species in the current OTU, blue – identification above the threshold, grey – identification below the threshold" data-gallery="quarto-lightbox-gallery-8"><img src="index_files/figure-html/unnamed-chunk-58-1.png" class="img-fluid figure-img" width="864"></a></p>
+<p><a href="index_files/figure-html/unnamed-chunk-58-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Red – only one species in the current OTU, blue – identification above the threshold, grey – identification below the threshold"><img src="index_files/figure-html/unnamed-chunk-58-1.png" class="img-fluid figure-img" width="864"></a></p>
 <p></p><figcaption class="figure-caption">Red – only one species in the current OTU, blue – identification above the threshold, grey – identification below the threshold</figcaption><p></p>
 </figure>
 </div>
@@ -2775,7 +2770,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-right">Published with <a href="https://quarto.org/">Quarto</a> v1.2.335</div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","descPosition":"bottom","selector":".lightbox","closeEffect":"zoom","loop":true});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","loop":true,"openEffect":"zoom","closeEffect":"zoom"});</script>
 
 
 

@@ -5,7 +5,8 @@ image: "assets/featured.jpg"
 format: revealjs
 ---
 
-```{r,echo=FALSE,message=FALSE,warning=FALSE}
+```{r}
+#| echo: false
 # load packages
 library(dplyr)
 library(ggplot2)

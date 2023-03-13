@@ -36,7 +36,7 @@ library(shiny)
 - Interactive documents
 - Extensions
 
-##
+## 
 
 [![](assets/gallery.png)](https://shiny.rstudio.com/gallery/)
 
@@ -70,34 +70,31 @@ library(shiny)
 
 :::: {.columns}
 ::: {.column width="50%"}
+**One file format**
 
-__One file format__
+*app.R*
 
-_app.R_
-
-```
+```         
 ui <- fluidPage()
 server <- function(input,output) {}
 shinyApp(ui=ui,server=server)
 ```
-
 :::
+
 ::: {.column width="50%"}
+**Two file format**
 
-__Two file format__
+*ui.R*
 
-_ui.R_
-
-```
+```         
 ui <- fluidPage()
 ```
 
-_server.R_
+*server.R*
 
-```
+```         
 server <- function(input,output) {}
 ```
-
 :::
 ::::
 
@@ -118,13 +115,14 @@ server=function(input,output) {}
 - From Rmd file using `rmarkdown::run()`
 - Running as a separate process from terminal
 
-```
+```         
 R -e "shiny::runApp('~/shinyapp')"
 ```
 
 ## UI • Layout
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 shinyApp(
 ui=fluidPage(
   titlePanel("Title Panel"),
@@ -165,14 +163,12 @@ ui=fluidPage(
 server=function(input,output) {})
 ```
 
-
 ![](assets/app-layout.png){width="600px"}
 
 ## UI • Widgets • Input
 
 :::: {.columns}
 ::: {.column width="60%"}
-
 ```{r}
 #| eval: false
 
@@ -199,12 +195,10 @@ ui=fluidPage(
 server=function(input,output) {
 })
 ```
-
 :::
+
 ::: {.column width="40%"}
-
 ![](assets/app-widgets-input.png){width="50%""}
-
 :::
 ::::
 
@@ -218,8 +212,8 @@ Widgets are visual objects on a page to allow for data input. Input and output v
 
 :::: {.columns}
 ::: {.column width="60%"}
-
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 shinyApp(
 ui=fluidPage(fluidRow(column(5,
            textInput("text_input",label="textInput",value="<h3 style='color:red'>Red text</h3>"),
@@ -241,12 +235,10 @@ server=function(input, output) {
   })
 })
 ```
-
 :::
+
 ::: {.column width="40%"}
-
 ![](assets/app-widgets-output.png){.width="80%"}
-
 :::
 ::::
 
@@ -254,7 +246,7 @@ server=function(input, output) {
 
 - UI elements are created conditionally using `uiOutput()`/`renderUI()`
 
-```
+```         
 shinyApp(
 ui=fluidPage(
   selectInput("data",label="Select data",
@@ -280,7 +272,7 @@ server=function(input, output) {
 
 ## Code execution
 
-__App launch__
+**App launch**
 
 ```{r}
 #| eval: false
@@ -295,7 +287,7 @@ server <- function(input,output) {
 
 . . .
 
-__New user__
+**New user**
 
 ```{r}
 #| eval: false
@@ -310,7 +302,7 @@ server <- function(input,output) {
 
 . . .
 
-__Widget update__
+**Widget update**
 
 ```{r}
 #| eval: false
@@ -410,7 +402,6 @@ Try changing the reactive function
 to a regular function
 
 `rand <- function(){ rnorm(input$num_input) }`
-
 :::
 
 ## Updating widgets
@@ -418,7 +409,7 @@ to a regular function
 - Widgets can be updated once initialised.
 - Add third argument **session** to server function
 
-```
+```         
 server=function(input,output,session) {}
 ```
 
@@ -480,7 +471,6 @@ shinyApp(
 
 :::: {.columns}
 ::: {.column width="70%"}
-
 ```{r}
 #| eval: false
 shinyApp(
@@ -495,12 +485,10 @@ server=function(input, output) {
   output$table_output <- renderTable({head(getdata())})
 })
 ```
-
 :::
+
 ::: {.column width="30%"}
-
 ![](assets/val1.png)
-
 :::
 ::::
 
@@ -515,7 +503,6 @@ server=function(input, output) {
 
 :::: {.columns}
 ::: {.column width="70%"}
-
 ```{r}
 #| eval: false
 shinyApp(
@@ -533,12 +520,10 @@ server=function(input, output) {
   output$table_output <- renderTable({head(getdata())})
 })
 ```
-
 :::
+
 ::: {.column width="30%"}
-
 ![](assets/val2.png)
-
 :::
 ::::
 
@@ -548,7 +533,6 @@ server=function(input, output) {
 
 :::: {.columns}
 ::: {.column width="50%"}
-
 ```{r}
 #| eval: false
 valfn <- function(x) if(is.null(x) | is.na(x) | x=="") return("Input data is incorrect.")
@@ -568,12 +552,10 @@ server=function(input,output) {
   output$table_output <- renderTable({head(getdata())})
 })
 ```
-
 :::
+
 ::: {.column width="50%"}
-
 ![](assets/val3.png)
-
 :::
 ::::
 
@@ -677,7 +659,7 @@ deployApp(appName="name")
 
 - Shiny can run in RMarkdown documents. Set YAML `runtime: shiny`.  
 
-```
+```         
 ---
 title: Interactive document
 output: html_document
@@ -706,7 +688,7 @@ shinyApp(
 
 - Hosted shiny apps can be embedded using `<iframe>`  
 
-```
+```         
 <iframe src="https://user.shinyapps.io/app"></iframe>
 ```
 

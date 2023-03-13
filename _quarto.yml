@@ -4,6 +4,7 @@ project:
   render: 
     - "*.qmd"
     - "*.md"
+    - "!labs/publishing/index.qmd"
 
 website:
   image: "assets/logos/raukr.png"
@@ -90,7 +91,7 @@ execute:
   freeze: auto
 
 filters:
-  - quarto-version.lua
+  - assets/custom.lua
   - reveal-header
   - lightbox
   

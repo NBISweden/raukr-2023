@@ -63,21 +63,19 @@ Images: www.tidyverse.org, Wikipedia, www.tidyverse.org
 . . .
 
 ![](assets/tidyverse-flow.png){height="400px"}  
-[[Source: http://www.storybench.org/getting-started-with-tidyverse-in-r/]{.smaller}](http://www.storybench.org/getting-started-with-tidyverse-in-r/)
+[[Source: http://www.storybench.org/getting-started-with-tidyverse-in-r/](http://www.storybench.org/getting-started-with-tidyverse-in-r/)]{.smaller}
 
 ## Introduction to Pipes
 
-:::: {.columns}
+::: columns
 ::: {.column width="50%"}
-
 ![](assets/MagrittePipe.jpg)
 
-[Rene Magritt, *[La trahison des images](https://en.wikipedia.org/wiki/The_Treachery_of_Images)*, [Wikimedia Commons](https://en.wikipedia.org/wiki/The_Treachery_of_Images#/media/File:MagrittePipe.jpg)]{.smaller}
+[Rene Magritt, [*La trahison des images*](https://en.wikipedia.org/wiki/The_Treachery_of_Images), [Wikimedia Commons](https://en.wikipedia.org/wiki/The_Treachery_of_Images#/media/File:MagrittePipe.jpg)]{.smaller}
 
 <br>
 
 ![](assets/magrittr.png)
-
 :::
 
 ::: {.column width="50%"}
@@ -112,7 +110,11 @@ iris %>% head(n=3)
 - Provided by `magritter`, not in `tidyverse`
 - When you call a function for its *side effects*
 
-```{r magrittr2a, fig.height=4, fig.width=4, error=TRUE, tidy=FALSE} 
+```{r magrittr2a}
+#| tidy: false
+#| fig-height: 4
+#| fig-width: 4
+#| error: true
 rnorm(50) %>% 
   matrix(ncol = 2) %>% 
   plot() %>% 
@@ -125,7 +127,7 @@ rnorm(50) %>%
 
 . . .
 
-```{r} 
+```{r}
 #| echo: false
 #| fig-height: 4
 #| fig-width: 4
@@ -159,6 +161,7 @@ This is because `cor` function does not have the `x` (data) argument &ndash; the
 It exists but can lead to somewhat confusing code! `r emo::ji('danger')`
 
 `x %<>% f` $\equiv$ `x <- f(x)`
+
 ```{r the_two-way_pipe}
 M <- matrix(rnorm(16), nrow=4)
 M %<>% colSums()
@@ -171,7 +174,7 @@ From R >= 4.1.0 we have a native `|>` pipe that is a bit faster than `%>%` but c
 c(1,2,3,4,5) |> mean()
 ```
 
-but 
+but
 
 ```{r native_pipe2}
 mtcars |> (\(x) lm(mpg ~ disp, data = x))()
@@ -188,7 +191,7 @@ Sometimes we want to pass the resulting data to *other than the first* argument 
 ```{r magrittr_placeholder_example1}
 M <- rnorm(4) %>% matrix(nrow = 2)
 M %>% `%*%`(., .)
-``` 
+```
 
 . . .
 
@@ -210,14 +213,13 @@ M %>% {print_M_summ(nrow(.), ncol(.))}
 
 :::: {.columns}
 ::: {.column width="50%"}
-
-![](assets/hex-tidyverse.png){width="30%" .center}
+![](assets/hex-tidyverse.png){.center width="30%"}
 
 ```{r}
 as_tibble(iris)
 ```
-
 :::
+
 ::: {.column width="50%"}
 
 - `tibble` is one of the unifying features of tidyverse,
@@ -232,7 +234,6 @@ as_tibble(iris)
     outcome = rnorm(50)
   )
 ```
-
 :::
 ::::
 
@@ -243,7 +244,7 @@ as_tibble(iris)
   - only the first 10 rows are shown,
   - data type for each column is shown.
 
-```{r tibble_printing} 
+```{r tibble_printing}
 as_tibble(cars)
 ```
 
@@ -284,35 +285,40 @@ vehicles %>% .[[2]]
 
 **Note!** Not all old R functions work with tibbles, than you have to use `as.data.frame(my_tibble)`.
 
-
 ## Tibbles are Stricter than `data.frames`
 
-```{r tibble_strict, warning=T, echo=F}
+```{r tibble_strict}
+#| warning: true
+#| echo: false
 cars <- cars[1:5,]
 colnames(vehicles)
 ```
 
 . . .
 
-```{r tibble_strict1, warning=T}
+```{r tibble_strict1}
+#| warning: true
 cars$spe      # partial matching
 ```
 
 . . .
 
-```{r tibble_strict2, warning=T}
+```{r tibble_strict2}
+#| warning: true
 vehicles$spe  # no partial matching
 ```
 
 . . .
 
-```{r tibble_strict3, warning=T}
+```{r tibble_strict3}
+#| warning: true
 cars$gear
 ```
 
 . . .
 
-```{r tibble_strict4, warning=T}
+```{r tibble_strict4}
+#| warning: true
 vehicles$gear
 ```
 
@@ -324,7 +330,7 @@ vehicles$gear
 
 In `tidyverse` you import data using `readr` package that provides a number of useful data import functions:
 
-- `read_delim()` a generic function for reading *-delimited files. There are a number of convenience wrappers:
+- `read_delim()` a generic function for reading x-delimited files. There are a number of convenience wrappers:
   - `read_csv()` used to read comma-delimited files,
   - `read_csv2()` reads semicolon-delimited files, 
   `read_tsv()` that reads tab-delimited files.
@@ -347,11 +353,11 @@ The most commonly used `read_csv()` has some familiar arguments like:
 
 Under the hood, data-reading functions use `parse_*` functions:
 
-```{r} 
+```{r}
 parse_double("42.24")
 ```
 
-```{r} 
+```{r}
 parse_number("272'555'849,55", 
              locale = locale(decimal_mark = ",", 
                              grouping_mark = "'"
@@ -359,7 +365,7 @@ parse_number("272'555'849,55",
              )
 ```
 
-```{r} 
+```{r}
 parse_number(c('100%', 'price: 500$', '21sek', '42F'))
 ```
 
@@ -378,12 +384,13 @@ charToRaw(text2)
 parse_character(text1, locale = locale(encoding = 'UTF-8'))
 guess_encoding(charToRaw("Test"))
 guess_encoding(charToRaw(text2))
-``` 
+```
 
 ## Parsing Factors
 
 - R is using factors to represent categorical variables. 
 - Supply known levels to `parse_factor` so that it warns you when an unknown level is present in the data:
+
 ```{r}
 landscapes <- c('mountains', 'swamps', 'seaside')
 parse_factor(c('mountains', 'plains', 'seaside', 'swamps'), 
@@ -438,7 +445,7 @@ Looks like the problem occurs only in the `y` column.
 
 So, how can we fix the problematic columns?
 
-We can explicitely tell what parser to use:
+We can explicitly tell what parser to use:
 
 ```{r fix_problematic_explicite_parser}
 #| message: true
@@ -453,19 +460,21 @@ tricky_dataset <- read_csv(readr_example('challenge.csv'),
 tricky_dataset %>% tail(n = 5)
 ```
 
-As you can see, we can still do better by parsing the `y` column as *date*, not as *character*. 
+As you can see, we can still do better by parsing the `y` column as *date*, not as *character*.
 
 ## Fixing Problematic Columns cted.
 
-But knowing that the **parser is guessed based on the first 1000 lines**, we can see what sits past the 1000-th line in the data:
+But knowing that the **parser is guessed based on the first 1000 lines**, we can see what sits past the 1000th line in the data:
 
 ```{r}
 tricky_dataset %>% head(n = 1002) %>% tail(n = 4)
 ```
 
-It seems, we were very unlucky, because up till the 1000-th line there are only integers in the `x` column and `NA`s in the `y` column so the parser cannot be guessed correctly. To fix this:
+It seems, we were very unlucky, because up till the 1000th line there are only integers in the `x` column and `NA`s in the `y` column so the parser cannot be guessed correctly. To fix this:
 
-```{r guess_max_fix, echo=TRUE, message=TRUE, warning=T}
+```{r guess_max_fix}
+#| warning: true
+#| message: true
 tricky_dataset <- read_csv(readr_example('challenge.csv'),
                            guess_max = 1001)
 ```
@@ -497,7 +506,7 @@ bijou <- as_tibble(diamonds) %>% head(n = 100)
 bijou
 ```
 
-![](assets/diamonds.png){height="200px" .center}
+![](assets/diamonds.png){.center height="200px"}
 
 ## Picking Observations using `filter()`
 
@@ -512,7 +521,6 @@ Be careful with floating point comparisons! Also, rows with comparison resulting
 bijou %>% filter(near(0.23, carat) | is.na(carat)) %>%
   head(n = 5)
 ```
-
 
 ## Rearranging Observations using `arrange()`
 
@@ -538,7 +546,7 @@ bijou %>% select(-(x:z)) %>% head(n = 5)
 
 ## Selecting Variables with `select()` cted.
 
-`rename` is a variant of `select`, here used with `everything()` to move `x` to the beginning and rename it to `var_x` 
+`rename` is a variant of `select`, here used with `everything()` to move `x` to the beginning and rename it to `var_x`
 
 ```{r}
 bijou %>% rename(var_x = x) %>% head(n = 5)
@@ -610,7 +618,8 @@ Usually data are untidy in only one way. However, if you are unlucky, they are r
 
 [**Are these data tidy?**]{.center}
 
-```{r tidy_iris1, echo=FALSE}
+```{r tidy_iris1}
+#| echo: false
 data("iris") 
 iris %>% head(n=3) %>% kable("html",escape=F,align="c") %>%
   kable_styling(bootstrap_options=c("striped","hover","responsive","condensed"),
@@ -619,7 +628,8 @@ iris %>% head(n=3) %>% kable("html",escape=F,align="c") %>%
 
 . . .
 
-```{r tidy_iris2, echo=FALSE}
+```{r tidy_iris2}
+#| echo: false
 iris2 <- iris %>% 
   gather(key=variable, value=value, -Species)
 iris2 %>%
@@ -629,14 +639,14 @@ iris2 %>%
                 position="left",full_width = F)
 ```
 
-
 ## Tidy Data
 
 ![](assets/tidy_data.png){height="120px"}
 
 [**Are these data tidy?**]{.center}
 
-```{r tidy_iris3, echo=FALSE}
+```{r tidy_iris3}
+#| echo: false
 iris3 <-
   iris %>% 
   unite(Sepal.L.W, Sepal.Length, Sepal.Width, sep = "/") %>% 
@@ -650,7 +660,8 @@ iris3 %>%
 
 . . .
 
-```{r tidy_iris4, echo=FALSE}
+```{r tidy_iris4}
+#| echo: false
 iris4 <- t(iris) 
 iris4[,1:4] %>%
   kable("html",escape=F,align="c") %>% 
@@ -662,7 +673,8 @@ iris4[,1:4] %>%
 
 If some of your column names are actually values of a variable, use `pivot_longer` (old `gather`):
 
-```{r include=FALSE}
+```{r}
+#| include: false
 bijou %>% 
   mutate(`2008` = price) %>% 
   select(-price) %>% 
@@ -688,7 +700,8 @@ bijou2 %>%
 
 If some of your observations are scattered across many rows, use `pivot_wider` (old `spread`):
 
-```{r include=FALSE}
+```{r}
+#| include: false
 bijou %>% head(n = 3) %>% select(cut, price, clarity, x, y, z) %>% gather(x,y,z, key='dimension', value='measurement') -> bijou3
 ```
 
@@ -706,8 +719,12 @@ bijou3 %>%
 
 If some of your columns contain more than one value, use `separate`:
 
-```{r include=FALSE}
-bijou %>% head(n = 5) %>% select(cut, price, clarity, x, y, z) %>% unite(dim, x, y, z, sep='/') -> bijou4
+```{r}
+#| include: false
+bijou4 <- bijou %>% 
+  head(n = 5) %>% 
+  select(cut, price, clarity, x, y, z) %>% 
+  unite(dim, x, y, z, sep='/')
 ```
 
 ```{r bijou4}
@@ -723,8 +740,12 @@ bijou4 %>%
 
 If some of your columns contain more than one value, use `separate`:
 
-```{r include=FALSE}
-bijou %>% head(n = 5) %>% select(cut, price, clarity, x, y, z) %>% separate(clarity, into = c('clarity_prefix', 'clarity_suffix'), sep = 2) -> bijou5
+```{r}
+#| include: false
+bijou5 <- bijou %>% 
+  head(n = 5) %>% 
+  select(cut, price, clarity, x, y, z) %>% 
+  separate(clarity, into = c('clarity_prefix', 'clarity_suffix'), sep = 2)
 ```
 
 ```{r bijou5}
@@ -739,7 +760,9 @@ bijou5 %>% unite(clarity, clarity_prefix, clarity_suffix, sep='')
 
 ## Completing Missing Values Using `complete`
 
-```{r eval=FALSE, include=FALSE}
+```{r}
+#| eval: false
+#| include: false
 bijou %>% 
   head(n = 10) %>% 
   select(cut, clarity, price) %>% 
@@ -780,8 +803,8 @@ Let us create two example tibbles that share a key:
 
 :::: {.columns}
 ::: {.column width="50%"}
-
-```{r, echo=FALSE}
+```{r}
+#| echo: false
 A <- tribble(
   ~key, ~x,
   'a', 'A1',
@@ -791,14 +814,15 @@ A <- tribble(
 )
 ```
 
-```{r, echo=FALSE}
+```{r}
+#| echo: false
 knitr::kable(A)
 ```
-
 :::
-::: {.column width="50%"}
 
-```{r, echo=FALSE}
+::: {.column width="50%"}
+```{r}
+#| echo: false
 B <- tribble(
   ~key, ~y,
   'a', 'B1',
@@ -807,10 +831,11 @@ B <- tribble(
   'd','B4'
 )
 ```
-```{r, echo=FALSE}
+
+```{r}
+#| echo: false
 knitr::kable(B)
 ```
-
 :::
 ::::
 
@@ -818,18 +843,17 @@ knitr::kable(B)
 
 :::: {.columns}
 ::: {.column width="50%"}
-
-```{r, echo=FALSE}
+```{r}
+#| echo: false
 knitr::kable(A)
 ```
-
 :::
-::: {.column width="50%"}
 
-```{r, echo=FALSE}
+::: {.column width="50%"}
+```{r}
+#| echo: false
 knitr::kable(B)
 ```
-
 :::
 ::::
 
@@ -842,20 +866,19 @@ A %>% inner_join(B, by = 'key')
 
 ## The Joins Family &mdash; `left_join`
 
-:::: {.columns}
+::: columns
 ::: {.column width="50%"}
-
-```{r, echo=FALSE}
+```{r}
+#| echo: false
 knitr::kable(A)
 ```
-
 :::
-::: {.column width="50%"}
 
-```{r, echo=FALSE}
+::: {.column width="50%"}
+```{r}
+#| echo: false
 knitr::kable(B)
 ```
-
 :::
 ::::
 
@@ -869,23 +892,22 @@ A %>% left_join(B, by = 'key')
 
 :::: {.columns}
 ::: {.column width="50%"}
-
-```{r, echo=FALSE}
+```{r}
+#| echo: false
 knitr::kable(A)
 ```
-
 :::
-::: {.column width="50%"}
 
-```{r, echo=FALSE}
+::: {.column width="50%"}
+```{r}
+#| echo: false
 knitr::kable(B)
 ```
-
 :::
 ::::
 
 . . .
- 
+
 ```{r}
 A %>% right_join(B, by = 'key')
 ```
@@ -895,23 +917,22 @@ A %>% right_join(B, by = 'key')
 
 :::: {.columns}
 ::: {.column width="50%"}
-
-```{r, echo=FALSE}
+```{r}
+#| echo: false
 knitr::kable(A)
 ```
-
 :::
-::: {.column width="50%"}
 
-```{r, echo=FALSE}
+::: {.column width="50%"}
+```{r}
+#| echo: false
 knitr::kable(B)
 ```
-
 :::
 ::::
 
 . . .
- 
+
 ```{r}
 A %>% full_join(B, by = 'key')
 ```

@@ -155,7 +155,7 @@ purrr::map(test, is_a_droid) %>% unlist()
 
 ## Recursion
 
-When we explicitely repeat an action using a loop, we talk about **iteration**. We can also repeat actions by means of **recursion**, i.e. when a function calls itself. Let us implement a factorial $!$: 
+When we explicitly repeat an action using a loop, we talk about **iteration**. We can also repeat actions by means of **recursion**, i.e. when a function calls itself. Let us implement a factorial $!$:
 
 ```{r rec.fact}
 factorial.rec <- function(x) {

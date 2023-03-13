@@ -14,15 +14,13 @@ library(optparse)
 ```
 
 ::: {.callout-note}
-
-> * Write programs that do one thing and do it well.
-> * Write programs to work together.
-> * Write programs to handle text streams, because that is a universal interface.
+> - Write programs that do one thing and do it well.
+> - Write programs to work together.
+> - Write programs to handle text streams, because that is a universal interface.
 >
-> --The UNIX philosophy, Doug McIlroy
+> -- The UNIX philosophy, Doug McIlroy
 
 In this exercise we will write a few functions and execute R scripts from the command line and provide them with options and data.
-
 :::
 
 ## R Functions
@@ -41,7 +39,7 @@ function_name <- function(arg1, arg2 = "Lucy"){
 }
 ```
 
-Test your function to make sure it gives the output you would expect given different arguments. 
+Test your function to make sure it gives the output you would expect given different arguments.
 
 - What happens if you don't assign a value to the argument that does not have a default?
 - Did I need to use the `return()` function in my example?
@@ -63,13 +61,13 @@ Now let's take a look at the special ellipsis argument for functions. Basically 
 
 From `?data.frame`
 
-```
+```         
 Usage
 data.frame(..., row.names = NULL, check.rows = FALSE,
            check.names = TRUE, fix.empty.names = TRUE,
            stringsAsFactors = default.stringsAsFactors())
 ```
-           
+
 The ellipsis can be used to add columns to the data.frame. Try creating a data.frame with one column and one with several. Also, try creating a data.frame with no arguments for `...`, what happens?
 
 ```{r}
@@ -119,7 +117,8 @@ Task:
 - Does it work without the path (e.g. `./`)?
 
 <!--
-```{r,echo=TRUE,eval=FALSE}
+```{r}
+#| eval: false
 #!/usr/bin/env Rscript
 mydata=rnorm(1000)
 print(summary(mydata))
@@ -128,7 +127,7 @@ print(summary(mydata))
 
 ## Passing and parsing arguments
 
-It's unlikely that you would need to run the exact same process over and over again without any change in what data is processed or how it's processed. One way to control the behaviour of your code is to provide arguments to it. These commonly refer to file names or settings. You can supply arguments after the name of your script where you invoke it. In R, they are available from `commandArgs()`.
+It's unlikely that you would need to run the exact same process over and over again without any change in what data is processed or how it's processed. One way to control the behavior of your code is to provide arguments to it. These commonly refer to file names or settings. You can supply arguments after the name of your script where you invoke it. In R, they are available from `commandArgs()`.
 
 - Let your script print the arguments. Run it with a few extra words or numbers and see what happens.
 

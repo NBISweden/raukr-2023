@@ -407,7 +407,7 @@ Marcin Kierczak
 </div>
 </div>
 
-  <p class="date">11-Mar-2023</p>
+  <p class="date">13-Mar-2023</p>
 </section>
 
 <section id="learning-outcomes" class="slide level2">
@@ -453,7 +453,7 @@ Marcin Kierczak
 </div>
 <div class="fragment">
 <p><img data-src="assets/tidyverse-flow.png" height="400"><br>
-<a href="http://www.storybench.org/getting-started-with-tidyverse-in-r/"><span class="smaller">Source: http://www.storybench.org/getting-started-with-tidyverse-in-r/</span></a></p>
+<span class="smaller"><a href="http://www.storybench.org/getting-started-with-tidyverse-in-r/">Source: http://www.storybench.org/getting-started-with-tidyverse-in-r/</a></span></p>
 </div>
 </section>
 <section id="introduction-to-pipes" class="slide level2">
@@ -461,7 +461,7 @@ Marcin Kierczak
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><img data-src="assets/MagrittePipe.jpg"></p>
-<p><span class="smaller">Rene Magritt, <em><a href="https://en.wikipedia.org/wiki/The_Treachery_of_Images">La trahison des images</a></em>, <a href="https://en.wikipedia.org/wiki/The_Treachery_of_Images#/media/File:MagrittePipe.jpg">Wikimedia Commons</a></span></p>
+<p><span class="smaller">Rene Magritt, <a href="https://en.wikipedia.org/wiki/The_Treachery_of_Images"><em>La trahison des images</em></a>, <a href="https://en.wikipedia.org/wiki/The_Treachery_of_Images#/media/File:MagrittePipe.jpg">Wikimedia Commons</a></span></p>
 <p><br></p>
 <p><img data-src="assets/magrittr.png"></p>
 </div><div class="column" style="width:50%;">
@@ -523,13 +523,13 @@ Marcin Kierczak
 <p><img data-src="index_files/figure-revealjs/unnamed-chunk-2-1.png" width="384"></p>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>       V1                V2         
- Min.   :-1.3069   Min.   :-2.0331  
- 1st Qu.:-0.3108   1st Qu.:-0.9381  
- Median : 0.4942   Median :-0.3499  
- Mean   : 0.3522   Mean   :-0.3555  
- 3rd Qu.: 0.9977   3rd Qu.: 0.1502  
- Max.   : 1.9151   Max.   : 1.2726  </code></pre>
+<pre><code>       V1                 V2          
+ Min.   :-2.02141   Min.   :-1.15534  
+ 1st Qu.:-0.83002   1st Qu.:-0.55657  
+ Median : 0.14981   Median : 0.04032  
+ Mean   : 0.05109   Mean   : 0.18374  
+ 3rd Qu.: 0.71998   3rd Qu.: 0.69639  
+ Max.   : 2.22626   Max.   : 2.40305  </code></pre>
 </div>
 </div>
 </div>
@@ -564,7 +564,7 @@ Marcin Kierczak
 <span id="cb11-2"><a href="#cb11-2"></a>M <span class="sc">%&lt;&gt;%</span> <span class="fu">colSums</span>()</span>
 <span id="cb11-3"><a href="#cb11-3"></a>M</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  1.559893014  0.637565789 -1.712424914 -0.008973775</code></pre>
+<pre><code>[1] -0.4511660  1.0695463  0.7523792  3.6769559</code></pre>
 </div>
 </div>
 <p>From R &gt;= 4.1.0 we have a native <code>|&gt;</code> pipe that is a bit faster than <code>%&gt;%</code> but currently has no placeholders mechanism.</p>
@@ -596,9 +596,9 @@ Coefficients:
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>M <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">4</span>) <span class="sc">%&gt;%</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> <span class="dv">2</span>)</span>
 <span id="cb17-2"><a href="#cb17-2"></a>M <span class="sc">%&gt;%</span> <span class="st">`</span><span class="at">%*%</span><span class="st">`</span>(., .)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>          [,1]       [,2]
-[1,] 0.1800489 0.01405156
-[2,] 0.7461328 0.62739108</code></pre>
+<pre><code>           [,1]       [,2]
+[1,]  0.2849240 -0.2681444
+[2,] -0.4288449  0.4195268</code></pre>
 </div>
 </div>
 </div>
@@ -662,16 +662,16 @@ Coefficients:
 <pre><code># A tibble: 50 × 4
        x      y     z outcome
    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
- 1     1 0.192   1.04  -0.838
- 2     1 0.896   1.80  -0.123
- 3     1 0.180   1.03  -3.14 
- 4     1 0.103   1.01   0.783
- 5     1 0.550   1.30   2.22 
- 6     1 0.912   1.83  -0.355
- 7     1 0.0261  1.00  -1.15 
- 8     1 0.532   1.28   0.134
- 9     1 0.589   1.35   1.21 
-10     1 0.414   1.17  -1.52 
+ 1     1 0.643   1.41  0.933 
+ 2     1 0.288   1.08  0.255 
+ 3     1 0.896   1.80  0.0548
+ 4     1 0.149   1.02 -0.326 
+ 5     1 0.483   1.23 -0.811 
+ 6     1 0.0309  1.00 -0.679 
+ 7     1 0.900   1.81  0.317 
+ 8     1 0.128   1.02 -0.333 
+ 9     1 0.0456  1.00  0.228 
+10     1 0.657   1.43 -1.62  
 # … with 40 more rows</code></pre>
 </div>
 </div>
@@ -804,7 +804,7 @@ Coefficients:
 <h2>Loading Data</h2>
 <p>In <code>tidyverse</code> you import data using <code>readr</code> package that provides a number of useful data import functions:</p>
 <ul>
-<li><code>read_delim()</code> a generic function for reading *-delimited files. There are a number of convenience wrappers:
+<li><code>read_delim()</code> a generic function for reading x-delimited files. There are a number of convenience wrappers:
 <ul>
 <li><code>read_csv()</code> used to read comma-delimited files,</li>
 <li><code>read_csv2()</code> reads semicolon-delimited files, <code>read_tsv()</code> that reads tab-delimited files.</li>
@@ -969,7 +969,7 @@ date (1): y
 <section id="fixing-problematic-columns" class="slide level2">
 <h2>Fixing Problematic Columns</h2>
 <p>So, how can we fix the problematic columns?</p>
-<p>We can explicitely tell what parser to use:</p>
+<p>We can explicitly tell what parser to use:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a>tricky_dataset <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">readr_example</span>(<span class="st">'challenge.csv'</span>),</span>
 <span id="cb62-2"><a href="#cb62-2"></a>                           <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">x =</span> <span class="fu">col_double</span>(),</span>
@@ -992,7 +992,7 @@ date (1): y
 </section>
 <section id="fixing-problematic-columns-cted." class="slide level2">
 <h2>Fixing Problematic Columns cted.</h2>
-<p>But knowing that the <strong>parser is guessed based on the first 1000 lines</strong>, we can see what sits past the 1000-th line in the data:</p>
+<p>But knowing that the <strong>parser is guessed based on the first 1000 lines</strong>, we can see what sits past the 1000th line in the data:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a>tricky_dataset <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">1002</span>) <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="at">n =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1005,7 +1005,7 @@ date (1): y
 4    0.412 2018-05-18</code></pre>
 </div>
 </div>
-<p>It seems, we were very unlucky, because up till the 1000-th line there are only integers in the <code>x</code> column and <code>NA</code>s in the <code>y</code> column so the parser cannot be guessed correctly. To fix this:</p>
+<p>It seems, we were very unlucky, because up till the 1000th line there are only integers in the <code>x</code> column and <code>NA</code>s in the <code>y</code> column so the parser cannot be guessed correctly. To fix this:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a>tricky_dataset <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">readr_example</span>(<span class="st">'challenge.csv'</span>),</span>
 <span id="cb66-2"><a href="#cb66-2"></a>                           <span class="at">guess_max =</span> <span class="dv">1001</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1593,15 +1593,15 @@ date (1): y
  2 Fair      Eur       &lt;NA&gt;       NA
  3 Good      AusOce    SI2       335
  4 Good      Eur       VS1       327
- 5 Very Good AusOce    &lt;NA&gt;       NA
- 6 Very Good Eur       VVS2      336
- 7 Very Good Eur       VVS1      336
- 8 Very Good Eur       SI1       337
- 9 Very Good Eur       VS1       338
-10 Premium   AusOce    SI1       326
-11 Premium   Eur       VS2       334
-12 Ideal     AusOce    SI2       326
-13 Ideal     Eur       &lt;NA&gt;       NA</code></pre>
+ 5 Very Good AusOce    VVS2      336
+ 6 Very Good AusOce    VVS1      336
+ 7 Very Good AusOce    SI1       337
+ 8 Very Good AusOce    VS1       338
+ 9 Very Good Eur       &lt;NA&gt;       NA
+10 Premium   AusOce    VS2       334
+11 Premium   Eur       SI1       326
+12 Ideal     AusOce    &lt;NA&gt;       NA
+13 Ideal     Eur       SI2       326</code></pre>
 </div>
 </div>
 </section>

@@ -108,6 +108,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -216,7 +218,7 @@ background-size: cover;
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">11-Mar-2023</p>
+        <p class="date">13-Mar-2023</p>
       </div>
     </div>
     
@@ -282,7 +284,7 @@ background-size: cover;
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../slides/parallelisation/index.html" class="sidebar-item-text sidebar-link">Parallelisation in R</a>
+  <a href="../../slides/parallelization/index.html" class="sidebar-item-text sidebar-link">Parallelization in R</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -372,17 +374,12 @@ background-size: cover;
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../labs/parallelisation/index.html" class="sidebar-item-text sidebar-link">Parallelisation</a>
+  <a href="../../labs/parallelization/index.html" class="sidebar-item-text sidebar-link">Parallelization</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../labs/ggplot/index.html" class="sidebar-item-text sidebar-link">Plotting with ggplot2</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../labs/publishing/index.html" class="sidebar-item-text sidebar-link">Publishing</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -615,7 +612,7 @@ Note
 </div>
 </div>
 </div>
-<p>In this example, we have a text input box which takes user text and outputs it in three different variations. The first output is html output <code>htmlOutput()</code>. Since the default text is html content, the output is red coloured text. A normal non-html text would just look like normal text. The second output is normal text output <code>textOutput()</code>. The third variation is <code>verbatimTextOutput()</code> which displays text in monospaced code style. This example further shows table output and plot output.</p>
+<p>In this example, we have a text input box which takes user text and outputs it in three different variations. The first output is html output <code>htmlOutput()</code>. Since the default text is html content, the output is red colored text. A normal non-html text would just look like normal text. The second output is normal text output <code>textOutput()</code>. The third variation is <code>verbatimTextOutput()</code> which displays text in monospaced code style. This example further shows table output and plot output.</p>
 </section>
 <section id="dynamic-ui" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="dynamic-ui"><span class="header-section-number">4</span> Dynamic UI</h2>
@@ -788,7 +785,7 @@ Note
 </div>
 </div>
 </div>
-<p>Now we see an informative grey message (less scary) asking the user to select a dataset.</p>
+<p>Now we see an informative gray message (less scary) asking the user to select a dataset.</p>
 <p>We can use a custom function instead of using <code>need()</code>. Below, we have created a function called <code>valfun()</code> that checks if the input is NULL, NA or an empty string. This is then used in <code>validate()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>valfn <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="cf">if</span>(<span class="fu">is.null</span>(x) <span class="sc">|</span> <span class="fu">is.na</span>(x) <span class="sc">|</span> x<span class="sc">==</span><span class="st">""</span>) <span class="fu">return</span>(<span class="st">"Input data is incorrect."</span>)</span>
@@ -918,7 +915,7 @@ Note
 </section>
 <section id="download-plot" class="level2" data-number="9">
 <h2 data-number="9" class="anchored" data-anchor-id="download-plot"><span class="header-section-number">9</span> Download • Plot</h2>
-<p>In this next example, we are downloading a plot. In the content part of <code>downloadHandler()</code>, we specify commands to export a png image. Note that this example needs to be opened in a browser and may not in the RStudio preview. In the RStudio preview, click on <strong>Open in Browser</strong>.</p>
+<p>In this next example, we are downloading a plot. In the content part of <code>downloadHandler()</code>, we specify commands to export a PNG image. Note that this example needs to be opened in a browser and may not in the RStudio preview. In the RStudio preview, click on <strong>Open in Browser</strong>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">ui=</span><span class="fu">fluidPage</span>(</span>
@@ -960,45 +957,41 @@ Note
 <section id="shiny-in-rmarkdown" class="level2" data-number="10">
 <h2 data-number="10" class="anchored" data-anchor-id="shiny-in-rmarkdown"><span class="header-section-number">10</span> Shiny in Rmarkdown</h2>
 <p>Shiny interactive widgets can be embedded into Rmarkdown documents. These documents need to be live and can handle interactivity. The important addition is the line <code>runtime: shiny</code> to the YAML matter. Here is an example:</p>
-<div class="cell" data-out.class="md">
-<div class="cell-output cell-output-stdout">
-<pre><code>---
-runtime: shiny
-output: html_document
----
-
-```{r}
-library(shiny)
-```
-
-This is a standard RMarkdown document. Here is some code:
-
-```{r}
-head(iris)
-```
-
-```{r}
-plot(iris$Sepal.Length,iris$Petal.Width)
-```
-
-But, here is an interactive shiny widget.
-
-```{r}
-sliderInput("in_breaks",label="Breaks:",min=5,max=50,value=5,step=5)
-```
-
-```{r}
-renderPlot({
-hist(iris$Sepal.Length,breaks=input$in_breaks)
-})
-```</code></pre>
-</div>
-</div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="an">runtime:</span><span class="co"> shiny</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="an">output:</span><span class="co"> html_document</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>This is a standard RMarkdown document. Here is some code:</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(iris<span class="sc">$</span>Sepal.Length,iris<span class="sc">$</span>Petal.Width)</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>But, here is an interactive shiny widget.</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="fu">sliderInput</span>(<span class="st">"in_breaks"</span>,<span class="at">label=</span><span class="st">"Breaks:"</span>,<span class="at">min=</span><span class="dv">5</span>,<span class="at">max=</span><span class="dv">50</span>,<span class="at">value=</span><span class="dv">5</span>,<span class="at">step=</span><span class="dv">5</span>)</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a><span class="fu">renderPlot</span>({{</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(iris<span class="sc">$</span>Sepal.Length,<span class="at">breaks=</span>input<span class="sc">$</span>in_breaks)</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>}})</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This code can be copied to a new file in RStudio and saved as, for example, <strong>shiny.Rmd</strong>. Then click ‘Knit’. Alternatively, you can run <code>rmarkdown::run("shiny.Rmd")</code>.</p>
 </section>
 <section id="data-explorer" class="level2" data-number="11">
 <h2 data-number="11" class="anchored" data-anchor-id="data-explorer"><span class="header-section-number">11</span> Data explorer</h2>
-<p>A common use case of shiny apps is to explore a dataset interactively. So we will build a simple app that can create a scatterplot from a dataframe which a user can modify interactively. We will use the built-in <code>iris</code> dataset and the user should be able to select x and y axes variables as well the variable mapped to the colour of the points.</p>
+<p>A common use case of shiny apps is to explore a dataset interactively. So we will build a simple app that can create a scatterplot from a dataframe which a user can modify interactively. We will use the built-in <code>iris</code> dataset and the user should be able to select x and y axes variables as well the variable mapped to the color of the points.</p>
 <p><strong>Topics covered</strong></p>
 <ul>
 <li>UI sidebar layout</li>
@@ -1044,12 +1037,12 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="index_files/figure-html/unnamed-chunk-18-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="index_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="index_files/figure-html/unnamed-chunk-17-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<p>And to the sidebar, we will add 3 input widgets corresponding to x axis variable, y axis variable and colour variable. These will be dropdown type (<code>selectInput()</code>) and choices will be column names of the iris dataframe. And we add the output widget (<code>plotOutput()</code>) in the main panel.</p>
+<p>And to the sidebar, we will add 3 input widgets corresponding to x axis variable, y axis variable and color variable. These will be dropdown type (<code>selectInput()</code>) and choices will be column names of the iris dataframe. And we add the output widget (<code>plotOutput()</code>) in the main panel.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1072,7 +1065,7 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="index_files/figure-html/unnamed-chunk-19-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="index_files/figure-html/unnamed-chunk-18-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="index_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1209,15 +1202,15 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="index_files/figure-html/unnamed-chunk-25-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="index_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="index_files/figure-html/unnamed-chunk-24-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="index_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The app should visually look close to our final end result. Check that the widgets work.</p>
 <p>The next step is to wire up the inputs to the <code>rnapower()</code> function and return the result to the output text field.</p>
-<p><i class="fa fa-clipboard-list"></i> Try to see if you can get this to work.</p>
-<div class="cell" data-accordion="true">
+<p><i class="fa-solid fa-clipboard-list" aria-label="clipboard-list"></i> Try to see if you can get this to work.</p>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RNASeqPower)</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1248,18 +1241,18 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="index_files/figure-html/unnamed-chunk-26-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="index_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="index_files/figure-html/unnamed-chunk-25-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="index_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Verify that the inputs and outputs work. One can stop at this point if you only need to compute number of samples. But, we will continue to enchance the app to be able to compute any of the other parameters.</p>
+<p>Verify that the inputs and outputs work. One can stop at this point if you only need to compute number of samples. But, we will continue to enhance the app to be able to compute any of the other parameters.</p>
 </section>
 <section id="conditional-ui" class="level3" data-number="12.3">
 <h3 data-number="12.3" class="anchored" data-anchor-id="conditional-ui"><span class="header-section-number">12.3</span> Conditional UI</h3>
 <p>The function can estimate not only <strong>sample size</strong>, but <strong>cv</strong>, <strong>effect</strong>, <strong>alpha</strong> or <strong>power</strong>. We should let the user choose what they want to compute. So, we need a selection input widget to enable selection. And the input fields must change depending on the user’s selected choice. The <code>rnapower()</code> function must also use a different set of parameters depending on the selection choice. For conditional logic, you can chain <code>if else</code> statements or use <code>switch()</code>.</p>
-<p><i class="fa fa-clipboard-list"></i> Try to add a selection based conditional UI. <code>?selectInput()</code>, <code>?uiOutput()</code>, <code>?renderUI()</code>.</p>
-<div class="cell" data-accordion="true">
+<p><i class="fa-solid fa-clipboard-list" aria-label="clipboard-list"></i> Try to add a selection based conditional UI. <code>?selectInput()</code>, <code>?uiOutput()</code>, <code>?renderUI()</code>.</p>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RNASeqPower)</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1344,12 +1337,12 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="index_files/figure-html/unnamed-chunk-27-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="index_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="index_files/figure-html/unnamed-chunk-26-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="index_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Let’s summarise what we have done. In the <strong>ui</strong> part, instead of directly including the <code>rnapower()</code> input variable in the <code>sidebarPanel()</code>, we have added a selection input and a conditional UI output. The content inside the output UI depends on the selection made by the user.</p>
+<p>Let’s summarize what we have done. In the <strong>ui</strong> part, instead of directly including the <code>rnapower()</code> input variable in the <code>sidebarPanel()</code>, we have added a selection input and a conditional UI output. The content inside the output UI depends on the selection made by the user.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">selectInput</span>(<span class="st">"in_pa_est"</span>, <span class="st">"Variable to estimate"</span>, <span class="at">choices=</span><span class="fu">c</span>(<span class="st">"n"</span>,<span class="st">"cv"</span>,<span class="st">"effect"</span>,<span class="st">"alpha"</span>,<span class="st">"power"</span>), <span class="at">selected=</span><span class="dv">1</span>, <span class="at">multiple=</span><span class="cn">FALSE</span>),</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">uiOutput</span>(<span class="st">"ui_pa"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1402,8 +1395,8 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 </div>
 </div>
 <p>Blank space are removed, the string is split by comma into a list of strings, the list is converted to a vector and the strings are coerced to numbers.</p>
-<p><i class="fa fa-clipboard-list"></i> Update the app such that all numeric inputs are replaced by text inputs and the server logic is able to parse the strings into numbers.</p>
-<div class="cell" data-accordion="true">
+<p><i class="fa-solid fa-clipboard-list" aria-label="clipboard-list"></i> Update the app such that all numeric inputs are replaced by text inputs and the server logic is able to parse the strings into numbers.</p>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RNASeqPower)</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1513,18 +1506,18 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="index_files/figure-html/unnamed-chunk-34-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23"><img src="index_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="index_files/figure-html/unnamed-chunk-33-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23"><img src="index_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<p>To summarise our changes, in the ui part, all <code>numericInput()</code> has been changed to <code>textInput()</code> and in the process we lost the number specific input limits such as min, max, step size etc. In the server part, incoming strings are parsed and split into a vector of numbers, saved to a variable and passed to the <code>rnapower()</code> function. Ensure that the app works without errors and we can progress further.</p>
+<p>To summarize our changes, in the ui part, all <code>numericInput()</code> has been changed to <code>textInput()</code> and in the process we lost the number specific input limits such as min, max, step size etc. In the server part, incoming strings are parsed and split into a vector of numbers, saved to a variable and passed to the <code>rnapower()</code> function. Ensure that the app works without errors and we can progress further.</p>
 </section>
 <section id="code-cleaning" class="level3" data-number="12.5">
 <h3 data-number="12.5" class="anchored" data-anchor-id="code-cleaning"><span class="header-section-number">12.5</span> Code cleaning</h3>
 <p>It is good practice to check whether the current code can be cleaned-up/polished or reduced. In this example, <strong>depth</strong> is always needed and could be moved out of the conditional block. Only one variable changes based on user input, but all 5 variables are repeated in each conditional block. There is room for improvement there.</p>
-<p><i class="fa fa-clipboard-list"></i> Try to figure out how the code can be reorganised and simplified.</p>
-<div class="cell" data-accordion="true">
+<p><i class="fa-solid fa-clipboard-list" aria-label="clipboard-list"></i> Try to figure out how the code can be reorganized and simplified.</p>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RNASeqPower)</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1576,7 +1569,7 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="index_files/figure-html/unnamed-chunk-35-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24"><img src="index_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="index_files/figure-html/unnamed-chunk-34-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24"><img src="index_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
@@ -1586,7 +1579,7 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 <section id="input-validation" class="level3" data-number="12.6">
 <h3 data-number="12.6" class="anchored" data-anchor-id="input-validation"><span class="header-section-number">12.6</span> Input validation</h3>
 <p>When we changed numeric inputs to character, we lost the input limits and numeric validation. Regardless of what input you enter, the app tries to proceed with the calculation.</p>
-<p><i class="fa fa-clipboard-list"></i> Try entering some unreasonable inputs and see what happens. Try entering random strings, or huge integers for <strong>alpha</strong> etc.</p>
+<p><i class="fa-solid fa-clipboard-list" aria-label="clipboard-list"></i> Try entering some unreasonable inputs and see what happens. Try entering random strings, or huge integers for <strong>alpha</strong> etc.</p>
 <p>We can bring back input validation manually using <code>validate()</code> functions. This can be used to check if the input conforms to some expected range of values and if not, return a message to the user.</p>
 <p>Here are the limits we want to set:</p>
 <ul>
@@ -1597,8 +1590,8 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 <li><code>alpha</code>: A numeric between 0 and 1 excluding 0 and 1</li>
 <li><code>power</code>: A numeric between 0 and 1 excluding 0 and 1</li>
 </ul>
-<p><i class="fa fa-clipboard-list"></i> Try to figure out how to add input validation. <code>?shiny::validate()</code>.</p>
-<div class="cell" data-accordion="true">
+<p><i class="fa-solid fa-clipboard-list" aria-label="clipboard-list"></i> Try to figure out how to add input validation. <code>?shiny::validate()</code>.</p>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RNASeqPower)</span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1676,19 +1669,19 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="index_files/figure-html/unnamed-chunk-36-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-25"><img src="index_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="index_files/figure-html/unnamed-chunk-35-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-25"><img src="index_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <p>We have added <code>validate()</code> to all incoming text to ensure that user input is within reasonable limits.</p>
-<p><i class="fa fa-clipboard-list"></i> Test that the validation works by inputting unreasonable inputs such as alphabets, symbols etc into the input fields.</p>
+<p><i class="fa-solid fa-clipboard-list" aria-label="clipboard-list"></i> Test that the validation works by inputting unreasonable inputs such as alphabets, symbols etc into the input fields.</p>
 </section>
 <section id="theme" class="level3" data-number="12.7">
 <h3 data-number="12.7" class="anchored" data-anchor-id="theme"><span class="header-section-number">12.7</span> Theme</h3>
 <p>This part is purely cosmetic. We can add a custom theme from R package <code>shinythemes</code> to make our app stand out from the default. The theme is added as an argument to <code>fluidPage()</code> like so <code>fluidPage(theme = shinytheme("spacelab"))</code>.</p>
-<p><i class="fa fa-clipboard-list"></i> Try changing the theme and pick one that you like. Check out <code>?shinythemes</code>. The themes can be visualised on <a href="https://bootswatch.com/">Bootswatch</a>.</p>
-<div class="cell" data-accordion="true">
+<p><i class="fa-solid fa-clipboard-list" aria-label="clipboard-list"></i> Try changing the theme and pick one that you like. Check out <code>?shinythemes</code>. The themes can be visualized on <a href="https://bootswatch.com/">Bootswatch</a>.</p>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shinythemes)</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RNASeqPower)</span>
@@ -1768,7 +1761,7 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="index_files/figure-html/unnamed-chunk-37-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-26"><img src="index_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="index_files/figure-html/unnamed-chunk-36-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-26"><img src="index_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
@@ -1784,7 +1777,7 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>rsconnect<span class="sc">::</span><span class="fu">setAccountInfo</span>(<span class="at">name=</span><span class="st">"username"</span>, <span class="at">token=</span><span class="st">"KJHF853HG6G59C2F4J7B6"</span>, <span class="at">secret=</span><span class="st">"jhHD7%jdg)62F67G/"</span>)</span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">deployApp</span>(<span class="at">appName=</span><span class="st">"my-awesome-app"</span>,<span class="at">appDir=</span><span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The packages used are automatically detected and are installed on to the instance. If Bioconductor packages give an error during deployment, the repos need to be explicitly set on your system.</p>
+<p>The packages used are automatically detected and are installed on to the instance. If Bioconductor packages give an error during deployment, the repositories need to be explicitly set on your system.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setRepositories</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="at">graphics=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1817,7 +1810,7 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 <p><a href="assets/calendar_plot.png" class="lightbox" data-gallery="quarto-lightbox-gallery-28"><img src="assets/calendar_plot.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
-<p>The image is a plot created in ggplot. X axis showing week numbers, y axis showing weekdays, facet titles showing months and dates are coloured by categories. We can split this into two parts. The first part is preparing the code for the core task at hand (ie; generating the plot) and the second part is creating a graphical user interface around it using shiny apps to enable the user to input values and adjust dates, categories, plot parameters etc.</p>
+<p>The image is a plot created in ggplot. X axis showing week numbers, y axis showing weekdays, facet titles showing months and dates are colored by categories. We can split this into two parts. The first part is preparing the code for the core task at hand (ie; generating the plot) and the second part is creating a graphical user interface around it using shiny apps to enable the user to input values and adjust dates, categories, plot parameters etc.</p>
 <section id="creating-the-plot" class="level3" data-number="13.1">
 <h3 data-number="13.1" class="anchored" data-anchor-id="creating-the-plot"><span class="header-section-number">13.1</span> Creating the plot</h3>
 <p>The first step is to figure out how to create this plot in ggplot. The data will be contained in a data.frame. The data.frame is created based on start and end dates.</p>
@@ -2008,7 +2001,7 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="index_files/figure-html/unnamed-chunk-43-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-29"><img src="index_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="index_files/figure-html/unnamed-chunk-42-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-29"><img src="index_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -2026,12 +2019,12 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="index_files/figure-html/unnamed-chunk-44-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-30"><img src="index_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="index_files/figure-html/unnamed-chunk-43-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-30"><img src="index_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Now, we can customise the plot as you prefer. I am modifying the axes labels, changing colours and removing most of the plot elements.</p>
+<p>Now, we can customize the plot as you prefer. I am modifying the axes labels, changing colors and removing most of the plot elements.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>all_cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#bebada"</span>,<span class="st">"#fb8072"</span>,<span class="st">"#80b1d3"</span>,<span class="st">"#fdb462"</span>)</span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  </span>
@@ -2053,7 +2046,7 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="index_files/figure-html/unnamed-chunk-45-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-31"><img src="index_files/figure-html/unnamed-chunk-45-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="index_files/figure-html/unnamed-chunk-44-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-31"><img src="index_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -2110,13 +2103,13 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="index_files/figure-html/unnamed-chunk-47-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-33"><img src="index_files/figure-html/unnamed-chunk-47-1.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="index_files/figure-html/unnamed-chunk-46-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-33"><img src="index_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <p>We have defined a part of the side bar panel with a title <strong>Duration</strong>. <code>fluidRow()</code> is an html tag used to create rows. Above, in the side bar panel, a row is defined and two columns are defined inside. Each column is filled with date input widgets for start and end dates. We use the columns here to place date input widgets side by side. To place widgets one below the other, the columns can simply be removed. The default value for the start date is set to current date and the end date is set to current date + 30 days.</p>
-<p>Now we add more sections to the side bar panel, namely track input variables and plot settings variables. We also added custom colours. Custom colours can be selected using the input widget <code>colourpicker::colourInput()</code>.</p>
+<p>Now we add more sections to the side bar panel, namely track input variables and plot settings variables. We also added custom colors. Custom colors can be selected using the input widget <code>colourpicker::colourInput()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">toupper</span>(<span class="fu">c</span>(</span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"#bebada"</span>,<span class="st">"#fb8072"</span>,<span class="st">"#80b1d3"</span>,<span class="st">"#fdb462"</span>,<span class="st">"#b3de69"</span>,<span class="st">"#fccde5"</span>,<span class="st">"#FDBF6F"</span>,<span class="st">"#A6CEE3"</span>,</span>
@@ -2219,7 +2212,7 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="index_files/figure-html/unnamed-chunk-48-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-34"><img src="index_files/figure-html/unnamed-chunk-48-1.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="index_files/figure-html/unnamed-chunk-47-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-34"><img src="index_files/figure-html/unnamed-chunk-47-1.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
@@ -2263,7 +2256,7 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 <span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">imageOutput</span>(<span class="st">"out_plot"</span>)</span>
 <span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This should now look like this. Some additional syling has been added to divs.</p>
+<p>This should now look like this. Some additional styling has been added to divs.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="do">## load colours</span></span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">toupper</span>(<span class="fu">c</span>(</span>
@@ -2400,13 +2393,13 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 <section id="server-1" class="level4" data-number="13.2.3">
 <h4 data-number="13.2.3" class="anchored" data-anchor-id="server-1"><span class="header-section-number">13.2.3</span> Server</h4>
 <p>We can start adding content into the server function to actually enable functionality.</p>
-<p>The server code can be organised into 5 blocks.</p>
+<p>The server code can be organized into 5 blocks.</p>
 <ol type="1">
 <li><code>fn_plot()</code>: Reactive function that generates ggplot object</li>
 <li>out_plot: Plots the ggplot object</li>
 <li><code>fn_downloadplotname()</code>: Function to create download image name</li>
 <li><code>fn_downloadplot()</code>: Function to create and download the image</li>
-<li>btn_downloadplot: Download handler that runs fn_downloadplot on button trigger</li>
+<li><code>btn_downloadplot</code>: Download handler that runs <code>fn_downloadplot</code> on button trigger</li>
 <li>observe: Observer that updates input values</li>
 </ol>
 <p>Here is a flow diagram of how these blocks work.</p>
@@ -3161,7 +3154,7 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>dfr <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">label1=</span><span class="fu">c</span>(<span class="st">"Person A"</span>,<span class="st">"Person B"</span>),<span class="at">label2=</span><span class="fu">c</span>(<span class="st">"Institution X"</span>,<span class="st">"Institution Y"</span>),<span class="at">stringsAsFactors =</span> F)</span>
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nametag</span>(dfr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This should have exported a png image to the working directory. <code>nametag()</code> also has an argument called <code>logo_right</code> to pass in a raster image which will be plotted as a logo on the top right side. <code>nametag()</code> also has numerous other arguments to adjust label positions, logo position, size justification etc. But, these arguments have reasonable defaults.</p>
+<p>This should have exported a PNG image to the working directory. <code>nametag()</code> also has an argument called <code>logo_right</code> to pass in a raster image which will be plotted as a logo on the top right side. <code>nametag()</code> also has numerous other arguments to adjust label positions, logo position, size justification etc. But, these arguments have reasonable defaults.</p>
 </section>
 <section id="building-the-app-1" class="level3" data-number="14.2">
 <h3 data-number="14.2" class="anchored" data-anchor-id="building-the-app-1"><span class="header-section-number">14.2</span> Building the app</h3>
@@ -3196,7 +3189,7 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="index_files/figure-html/unnamed-chunk-62-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-40"><img src="index_files/figure-html/unnamed-chunk-62-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="index_files/figure-html/unnamed-chunk-61-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-40"><img src="index_files/figure-html/unnamed-chunk-61-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -3244,7 +3237,7 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 </figure>
 </div>
 <p>We have added input for file upload and paste text so that users can input labels either way. The tabular column delimiter can be user-defined. The actual input widget is hidden since it’s a conditional UI. This works only when further code is defined under server. A help text is added to explain the input format to the user. A download button to download the images. A settings checkbox to optionally display the advanced settings panel. The main column has text showing number of files generated and the preview plot.</p>
-<p>Finally, we will add some custom styling to the columns. For example <code>style="max-width:300px;border-radius:4px;background:#ebedef;"</code> was added to the left input column to colour the background grey, rounded corners and limit responsive width to 300px.</p>
+<p>Finally, we will add some custom styling to the columns. For example <code>style="max-width:300px;border-radius:4px;background:#ebedef;"</code> was added to the left input column to color the background gray, rounded corners and limit responsive width to 300px.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(</span>
 <span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="at">ui=</span><span class="fu">fluidPage</span>(</span>
@@ -3289,7 +3282,7 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 </section>
 <section id="server-2" class="level4" data-number="14.2.2">
 <h4 data-number="14.2.2" class="anchored" data-anchor-id="server-2"><span class="header-section-number">14.2.2</span> Server</h4>
-<p>Now let’s plan a bit on how to organise the server code. We can break it up into 8 blocks.</p>
+<p>Now let’s plan a bit on how to organize the server code. We can break it up into 8 blocks.</p>
 <ol type="1">
 <li>Conditional UI for input</li>
 <li>Conditional UI for settings</li>
@@ -3324,7 +3317,7 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 <span id="cb74-11"><a href="#cb74-11" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The settings panel is displayed only if the <strong>Settings</strong> checkbox is displayed. This panel contains input widgets for adjusting the position and alignment of text and logo.</p>
-<p>Let’s look at block 3 to process input data. It depends on input method and input data format. Depending on the input method (file upload/paste text), different processing steps are carried out eventually resulting in identical output data.frame structure. Upload file is read in using defined separator. For paste-text field, the input is split by separator and organised into a data.frame.</p>
+<p>Let’s look at block 3 to process input data. It depends on input method and input data format. Depending on the input method (file upload/paste text), different processing steps are carried out eventually resulting in identical output data.frame structure. Upload file is read in using defined separator. For paste-text field, the input is split by separator and organized into a data.frame.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="do">## FN: fn_input --------------------------------------------------------</span></span>
 <span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="do">## function to get input data</span></span>
@@ -3353,7 +3346,7 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 </div>
 <p>Let’s explore the block 4 that generates the plotting parameters. It depends on block 3 (<code>fn_input()</code>), settings checkbox (<code>input$in_settings</code>) and logo dropdown (<code>input$in_logo_right</code>).</p>
 <p>It checks if columns <code>label1</code>,<code>label2</code> and <code>label3</code> are present in the input data.frame. Label size, x-position, y-position, logo scale and logo offset and set from input widgets or defaults are set. Depending on selected logo, the path is set and logo is read in. All these parameters are returned as a list.</p>
-<p>The logos are placed under a directory labelled <strong>www</strong> in the app root.</p>
+<p>The logos are placed under a directory named <strong>www</strong> in the app root.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="do">## FN: fn_params ------------------------------------------------------------</span></span>
 <span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="do">## function to get plot params</span></span>
@@ -3720,7 +3713,7 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 <p><a href="assets/nametagger_preview.png" class="lightbox" data-gallery="quarto-lightbox-gallery-43"><img src="assets/nametagger_preview.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
-<p>Hopefully, this has not been too overwhelming. Shiny app code may look overcomplicated on the first look, but it is easier to understand what is happening by breaking it apart into smaller chunks and understanding how the various components are connected. It is crucial to plan out the structure of your app well in advanced as it is easy to get confused. Remember to name functions and variables sensibly. Use text output widgets and/or print statements in the code to keep track of internal variable values during run-time. Go forth and build awesome apps!</p>
+<p>Hopefully, this has not been too overwhelming. Shiny app code may look over-complicated on the first look, but it is easier to understand what is happening by breaking it apart into smaller chunks and understanding how the various components are connected. It is crucial to plan out the structure of your app well in advanced as it is easy to get confused. Remember to name functions and variables sensibly. Use text output widgets and/or print statements in the code to keep track of internal variable values during run-time. Go forth and build awesome apps!</p>
 
 
 </section>
@@ -3868,7 +3861,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-right">Published with <a href="https://quarto.org/">Quarto</a> v1.2.335</div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","loop":true,"descPosition":"bottom","closeEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","selector":".lightbox","loop":true,"closeEffect":"zoom","descPosition":"bottom"});</script>
 
 
 

@@ -7,7 +7,7 @@ format: html
 ---
 
 ::: {.callout-note}
-These are a series of excercises to help you get started and familiarise yourself with ggplot2 syntax, plot building logic and fine modification of plots. Practice using the *Basics* section and then move on to slightly more complex plots: a scatterplot and a heatmap.
+These are a series of exercises to help you get started and familiarize yourself with ggplot2 syntax, plot building logic and fine modification of plots. Practice using the *Basics* section and then move on to slightly more complex plots: a scatterplot and a heatmap.
 :::
 
 <br>
@@ -38,7 +38,7 @@ library(ggrepel)
 library(patchwork)
 ```
 
-We use the `iris` data to get started. This dataset has four continuous variables and one categorical variable. It is important to remember about the data type when plotting graphs. 
+We use the `iris` data to get started. This dataset has four continuous variables and one categorical variable. It is important to remember about the data type when plotting graphs.
 
 ```{r}
 data("iris")
@@ -47,7 +47,7 @@ head(iris)
 
 ### Building a plot
 
-ggplot2 plots are initialised by specifying the dataset. This can be saved to a variable or it draws a blank plot.
+ggplot2 plots are initialized by specifying the dataset. This can be saved to a variable or it draws a blank plot.
 
 ```{r}
 #| fig-height: 4
@@ -68,7 +68,7 @@ ggplot(data=iris)+
 
 ### Multiple geoms
 
-Further geoms can be added. For example let's add a regression line. When multiple geoms with the same aesthetics are used, they can be specified as a common mapping. Note that the order in which geoms are plotted depends on the order in which the geoms are supplied in the code. In the code below, the points are plotted first and then the regression line. 
+Further geoms can be added. For example let's add a regression line. When multiple geoms with the same aesthetics are used, they can be specified as a common mapping. Note that the order in which geoms are plotted depends on the order in which the geoms are supplied in the code. In the code below, the points are plotted first and then the regression line.
 
 ```{r}
 #| fig-height: 4
@@ -106,7 +106,7 @@ ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
 ### Aesthetic parameter
 
 We can change the size of all points by a fixed amount by specifying size outside the aesthetic parameter.
- 
+
 ```{r}
 #| fig-height: 4
 #| fig-width: 5
@@ -132,7 +132,7 @@ ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
 ### Discrete colors
 
 We can change the default colors by specifying new values inside a scale.
- 
+
 ```{r}
 #| fig-height: 4
 #| fig-width: 5
@@ -449,7 +449,7 @@ levels(ec$Region)
 
 But, the categories on the plot are different and need to be changed as follows:
 
-```
+```         
 From                  To
 EU W. Europe          OECD
 Americas              Americas
@@ -465,7 +465,7 @@ Since the 'To' strings are a bit too long to be in one line on the legend, use `
 `\n` is the newline character in R.
 :::
 
-```
+```         
 From                  To
 EU W. Europe          OECD
 Americas              Americas
@@ -514,11 +514,11 @@ ggplot(ec,aes(x=CPI,y=HDI,color=Region))+
     geom_point(shape=21,size=3,stroke=0.8,fill="white")
 ```
 
-Notice how '\n' has created newlines in the Legend. 
+Notice how '\n' has created newlines in the Legend.
 
 ### Trendline
 
-Now, we add the trend line using `geom_smooth`. Check out `?geom_smooth` and look under 'Arguments' for argument options and 'Aesthetics' for the aesthetic options. 
+Now, we add the trend line using `geom_smooth`. Check out `?geom_smooth` and look under 'Arguments' for argument options and 'Aesthetics' for the aesthetic options.
 
 - Use method 'lm' and use a custom formula of `y~poly(x,2)` to approximate the curve seen on the plot. Turn off confidence interval shading. Set line thickness to 0.6 and line color to red.
 
@@ -548,7 +548,7 @@ p
 
 Now we add the text labels. Only a subset of countries are plotted. The list of countries to label is shown below.
 
-```
+```         
 "Congo","Afghanistan","Sudan","Myanmar","Iraq","Venezuela","Russia","Argentina","Brazil","Italy","South Africa","Cape Verde","Bhutan","Botswana","Britian","New Zealand","Greece","China","India","Rwanda","Spain","France","United States","Japan","Norway","Singapore","Barbados","Germany"
 ```
 
@@ -567,7 +567,7 @@ p+geom_text(data=subset(ec,Country %in% labels),aes(label=Country),color="black"
 
 Custom font can be used for the labels by providing the font name to argument `family` like so `geom_text(family="fontname")`. If you do not want to bother with fonts, just avoid the `family` argument in `geom_text` and skip this part.
 
-Using custom fonts can be tricky business. To use a font name, it must be installed on your system and it should be imported into the R environment. This can be done using the `extrafont` package. Try importing one of the fonts available on your system. Not all fonts work. `extrafont` prefers '.ttf' fonts. If a font doesn't work, try another.
+Using custom fonts can be tricky business. To use a font name, it must be installed on your system and it should be imported into the R environment. This can be done using the `extrafont` package. Try importing one of the fonts available on your system. Not all fonts work. `extrafont` prefers **.ttf** fonts. If a font doesn't work, try another.
 
 ```{r}
 #| eval: false
@@ -607,7 +607,7 @@ p
 
 ### Axes
 
-Next step is to adjust the axes breaks, axes labels, point colors and relabeling the trendline legend text. 
+Next step is to adjust the axes breaks, axes labels, point colors and relabeling the trendline legend text.
 
 - Change axes labels to 'Corruption Perceptions Index, 2011 (10=least corrupt)' on the x-axis and 'Human Development Index, 2011 (1=best)' on the y-axis. Set breaks on the x-axis from 1 to 10 by 1 increment and y-axis from 0.2 to 1.0 by 0.1 increments.
 
@@ -624,7 +624,7 @@ p
 
 ### Scale Colors
 
-Now we want to change the color palette for the points and modify the legend text for the trendline. 
+Now we want to change the color palette for the points and modify the legend text for the trendline.
 
 - Use `scale_color_manual()` to provide custom colors. These are the colors to use for the points: `"#23576E","#099FDB","#29B00E", "#208F84","#F55840","#924F3E"`. 
 - Use `scale_fill_manual` to change the trendline label since it's a fill scale. The legend entry for the trendline should read 'R^2=52%'.
@@ -640,7 +640,7 @@ p
 
 ### Title
 
-Title and caption can be added with `labs`. 
+Title and caption can be added with `labs`.
 
 - Set the title to 'Corruption and human development'. 
 - Set the caption to 'Sources: Transparency International; UN Human Development Report'.
@@ -672,7 +672,7 @@ Now we do some careful refining with themes.
 
 - Turn off minor gridlines
 - Turn off major gridlines on x-axis
-- Remove the grey background
+- Remove the gray background
 - Remove panel border
 - Remove legend titles
 - Make axes titles italic
@@ -702,7 +702,7 @@ And now our plot is ready and we can compare with the original. Close? Close eno
 
 ![](assets/economist-scatterplot.png)
 
-The full script for this challenge is summarised here:
+The full script for this challenge is summarized here:
 
 ```{r}
 #| eval: false
@@ -754,7 +754,7 @@ p1
 
 ## WSJ Heatmap
 
-The aim of this challenge is to recreate the plot below originally published in [The Wall Street Journal](http://graphics.wsj.com/infectious-diseases-and-vaccines/). The plot is a heatmap showing the normalised number of cases of measles across 51 US states from 1928 to 2003. X-axis shows years and y-axis shows the names of states. The color of the tiles denote the number of measles cases per 100,000 people. Introduction of the measles vaccine is shown as the black line in 1963.
+The aim of this challenge is to recreate the plot below originally published in [The Wall Street Journal](http://graphics.wsj.com/infectious-diseases-and-vaccines/). The plot is a heatmap showing the normalized number of cases of measles across 51 US states from 1928 to 2003. X-axis shows years and y-axis shows the names of states. The color of the tiles denote the number of measles cases per 100,000 people. Introduction of the measles vaccine is shown as the black line in 1963.
 
 ![](assets/wsj-heatmap.png)
 
@@ -800,7 +800,7 @@ head(me2)
 
 Sum up the week-level information to year-level information. This means rather than having
 
-```
+```         
   YEAR WEEK   state value
 1 1928    1 ALABAMA  3.67
 2 1928    2 ALABAMA  6.25
@@ -814,7 +814,7 @@ Sum up the week-level information to year-level information. This means rather t
 
 we should have one value per year per state.
 
-```
+```         
   YEAR    state value
 1 1928  ALABAMA  3.67
 2 1929  ALABAMA  3.20
@@ -824,7 +824,7 @@ we should have one value per year per state.
 ...
 ```
 
-The solution is to sum up all the cases for a state for all weeks within a year into one value for that year. This can be done using the `summarise()` function from package `dplyr`. 
+The solution is to sum up all the cases for a state for all weeks within a year into one value for that year. This can be done using the `summarise()` function from package `dplyr`.
 
 - A custom function is used to sum over weeks. If all values are NA, then result is NA. If some values are NA, the NAs are removed and the remaining numbers are summed.
 - The dots in state names are replaced by spaces and the words are converted to title case (First letter capital and rest lowercase). 
@@ -872,7 +872,7 @@ p
 
 ### Scales
 
-The extra space on left and right (grey) of the plot is removed using argument `expand` in `scales`. X-axis breaks are redefined at 10 year intervals from 1930 to 2010. Custom colors are used for the tiles: `"#e7f0fa","#c9e2f6","#95cbee","#0099dc","#4ab04a", "#ffd73e","#eec73a","#e29421","#f05336","#ce472e"`. Since the color scale is a fill color on a continuous value and we want to supply n new colors, we use `scale_fill_gradientn`. Tiles with missing value is set to the color `"grey90"`.
+The extra space on left and right (gray) of the plot is removed using argument `expand` in `scales`. X-axis breaks are redefined at 10 year intervals from 1930 to 2010. Custom colors are used for the tiles: `"#e7f0fa","#c9e2f6","#95cbee","#0099dc","#4ab04a", "#ffd73e","#eec73a","#e29421","#f05336","#ce472e"`. Since the color scale is a fill color on a continuous value and we want to supply n new colors, we use `scale_fill_gradientn`. Tiles with missing value is set to the color `"grey90"`.
 
 ```{r}
 #| fig-height: 6
@@ -1029,4 +1029,3 @@ p <- ggplot(me3,aes(x=year,y=reorder(state,desc(state)),fill=total))+
         panel.grid=element_blank())
 
 ```
-

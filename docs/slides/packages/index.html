@@ -404,7 +404,7 @@ Sebastian DiLorenzo
 </div>
 </div>
 
-  <p class="date">11-Mar-2023</p>
+  <p class="date">13-Mar-2023</p>
 </section>
 
 <section>
@@ -436,7 +436,7 @@ Sebastian DiLorenzo
 </div>
 </div>
 <aside class="notes">
-<p>An overview of the topics I will discuss during the lecture. “What is an R package” is what should come to mind when thinking an R package. In “Possible package states” I will talk about the the different forms we can find R packages in, such as development and installed. In package structure I will walk through each of the folders usually included in an R package. “git, github, Rstudio and you” is about why git, github and rstudio are good working environments for package development. And in “Cran and”R CMD check”” I will talk about tools to check your package and the requirements and pros/cons of submitting it CRAN.</p>
+<p>An overview of the topics I will discuss during the lecture. “What is an R package” is what should come to mind when thinking an R package. In “Possible package states” I will talk about the the different forms we can find R packages in, such as development and installed. In package structure I will walk through each of the folders usually included in an R package. “git, GitHub, Rstudio and you” is about why git, GitHub and RStudio are good working environments for package development. And in “Cran and”R CMD check”, I will talk about tools to check your package and the requirements and pros/cons of submitting it CRAN.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -461,7 +461,7 @@ Sebastian DiLorenzo
 </div>
 </div>
 <aside class="notes">
-<p>You can think of an R package under development as a folder and file structure with some predetermined names and connectivity. So really, a package is more about knowing how to organise code and other files than being a good R programmer. There are also some differences in how you write code that is intended to be used for a package than a script for analysis for example. But I will get back to this. The minimal required package has a DESCRIPTION, a NAMESPACE an R folder for code and here we also see a R project file created by Rstudio which is not required.</p>
+<p>You can think of an R package under development as a folder and file structure with some predetermined names and connectivity. So really, a package is more about knowing how to organize code and other files than being a good R programmer. There are also some differences in how you write code that is intended to be used for a package than a script for analysis for example. But I will get back to this. The minimal required package has a DESCRIPTION, a NAMESPACE an R folder for code and here we also see a R project file created by Rstudio which is not required.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -556,11 +556,11 @@ Sebastian DiLorenzo
 <li>Must start with letter</li>
 <li>Cannot end with period</li>
 </ul></li>
-<li>Make it googleable</li>
+<li>Make it “googleable”</li>
 <li>Check that it doesn’t already exist!
 <ul>
 <li>CRAN</li>
-<li>github</li>
+<li>GitHub</li>
 <li>Bioconductor</li>
 </ul></li>
 </ul>
@@ -620,7 +620,7 @@ Sebastian DiLorenzo
 <li>Parsed format, skipping the development tools needed to take the package between source and being interpretable by R</li>
 </ul>
 <aside class="notes">
-<p>Like the bundled package except that if you uncompressed it doesnt look like the source package. This is because it is built for a certain architecture, or operating system.</p>
+<p>Like the bundled package except that if you uncompressed it doesn’t look like the source package. This is because it is built for a certain architecture, or operating system.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -725,7 +725,7 @@ Sebastian DiLorenzo
 </div>
 </div>
 <aside class="notes">
-<p>The first folder is the R/ folder. This is where your R code lives. You should try to keep it organized with functions that your user will be using grouped in some R files, and your utility functions in their own R file. Utility functions are functions that you dont expect your user to run, rather they are used by your main functions. If a function doesnt fit in a group or is very large, it can have its own R file, but each function should not have their own R file. You should avoid using functions in your code that modify the environment of your user. For example if you use library() it will attach the package functions of your user, perhaps getting in the way of other functions he was already using elsewhere. It is better to be explicit then and only load a package into memory. If you change options() or par() settings you should revert them before ending the function so your users environment isnt changed.</p>
+<p>The first folder is the R/ folder. This is where your R code lives. You should try to keep it organized with functions that your user will be using grouped in some R files, and your utility functions in their own R file. Utility functions are functions that you don’t expect your user to run, rather they are used by your main functions. If a function doesn’t fit in a group or is very large, it can have its own R file, but each function should not have their own R file. You should avoid using functions in your code that modify the environment of your user. For example if you use library() it will attach the package functions of your user, perhaps getting in the way of other functions he was already using elsewhere. It is better to be explicit then and only load a package into memory. If you change <code>options()</code> or <code>par()</code> settings you should revert them before ending the function so your users environment isn’t changed.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -788,7 +788,8 @@ Sebastian DiLorenzo
 </div>
 </div>
 <aside class="notes">
-<p>Not all of the fields in DESCRIPTION are important unless you plan to distribute you package to other users. The title of you package should be a short description, no more than 65 characters. I’ll talk more in a second about version number recommendations but for now it is enough to say that it is the version of your package and you decide what version your package is in. The author can be one or many people, with names, emails and roles. Every package must have a creator or maintainer and any number of authors, the rest is optional.</p>
+<p>Not all of the fields in DESCRIPTION are important unless you plan to distribute you package to other users.</p>
+<p>The title of you package should be a short description, no more than 65 characters. I’ll talk more in a second about version number recommendations but for now it is enough to say that it is the version of your package and you decide what version your package is in. The author can be one or many people, with names, emails and roles. Every package must have a creator or maintainer and any number of authors, the rest is optional.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -833,14 +834,16 @@ Sebastian DiLorenzo
 <li>Can be a file; LICENSE</li>
 <li>Influences permissions of who can distribute and modify in what way</li>
 <li>Most common; MIT, GPL-3, CC0.</li>
-<li>https://tldrlegal.com/</li>
+<li><a href="https://tldrlegal.com/">https://tldrlegal.com/</a></li>
 <li>CRAN requires a license</li>
 </ul></li>
 </ul>
 </div>
 </div>
 <aside class="notes">
-<p>The Depends and Imports fields of DESCRIPTION handles what packages, and optionally what versions of packages, your package needs to work. The big difference here is that depends attaches the functions, something that is generally frowned upon for packages, and imports loads them, making them available for use. So usually you will see Depends on R version and most other packages in Imports. Suggests isnt packages that your package needs to function properly but with those packages there can be added functionality. For example a package can create a plot using base R plotting tools but you have built in that if ggplot2 is available create pretties plots instead. LazyData is a special function which should be true which states that any datasets included in your package should not take any memory until they are used. The license of your package should reflect who and how your package should be used or modified. If the license is longer than just a standard abbreviation it can be a file, called LICENSE.</p>
+<p>The Depends and Imports fields of DESCRIPTION handles what packages, and optionally what versions of packages, your package needs to work. The big difference here is that depends attaches the functions, something that is generally frowned upon for packages, and imports loads them, making them available for use. So usually you will see Depends on R version and most other packages in Imports.<br>
+Suggests isn’t packages that your package needs to function properly but with those packages there can be added functionality. For example a package can create a plot using base R plotting tools but you have built in that if ggplot2 is available create pretties plots instead.<br>
+LazyData is a special function which should be true which states that any datasets included in your package should not take any memory until they are used. The license of your package should reflect who and how your package should be used or modified. If the license is longer than just a standard abbreviation it can be a file, called LICENSE.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -912,7 +915,7 @@ call_me &lt;- function(x) {
 }</code></pre>
 </div>
 </div><aside class="notes">
-<p>Documentation of your functions is important for helping users know how to use your package, and also for yourself when you come back to the package. The documentation is in the man/ directory in “R documentation”, or Rd files. They contain the information you see when you call ?function. While you can write these by hand it is easier and handsomer to have the package roxygen2 generate them for you.</p>
+<p>Documentation of your functions is important for helping users know how to use your package, and also for yourself when you come back to the package. The documentation is in the man/ directory in “R documentation”, or Rd files. They contain the information you see when you call ?function. While you can write these by hand it is easier and handsomer to have the package <strong>roxygen2</strong> generate them for you.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -942,7 +945,7 @@ call_me &lt;- function(x) {
 </div>
 </div>
 <aside class="notes">
-<p>Roxygen2 works with special comment blocks in your code, directly before the function you are documenting, to create the Rd files. So you are actually writing your documentation in the same place as your code, the .R file, which is easier than going to another file and updating it. It also reminds you as you update your code to update the documentation in a natural way, and roxygen even deducts some information by itself so it is faster to write documentation. Here is an example function call_me.R with the roxygen2 documentation block preceding it. The first line will become the title and also the description if none is given. <span class="citation" data-cites="param">@param</span> documents the parameter x, <span class="citation" data-cites="return">@return</span> lets us know what the function returns, and notice the indentation here which I have added to signify how to add multiple rows of text and have them belong together. <span class="citation" data-cites="examples">@examples</span> shows one or many example executions of the code.</p>
+<p>Roxygen2 works with special comment blocks in your code, directly before the function you are documenting, to create the Rd files. So you are actually writing your documentation in the same place as your code, the .R file, which is easier than going to another file and updating it. It also reminds you as you update your code to update the documentation in a natural way, and <strong>roxygen</strong> even deducts some information by itself so it is faster to write documentation. Here is an example function call_me.R with the <strong>roxygen2</strong> documentation block preceding it. The first line will become the title and also the description if none is given. <span class="citation" data-cites="param">@param</span> documents the parameter x, <span class="citation" data-cites="return">@return</span> lets us know what the function returns, and notice the indentation here which I have added to signify how to add multiple rows of text and have them belong together. <span class="citation" data-cites="examples">@examples</span> shows one or many example executions of the code.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1085,7 +1088,7 @@ call_me("Maeby")
 #' }
 #' @source \url{https://www.elsevier.com/books/the-statistics-of-bioassay/bliss/978-1-4832-5662-7}
 "ToothGrowth"</code></pre><aside class="notes">
-<p>And here we see the documentation, which I have put in data.R. Just like previously this is then parsed by roxygen2 when I give the command and ToothGrowth.Rd is created. First title, then description, the usage in this case is just the dataset, and the <span class="citation" data-cites="format">@format</span> describes the data, not <span class="citation" data-cites="params">@params</span> that described our functions parameters. At the very end we see just the name of the dataset, which lives in ToothGrowth.RData.</p>
+<p>And here we see the documentation, which I have put in data.R. Just like previously this is then parsed by <strong>roxygen2</strong> when I give the command and ToothGrowth.Rd is created. First title, then description, the usage in this case is just the dataset, and the <span class="citation" data-cites="format">@format</span> describes the data, not <span class="citation" data-cites="params">@params</span> that described our functions parameters. At the very end we see just the name of the dataset, which lives in ToothGrowth.RData.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1117,7 +1120,7 @@ call_me("Maeby")
 </ul>
 <pre><code>usethis::use_vignette("typicalr-vignette")</code></pre>
 <aside class="notes">
-<p>Vignettes are a long-form guide, or manual, to the package that details what the functions in the package can do. It can also show and give examples of what the package is designed to do, using multiple functions in sequence. If functional documentation shows just a part, think of the vignette as a book chapter showing what your package can do. It can look very different if you intend it for your users or for yourself to read at a later date. You can use many things to create the vignette, but like with roxygen2 probably the easiest is to use knitr and rmarkdown.</p>
+<p>Vignettes are a long-form guide, or manual, to the package that details what the functions in the package can do. It can also show and give examples of what the package is designed to do, using multiple functions in sequence. If functional documentation shows just a part, think of the vignette as a book chapter showing what your package can do. It can look very different if you intend it for your users or for yourself to read at a later date. You can use many things to create the vignette, but like with <strong>roxygen2</strong> probably the easiest is to use <strong>knitr</strong> and <strong>rmarkdown</strong>.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1134,7 +1137,7 @@ call_me("Maeby")
 <pre><code>  ---
   title: "Vignette Title"
   author: "Vignette Author"
-  date: "2023-03-11"
+  date: "2023-03-13"
   output: rmarkdown::html_vignette
   vignette: &gt;
     %\VignetteIndexEntry{Vignette Title}
@@ -1144,7 +1147,7 @@ call_me("Maeby")
 </div>
 </div>
 <aside class="notes">
-<p>What we are seeing here is the top metadata of a template for a vignette that I created using usethis::use_vignette(“typicalr-vignette”) which created typicalr-vignette.Rmd and the vignettes/ directory. It also edits DESCRIPTION, adding knitr and rmarkdown to suggests, and adding VignetteBuilder: knitr. You are free to edit any part of the rmarkdown file but should not change the structure of the metadata. Only add the title in both places where it says “Vignette title” and your name as author. You can also change the output to pdf vignette for example. Luckily you have already gone through rmarkdown, so we dont need to talk about that, =).</p>
+<p>What we are seeing here is the top metadata of a template for a vignette that I created using <code>usethis::use_vignette("typicalr-vignette")</code> which created typicalr-vignette.Rmd and the <em>vignettes/ directory</em>. It also edits <strong>DESCRIPTION</strong>, adding <strong>knitr</strong> and <strong>rmarkdown</strong> to suggests, and adding <code>VignetteBuilder: knitr</code>. You are free to edit any part of the rmarkdown file but should not change the structure of the metadata. Only add the title in both places where it says “Vignette title” and your name as author. You can also change the output to pdf vignette for example. Luckily you have already gone through rmarkdown, so we dont need to talk about that, =).</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1179,7 +1182,7 @@ call_me("Maeby")
 <pre><code>  ---
   title: "typicalr"
   author: "Sebastian DiLorenzo"
-  date: "2023-03-11"
+  date: "2023-03-13"
   output: rmarkdown::html_vignette
   vignette: &gt;
     %\VignetteIndexEntry{typicalr}
@@ -1194,7 +1197,7 @@ call_me("Maeby")
 <p><span class="center">package1 names         package2 names</span></p>
 
 <img data-src="assets/venn.png" class="r-stretch quarto-figure-center"><aside class="notes">
-<p>The namespace makes sure your package works well with other packages, so it is mostly important for submitting to repository, CRAN. It makes sure your code and the code of other packages doesnt interfere with eachother. I like to think of it as a venn diagram, where each circle is a space filled with names. What the namespace does is remove the overlap, so if your function uses a function from package1, it wont accidentally use a function with the same name from package2. It does this by specifying which space a function should look for the name of a function it needs.</p>
+<p>The NAMESPACE makes sure your package works well with other packages, so it is mostly important for submitting to repository, CRAN. It makes sure your code and the code of other packages doesn’t interfere with each other. I like to think of it as a venn diagram, where each circle is a space filled with names. What the NAMESPACE does is remove the overlap, so if your function uses a function from package1, it wont accidentally use a function with the same name from package2. It does this by specifying which space a function should look for the name of a function it needs.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1221,7 +1224,7 @@ call_me("Maeby")
 </ul></li>
 </ul>
 <aside class="notes">
-<p>It does this using imports and exports. Like the other documentation, we can use roxygen2 to create our namespace. Using the imports tag, it doesnt matter if our user has loaded a package with a function with the same name as one of our functions are using, because our function will know to use the one specified in imports. Exports helps by saying that only these functions of my package are available outside. If you export all your functions, it increases the risk of being incompatible with other packages, so good practice is to export as few as possible. If you are not going to share your package, just export every function.</p>
+<p>It does this using imports and exports. Like the other documentation, we can use <strong>roxygen2</strong> to create our NAMESPACE. Using the imports tag, it doesn’t matter if our user has loaded a package with a function with the same name as one of our functions are using, because our function will know to use the one specified in imports. Exports helps by saying that only these functions of my package are available outside. If you export all your functions, it increases the risk of being incompatible with other packages, so good practice is to export as few as possible. If you are not going to share your package, just export every function.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1272,7 +1275,7 @@ NULL</code></pre>
 export(call_me)
 import(knitr)</code></pre>
 <aside class="notes">
-<p>So when I run devtools::document(), just like when we generated the other documentation, this will generate the NAMESPACE for us. Notice that this is a very minimal example and roxygen2 actually looks at what you are exporting so there are added benefits here where you are just writing <span class="citation" data-cites="export">@export</span> but roxygen2 is correctly exporting it as a S3 or S4 class etc.</p>
+<p>So when I run <code>devtools::document()</code>, just like when we generated the other documentation, this will generate the NAMESPACE for us. Notice that this is a very minimal example and roxygen2 actually looks at what you are exporting so there are added benefits here where you are just writing <span class="citation" data-cites="export">@export</span> but roxygen2 is correctly exporting it as a S3 or S4 class etc.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1290,7 +1293,7 @@ import(knitr)</code></pre>
 <h2>NAMESPACE</h2>
 <p><span class="large center">Import in <strong>DESCRIPTION</strong> and in <strong>NAMESPACE</strong>!?</span></p>
 <aside class="notes">
-<p>A final note on the namespace is that at a glance we are now importing packages both in the DESCRIPTION and in the NAMESPACE. This is more an accident of naming as they are doing a bit different things.</p>
+<p>A final note on the NAMESPACE is that at a glance we are now importing packages both in the DESCRIPTION and in the NAMESPACE. This is more an accident of naming as they are doing a bit different things.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1321,7 +1324,7 @@ import(knitr)</code></pre>
 </ul></li>
 </ul>
 <aside class="notes">
-<p>When you import a function in DESCRIPTION you are saying that “My package needs this package to work”, when you import a function in NAMESPACE you are saying “When my package uses this function, use the one from the package in the NAMESPACE” even if there exist functions with the same name. An added benefit is that if you just import a package in DESCRIPTION you need to specify in your code which package it is from as it is not attached but if you import it from NAMESPACE this need is removed. Finally: Realise that writing package::function() removes the need to import functions to NAMESPACE and is best, but it takes a while to write of course.</p>
+<p>When you import a function in DESCRIPTION you are saying that “My package needs this package to work”, when you import a function in NAMESPACE you are saying “When my package uses this function, use the one from the package in the NAMESPACE” even if there exist functions with the same name. An added benefit is that if you just import a package in DESCRIPTION you need to specify in your code which package it is from as it is not attached but if you import it from NAMESPACE this need is removed. Finally: Realise that writing <code>package::function()</code> removes the need to import functions to NAMESPACE and is best, but it takes a while to write of course.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1385,7 +1388,7 @@ import(knitr)</code></pre>
 </ul></li>
 </ul>
 <aside class="notes">
-<p>You can have three types of data in R, binary data is an R object saved to data/ directory with the same name as the object. These can be slightly larger files. Data that your functions need, for example in life sciences you might save the positions of the centromeres within a package that plots the genome, or for a plotting program you may want to save a list of colors, this is usually saved in R/sysdata.rda. The objects saved there will be available to your functions by name within the package. If you want to include raw data, usually you should try not to or convert it to binary data, you can save those in inst/extdata.</p>
+<p>You can have three types of data in R, binary data is an R object saved to data/ directory with the same name as the object. These can be slightly larger files. Data that your functions need, for example in life sciences you might save the positions of the centromeres within a package that plots the genome, or for a plotting program you may want to save a list of colors, this is usually saved in <strong>R/sysdata.rda</strong>. The objects saved there will be available to your functions by name within the package. If you want to include raw data, usually you should try not to or convert it to binary data, you can save those in <strong>inst/extdata</strong>.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1408,7 +1411,7 @@ save(object, file="path/to/package/data/object.Rdata")
 # Access raw data
 system.file("extdata","filename.csv", package="packagename")</code></pre>
 <aside class="notes">
-<p>Here we see some code where we use usethis to save a object directly to data/ directory with the correct name. This is the same thing basically as using the save command and pointing to the correct location, with correct filename. If you want to access data belongning to a package you can use the system.file command in R.</p>
+<p>Here we see some code where we use <code>usethis</code> to save a object directly to data/ directory with the correct name. This is the same thing basically as using the save command and pointing to the correct location, with correct filename. If you want to access data belonging to a package you can use the system.file command in R.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1426,16 +1429,16 @@ system.file("extdata","filename.csv", package="packagename")</code></pre>
 <div class="columns">
 <div class="column" style="width:50%;">
 <ul>
-<li><p>What to test?</p></li>
-<li><p>That the return value is what is expected given a certain input</p></li>
-<li><p>Why test?</p></li>
-<li><p>Improved development stability</p></li>
-<li><p>Working in group/open source</p></li>
-<li><p>Working on big package</p></li>
+<li>What to test?</li>
+<li>That the return value is what is expected given a certain input</li>
+<li>Why test?</li>
+<li>Improved development stability</li>
+<li>Working in group/open source</li>
+<li>Working on big package</li>
 </ul>
 <p><img data-src="assets/test.jpeg" style="width:70.0%"></p>
 <aside class="notes">
-<p>Tests or unit tests formally checks that we get the correct result from a function given a specific input. This can be good when working on big and/or complex packages or together with other people as it directly tells you if a change has been made that has changed the expected behaviour of the package.</p>
+<p>Tests or unit tests formally checks that we get the correct result from a function given a specific input. This can be good when working on big and/or complex packages or together with other people as it directly tells you if a change has been made that has changed the expected behavior of the package.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1492,7 +1495,7 @@ system.file("extdata","filename.csv", package="packagename")</code></pre>
 </ul></li>
 </ul>
 </div><aside class="notes">
-<p>I wont go deeply into this, but I want it to be something you are aware of. R isnt the fastest language, so sometimes you may want to put for example C or C++ in your package for certain functions. There are two ways to go about this. Either you can integrate, using packages such as Rcpp, or rJava and others, or you just straight up put code such as .py files in inst/python. This should be avoided as it creates additional dependencies on the user. So lets look at an example of how to set up your package to use Rcpp, which is probably the easiest and most common.</p>
+<p>I wont go deeply into this, but I want it to be something you are aware of. R isn’t the fastest language, so sometimes you may want to put for example C or C++ in your package for certain functions. There are two ways to go about this. Either you can integrate, using packages such as Rcpp, or rJava and others, or you just straight up put code such as <strong>.py</strong> files in inst/python. This should be avoided as it creates additional dependencies on the user. So lets look at an example of how to set up your package to use Rcpp, which is probably the easiest and most common.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1532,10 +1535,9 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 NumericVector timesTwo(NumericVector x) {
   return x * 2;
-}
-</code></pre>
+}</code></pre>
 <aside class="notes">
-<p>First you can call usethis::use_rcpp() which automates the processes of adding information to your DESCRIPTION and telling you to add two tags for documentation somewhere in your packages code. Then we create a c++ file, from Rstudio preferable, in our src/ folder. It will look as shown here by default. The only important parts are the header and the rcpp::export located above the example function.</p>
+<p>First you can call <code>usethis::use_rcpp()</code> which automates the processes of adding information to your DESCRIPTION and telling you to add two tags for documentation somewhere in your packages code. Then we create a c++ file, from Rstudio preferable, in our <strong>src/</strong> folder. It will look as shown here by default. The only important parts are the header and the <code>rcpp::export</code> located above the example function.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1628,7 +1630,7 @@ timesTwo &lt;- function(x) {
 </div>
 </div>
 <aside class="notes">
-<p>R CMD check is a command that checks your package for common problems. From filenames and permissions to information in DESCRIPTION and NAMESPACE and wether you can install it. Note that this can only check if it is installable in your current environment, not on other operating systems. It also checks that your package is compatible with CRAN, such as not having the same name as a package that already exists there and that the required information in DESCRIPTION is present. It also checks your actual code, making sure that there are no problems or dependencies that are not met. There are three types of messages that R CMD CHECK can complain about. Errors are always bad, and you should fix them no matter what. Warnings are pretty bad, but there may be some false positives. You should try to fix them especially if you are submitting the package to cran. Notes you can take or leave, but if you are a completionist you should aspire to fix even these. As with most other commands, devtools has a function for this called check() which performs r cmd check and some additional operations such as automatically updating the documentation and bundling the package before checking.</p>
+<p>R CMD check is a command that checks your package for common problems. From filenames and permissions to information in DESCRIPTION and NAMESPACE and whether you can install it. Note that this can only check if it is installable in your current environment, not on other operating systems. It also checks that your package is compatible with CRAN, such as not having the same name as a package that already exists there and that the required information in DESCRIPTION is present. It also checks your actual code, making sure that there are no problems or dependencies that are not met. There are three types of messages that R CMD CHECK can complain about. Errors are always bad, and you should fix them no matter what. Warnings are pretty bad, but there may be some false positives. You should try to fix them especially if you are submitting the package to CRAN. Notes you can take or leave, but if you are a perfectionist you should aspire to fix even these. As with most other commands, devtools has a function for this called <code>check()</code> which performs <code>R CMD check</code> and some additional operations such as automatically updating the documentation and bundling the package before checking.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1665,7 +1667,7 @@ timesTwo &lt;- function(x) {
 <li>Working in groups</li>
 <li>Rstudio integration</li>
 </ul></li>
-<li>Github
+<li>GitHub
 <ul>
 <li>Unoffical repository</li>
 <li><code>devtools::install_github()</code></li>
@@ -1678,7 +1680,7 @@ timesTwo &lt;- function(x) {
 </div>
 </div>
 <aside class="notes">
-<p>That was all I was going to say about the different pieces of a package. There are more but I think those are the main parts and you can dive into the others if you are making an advanced package. Now let’s talk alittle about hosting your package. Using version control, such as git, is a good way to work on your package, especially if you are working on it in a group. This is because it keeps track of changes and conflicts so that if multiple people are working on the same file no bugs appear. You can also setup Rstudio to work with git and github. A package hosted on github can be directly installed using devtools::install_github() and what you see more and more nowadays is that a stable release is on CRAN whereas development versions are on github. It is also a great place for others to contribute to your code and to report issues they have with your package.</p>
+<p>That was all I was going to say about the different pieces of a package. There are more but I think those are the main parts and you can dive into the others if you are making an advanced package. Now let’s talk a little about hosting your package. Using version control, such as git, is a good way to work on your package, especially if you are working on it in a group. This is because it keeps track of changes and conflicts so that if multiple people are working on the same file no bugs appear. You can also setup Rstudio to work with git and GitHub. A package hosted on GitHub can be directly installed using <code>devtools::install_github()</code> and what you see more and more nowadays is that a stable release is on CRAN whereas development versions are on GitHub. It is also a great place for others to contribute to your code and to report issues they have with your package.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1696,7 +1698,7 @@ timesTwo &lt;- function(x) {
 <ul>
 <li>What it can do
 <ul>
-<li>Integrated with your github repository</li>
+<li>Integrated with your GitHub repository</li>
 <li>Automates <code>R CMD check</code></li>
 <li>Test on multiple operating systems</li>
 </ul></li>
@@ -1709,7 +1711,7 @@ timesTwo &lt;- function(x) {
 </ul>
 
 <img data-src="assets/github_actions.png" style="width:80.0%" class="r-stretch"><aside class="notes">
-<p>Lets talk a bit more about setting up github actions. There is an extra assignment in the lab where you set this up for your R package. To get it working you need to have enabled the permissions for your github account to use workflow scopes. Once you have that you create a yaml file of instructions in a directory where github knows to look for such things. Then when you push this to github and your repository updates, it will additionally run whichever tests you have specified.</p>
+<p>Lets talk a bit more about setting up GitHub actions. There is an extra assignment in the lab where you set this up for your R package. To get it working you need to have enabled the permissions for your GitHub account to use workflow scopes. Once you have that you create a yaml file of instructions in a directory where GitHub knows to look for such things. Then when you push this to GitHub and your repository updates, it will additionally run whichever tests you have specified.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;

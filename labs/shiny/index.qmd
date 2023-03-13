@@ -131,7 +131,7 @@ shinyApp(
 options=list(height=700))
 ```
 
-In this example, we have a text input box which takes user text and outputs it in three different variations. The first output is html output `htmlOutput()`. Since the default text is html content, the output is red coloured text. A normal non-html text would just look like normal text. The second output is normal text output `textOutput()`. The third variation is `verbatimTextOutput()` which displays text in monospaced code style. This example further shows table output and plot output.
+In this example, we have a text input box which takes user text and outputs it in three different variations. The first output is html output `htmlOutput()`. Since the default text is html content, the output is red colored text. A normal non-html text would just look like normal text. The second output is normal text output `textOutput()`. The third variation is `verbatimTextOutput()` which displays text in monospaced code style. This example further shows table output and plot output.
 
 ## Dynamic UI
 
@@ -279,7 +279,7 @@ server=function(input, output) {
 options=list(height="350px"))
 ```
 
-Now we see an informative grey message (less scary) asking the user to select a dataset.
+Now we see an informative gray message (less scary) asking the user to select a dataset.
 
 We can use a custom function instead of using `need()`. Below, we have created a function called `valfun()` that checks if the input is NULL, NA or an empty string. This is then used in `validate()`.
 
@@ -391,7 +391,7 @@ shinyApp(
 
 ## Download • Plot
 
-In this next example, we are downloading a plot. In the content part of `downloadHandler()`, we specify commands to export a png image. Note that this example needs to be opened in a browser and may not in the RStudio preview. In the RStudio preview, click on **Open in Browser**.
+In this next example, we are downloading a plot. In the content part of `downloadHandler()`, we specify commands to export a PNG image. Note that this example needs to be opened in a browser and may not in the RStudio preview. In the RStudio preview, click on **Open in Browser**.
 
 ```{r}
 shinyApp(
@@ -428,22 +428,44 @@ shinyApp(
 
 Shiny interactive widgets can be embedded into Rmarkdown documents. These documents need to be live and can handle interactivity. The important addition is the line `runtime: shiny` to the YAML matter. Here is an example:
 
-```{r,echo=FALSE,out.class="md",comment=""}
-cat("---\nruntime: shiny\noutput: html_document\n---\n\n")
-cat("```{r}\nlibrary(shiny)\n```\n\n")
-cat("This is a standard RMarkdown document. Here is some code:\n\n")
-cat("```{r}\nhead(iris)\n```\n\n")
-cat("```{r}\nplot(iris$Sepal.Length,iris$Petal.Width)\n```\n\n")
-cat("But, here is an interactive shiny widget.\n\n")
-cat('```{r}\nsliderInput("in_breaks",label="Breaks:",min=5,max=50,value=5,step=5)\n```\n\n')
-cat('```{r}\nrenderPlot({\nhist(iris$Sepal.Length,breaks=input$in_breaks)\n})\n```\n')
+````
+---
+runtime: shiny
+output: html_document
+---
+
+```{{r}}
+library(shiny)
 ```
+
+This is a standard RMarkdown document. Here is some code:
+
+```{{r}}
+head(iris)
+```
+
+```{{r}}
+plot(iris$Sepal.Length,iris$Petal.Width)
+```
+
+But, here is an interactive shiny widget.
+
+```{{r}}
+sliderInput("in_breaks",label="Breaks:",min=5,max=50,value=5,step=5)
+```
+
+```{{r}}
+renderPlot({{
+hist(iris$Sepal.Length,breaks=input$in_breaks)
+}})
+```
+````
 
 This code can be copied to a new file in RStudio and saved as, for example, **shiny.Rmd**. Then click 'Knit'. Alternatively, you can run `rmarkdown::run("shiny.Rmd")`.
 
 ## Data explorer
 
-A common use case of shiny apps is to explore a dataset interactively. So we will build a simple app that can create a scatterplot from a dataframe which a user can modify interactively. We will use the built-in `iris` dataset and the user should be able to select x and y axes variables as well the variable mapped to the colour of the points.
+A common use case of shiny apps is to explore a dataset interactively. So we will build a simple app that can create a scatterplot from a dataframe which a user can modify interactively. We will use the built-in `iris` dataset and the user should be able to select x and y axes variables as well the variable mapped to the color of the points.
 
 **Topics covered**
 
@@ -454,7 +476,8 @@ A common use case of shiny apps is to explore a dataset interactively. So we wil
 
 Below is a preview of the complete app.
 
-```{r,data-explorer,echo=FALSE}
+```{r,data-explorer}
+#| echo: false
 library(shiny)
 
 shinyApp(
@@ -487,7 +510,8 @@ shinyApp(
 
 We start with the standard shiny app template.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 library(shiny)
 
 shinyApp(
@@ -498,7 +522,9 @@ shinyApp(
 
 And then we start building the UI. We will add a title panel and a sidebar layout with a sidebar and a main panel.
 
-```{r,fig.height=6,fig.width=8}
+```{r}
+#| fig-height: 6
+#| fig-width: 8
 library(shiny)
 
 shinyApp(
@@ -513,7 +539,7 @@ shinyApp(
 )
 ```
 
-And to the sidebar, we will add 3 input widgets corresponding to x axis variable, y axis variable and colour variable. These will be dropdown type (`selectInput()`) and choices will be column names of the iris dataframe. And we add the output widget (`plotOutput()`) in the main panel.
+And to the sidebar, we will add 3 input widgets corresponding to x axis variable, y axis variable and color variable. These will be dropdown type (`selectInput()`) and choices will be column names of the iris dataframe. And we add the output widget (`plotOutput()`) in the main panel.
 
 ```{r}
 library(shiny)
@@ -540,14 +566,16 @@ shinyApp(
 
 Now, we need to add the server part. First, we write the ggplot code to create a plot.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 ggplot(iris,aes(x,y,col))+
       geom_point()
 ```
 
 This is added inside the output render function `renderPlot()`.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 output$out_plot <- renderPlot({
     ggplot(iris,aes(x,y,col))+
       geom_point()
@@ -556,7 +584,8 @@ output$out_plot <- renderPlot({
 
 We need to wire the input variable into the ggplot inputs x, y and col. This is achieved through `input$` and the variables are wrapped inside `!!sym()` to convert quoted text to unquoted variable.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 output$out_plot <- renderPlot({
   ggplot(iris,aes(!!sym(input$in_x),y=!!sym(input$in_y),col=!!sym(input$in_col)))+
     geom_point()
@@ -619,7 +648,9 @@ Let's build the basic scaffolding for our app including the input widgets. Let's
 
 We use a sidebar layout. The input controls go on the sidebar panel and the output goes on the main panel. So we need 5 numeric inputs. We can set some default values as well as reasonable min and max values and steps to increase or decrease. The output will be verbatim text, so we use `verbatimTextOutput()` widget.
 
-```{r,fig.height=6,fig.width=8}
+```{r}
+#| fig-height: 6
+#| fig-width: 8
 library(shiny)
 
 shinyApp(
@@ -648,9 +679,11 @@ The app should visually look close to our final end result. Check that the widge
 
 The next step is to wire up the inputs to the `rnapower()` function and return the result to the output text field.
 
-<i class='fa fa-clipboard-list'></i> Try to see if you can get this to work.
+{{< fa clipboard-list >}} Try to see if you can get this to work.
 
-```{r,accordion=TRUE,fig.height=6,fig.width=8}
+```{r}
+#| fig-height: 6
+#| fig-width: 8
 library(shiny)
 library(RNASeqPower)
 
@@ -680,15 +713,17 @@ shinyApp(
 )
 ```
 
-Verify that the inputs and outputs work. One can stop at this point if you only need to compute number of samples. But, we will continue to enchance the app to be able to compute any of the other parameters.
+Verify that the inputs and outputs work. One can stop at this point if you only need to compute number of samples. But, we will continue to enhance the app to be able to compute any of the other parameters.
 
 ### Conditional UI
 
 The function can estimate not only **sample size**, but **cv**, **effect**, **alpha** or **power**. We should let the user choose what they want to compute. So, we need a selection input widget to enable selection. And the input fields must change depending on the user's selected choice. The `rnapower()` function must also use a different set of parameters depending on the selection choice. For conditional logic, you can chain `if else` statements or use `switch()`.
 
-<i class='fa fa-clipboard-list'></i> Try to add a selection based conditional UI. `?selectInput()`, `?uiOutput()`, `?renderUI()`.
+{{< fa clipboard-list >}} Try to add a selection based conditional UI. `?selectInput()`, `?uiOutput()`, `?renderUI()`.
 
-```{r,accordion=TRUE,fig.height=6,fig.width=8}
+```{r}
+#| fig-height: 6
+#| fig-width: 8
 library(shiny)
 library(RNASeqPower)
 
@@ -772,16 +807,18 @@ shinyApp(
 )
 ```
 
-Let's summarise what we have done. In the **ui** part, instead of directly including the `rnapower()` input variable in the `sidebarPanel()`, we have added a selection input and a conditional UI output. The content inside the output UI depends on the selection made by the user.
+Let's summarize what we have done. In the **ui** part, instead of directly including the `rnapower()` input variable in the `sidebarPanel()`, we have added a selection input and a conditional UI output. The content inside the output UI depends on the selection made by the user.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 selectInput("in_pa_est", "Variable to estimate", choices=c("n","cv","effect","alpha","power"), selected=1, multiple=FALSE),
 uiOutput("ui_pa")
 ```
 
 Now to the server part where we make this all work. All conditional UI elements are inside `renderUI({})` and we use a conditional logic inside it. And since we are returning multiple input widgets, they are all wrapped inside a `div()` container.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 output$ui_pa <- renderUI({
   switch(input$in_pa_est,
       "n"=div(),
@@ -823,9 +860,11 @@ as.numeric(unlist(strsplit(gsub(" ","",x),",")))
 
 Blank space are removed, the string is split by comma into a list of strings, the list is converted to a vector and the strings are coerced to numbers.
 
-<i class='fa fa-clipboard-list'></i> Update the app such that all numeric inputs are replaced by text inputs and the server logic is able to parse the strings into numbers.
+{{< fa clipboard-list >}} Update the app such that all numeric inputs are replaced by text inputs and the server logic is able to parse the strings into numbers.
 
-```{r,accordion=TRUE,fig.height=6,fig.width=8}
+```{r}
+#| fig-height: 6
+#| fig-width: 8
 library(shiny)
 library(RNASeqPower)
 
@@ -934,15 +973,17 @@ shinyApp(
 )
 ```
 
-To summarise our changes, in the ui part, all `numericInput()` has been changed to `textInput()` and in the process we lost the number specific input limits such as min, max, step size etc. In the server part, incoming strings are parsed and split into a vector of numbers, saved to a variable and passed to the `rnapower()` function. Ensure that the app works without errors and we can progress further.
+To summarize our changes, in the ui part, all `numericInput()` has been changed to `textInput()` and in the process we lost the number specific input limits such as min, max, step size etc. In the server part, incoming strings are parsed and split into a vector of numbers, saved to a variable and passed to the `rnapower()` function. Ensure that the app works without errors and we can progress further.
 
 ### Code cleaning
 
 It is good practice to check whether the current code can be cleaned-up/polished or reduced. In this example, **depth** is always needed and could be moved out of the conditional block. Only one variable changes based on user input, but all 5 variables are repeated in each conditional block. There is room for improvement there.
 
-<i class='fa fa-clipboard-list'></i> Try to figure out how the code can be reorganised and simplified.
+{{< fa clipboard-list >}} Try to figure out how the code can be reorganized and simplified.
 
-```{r,accordion=TRUE,fig.height=6,fig.width=8}
+```{r}
+#| fig-height: 6
+#| fig-width: 8
 library(shiny)
 library(RNASeqPower)
 
@@ -999,7 +1040,7 @@ UI and server blocks have been considerably reduced in length by removing redund
 
 When we changed numeric inputs to character, we lost the input limits and numeric validation. Regardless of what input you enter, the app tries to proceed with the calculation.
 
-<i class='fa fa-clipboard-list'></i> Try entering some unreasonable inputs and see what happens. Try entering random strings, or huge integers for **alpha** etc.
+{{< fa clipboard-list >}} Try entering some unreasonable inputs and see what happens. Try entering random strings, or huge integers for **alpha** etc.
 
 We can bring back input validation manually using `validate()` functions. This can be used to check if the input conforms to some expected range of values and if not, return a message to the user.
 
@@ -1012,9 +1053,11 @@ Here are the limits we want to set:
 -   `alpha`: A numeric between 0 and 1 excluding 0 and 1
 -   `power`: A numeric between 0 and 1 excluding 0 and 1
 
-<i class='fa fa-clipboard-list'></i> Try to figure out how to add input validation. `?shiny::validate()`.
+{{< fa clipboard-list >}} Try to figure out how to add input validation. `?shiny::validate()`.
 
-```{r,accordion=TRUE,fig.height=6,fig.width=8}
+```{r}
+#| fig-height: 6
+#| fig-width: 8
 library(shiny)
 library(RNASeqPower)
 
@@ -1093,15 +1136,17 @@ shinyApp(
 
 We have added `validate()` to all incoming text to ensure that user input is within reasonable limits.
 
-<i class='fa fa-clipboard-list'></i> Test that the validation works by inputting unreasonable inputs such as alphabets, symbols etc into the input fields.
+{{< fa clipboard-list >}} Test that the validation works by inputting unreasonable inputs such as alphabets, symbols etc into the input fields.
 
 ### Theme
 
 This part is purely cosmetic. We can add a custom theme from R package `shinythemes` to make our app stand out from the default. The theme is added as an argument to `fluidPage()` like so `fluidPage(theme = shinytheme("spacelab"))`.
 
-<i class='fa fa-clipboard-list'></i> Try changing the theme and pick one that you like. Check out `?shinythemes`. The themes can be visualised on [Bootswatch](https://bootswatch.com/).
+{{< fa clipboard-list >}} Try changing the theme and pick one that you like. Check out `?shinythemes`. The themes can be visualized on [Bootswatch](https://bootswatch.com/).
 
-```{r,accordion=TRUE,fig.height=6,fig.width=8}
+```{r}
+#| fig-height: 6
+#| fig-width: 8
 library(shiny)
 library(shinythemes)
 library(RNASeqPower)
@@ -1188,15 +1233,17 @@ You do not necessarily need to do this section. This is just so you know.
 
 The app is now ready to be deployed. If you have an account on [shinyapps.io](https://www.shinyapps.io/), you can quickly deploy this app to your account using the R package `rsconnect`.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 library(rsconnect)
 rsconnect::setAccountInfo(name="username", token="KJHF853HG6G59C2F4J7B6", secret="jhHD7%jdg)62F67G/")
 deployApp(appName="my-awesome-app",appDir=".")
 ```
 
-The packages used are automatically detected and are installed on to the instance. If Bioconductor packages give an error during deployment, the repos need to be explicitly set on your system.
+The packages used are automatically detected and are installed on to the instance. If Bioconductor packages give an error during deployment, the repositories need to be explicitly set on your system.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 setRepositories(c(1,2),graphics=FALSE)
 ```
 
@@ -1226,7 +1273,7 @@ The idea of this app is to create and display a calendar styled planner. Below i
 
 ![](assets/calendar_plot.png)
 
-The image is a plot created in ggplot. X axis showing week numbers, y axis showing weekdays, facet titles showing months and dates are coloured by categories. We can split this into two parts. The first part is preparing the code for the core task at hand (ie; generating the plot) and the second part is creating a graphical user interface around it using shiny apps to enable the user to input values and adjust dates, categories, plot parameters etc.
+The image is a plot created in ggplot. X axis showing week numbers, y axis showing weekdays, facet titles showing months and dates are colored by categories. We can split this into two parts. The first part is preparing the code for the core task at hand (ie; generating the plot) and the second part is creating a graphical user interface around it using shiny apps to enable the user to input values and adjust dates, categories, plot parameters etc.
 
 ### Creating the plot
 
@@ -1260,7 +1307,9 @@ head(dfr)
 
 This is enough information to plot.
 
-```{r,fig.height=4.5,fig.width=7}
+```{r}
+#| fig-height: 4.5
+#| fig-width: 7
 ggplot(dfr,aes(x=week,y=day))+
       geom_tile(aes(fill=track))+
       geom_text(aes(label=ddate))+
@@ -1270,7 +1319,9 @@ ggplot(dfr,aes(x=week,y=day))+
 
 We can add more activities to the track column. Or in other words, I refer to it as adding more tracks.
 
-```{r,fig.height=4.5,fig.width=7}
+```{r}
+#| fig-height: 4.5
+#| fig-width: 7
 dfr$track[dfr$date>=as.Date("2023-06-13") & dfr$date<=as.Date("2023-06-17")] <- "RaukR"
 dfr$track[dfr$date==as.Date("2023-06-24")] <- "Midsummer"
 
@@ -1281,9 +1332,11 @@ ggplot(dfr,aes(x=week,y=day))+
       theme_bw()
 ```
 
-Now, we can customise the plot as you prefer. I am modifying the axes labels, changing colours and removing most of the plot elements.
+Now, we can customize the plot as you prefer. I am modifying the axes labels, changing colors and removing most of the plot elements.
 
-```{r,fig.height=4.5,fig.width=7}
+```{r}
+#| fig-height: 4.5
+#| fig-width: 7
 all_cols <- c("#bebada","#fb8072","#80b1d3","#fdb462")
   
 ggplot(dfr,aes(x=week,y=day))+
@@ -1315,7 +1368,8 @@ We need to first have a plan for the app page, which UI elements to include and 
 
 There is a horizontal top bar for the title and two columns below. The left column will contain the input widgets and control. The right column will contain the plot output. Since, this is a commonly used layout, it is available as a predefined function in shiny called `pageWithSidebar()`. It takes three arguments `headerPanel`, `sidebarPanel` and `mainPanel` which is self explanatory.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 shinyApp(
 ui=fluidPage(
   pageWithSidebar(
@@ -1331,7 +1385,9 @@ server=function(input,output){}
 
 Then we fill in the panels with widgets and contents.
 
-```{r,fig.height=6,fig.width=8}
+```{r}
+#| fig-height: 6
+#| fig-width: 8
 shinyApp(
 ui=fluidPage(
   pageWithSidebar(
@@ -1356,9 +1412,11 @@ server=function(input,output){},
 
 We have defined a part of the side bar panel with a title **Duration**. `fluidRow()` is an html tag used to create rows. Above, in the side bar panel, a row is defined and two columns are defined inside. Each column is filled with date input widgets for start and end dates. We use the columns here to place date input widgets side by side. To place widgets one below the other, the columns can simply be removed. The default value for the start date is set to current date and the end date is set to current date + 30 days.
 
-Now we add more sections to the side bar panel, namely track input variables and plot settings variables. We also added custom colours. Custom colours can be selected using the input widget `colourpicker::colourInput()`.
+Now we add more sections to the side bar panel, namely track input variables and plot settings variables. We also added custom colors. Custom colors can be selected using the input widget `colourpicker::colourInput()`.
 
-```{r,fig.height=6,fig.width=8}
+```{r}
+#| fig-height: 6
+#| fig-width: 8
 cols <- toupper(c(
   "#bebada","#fb8072","#80b1d3","#fdb462","#b3de69","#fccde5","#FDBF6F","#A6CEE3",
   "#56B4E9","#B2DF8A","#FB9A99","#CAB2D6","#A9C4E2","#79C360","#FDB762","#9471B4",
@@ -1465,7 +1523,8 @@ The track start and end dates are by default set to the same as that of duration
 
 We can end with column with the download options. Input fields are height, width, resolution and file format. Last we add a button for download.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 h3("Download"),
 helpText("Width is automatically calculated based on the number of weeks. File type is only applicable to download and does not change preview."),
 fluidRow(
@@ -1491,7 +1550,8 @@ helpText("RaukR")
 
 In the main panel, we add the plot output function that will hold the output plot. We also add a slider for image preview scaling and the output image. The idea behind the preview scaling is to allow the user to increase or decrease the size of the plot in the browser without affecting the download size. The part of the UI code to add the preview slider is below:
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 mainPanel(
   sliderInput("in_scale","Image preview scale",min=0.1,max=3,step=0.10,value=1),
   helpText("Scale only controls preview here and does not affect download."),
@@ -1500,9 +1560,10 @@ mainPanel(
 )
 ```
 
-This should now look like this. Some additional syling has been added to divs.
+This should now look like this. Some additional styling has been added to divs.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 ## load colours
 cols <- toupper(c(
   "#bebada","#fb8072","#80b1d3","#fdb462","#b3de69","#fccde5","#FDBF6F","#A6CEE3",
@@ -1636,32 +1697,37 @@ shinyApp(
 
 We can start adding content into the server function to actually enable functionality.
 
-The server code can be organised into 5 blocks.
+The server code can be organized into 5 blocks.
 
 1.  `fn_plot()`: Reactive function that generates ggplot object
 2.  out_plot: Plots the ggplot object
 3.  `fn_downloadplotname()`: Function to create download image name
 4.  `fn_downloadplot()`: Function to create and download the image
-5.  btn_downloadplot: Download handler that runs fn_downloadplot on button trigger
+5.  `btn_downloadplot`: Download handler that runs `fn_downloadplot` on button trigger
 6.  observe: Observer that updates input values
 
 Here is a flow diagram of how these blocks work.
 
-         1 > [2]
-         v
-    3 > [4] < 5
+```         
+     1 > [2]
+     v
+3 > [4] < 5
 
-        {6}
+    {6}
+```
 
 The core block 1 creates the preview plot in block 2. The download handler block 5 calls block 1 to generate the plot which is downloaded using block 4. Block 6 is standalone observer.
 
 Reactive values used across multiple functions can be stored using `reactiveValues()`. These can be written to or accessed from within a reactive environment.
 
-    store <- reactiveValues(week=NULL)
+```         
+store <- reactiveValues(week=NULL)
+```
 
 We have our core function `fn_plot()` (block 1). Inputs are validated and gathered from input widgets. We are using `shiny::req()` to silently check that necessary input variables are available before running through the function. We use `validate()` with `need()` to run some basic sanity checks namely that track names are not duplicated and to ensure that start-dates precede end-dates. Necessary date-time calculations are performed. The calendar plot is created and returned.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 ## RFN: fn_plot -----------------------------------------------------------
 ## core plotting function, returns a ggplot object
 
@@ -1758,7 +1824,8 @@ fn_plot <- reactive({
 
 Here is the block that generates the output image. Image dimensions and resolution is obtained from input widgets. Default width is computed based on number of weeks. This is why the number of weeks was stored as a reactive value. The plot is exported to the working directly and then displayed in the browser. The scale slider allows the plot preview to be scaled in the browser.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 ## OUT: out_plot ------------------------------------------------------------
 ## plots figure
 
@@ -1791,7 +1858,8 @@ output$out_plot <- renderImage({
 
 The `fn_downloadplotname()` function simply generates the output filename depending on the filetype extension.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 # FN: fn_downloadplotname ----------------------------------------------------
 # creates filename for download plot
 
@@ -1803,7 +1871,8 @@ fn_downloadplotname <- function()
 
 The `fn_downloadplot()` function uses `fn_plot()` to create the image and then export the image.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 ## FN: fn_downloadplot -------------------------------------------------
 ## function to download plot
 
@@ -1832,7 +1901,8 @@ fn_downloadplot <- function(){
 
 The download handler then downloads the file.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 ## DHL: btn_downloadplot ----------------------------------------------------
 ## download handler for downloading plot
 
@@ -1871,7 +1941,8 @@ observe({
 
 The complete code for the app is as below.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 ## load libraries
 library(ggplot2)
 library(shiny)
@@ -2219,7 +2290,8 @@ Generate labels for clip-on nametags.
 
 The following R packages will be required for this app:
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 install.packages(c(ggplot2, shiny, shinythemes, shinyAce, showtext, curl))
 ```
 
@@ -2235,7 +2307,8 @@ We need to first write the code needed to take some input labels and generate a 
 
 We have measured the labels to be 9cm x 5.5cm which means that 8 of them will fit on an A4 paper suitable for print. We have the function for generating the plot below.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 # nametag_plot_page ------------------------------------------------------------
 
 #' @title nametag_plot_page
@@ -2412,12 +2485,13 @@ nametag <- function(dfr,label1_sz=8,label1_x=0.5,label1_y=0.54,
 
 We will skip the details of the function as it is not exactly shiny related. There is a function called `nametag()` which generates the figures given appropriate input. It needs an input data.frame with at least one column named `label1`. We can test this out.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 dfr <- data.frame(label1=c("Person A","Person B"),label2=c("Institution X","Institution Y"),stringsAsFactors = F)
 nametag(dfr)
 ```
 
-This should have exported a png image to the working directory. `nametag()` also has an argument called `logo_right` to pass in a raster image which will be plotted as a logo on the top right side. `nametag()` also has numerous other arguments to adjust label positions, logo position, size justification etc. But, these arguments have reasonable defaults.
+This should have exported a PNG image to the working directory. `nametag()` also has an argument called `logo_right` to pass in a raster image which will be plotted as a logo on the top right side. `nametag()` also has numerous other arguments to adjust label positions, logo position, size justification etc. But, these arguments have reasonable defaults.
 
 ### Building the app
 
@@ -2454,7 +2528,8 @@ This code displays a blank page with the title. But, there is quite a bit going 
 
 Next, we will populate the columns with widgets.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 shinyApp(
 ui=fluidPage(
   fixedRow(
@@ -2494,9 +2569,10 @@ server=function(input,output) {}
 
 We have added input for file upload and paste text so that users can input labels either way. The tabular column delimiter can be user-defined. The actual input widget is hidden since it's a conditional UI. This works only when further code is defined under server. A help text is added to explain the input format to the user. A download button to download the images. A settings checkbox to optionally display the advanced settings panel. The main column has text showing number of files generated and the preview plot.
 
-Finally, we will add some custom styling to the columns. For example `style="max-width:300px;border-radius:4px;background:#ebedef;"` was added to the left input column to colour the background grey, rounded corners and limit responsive width to 300px.
+Finally, we will add some custom styling to the columns. For example `style="max-width:300px;border-radius:4px;background:#ebedef;"` was added to the left input column to color the background gray, rounded corners and limit responsive width to 300px.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 shinyApp(
 ui=fluidPage(
   fixedRow(
@@ -2537,7 +2613,7 @@ server=function(input,output) {}
 
 #### Server
 
-Now let's plan a bit on how to organise the server code. We can break it up into 8 blocks.
+Now let's plan a bit on how to organize the server code. We can break it up into 8 blocks.
 
 1.  Conditional UI for input
 2.  Conditional UI for settings
@@ -2550,19 +2626,22 @@ Now let's plan a bit on how to organise the server code. We can break it up into
 
 Here is a flow diagram roughly showing the sequence of steps. `< > v` denotes direction, `()` denotes optional input and `[]` denotes endpoint outputs.
 
-          1
-          v
-    [6] < 3 < (2)
-          v
-          4 > [7] < 8
-          v
-         [5]
+```         
+      1
+      v
+[6] < 3 < (2)
+      v
+      4 > [7] < 8
+      v
+     [5]
+```
 
 The plot preview block (5) and download block (7) depends on common reactive functions 3 and 4.
 
 Let's look at block 1. This is a conditional UI which is active only if the **Input method** (`input$in_input`) is not NULL. If input method is **Upload file**, then the UI for file upload is displayed, otherwise the input method is paste text (aceEditor).
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 ## UI: ui_input --------------------------------------------------------------
 ## ui to select input type: upload or paste
 output$ui_input <- renderUI({
@@ -2578,9 +2657,10 @@ if(input$in_input=="Upload file") {
 
 The settings panel is displayed only if the **Settings** checkbox is displayed. This panel contains input widgets for adjusting the position and alignment of text and logo.
 
-Let's look at block 3 to process input data. It depends on input method and input data format. Depending on the input method (file upload/paste text), different processing steps are carried out eventually resulting in identical output data.frame structure. Upload file is read in using defined separator. For paste-text field, the input is split by separator and organised into a data.frame.
+Let's look at block 3 to process input data. It depends on input method and input data format. Depending on the input method (file upload/paste text), different processing steps are carried out eventually resulting in identical output data.frame structure. Upload file is read in using defined separator. For paste-text field, the input is split by separator and organized into a data.frame.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 ## FN: fn_input --------------------------------------------------------
 ## function to get input data
 
@@ -2611,9 +2691,10 @@ Let's explore the block 4 that generates the plotting parameters. It depends on 
 
 It checks if columns `label1`,`label2` and `label3` are present in the input data.frame. Label size, x-position, y-position, logo scale and logo offset and set from input widgets or defaults are set. Depending on selected logo, the path is set and logo is read in. All these parameters are returned as a list.
 
-The logos are placed under a directory labelled **www** in the app root.
+The logos are placed under a directory named **www** in the app root.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 ## FN: fn_params ------------------------------------------------------------
 ## function to get plot params
 
@@ -2661,7 +2742,8 @@ fn_params <- reactive({
 
 Now, we have block 5 which creates the preview plot. It takes input from block 3 (`fn_input()`) and parameters from block 4 (`fn_params()`) which are passed to our `nametag()` function. Lastly, a list is returned with image path and render dimensions.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 ## OUT: out_plot ------------------------------------------------------------
 ## plots figure
 output$out_plot <- renderImage({
@@ -2684,7 +2766,8 @@ output$out_plot <- renderImage({
 
 Block 6 simply prints out the number of pages of images.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 ## OUT: out_pagecount -------------------------------------------------------
 ## prints general variables for debugging
 
@@ -2699,7 +2782,8 @@ output$out_pagecount <- renderText({
 
 Here is block 7 and 8. Block 7 is the download function. This is very similar to the plotting block. The only real addition here is creation of the zip file collating all output PNGs. Individual images are then deleted. Block 8 below when triggered using the download button calls the `fn_download()` function.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 ## FN: fn_download -----------------------------------------------------------
 ## function to download a zipped file with images
 
@@ -2734,7 +2818,8 @@ output$btn_download <- downloadHandler(
 
 Now, we can add all of this to the server section. The final code looks like below.
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 
 library(ggplot2)
 library(shinyAce)
@@ -2986,5 +3071,4 @@ shinyApp(
 
 ![](assets/nametagger_preview.png)
 
-Hopefully, this has not been too overwhelming. Shiny app code may look overcomplicated on the first look, but it is easier to understand what is happening by breaking it apart into smaller chunks and understanding how the various components are connected. It is crucial to plan out the structure of your app well in advanced as it is easy to get confused. Remember to name functions and variables sensibly. Use text output widgets and/or print statements in the code to keep track of internal variable values during run-time. Go forth and build awesome apps!
-
+Hopefully, this has not been too overwhelming. Shiny app code may look over-complicated on the first look, but it is easier to understand what is happening by breaking it apart into smaller chunks and understanding how the various components are connected. It is crucial to plan out the structure of your app well in advanced as it is easy to get confused. Remember to name functions and variables sensibly. Use text output widgets and/or print statements in the code to keep track of internal variable values during run-time. Go forth and build awesome apps!

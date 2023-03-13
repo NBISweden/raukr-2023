@@ -171,7 +171,7 @@ py_run_string("result = [1,2,3]*2")
 py$result
 ```
 
-All objects created by python are accessible using the `py` object exported by reticulate
+All objects created by python are accessible using the `py` object exported by **reticulate**
 
 ## Execute Python code
 
@@ -264,7 +264,7 @@ Continue working with the now converted R object in R
 ```{r}
 #| tidy: false
 #| fig-height: 4
-#| fig-width: 8
+#| fig-width: 10
 
 ggplot(movies_r, aes(x=startYear)) + geom_bar() + 
                                      theme(axis.text.x = element_text(angle = 90)) +
@@ -342,7 +342,9 @@ str(42)
 check_python_type(42)
 py_capture_output(check_python_type(42))
 ```
+
 . . .
+
 ```{r}
 str(42L)
 check_python_type(42L)
@@ -371,5 +373,4 @@ py_capture_output(check_python_type(list(24)))
 
 ### Thank you! Questions?
 
-[Graphics from [freepik](https://www.freepik.com)]{.small}  
 [2023 • [SciLifeLab](https://www.scilifelab.se/) • [NBIS](https://nbis.se/) • [RaukR](https://nbisweden.github.io/workshop-RaukR-2306/)]{.smaller}

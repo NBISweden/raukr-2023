@@ -7,7 +7,8 @@ image: "assets/featured.jpg"
 format: html
 ---
 
-```{r,echo=FALSE,results='hide',warning=FALSE,message=FALSE}
+```{r}
+#| echo: false
 ## LIBRARIES AND VARIABLES
 # load the packages you need for this document
 ```
@@ -43,7 +44,7 @@ As you saw in the lecture, this is far less efficient and not by any means easie
 - Write a `for`-loop that calculates the sum for each row of the matrix. 
 - Verify that your row counts are consistent with what you obtain with the `apply()` function 
 - Verify that your row counts are consistent with what you obtain with the `apply()` function `rowSums()` function
- 
+
 ```{r}
 #| code-fold: true
 #| results: markup
@@ -80,7 +81,7 @@ or
 
 `1, 1, 2, 3, 5, 8, 13, 21, ...`
 
-### N-th Fibonacci number
+### Nth Fibonacci number
 
 Write a function that generates Fibonacci number using a recursive approach.
 
@@ -108,7 +109,7 @@ Generate Fibonacci numbers from 0 to 10 using `*apply*` approach.
 sapply(0:10, FUN = fib_rec)
 ```
 
-### Vectorized Fibonacci generator 
+### Vectorized Fibonacci generator
 
 Vectorize your Fibonacci number generating function.
 

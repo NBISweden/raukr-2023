@@ -55,9 +55,9 @@ To make sure you will use the correct Python version (and the libraries associat
 
 ### Preparations
 
-The International Movie Database is a large database containing all information about movies, tv series, actors, producers, etc, and the ratings they received. If you are not aware of it, check out their website [imdb.com](https://www.imdb.com/) for more information.
+The International Movie Database is a large database containing all information about movies, TV series, actors, producers, etc, and the ratings they received. If you are not aware of it, check out their website [imdb.com](https://www.imdb.com/) for more information.
 
-You will be working on a smaller subset of some of the data listed, which consists of movies, ratings, and the principal actors playing in the movies. You will receive a file with python functions used to query this small database from R, where you will further process the data to answer questions related to different movies and actors. The underlying Python code uses the `sqlalchemy` library for querying the `sqlite` database. 
+You will be working on a smaller subset of some of the data listed, which consists of movies, ratings, and the principal actors playing in the movies. You will receive a file with python functions used to query this small database from R, where you will further process the data to answer questions related to different movies and actors. The underlying Python code uses the `sqlalchemy` library for querying the `sqlite` database.
 
 In preparation for using the Python code in R, make sure that the following files are all located in your working directory:
 
@@ -71,7 +71,7 @@ Start by loading all the python functions into R
 source_python("imdb_functions.py")
 ```
 
-First, inspecting which functions got imported when you sourced your python file. You can find them in the **Environment** table in RStudio. Some of the functions listed are part of the SQLAlchemy package used, but one example to look at is the function `get_actors()`. 
+First, inspecting which functions got imported when you sourced your python file. You can find them in the **Environment** table in RStudio. Some of the functions listed are part of the SQLAlchemy package used, but one example to look at is the function `get_actors()`.
 
 As you can see, R creates a wrapper function in R, for calling the underlying Python function. This specific function takes a movie title as input, and returns the principal actors of the movie. You can further study what the function does by looking at the code in the `imdb_functions.py` file. You can see that it queries the database for a specific movie, and returns the principal actors in it.
 
@@ -157,9 +157,9 @@ movies_py <- get_all_movies()
 class(movies_py)
 ```
 
-Inspecting the `movies_py` variable we can see that it is of the type `pandas.dataframe`. 
+Inspecting the `movies_py` variable we can see that it is of the type `pandas.dataframe`.
 
-Now we are ready to answer our first question: 
+Now we are ready to answer our first question:
 
 <h4>**Which movie/movies are the highest ranked of all times?**</h4>
 
@@ -180,7 +180,7 @@ top_movies = movies[movies.averageRating == movies.averageRating.max()]
 top_movies['primaryTitle']
 ```
 
-Above we are using pure pandas code directly in our RMarkdown document. 
+Above we are using pure pandas code directly in our RMarkdown document.
 
 - Save `top_movies` as an R object, and find out from what years these movies are, and how many votes they got
 
@@ -191,7 +191,6 @@ df
 ```
 
 So the answer to which are the highest ranked movies of all times is **The Shawshank Redemption** and **The Chaos Class**. Although, The Chaos Class did not get as many votes as The Shawshank Redemption.
-
 
 #### Average ratings over time
 
@@ -237,13 +236,15 @@ Make sure to inspect that the dataframe looks like it is supposed to, and that t
 
 - Plot the average ratings for each year
 
-```{r, fig.height = 4, fig.width = 14, tidy = FALSE}
+```{r}
+#| tidy: false
+#| fig-height: 4
+#| fig-width: 14
 ggplot(movies_grouped_r, aes(x=startYear, y=averageRating)) + 
                               geom_point() + 
                               theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
                               ggtitle('Average ratings over years')
 ```
-
 
 ## Bonus exercise
 
