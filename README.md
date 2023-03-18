@@ -8,7 +8,9 @@
 - If using RStudio, use [v2022.07.1 or newer](https://posit.co/download/rstudio-desktop/)
   - You need to install the R packages necessary for your topic/file
 
-## Adding topics
+:bangbang: Do not use visual editor! It messes up the code formatting.
+
+## Adding/Modifying topics
 
 - Fork the repository and clone locally
 - Keep the topic name simple, preferably one word
