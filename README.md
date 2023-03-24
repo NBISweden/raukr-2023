@@ -6,7 +6,8 @@
 
 - To preview/render, you must use [Quarto\>=1.2.269](https://quarto.org/docs/download/)
 - If using RStudio, use [v2022.07.1 or newer](https://posit.co/download/rstudio-desktop/)
-  - You need to install the R packages necessary for your topic/file
+- [VSCode](https://arinbasu.medium.com/why-quarto-with-vscode-is-a-great-data-science-tool-f0a259d28702) is a good alternative to RStudio for quarto documents
+- You need to install the R packages necessary for your topic/file
 
 :bangbang: Do not use visual editor! It messes up the code formatting.
 
@@ -29,7 +30,7 @@
     ```
 
 - `format` must be `html` for reports and `revealjs` for presentations
-- For assets relating to the document (figures, files etc), create
+- For assets relating to the document (figures, files etc), create an **assets** folder
   - **slides/topic/assets/**
   - **labs/topic/assets/**
 - To preview, run in terminal
@@ -43,6 +44,9 @@
   - To view in browser, open
     - **docs/slides/topic/index.html**
     - **docs/labs/topic/index.html**
+    
+:bangbang: Do not run `quarto render` as it will remove everything from **docs/** and attempt to render all the files. This might overwrite someone else's materials and also break since you won't have their R packages installed. So, only render your files.
+
 - Finally commit changes (both source files and rendered files)
 
 ```
@@ -62,23 +66,27 @@ git commit -m "Added topic"
 - The qmd files must be in the correct location when rendering/previewing else metadata from config is not used
 - Declare R packages at the beginning of every qmd document
 - Qmd files must have a format defined, either **format: html** or **format: revealjs**
-- Make a note of the default **execute** settings in `_quarto.yml`
+- Make a note of the default **execute** settings in `_quarto.yml`. You can override this for your document specifically if needed:
+
+  ```
+  execute:
+    eval: true
+    echo: false
+  ```
+  
 - Use level 2 heading as the highest level
-- All bullet points are defined by `-`
-- Define options in code chunks using `#|`
+- Bullet points are defined by `-`
+- Define options in code chunks using `#|` like `#| echo: true`
 - Adjusting dimension of images `![Caption](path/to/image.jpg){width="50%"}`
 - Divs are defined using `:::`
 - Classes are defined using `{.class}`
-- Example of a class on a div
-- Remember to spell-check your document
-  - Language used is en-us
-
-```         
-::: {.class}
-Content
-:::
-```
-
+  - Example of a class on a div
+  
+  ```
+  ::: {.callout-note}
+  content
+  :::
+  ```
 - Example of a class on a span `[Content]{.class}`
 - Columns are defined as such
 
@@ -93,12 +101,17 @@ Contents
 ::::
 ```
 
+- Remember to spell-check your document
+  - Language used is en-us
+
 ### RevealJS
+
+These are slide specific info. Comparisons here are to xaringan used previously for RaukR.
 
 - Slides are defined by `##` rather than `---`
 - Manual increment is defined by `. . .` rather than `--`
 - Horizontal rule is defined by `---` rather than `***`
-- For presenter notes are defined by `:::{.notes}` rather than `???`
+- Presenter notes are defined by `:::{.notes} content :::` rather than `???`
 - For small notes in the bottom of the slide, you can use
 
 ```
