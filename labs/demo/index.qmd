@@ -488,7 +488,7 @@ These figures are interesting.
 These figures are interesting.
 :::
 
-More figure options and layouts are described [here](https://quarto.org/docs/authoring/figures.html).
+More figure options and layouts are described [here](https://quarto.org/docs/authoring/figures.html). Cross referencing described [here](https://quarto.org/docs/authoring/cross-references.html).
 
 ### Using HTML
 

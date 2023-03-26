@@ -387,6 +387,9 @@
       margin-right: 0; 
     }
   </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&amp;family=Nunito:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap" rel="stylesheet">
   
   <script src="../../site_libs/htmlwidgets-1.6.1/htmlwidgets.js"></script>
   <link href="../../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
@@ -693,7 +696,7 @@ Error in log10(x) : non-numeric argument to mathematical function&lt;br&gt;</cod
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">proc.time</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  1.771   0.679   1.486 </code></pre>
+  1.697   0.610   1.372 </code></pre>
 </div>
 </div>
 <ul>
@@ -708,7 +711,7 @@ Error in log10(x) : non-numeric argument to mathematical function&lt;br&gt;</cod
 <span id="cb28-4"><a href="#cb28-4"></a>pt2 <span class="sc">-</span> pt1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.023   0.004   0.026 </code></pre>
+  0.026   0.000   0.026 </code></pre>
 </div>
 </div>
 </section>
@@ -719,9 +722,9 @@ Error in log10(x) : non-numeric argument to mathematical function&lt;br&gt;</cod
 <span id="cb30-2"><a href="#cb30-2"></a><span class="fu">system.time</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="fl">10e6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.313   0.008   0.322 
+  0.275   0.016   0.290 
    user  system elapsed 
-  0.524   0.025   0.549 </code></pre>
+  0.501   0.016   0.517 </code></pre>
 </div>
 </div>
 <p>An alternative approach is to use <code>tic</code> and <code>toc</code> statements from the <code>tictoc</code> package.</p>
@@ -867,7 +870,7 @@ Error in log10(x) : non-numeric argument to mathematical function&lt;br&gt;</cod
 <div class="cell">
 <div class="cell-output-display">
 <div class="profvis html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-30f42c6c4fc9e2b2357b" style="width:100%;height:600px;"></div>
-<script type="application/json" data-for="htmlwidget-30f42c6c4fc9e2b2357b">{"x":{"message":{"prof":{"time":[1,1,1,1,2,2,2,3,3,3,4,4,4,4],"depth":[4,3,2,1,3,2,1,3,2,1,4,3,2,1],"label":["force","eval","fun_fill_loop2",".main","eval","fun_fill_loop2",".main","eval","fun_fill_loop2",".main","eval","eval","fun_fill_loop2",".main"],"filenum":[null,null,2,null,null,2,null,null,2,null,null,null,2,null],"linenum":[null,null,2,null,null,2,null,null,2,null,null,null,2,null],"memalloc":[30.6052017211914,30.6052017211914,30.6052017211914,30.6052017211914,35.1184158325195,35.1184158325195,35.1184158325195,41.8244705200195,41.8244705200195,41.8244705200195,46.0530776977539,46.0530776977539,46.0530776977539,46.0530776977539],"meminc":[0,0,0,0,4.51321411132812,0,0,6.7060546875,0,0,4.22860717773438,0,0,0],"filename":[null,null,"<expr>",null,null,"<expr>",null,null,"<expr>",null,null,null,"<expr>",null]},"interval":10,"files":[{"filename":"<expr>","content":"library(profvis)\nprofvis({fun_fill_loop2(1e4, 'runif')\n  c()\n})","normpath":"<expr>"}],"prof_output":"/tmp/Rtmpm8pMi1/file4c5ff63ef3d18.prof","highlight":{"output":["^output\\$"],"gc":["^<GC>$"],"stacktrace":["^\\.\\.stacktraceo(n|ff)\\.\\.$"]},"split":"h"}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-30f42c6c4fc9e2b2357b">{"x":{"message":{"prof":{"time":[1,1,1,2,2,2,3,3,3,4,4,4,4],"depth":[3,2,1,3,2,1,3,2,1,4,3,2,1],"label":["eval","fun_fill_loop2",".main","eval","fun_fill_loop2",".main","eval","fun_fill_loop2",".main","force","eval","fun_fill_loop2",".main"],"filenum":[null,2,null,null,2,null,null,2,null,null,null,2,null],"linenum":[null,2,null,null,2,null,null,2,null,null,null,2,null],"memalloc":[30.8826751708984,30.8826751708984,30.8826751708984,35.6227188110352,35.6227188110352,35.6227188110352,42.4660873413086,42.4660873413086,42.4660873413086,46.8593673706055,46.8593673706055,46.8593673706055,46.8593673706055],"meminc":[0,0,0,4.74004364013672,0,0,6.84336853027344,0,0,4.39328002929688,0,0,0],"filename":[null,"<expr>",null,null,"<expr>",null,null,"<expr>",null,null,null,"<expr>",null]},"interval":10,"files":[{"filename":"<expr>","content":"library(profvis)\nprofvis({fun_fill_loop2(1e4, 'runif')\n  c()\n})","normpath":"<expr>"}],"prof_output":"/tmp/RtmpzD4aOJ/file2843925fa3bb1.prof","highlight":{"output":["^output\\$"],"gc":["^<GC>$"],"stacktrace":["^\\.\\.stacktraceo(n|ff)\\.\\.$"]},"split":"h"}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -915,8 +918,8 @@ Error in log10(x) : non-numeric argument to mathematical function&lt;br&gt;</cod
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">address</span>(matrix_A)</span>
 <span id="cb45-2"><a href="#cb45-2"></a><span class="fu">address</span>(matrix_B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "0x7f3f237ff010"
-[1] "0x7f3f237ff010"</code></pre>
+<pre><code>[1] "0x7f807a7fd010"
+[1] "0x7f807a7fd010"</code></pre>
 </div>
 </div>
 </div>
@@ -929,8 +932,8 @@ Error in log10(x) : non-numeric argument to mathematical function&lt;br&gt;</cod
 <span id="cb47-2"><a href="#cb47-2"></a><span class="fu">address</span>(matrix_A)</span>
 <span id="cb47-3"><a href="#cb47-3"></a><span class="fu">address</span>(matrix_B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "0x7f3f237ff010"
-[1] "0x7f3f22ffe010"</code></pre>
+<pre><code>[1] "0x7f807a7fd010"
+[1] "0x7f8079ffc010"</code></pre>
 </div>
 </div>
 </div>
@@ -950,9 +953,9 @@ Error in log10(x) : non-numeric argument to mathematical function&lt;br&gt;</cod
 <span id="cb49-9"><a href="#cb49-9"></a>}</span>
 <span id="cb49-10"><a href="#cb49-10"></a><span class="fu">f1</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "0x55a1bd81f960 --&gt; 0x55a1c702c170"
-[1] "0x55a1c702c170 --&gt; 0x55a1c702c560"
-[1] "0x55a1c702c560 --&gt; 0x55a1c713ba38"</code></pre>
+<pre><code>[1] "0x558322a06960 --&gt; 0x55832c1f9988"
+[1] "0x55832c1f9988 --&gt; 0x55832c1f9d08"
+[1] "0x55832c1f9d08 --&gt; 0x5583293f1b28"</code></pre>
 </div>
 </div>
 </section>
@@ -971,9 +974,9 @@ Error in log10(x) : non-numeric argument to mathematical function&lt;br&gt;</cod
 <span id="cb51-9"><a href="#cb51-9"></a>}</span>
 <span id="cb51-10"><a href="#cb51-10"></a><span class="fu">f2</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "0x55a1c46142f8 --&gt; 0x55a1c46142f8"
-[1] "0x55a1c46142f8 --&gt; 0x55a1c46142f8"
-[1] "0x55a1c46142f8 --&gt; 0x55a1c46142f8"</code></pre>
+<pre><code>[1] "0x55832a8ab5e8 --&gt; 0x55832a8ab5e8"
+[1] "0x55832a8ab5e8 --&gt; 0x55832a8ab5e8"
+[1] "0x55832a8ab5e8 --&gt; 0x55832a8ab5e8"</code></pre>
 </div>
 </div>
 </section>

@@ -134,6 +134,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 background-size: cover;
     }
     </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&amp;family=Nunito:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap" rel="stylesheet">
 
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
@@ -548,9 +551,9 @@ ________________________________________________________________________________
 <div class="cell-output cell-output-stdout">
 <pre><code>          [,1]
 [1,] 0.5000000
-[2,] 0.7974624
-[3,] 0.6605309
-[4,] 0.8845426</code></pre>
+[2,] 0.5292243
+[3,] 0.3002232
+[4,] 0.3253692</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -559,8 +562,8 @@ ________________________________________________________________________________
 <pre><code>tf.Tensor(
 [[0]
  [1]
- [1]
- [1]], shape=(4, 1), dtype=int32)</code></pre>
+ [0]
+ [0]], shape=(4, 1), dtype=int32)</code></pre>
 </div>
 </div>
 <p>It looks like the Keras model successfully can assign correct labels to the four data points.</p>
@@ -760,7 +763,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-right">Published with <a href="https://quarto.org/">Quarto</a> v1.2.335</div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","descPosition":"bottom","selector":".lightbox","closeEffect":"zoom","loop":true});</script>
+<script>var lightboxQuarto = GLightbox({"loop":true,"openEffect":"zoom","closeEffect":"zoom","selector":".lightbox","descPosition":"bottom"});</script>
 
 
 

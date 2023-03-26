@@ -60,6 +60,7 @@ format: revealjs
 ## Output formats
 
 ::: {style='text-align="left"'}
+
 |Rmd                    |Quarto                      |
 |-----------------------|----------------------------|
 |html_document          |html                        |
@@ -79,6 +80,228 @@ format: revealjs
 |pagedown               |TBA                         |
 |rticles                |TBA                         |
 |flexdashboard          |TBA                         |
+
+:::
+
+## Quarto anatomy
+
+:::: {.columns}
+::: {.column width="50%"}
+
+<br>
+
+````
+---
+title: "Iris report"
+author: "John Doe"
+date: "4-Mar-2023"
+format: html
+---
+
+## Iris
+
+Let's explore the **iris** dataset.
+
+```{{r}}
+#| echo: true
+head(iris)
+```
+````
+
+:::
+::: {.column width="50%"}
+
+![](assets/anatomy.png)
+
+:::
+::::
+
+## Quarto anatomy
+
+:::: {.columns}
+::: {.column width="50%"}
+
+![](assets/anatomy-parts.png)
+
+:::
+::: {.column width="50%"}
+
+<br>
+
+[Metadata (YAML)]{.large}
+
+<br>
+<br>
+<br>
+
+[Text (Markdown)]{.large}
+
+<br>
+
+[Code (R, Python, Julia, Observable)]{.large}
+
+:::
+::::
+
+[Literate programming](https://en.wikipedia.org/wiki/Literate_programming) is natural language interspersed with programming code for the purpose of documentation, reproducibility and accessibility particularly relevant in data science.
+
+## YAML metadata
+
+:::: {.columns}
+::: {.column width="50%"}
+
+- Yet Another Markup Language (YAML)
+
+```
+---
+key: value
+---
+```
+
+- 2 space indentation
+
+```
+format:
+  html:
+    smooth-scroll: true
+```
+
+- Strings
+```
+description: "This report contains..."
+```
+- Multiline string (Literal/Folded)
+
+:::: {.columns}
+::: {.column width="50%"}
+
+```
+description: |
+  This is
+  a multiline
+  string
+```
+
+:::
+::: {.column width="48%"}
+
+```
+description: >
+  This is
+  a multiline
+  string
+```
+
+:::
+::::
+
+:::
+::: {.column width="50%"}
+
+- Arrays
+
+```
+items: [ 1, 2, 3, 4, 5 ]
+names: [ "one", "two", "three" ]
+names:
+  - "one"
+  - "two"
+  - "three"
+```
+
+- Dictionary arrays
+
+```
+items:
+  - things:
+      thing1: huey
+      things2: dewey
+      thing3: louie
+  - other things:
+      key: value
+```
+
+:::
+::::
+
+[[YAML basics](https://www.cloudbees.com/blog/yaml-tutorial-everything-you-need-get-started)]{.smaller}
+
+## YAML metadata
+
+:::: {.columns}
+::: {.column width="50%"}
+
+<br>
+
+````
+---
+title: "Iris report"
+author: "John Doe"
+date: "4-Mar-2023"
+format:
+  html:
+    toc: true
+    number-sections: true
+execute:
+  echo: false
+  warning: false
+---
+
+## Iris
+
+Let's explore the **iris** dataset.
+
+### Table
+
+```{{r}}
+#| echo: true
+iris[1:3,]
+```
+
+### Plot
+
+```{{r}}
+#| label: fig-hist-sepal
+#| fig-cap: "Distribution of Sepal lengths."
+#| fig-height: 3
+hist(iris$Sepal.Length)
+```
+````
+
+:::
+::: {.column width="50%"}
+
+![](assets/yaml-metadata-preview.png)
+
+:::
+::::
+
+## YAML metadata
+
+```         
+title: Report
+subtitle: Topic
+date: today
+author: "John Doe"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-fold: true
+    df-print: paged
+
+execute:
+  eval: true
+  echo: false
+  warning: false
+  message: false
+  freeze: true
+```
+
+::: {.aside}
+[HTML YAML documentation](https://quarto.org/docs/reference/formats/html.html)  
+[PDF YAML documentation](https://quarto.org/docs/reference/formats/pdf.html)
 :::
 
 ## Markdown
@@ -87,6 +310,7 @@ Human readable markup
 
 :::: {.columns}
 ::: {.column width="25%"}
+
 ```         
 ### Heading 3
 
@@ -119,7 +343,7 @@ $2^{10}$
 $2_{10}$
 :::
 
-::: {.column width="30%"}
+::: {.column width="28%"}
 ```         
 $\sum\limits_{n=1}^{10} \frac{3}{2}\cdot n$
 
@@ -133,7 +357,7 @@ Link to [this](somewhere.com)
 ```
 :::
 
-::: {.column width="20%"}
+::: {.column width="22%"}
 $\sum\limits_{n=1}^{10} \frac{3}{2}\cdot n$
 
 - bullet point
@@ -168,13 +392,15 @@ Link to [this](somewhere.com)
 Today's date is `` `r "\u0060r date()\u0060"` ``    
 Today's date is `r date()`
 
-- R code can be executed in code chunks as shown below
+- R code can be executed in code chunks
 
-```{{{r}}}
+````
+```{{r}}
 date()
 ```
+````
 
-- By default shows input source code and output results.
+- By default, input source code and output results are displayed.
 
 ```{r}
 date()
@@ -246,34 +472,6 @@ R Notebook demonstration.
 - Visual editor
 :::
 
-## YAML
-
-```         
-title: Report
-subtitle: Topic
-date: today
-author: "John Doe"
-format:
-  html:
-    toc: true
-    toc-depth: 3
-    number-sections: true
-    code-fold: true
-    df-print: paged
-
-execute:
-  eval: true
-  echo: false
-  warning: false
-  message: false
-  freeze: true
-```
-
-::: {.aside}
-[HTML YAML documentation](https://quarto.org/docs/reference/formats/html.html)  
-[PDF YAML documentation](https://quarto.org/docs/reference/formats/pdf.html)
-:::
-
 ## PDF
 
 ## RevealJS
@@ -331,6 +529,9 @@ metadata-files:
 
 ## Interactive documents
 
+- Shiny
+- Observable
+
 ## Quarto from the terminal
 
 ```         
@@ -354,6 +555,9 @@ metadata-files:
 ```
 
 ## Extending Quarto
+
+
+[Awesome Quarto](https://github.com/mcanouil/awesome-quarto)
 
 ## Compared to Rmd
 
@@ -382,8 +586,10 @@ metadata-files:
 
 ## Acknowledgements
 
+- [quarto.org](https://quarto.org/)
 - [Quarto workshop by Tom Mock](https://www.youtube.com/watch?v=yvi5uXQMvu4)
 - [Quarto introduction by Julia Müller](https://www.youtube.com/watch?v=shVSmYna3GM)
+- [Authoring Quarto](https://rstudio-conf-2022.github.io/get-started-quarto/materials/02-authoring.html#/authoring-quarto)
 
 ## {background-image="../../assets/images/cover.jpg"}
 

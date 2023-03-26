@@ -387,6 +387,9 @@
       margin-right: 0; 
     }
   </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&amp;family=Nunito:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -404,7 +407,7 @@ Roy Francis
 </div>
 </div>
 
-  <p class="date">13-Mar-2023</p>
+  <p class="date">25-Mar-2023</p>
 </section>
 <section id="publishing" class="slide level2">
 <h2>Publishing</h2>
@@ -545,6 +548,174 @@ Roy Francis
 </table>
 </div>
 </section>
+<section id="quarto-anatomy" class="slide level2">
+<h2>Quarto anatomy</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><br></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Iris report"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "John Doe"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "4-Mar-2023"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Iris</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>Let's explore the **iris** dataset.</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column" style="width:50%;">
+<p><img data-src="assets/anatomy.png"></p>
+</div>
+</div>
+</section>
+<section id="quarto-anatomy-1" class="slide level2">
+<h2>Quarto anatomy</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="assets/anatomy-parts.png"></p>
+</div><div class="column" style="width:50%;">
+<p><br></p>
+<p><span class="large">Metadata (YAML)</span></p>
+<p><br> <br> <br></p>
+<p><span class="large">Text (Markdown)</span></p>
+<p><br></p>
+<p><span class="large">Code (R, Python, Julia, Observable)</span></p>
+</div>
+</div>
+<p><a href="https://en.wikipedia.org/wiki/Literate_programming">Literate programming</a> is natural language interspersed with programming code for the purpose of documentation, reproducibility and accessibility particularly relevant in data science.</p>
+</section>
+<section id="yaml-metadata" class="slide level2">
+<h2>YAML metadata</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>Yet Another Markup Language (YAML)</li>
+</ul>
+<pre><code>---
+key: value
+---</code></pre>
+<ul>
+<li>2 space indentation</li>
+</ul>
+<pre><code>format:
+  html:
+    smooth-scroll: true</code></pre>
+<ul>
+<li>Strings</li>
+</ul>
+<pre><code>description: "This report contains..."</code></pre>
+<ul>
+<li>Multiline string (Literal/Folded)</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:50%;">
+<pre><code>description: |
+  This is
+  a multiline
+  string</code></pre>
+</div><div class="column" style="width:48%;">
+<pre><code>description: &gt;
+  This is
+  a multiline
+  string</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>Arrays</li>
+</ul>
+<pre><code>items: [ 1, 2, 3, 4, 5 ]
+names: [ "one", "two", "three" ]
+names:
+  - "one"
+  - "two"
+  - "three"</code></pre>
+<ul>
+<li>Dictionary arrays</li>
+</ul>
+<pre><code>items:
+  - things:
+      thing1: huey
+      things2: dewey
+      thing3: louie
+  - other things:
+      key: value</code></pre>
+</div>
+</div>
+<p><span class="smaller"><a href="https://www.cloudbees.com/blog/yaml-tutorial-everything-you-need-get-started">YAML basics</a></span></p>
+</section>
+<section id="yaml-metadata-1" class="slide level2">
+<h2>YAML metadata</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><br></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Iris report"</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "John Doe"</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "4-Mar-2023"</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">    number-sections: true</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: false</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">  warning: false</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Iris</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>Let's explore the **iris** dataset.</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="fu">### Table</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>iris[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,]</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plot</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-hist-sepal</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Distribution of Sepal lengths."</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 3</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(iris<span class="sc">$</span>Sepal.Length)</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column" style="width:50%;">
+<p><img data-src="assets/yaml-metadata-preview.png"></p>
+</div>
+</div>
+</section>
+<section id="yaml-metadata-2" class="slide level2">
+<h2>YAML metadata</h2>
+<pre><code>title: Report
+subtitle: Topic
+date: today
+author: "John Doe"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-fold: true
+    df-print: paged
+
+execute:
+  eval: true
+  echo: false
+  warning: false
+  message: false
+  freeze: true</code></pre>
+
+<aside><div>
+<p><a href="https://quarto.org/docs/reference/formats/html.html">HTML YAML documentation</a><br>
+<a href="https://quarto.org/docs/reference/formats/pdf.html">PDF YAML documentation</a></p>
+</div></aside></section>
 <section id="markdown" class="slide level2">
 <h2>Markdown</h2>
 <p>Human readable markup</p>
@@ -574,7 +745,7 @@ $2_{10}$  </code></pre>
 2<sub>10</sub><br>
 <span class="math inline">\(2^{10}\)</span><br>
 <span class="math inline">\(2_{10}\)</span></p>
-</div><div class="column" style="width:30%;">
+</div><div class="column" style="width:28%;">
 <pre><code>$\sum\limits_{n=1}^{10} \frac{3}{2}\cdot n$
 
 - bullet point
@@ -584,7 +755,7 @@ Link to [this](somewhere.com)
 ![](https://www.r-project.org/Rlogo.png)
 
 ![](https://www.r-project.org/Rlogo.png){width="50%"}</code></pre>
-</div><div class="column" style="width:20%;">
+</div><div class="column" style="width:22%;">
 <p><span class="math inline">\(\sum\limits_{n=1}^{10} \frac{3}{2}\cdot n\)</span></p>
 <ul>
 <li>bullet point</li>
@@ -628,18 +799,20 @@ Link to [this](somewhere.com)
 <li>R code can be executed inline</li>
 </ul>
 <p>Today’s date is <code>`r date()`</code><br>
-Today’s date is Mon Mar 13 18:34:49 2023</p>
+Today’s date is Sun Mar 26 23:25:31 2023</p>
 <ul>
-<li>R code can be executed in code chunks as shown below</li>
+<li>R code can be executed in code chunks</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource {{{r}}} number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a href="#cb3-1"></a>date()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span>()</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
-<li>By default shows input source code and output results.</li>
+<li>By default, input source code and output results are displayed.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">date</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">date</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Mon Mar 13 18:34:49 2023"</code></pre>
+<pre><code>[1] "Sun Mar 26 23:25:31 2023"</code></pre>
 </div>
 </div>
 </section>
@@ -648,10 +821,10 @@ Today’s date is Mon Mar 13 18:34:49 2023</p>
 <ul>
 <li>Setting chunk options</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span>()</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span>()</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>Chunk options define how chunks behave
 <ul>
@@ -715,31 +888,6 @@ format: html
           display:block!important;
       }</style></aside>
 </section>
-<section id="yaml" class="slide level2">
-<h2>YAML</h2>
-<pre><code>title: Report
-subtitle: Topic
-date: today
-author: "John Doe"
-format:
-  html:
-    toc: true
-    toc-depth: 3
-    number-sections: true
-    code-fold: true
-    df-print: paged
-
-execute:
-  eval: true
-  echo: false
-  warning: false
-  message: false
-  freeze: true</code></pre>
-
-<aside><div>
-<p><a href="https://quarto.org/docs/reference/formats/html.html">HTML YAML documentation</a><br>
-<a href="https://quarto.org/docs/reference/formats/pdf.html">PDF YAML documentation</a></p>
-</div></aside></section>
 <section id="pdf" class="slide level2">
 <h2>PDF</h2>
 </section>
@@ -793,6 +941,10 @@ metadata-files:
 </div></aside></section>
 <section id="interactive-documents" class="slide level2">
 <h2>Interactive documents</h2>
+<ul>
+<li>Shiny</li>
+<li>Observable</li>
+</ul>
 </section>
 <section id="quarto-from-the-terminal" class="slide level2">
 <h2>Quarto from the terminal</h2>
@@ -816,6 +968,7 @@ metadata-files:
 </section>
 <section id="extending-quarto" class="slide level2">
 <h2>Extending Quarto</h2>
+<p><a href="https://github.com/mcanouil/awesome-quarto">Awesome Quarto</a></p>
 </section>
 <section id="compared-to-rmd" class="slide level2">
 <h2>Compared to Rmd</h2>
@@ -853,8 +1006,10 @@ metadata-files:
 <section id="acknowledgements" class="slide level2">
 <h2>Acknowledgements</h2>
 <ul>
+<li><a href="https://quarto.org/">quarto.org</a></li>
 <li><a href="https://www.youtube.com/watch?v=yvi5uXQMvu4">Quarto workshop by Tom Mock</a></li>
 <li><a href="https://www.youtube.com/watch?v=shVSmYna3GM">Quarto introduction by Julia Müller</a></li>
+<li><a href="https://rstudio-conf-2022.github.io/get-started-quarto/materials/02-authoring.html#/authoring-quarto">Authoring Quarto</a></li>
 </ul>
 </section>
 <section id="section" class="slide level2" data-background-image="../../assets/images/cover.jpg">

@@ -32,7 +32,7 @@
     "href": "index.html",
     "title": "",
     "section": "",
-    "text": "In Life Sciences and Bioinformatics, R programming language is increasingly being used to transform and analyse data, perform statistical analysis and produce publication-ready visualisations. This workshop aims to take the participants beyond the basics of R to a deeper and comprehensive understanding of the R ecosystem.\nThis workshop is organised by the National Bioinformatics Infrastructure, Sweden (NBIS). NBIS is a platform of the Science for Life Laboratory (SciLifeLab). The event is organised in co-operation with Uppsala University, Lund University and Stockholm University, Sweden.\n   \n\n\nUpdated: 13-03-2023 at 19:35:54.."
+    "text": "In Life Sciences and Bioinformatics, R programming language is increasingly being used to transform and analyse data, perform statistical analysis and produce publication-ready visualisations. This workshop aims to take the participants beyond the basics of R to a deeper and comprehensive understanding of the R ecosystem.\nThis workshop is organised by the National Bioinformatics Infrastructure, Sweden (NBIS). NBIS is a platform of the Science for Life Laboratory (SciLifeLab). The event is organised in co-operation with Uppsala University, Lund University and Stockholm University, Sweden.\n   \n\n\nUpdated: 26-03-2023 at 23:21:56.."
   },
   {
     "objectID": "labs/coding/index.html#coding-style",
@@ -95,7 +95,7 @@
     "href": "labs/demo/index.html#code-formatting",
     "title": "Demo Lab",
     "section": "4 Code formatting",
-    "text": "4 Code formatting\nCode can be defined inline where `this` looks like this. R code can be executed inline `r Sys.Date()` producing 2023-03-13. Code can also be defined inside code blocks.\n```\n\n\nThis is code\n```\n\nThis is code\nR code is executed inside code blocks like this\n```{r}\nSys.Date()\n```\nwhich shows the code and output.\n\nSys.Date()\n\n[1] \"2023-03-13\"\n\n\nThe code and results can be hidden while sill executing the code.\n```{r}\n#| eval: true\n#| echo: false\n#| results: hide\nSys.Date()\n```\nHere is another example of executed R code with input and output.\n\ndata(iris)\nhead(iris[,1:2])\n\n\n\n\n\n\n\nSepal.Length\n\n\nSepal.Width\n\n\n\n\n\n\n5.1\n\n\n3.5\n\n\n\n\n4.9\n\n\n3.0\n\n\n\n\n4.7\n\n\n3.2\n\n\n\n\n4.6\n\n\n3.1\n\n\n\n\n5.0\n\n\n3.6\n\n\n\n\n5.4\n\n\n3.9"
+    "text": "4 Code formatting\nCode can be defined inline where `this` looks like this. R code can be executed inline `r Sys.Date()` producing 2023-03-26. Code can also be defined inside code blocks.\n```\n\n\nThis is code\n```\n\nThis is code\nR code is executed inside code blocks like this\n```{r}\nSys.Date()\n```\nwhich shows the code and output.\n\nSys.Date()\n\n[1] \"2023-03-26\"\n\n\nThe code and results can be hidden while sill executing the code.\n```{r}\n#| eval: true\n#| echo: false\n#| results: hide\nSys.Date()\n```\nHere is another example of executed R code with input and output.\n\ndata(iris)\nhead(iris[,1:2])\n\n\n\n\n\n\n\nSepal.Length\n\n\nSepal.Width\n\n\n\n\n\n\n5.1\n\n\n3.5\n\n\n\n\n4.9\n\n\n3.0\n\n\n\n\n4.7\n\n\n3.2\n\n\n\n\n4.6\n\n\n3.1\n\n\n\n\n5.0\n\n\n3.6\n\n\n\n\n5.4\n\n\n3.9"
   },
   {
     "objectID": "labs/demo/index.html#lists",
@@ -109,7 +109,7 @@
     "href": "labs/demo/index.html#images",
     "title": "Demo Lab",
     "section": "6 Images",
-    "text": "6 Images\n\n6.1 Using Markdown\nUsing regular markdown.\n![](assets/featured.jpg)\n\n\n\n\n\nThe dimensions are based on image and/or fill up the entire available space. You can control the dimension as shown below.\n![This is a caption](assets/featured.jpg){width=30%}  \n\n\n\nThis is a caption\n\n\nThis image above is now 30% of it’s original width.\nFigure layout.\n::: {#fig1 layout-ncol=2}\n![Caption for figure 1](assets/featured.jpg){#subfig1 width=\"40%\"}\n\n![Caption for figure 2](assets/featured.jpg){#subfig2 width=\"40%\"}\n\nThese figures are interesting.\n:::\n\n\n\n\nCaption for figure 1\n\n\n\nCaption for figure 2\n\n\n\n\nThese figures are interesting.\n\n\n\nMore figure options and layouts are described here.\n\n\n6.2 Using HTML\nThis image below is 30% size.\n<img src=\"assets/featured.jpg\" style=\"width:30%;\"/>\n\n\n\n6.3 Using R\nR chunks in RMarkdown can be used to control image display size using the argument out.width.\nThis image below is displayed at a size of 300 pixels.\n```{r}\n#| out-width: 300px\nknitr::include_graphics(\"assets/featured.jpg\")\n```\n\n\n\n\n\n\n\n\n\nThis image below is displayed at a size of 75 pixels and a caption added.\n```{r}\n#| out-width: 75px\n#| fig-cap: This is a caption\nknitr::include_graphics(\"assets/featured.jpg\")\n```\n\n\n\n\n\nThis is a caption\n\n\n\n\nFor more information on figures, see here. For plots generated through R, see section further below."
+    "text": "6 Images\n\n6.1 Using Markdown\nUsing regular markdown.\n![](assets/featured.jpg)\n\n\n\n\n\nThe dimensions are based on image and/or fill up the entire available space. You can control the dimension as shown below.\n![This is a caption](assets/featured.jpg){width=30%}  \n\n\n\nThis is a caption\n\n\nThis image above is now 30% of it’s original width.\nFigure layout.\n::: {#fig1 layout-ncol=2}\n![Caption for figure 1](assets/featured.jpg){#subfig1 width=\"40%\"}\n\n![Caption for figure 2](assets/featured.jpg){#subfig2 width=\"40%\"}\n\nThese figures are interesting.\n:::\n\n\n\n\nCaption for figure 1\n\n\n\nCaption for figure 2\n\n\n\n\nThese figures are interesting.\n\n\n\nMore figure options and layouts are described here. Cross referencing described here.\n\n\n6.2 Using HTML\nThis image below is 30% size.\n<img src=\"assets/featured.jpg\" style=\"width:30%;\"/>\n\n\n\n6.3 Using R\nR chunks in RMarkdown can be used to control image display size using the argument out.width.\nThis image below is displayed at a size of 300 pixels.\n```{r}\n#| out-width: 300px\nknitr::include_graphics(\"assets/featured.jpg\")\n```\n\n\n\n\n\n\n\n\n\nThis image below is displayed at a size of 75 pixels and a caption added.\n```{r}\n#| out-width: 75px\n#| fig-cap: This is a caption\nknitr::include_graphics(\"assets/featured.jpg\")\n```\n\n\n\n\n\nThis is a caption\n\n\n\n\nFor more information on figures, see here. For plots generated through R, see section further below."
   },
   {
     "objectID": "labs/demo/index.html#math-expressions",
@@ -221,7 +221,7 @@
     "href": "labs/ml/index.html#keras-solution",
     "title": "Introduction to Machine Learning",
     "section": "2 Keras solution",
-    "text": "2 Keras solution\nLet us first define the X matrix of the feature vectors and the y vector of the class labels:\n\nX <- matrix(c(c(0, 0, 1, 1), c(0, 1, 0, 1)), ncol = 2)\nX\n\n     [,1] [,2]\n[1,]    0    0\n[2,]    0    1\n[3,]    1    0\n[4,]    1    1\n\n\n\ny <- c(0, 0, 1, 1)\ny\n\n[1] 0 0 1 1\n\n\nNow, let us define a sequential Keras model of the ANN corresponding to the scheme above and print the summary of the model. Here, we are going to use Sigmoid activation function on the output node because we have a binary classification problem.\n\nlibrary(keras)\nmodel <- keras_model_sequential() \nmodel <- model %>% \n  layer_dense(units = 1, activation = 'sigmoid', input_shape = c(2))\nsummary(model)\n\nModel: \"sequential\"\n________________________________________________________________________________\n Layer (type)                       Output Shape                    Param #     \n================================================================================\n dense (Dense)                      (None, 1)                       3           \n================================================================================\nTotal params: 3\nTrainable params: 3\nNon-trainable params: 0\n________________________________________________________________________________\n\n\nNext, we are going to compile and fit the Keras ANN model. Again, for simplicity, we are going to use Mean Squared Error (MSE) loss function, and Stochastic Gradient Descent (SGD) as an optimization algorithm (with a high learning rate 0.1). The training will be for 3000 epochs, it should be enough for MSE to reach zero.\n\nmodel %>% \n  compile(loss = 'mean_squared_error',optimizer = optimizer_sgd(lr = 0.1))\nhistory <- model %>% fit(X, y, epochs = 3000)\nsaveRDS(history,\"history.rds\")\n\n\nhistory <- readRDS(\"history.rds\")\nplot(history$metrics$loss~seq(1:length(history$metrics$loss)),xlab=\"Epochs\",ylab=\"Loss\",col=\"blue\",cex=0.5)\n\n\n\n\n\n\n\n\nFinally, we will make predictions on the same data set. Overfitting is not a concern here because we want to make sure that the model was capable of linearly separating the two classes of data points.\n\nmodel %>% predict(X)\n\n          [,1]\n[1,] 0.5000000\n[2,] 0.7974624\n[3,] 0.6605309\n[4,] 0.8845426\n\n\n\nmodel %>% predict(X) %>% `>`(0.5) %>% k_cast(\"int32\")\n\ntf.Tensor(\n[[0]\n [1]\n [1]\n [1]], shape=(4, 1), dtype=int32)\n\n\nIt looks like the Keras model successfully can assign correct labels to the four data points."
+    "text": "2 Keras solution\nLet us first define the X matrix of the feature vectors and the y vector of the class labels:\n\nX <- matrix(c(c(0, 0, 1, 1), c(0, 1, 0, 1)), ncol = 2)\nX\n\n     [,1] [,2]\n[1,]    0    0\n[2,]    0    1\n[3,]    1    0\n[4,]    1    1\n\n\n\ny <- c(0, 0, 1, 1)\ny\n\n[1] 0 0 1 1\n\n\nNow, let us define a sequential Keras model of the ANN corresponding to the scheme above and print the summary of the model. Here, we are going to use Sigmoid activation function on the output node because we have a binary classification problem.\n\nlibrary(keras)\nmodel <- keras_model_sequential() \nmodel <- model %>% \n  layer_dense(units = 1, activation = 'sigmoid', input_shape = c(2))\nsummary(model)\n\nModel: \"sequential\"\n________________________________________________________________________________\n Layer (type)                       Output Shape                    Param #     \n================================================================================\n dense (Dense)                      (None, 1)                       3           \n================================================================================\nTotal params: 3\nTrainable params: 3\nNon-trainable params: 0\n________________________________________________________________________________\n\n\nNext, we are going to compile and fit the Keras ANN model. Again, for simplicity, we are going to use Mean Squared Error (MSE) loss function, and Stochastic Gradient Descent (SGD) as an optimization algorithm (with a high learning rate 0.1). The training will be for 3000 epochs, it should be enough for MSE to reach zero.\n\nmodel %>% \n  compile(loss = 'mean_squared_error',optimizer = optimizer_sgd(lr = 0.1))\nhistory <- model %>% fit(X, y, epochs = 3000)\nsaveRDS(history,\"history.rds\")\n\n\nhistory <- readRDS(\"history.rds\")\nplot(history$metrics$loss~seq(1:length(history$metrics$loss)),xlab=\"Epochs\",ylab=\"Loss\",col=\"blue\",cex=0.5)\n\n\n\n\n\n\n\n\nFinally, we will make predictions on the same data set. Overfitting is not a concern here because we want to make sure that the model was capable of linearly separating the two classes of data points.\n\nmodel %>% predict(X)\n\n          [,1]\n[1,] 0.5000000\n[2,] 0.5292243\n[3,] 0.3002232\n[4,] 0.3253692\n\n\n\nmodel %>% predict(X) %>% `>`(0.5) %>% k_cast(\"int32\")\n\ntf.Tensor(\n[[0]\n [1]\n [0]\n [0]], shape=(4, 1), dtype=int32)\n\n\nIt looks like the Keras model successfully can assign correct labels to the four data points."
   },
   {
     "objectID": "labs/ml/index.html#coding-ann-from-scratch-in-r",
@@ -298,7 +298,7 @@
     "href": "labs/packages/index.html#vignette",
     "title": "R packages",
     "section": "7 Vignette",
-    "text": "7 Vignette\nVignettes are long-form documentation for your package. Like a manual detailing what the purpose of your package and its functions are.\nTo initialize your vignette, you can use the command:\nusethis::use_vignette(\"packagename_vignette\")\nWhat this does:\n\nCreates the vignettes/ folder with packagename_vignette.Rmd inside\nEdits your DESCRIPTION, adding knitr to Suggests and as a VignetteBuilder.\n\nOpen the file vignettes/packagename_vignette.Rmd, unless it was already automatically opened when using the command. Edit the header data, change title and add an author, then create a minimal vignette for your function. Do run your function and show your dataset using knitr from the vignette. It can be as short as you want, however if you do this for a real package it should be a long form manual showing how your package can use its functions or data to perform the task it was designed for.\n\n\n\n\n\n\nNote\n\n\n\nTo be able to use the functions of your package in the vignette you will need to install your package, the easiest way is to execute devtools::install().\n\n\nTo preview your vignette while working on it, press the knit button in Rstudio.\nExample vignette.Rmd:\n---\ntitle: \"How to write more and more letters, in a triangle\"\nauthor: \"Sebastian DiLorenzo\"\ndate: \"2023-03-13\"\noutput: rmarkdown::html_vignette\nvignette: >\n  %\\VignetteIndexEntry{How to write more and more letters, in a triangle}\n  %\\VignetteEngine{knitr::rmarkdown}\n  %\\VignetteEncoding{UTF-8}\n---\n\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(\n  collapse = TRUE,\n  comment = \"#>\"\n)\n\n# replace this with your package name\nlibrary(newpkg)\n```\n\n# The greatest package for a very specific purpose\n\nIf you thought that it was impossible to write letters\nalphabetically from top to bottom with each number represented\nthe same number of times asits position in the alphabet\n  - think again!\n\nThis package and its sole function, trianguletter, solves just this problem!\n\nBut you do not have to take my word for it, see for yourself:\n\n```{r}\n# With just a simple number we specify how long into the alphabet we go.\ntrianguletter(10)\n\n# Also, this package has this random dataset:\nyour_object\n```\n\n# Future plans\n\nWe plan to add features so that you can give it\na letter, rather than a number, and output a\nbunch of numbers instead!\n\nAnd the beautiful rendered version:\n\n\n\n\n\nThe preview you get when knitting the vignette.Rmd does not mean that the vignette has been created. When you are happy with the vignette, use devtools::build_vignettes(). To view the vignette as an external user would view it is for some reason a bit of a hassle for the package you are developing, perhaps because the output is pretty much the same as when you knit. If you want to do this you can build your package source with devtools::build(), which also builds the vignette, and then devtools::load_all(). Then view the vignette with browseVignettes(\"packagename\").\nOnce again, good work! Now you have written a short guide to your package that will be included wherever it goes!"
+    "text": "7 Vignette\nVignettes are long-form documentation for your package. Like a manual detailing what the purpose of your package and its functions are.\nTo initialize your vignette, you can use the command:\nusethis::use_vignette(\"packagename_vignette\")\nWhat this does:\n\nCreates the vignettes/ folder with packagename_vignette.Rmd inside\nEdits your DESCRIPTION, adding knitr to Suggests and as a VignetteBuilder.\n\nOpen the file vignettes/packagename_vignette.Rmd, unless it was already automatically opened when using the command. Edit the header data, change title and add an author, then create a minimal vignette for your function. Do run your function and show your dataset using knitr from the vignette. It can be as short as you want, however if you do this for a real package it should be a long form manual showing how your package can use its functions or data to perform the task it was designed for.\n\n\n\n\n\n\nNote\n\n\n\nTo be able to use the functions of your package in the vignette you will need to install your package, the easiest way is to execute devtools::install().\n\n\nTo preview your vignette while working on it, press the knit button in Rstudio.\nExample vignette.Rmd:\n---\ntitle: \"How to write more and more letters, in a triangle\"\nauthor: \"Sebastian DiLorenzo\"\ndate: \"2023-03-26\"\noutput: rmarkdown::html_vignette\nvignette: >\n  %\\VignetteIndexEntry{How to write more and more letters, in a triangle}\n  %\\VignetteEngine{knitr::rmarkdown}\n  %\\VignetteEncoding{UTF-8}\n---\n\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(\n  collapse = TRUE,\n  comment = \"#>\"\n)\n\n# replace this with your package name\nlibrary(newpkg)\n```\n\n# The greatest package for a very specific purpose\n\nIf you thought that it was impossible to write letters\nalphabetically from top to bottom with each number represented\nthe same number of times asits position in the alphabet\n  - think again!\n\nThis package and its sole function, trianguletter, solves just this problem!\n\nBut you do not have to take my word for it, see for yourself:\n\n```{r}\n# With just a simple number we specify how long into the alphabet we go.\ntrianguletter(10)\n\n# Also, this package has this random dataset:\nyour_object\n```\n\n# Future plans\n\nWe plan to add features so that you can give it\na letter, rather than a number, and output a\nbunch of numbers instead!\n\nAnd the beautiful rendered version:\n\n\n\n\n\nThe preview you get when knitting the vignette.Rmd does not mean that the vignette has been created. When you are happy with the vignette, use devtools::build_vignettes(). To view the vignette as an external user would view it is for some reason a bit of a hassle for the package you are developing, perhaps because the output is pretty much the same as when you knit. If you want to do this you can build your package source with devtools::build(), which also builds the vignette, and then devtools::load_all(). Then view the vignette with browseVignettes(\"packagename\").\nOnce again, good work! Now you have written a short guide to your package that will be included wherever it goes!"
   },
   {
     "objectID": "labs/packages/index.html#testing",
@@ -613,7 +613,7 @@
     "href": "slides/coding/index.html#topics-of-this-presentation",
     "title": "Best Coding Practises",
     "section": "Topics of This Presentation",
-    "text": "Topics of This Presentation\n\n\nStyle — _howTo_style.yourCode?\nStructure — how to think 🤔 about the code and manufacture your own building 🚧 blocks\n\n\n\nDebugging — my code does not run 😞\nProfiling — now it does run but… out of memory 💣\nOptimization — making things better 👨‍🏭\n\n\n\n\nVectorization — more details on optimization via vectorization 🔝\nParallelization — run things in parallel, rule them all! 💍"
+    "text": "Topics of This Presentation\n\n\nStyle — _howTo_style.yourCode?\nStructure — how to think 🤔 about the code and manufacture your own building 🚧 blocks\n\n\n\nDebugging — my code does not run 😿\nProfiling — now it does run but… out of memory 💣\nOptimization — making things better 👷\n\n\n\n\nVectorization — more details on optimization via vectorization ↕️\nParallelization — run things in parallel, rule them all! 💍"
   },
   {
     "objectID": "slides/coding/index.html#what-is-coding-style",
@@ -634,7 +634,7 @@
     "href": "slides/coding/index.html#naming-style",
     "title": "Best Coding Practises",
     "section": "Naming Style",
-    "text": "Naming Style\nVariable names that are legal are not necessarily a good style and they may be dangerous 💀:\n\nF\nT\n\n[1] FALSE\n[1] TRUE\n\n\n\nF + T  \n\n[1] 1\n\n\n\nF <- 3  \nF + T  \n\n[1] 4\n\n\ndo not do this!\n\nunless you are a politician 🕴…\nAvoid T and F as variable names."
+    "text": "Naming Style\nVariable names that are legal are not necessarily a good style and they may be dangerous ⚡:\n\nF\nT\n\n[1] FALSE\n[1] TRUE\n\n\n\nF + T  \n\n[1] 1\n\n\n\nF <- 3  \nF + T  \n\n[1] 4\n\n\ndo not do this!\n\nunless you are a politician 🕴…\nAvoid T and F as variable names."
   },
   {
     "objectID": "slides/coding/index.html#customary-variable-names",
@@ -669,14 +669,14 @@
     "href": "slides/coding/index.html#how-to-write-functions",
     "title": "Best Coding Practises",
     "section": "How to write functions",
-    "text": "How to write functions\n\navoid accessing and modifying globals\n\navoid 🚳 a <<- 42\nand 🆗 use a closure instead\n\n\n\n\nnew_counter <- function() {\n  i <- 0\n  function() {\n    # do something useful, then ...\n    i <<- i + 1\n    i\n  }\n}\n\ncounter1 <- new_counter()\ncounter2 <- new_counter()\ncounter1()\ncounter1()\ncounter2()\n\n[1] 1\n[1] 2\n[1] 1\n\n\nbased on Stackoverflow answer"
+    "text": "How to write functions\n\navoid accessing and modifying globals\n\navoid 🚫 a <<- 42\nand 🆗 use a closure instead\n\n\n\n\nnew_counter <- function() {\n  i <- 0\n  function() {\n    # do something useful, then ...\n    i <<- i + 1\n    i\n  }\n}\n\ncounter1 <- new_counter()\ncounter2 <- new_counter()\ncounter1()\ncounter1()\ncounter2()\n\n[1] 1\n[1] 2\n[1] 1\n\n\nbased on Stackoverflow answer"
   },
   {
     "objectID": "slides/coding/index.html#how-to-write-functions-1",
     "href": "slides/coding/index.html#how-to-write-functions-1",
     "title": "Best Coding Practises",
     "section": "How to write functions",
-    "text": "How to write functions\n\nuse data as the very first argument for %>% pipes sake:\n\nmyfun <- function(x, arg) 🆗\nmyfun <- function(arg, x) 🙅\n\n\n\n\nset arguments to defaults — better too many args than too few:\n\nmyfun <- function(x, seed = 42) 🆗\nmyfun <- function(x, ...) ⛔\n\n\n\n\n\nremember that global defaults can be changed by options\n\n\n\n\nif you are re-using functions written by someone else — write a wrapper function around them\n\n\nmy_awesome_plot <- function(...) {\n  plot(..., col='red', pch=19, cex.axis=.7, las=1)\n}\nmy_awesome_plot(1:5)"
+    "text": "How to write functions\n\nuse data as the very first argument for %>% pipes sake:\n\nmyfun <- function(x, arg) 🆗\nmyfun <- function(arg, x) 🚷\n\n\n\n\nset arguments to defaults — better too many args than too few:\n\nmyfun <- function(x, seed = 42) 🆗\nmyfun <- function(x, ...) 🙅‍♀️\n\n\n\n\n\nremember that global defaults can be changed by options\n\n\n\n\nif you are re-using functions written by someone else — write a wrapper function around them\n\n\nmy_awesome_plot <- function(...) {\n  plot(..., col='red', pch=19, cex.axis=.7, las=1)\n}\nmy_awesome_plot(1:5)"
   },
   {
     "objectID": "slides/coding/index.html#how-to-write-functions-2",
@@ -774,14 +774,14 @@
     "href": "slides/debugging/index.html#profiling-proc.time",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Profiling – proc.time()",
-    "text": "Profiling – proc.time()\nProfiling is the process of identifying memory and time bottlenecks in your code.\n\nproc.time()\n\n   user  system elapsed \n  1.771   0.679   1.486 \n\n\n\nuser time – CPU time charged for the execution of user instructions of the calling process,\nsystem time – CPU time charged for execution by the system on behalf of the calling process,\nelapsed time – total CPU time elapsed for the currently running R process.\n\n\npt1 <- proc.time()\ntmp <- runif(n =  10e5)\npt2 <- proc.time()\npt2 - pt1\n\n   user  system elapsed \n  0.023   0.004   0.026"
+    "text": "Profiling – proc.time()\nProfiling is the process of identifying memory and time bottlenecks in your code.\n\nproc.time()\n\n   user  system elapsed \n  1.697   0.610   1.372 \n\n\n\nuser time – CPU time charged for the execution of user instructions of the calling process,\nsystem time – CPU time charged for execution by the system on behalf of the calling process,\nelapsed time – total CPU time elapsed for the currently running R process.\n\n\npt1 <- proc.time()\ntmp <- runif(n =  10e5)\npt2 <- proc.time()\npt2 - pt1\n\n   user  system elapsed \n  0.026   0.000   0.026"
   },
   {
     "objectID": "slides/debugging/index.html#profiling-system.time",
     "href": "slides/debugging/index.html#profiling-system.time",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Profiling – system.time()",
-    "text": "Profiling – system.time()\n\nsystem.time(runif(n = 10e6))\nsystem.time(rnorm(n = 10e6))\n\n   user  system elapsed \n  0.313   0.008   0.322 \n   user  system elapsed \n  0.524   0.025   0.549 \n\n\nAn alternative approach is to use tic and toc statements from the tictoc package.\n\nlibrary(tictoc)\ntic()\ntmp1 <-runif(n = 10e6)\ntoc()\n\n0.268 sec elapsed"
+    "text": "Profiling – system.time()\n\nsystem.time(runif(n = 10e6))\nsystem.time(rnorm(n = 10e6))\n\n   user  system elapsed \n  0.275   0.016   0.290 \n   user  system elapsed \n  0.501   0.016   0.517 \n\n\nAn alternative approach is to use tic and toc statements from the tictoc package.\n\nlibrary(tictoc)\ntic()\ntmp1 <-runif(n = 10e6)\ntoc()\n\n0.268 sec elapsed"
   },
   {
     "objectID": "slides/debugging/index.html#profiling-in-action",
@@ -851,21 +851,21 @@
     "href": "slides/debugging/index.html#copy-on-modify",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Copy-on-modify",
-    "text": "Copy-on-modify\n\nlibrary(pryr)\norder <- 1024\nmatrix_A <- matrix(rnorm(order^2), nrow = order)\nmatrix_B <- matrix_A\n\n\nCheck where the objects are in the memory:\n\n\n\naddress(matrix_A)\naddress(matrix_B)\n\n[1] \"0x7f3f237ff010\"\n[1] \"0x7f3f237ff010\"\n\n\n\n\nWhat happens if we modify a value in one of the matrices?\n\n\n\nmatrix_B[1,1] <- 1\naddress(matrix_A)\naddress(matrix_B)\n\n[1] \"0x7f3f237ff010\"\n[1] \"0x7f3f22ffe010\""
+    "text": "Copy-on-modify\n\nlibrary(pryr)\norder <- 1024\nmatrix_A <- matrix(rnorm(order^2), nrow = order)\nmatrix_B <- matrix_A\n\n\nCheck where the objects are in the memory:\n\n\n\naddress(matrix_A)\naddress(matrix_B)\n\n[1] \"0x7f807a7fd010\"\n[1] \"0x7f807a7fd010\"\n\n\n\n\nWhat happens if we modify a value in one of the matrices?\n\n\n\nmatrix_B[1,1] <- 1\naddress(matrix_A)\naddress(matrix_B)\n\n[1] \"0x7f807a7fd010\"\n[1] \"0x7f8079ffc010\""
   },
   {
     "objectID": "slides/debugging/index.html#avoid-copying-by-allocating-memory",
     "href": "slides/debugging/index.html#avoid-copying-by-allocating-memory",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Avoid copying by allocating memory",
-    "text": "Avoid copying by allocating memory\nNo memory allocation\n\nf1 <- function(to = 3, silent=F) {\n  tmp <- c()\n  for (i in 1:to) {\n    a1 <- address(tmp)\n    tmp <- c(tmp, i)\n    a2 <- address(tmp)\n    if(!silent) { print(paste0(a1, \" --> \", a2)) } \n  }\n}\nf1()\n\n[1] \"0x55a1bd81f960 --> 0x55a1c702c170\"\n[1] \"0x55a1c702c170 --> 0x55a1c702c560\"\n[1] \"0x55a1c702c560 --> 0x55a1c713ba38\""
+    "text": "Avoid copying by allocating memory\nNo memory allocation\n\nf1 <- function(to = 3, silent=F) {\n  tmp <- c()\n  for (i in 1:to) {\n    a1 <- address(tmp)\n    tmp <- c(tmp, i)\n    a2 <- address(tmp)\n    if(!silent) { print(paste0(a1, \" --> \", a2)) } \n  }\n}\nf1()\n\n[1] \"0x558322a06960 --> 0x55832c1f9988\"\n[1] \"0x55832c1f9988 --> 0x55832c1f9d08\"\n[1] \"0x55832c1f9d08 --> 0x5583293f1b28\""
   },
   {
     "objectID": "slides/debugging/index.html#avoid-copying-by-allocating-memory-cted.",
     "href": "slides/debugging/index.html#avoid-copying-by-allocating-memory-cted.",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Avoid copying by allocating memory cted.",
-    "text": "Avoid copying by allocating memory cted.\nWith allocation\n\nf2 <- function(to = 3, silent = FALSE) {\n  tmp <- vector(length = to, mode='numeric')\n  for (i in 1:to) {\n    a1 <- address(tmp)\n    tmp[i] <- i\n    a2 <- address(tmp)\n    if(!silent) { print(paste0(a1, \" --> \", a2)) }\n  }\n}\nf2()\n\n[1] \"0x55a1c46142f8 --> 0x55a1c46142f8\"\n[1] \"0x55a1c46142f8 --> 0x55a1c46142f8\"\n[1] \"0x55a1c46142f8 --> 0x55a1c46142f8\""
+    "text": "Avoid copying by allocating memory cted.\nWith allocation\n\nf2 <- function(to = 3, silent = FALSE) {\n  tmp <- vector(length = to, mode='numeric')\n  for (i in 1:to) {\n    a1 <- address(tmp)\n    tmp[i] <- i\n    a2 <- address(tmp)\n    if(!silent) { print(paste0(a1, \" --> \", a2)) }\n  }\n}\nf2()\n\n[1] \"0x55832a8ab5e8 --> 0x55832a8ab5e8\"\n[1] \"0x55832a8ab5e8 --> 0x55832a8ab5e8\"\n[1] \"0x55832a8ab5e8 --> 0x55832a8ab5e8\""
   },
   {
     "objectID": "slides/debugging/index.html#allocating-memory-benchmark.",
@@ -998,14 +998,14 @@
     "href": "slides/demo/index.html#code-formatting",
     "title": "Demo Slides",
     "section": "Code formatting",
-    "text": "Code formatting\nInline code\n\nCode can be defined inline where `this` looks like this.\nR code can be executed inline `r Sys.Date()` producing 2023-03-13.\n\nLigatures\n== != && ++ |> <> <- <= <~ /= |=> ->>\n== != && ++ |> <> <- <= <~ /= |=> ->>\nCode font used is JetBrains Mono. For full set of ligatures, see here."
+    "text": "Code formatting\nInline code\n\nCode can be defined inline where `this` looks like this.\nR code can be executed inline `r Sys.Date()` producing 2023-03-26.\n\nLigatures\n== != && ++ |> <> <- <= <~ /= |=> ->>\n== != && ++ |> <> <- <= <~ /= |=> ->>\nCode font used is JetBrains Mono. For full set of ligatures, see here."
   },
   {
     "objectID": "slides/demo/index.html#code-formatting-1",
     "href": "slides/demo/index.html#code-formatting-1",
     "title": "Demo Slides",
     "section": "Code formatting",
-    "text": "Code formatting\n\n\nCode chunks\nCode can also be defined inside chunks.\n```\nThis is code\n```\nThis is code\nR code is executed inside code blocks like this\n```{r}\nSys.Date()\n```\nwhich shows the code and output.\n\nSys.Date()\n\n[1] \"2023-03-13\"\n\n\n\nThe code and results can be hidden by\n```{r}\n#| echo: false\n#| results: hide\ndata(iris)\n```\n\ndata(iris)\nhead(iris[1:3,1:2])\n\n  Sepal.Length Sepal.Width\n1          5.1         3.5\n2          4.9         3.0\n3          4.7         3.2\n\n\nThese are called chunk options. For more options, see here and complete list here."
+    "text": "Code formatting\n\n\nCode chunks\nCode can also be defined inside chunks.\n```\nThis is code\n```\nThis is code\nR code is executed inside code blocks like this\n```{r}\nSys.Date()\n```\nwhich shows the code and output.\n\nSys.Date()\n\n[1] \"2023-03-26\"\n\n\n\nThe code and results can be hidden by\n```{r}\n#| echo: false\n#| results: hide\ndata(iris)\n```\n\ndata(iris)\nhead(iris[1:3,1:2])\n\n  Sepal.Length Sepal.Width\n1          5.1         3.5\n2          4.9         3.0\n3          4.7         3.2\n\n\nThese are called chunk options. For more options, see here and complete list here."
   },
   {
     "objectID": "slides/demo/index.html#code-highlighting",
@@ -1859,7 +1859,7 @@
     "href": "slides/oop/index.html#r-and-design-pattern",
     "title": "Object-Oriented Programming Models in R",
     "section": "R and Design Pattern",
-    "text": "R and Design Pattern\n\nstrategy — apply()\ndecorator — system_time()\n\n\nsystem.time(x <- runif(n = 100000))\nx[1:5]\n\n   user  system elapsed \n  0.003   0.000   0.003 \n[1] 0.7874066 0.4446694 0.7417496 0.6575418 0.2996123\n\n\n\nwrapper\n\n\nmy_plot <- function(...) {\n  plot(..., col = 'blue', las = 1, cex = .5, pch = 19, cex.axis = .7)\n}\n\n\nSingleton see this gist\nFluent function interface — tidyverse functions take data x as the very first argument and return object similar to x so that they can be chained by %>%\n\nEven more patterns here."
+    "text": "R and Design Pattern\n\nstrategy — apply()\ndecorator — system_time()\n\n\nsystem.time(x <- runif(n = 100000))\nx[1:5]\n\n   user  system elapsed \n  0.002   0.001   0.002 \n[1] 0.74721043 0.08190095 0.18814959 0.94679580 0.08367664\n\n\n\nwrapper\n\n\nmy_plot <- function(...) {\n  plot(..., col = 'blue', las = 1, cex = .5, pch = 19, cex.axis = .7)\n}\n\n\nSingleton see this gist\nFluent function interface — tidyverse functions take data x as the very first argument and return object similar to x so that they can be chained by %>%\n\nEven more patterns here."
   },
   {
     "objectID": "slides/oop/index.html#constructor-validator",
@@ -2034,14 +2034,14 @@
     "href": "slides/packages/index.html#vignettes",
     "title": "R packages",
     "section": "vignettes/",
-    "text": "vignettes/\n\n\n\nA more complete guide to your package\n\nFor user/you\nExamples and use cases\n\nknitr & rmarkdown\n\nknitr: add r code to markdown\n\nvignettes/package-vignette.Rmd\n\nusethis::use_vignette(\"typicalr-vignette\")\n\nVignettes are a long-form guide, or manual, to the package that details what the functions in the package can do. It can also show and give examples of what the package is designed to do, using multiple functions in sequence. If functional documentation shows just a part, think of the vignette as a book chapter showing what your package can do. It can look very different if you intend it for your users or for yourself to read at a later date. You can use many things to create the vignette, but like with roxygen2 probably the easiest is to use knitr and rmarkdown.\n\n\ntypicalr-vignette.Rmd\n  ---\n  title: \"Vignette Title\"\n  author: \"Vignette Author\"\n  date: \"2023-03-13\"\n  output: rmarkdown::html_vignette\n  vignette: >\n    %\\VignetteIndexEntry{Vignette Title}\n    %\\VignetteEngine{knitr::rmarkdown}\n    %\\VignetteEncoding{UTF-8}\n  ---\n\n\n\nWhat we are seeing here is the top metadata of a template for a vignette that I created using usethis::use_vignette(\"typicalr-vignette\") which created typicalr-vignette.Rmd and the vignettes/ directory. It also edits DESCRIPTION, adding knitr and rmarkdown to suggests, and adding VignetteBuilder: knitr. You are free to edit any part of the rmarkdown file but should not change the structure of the metadata. Only add the title in both places where it says “Vignette title” and your name as author. You can also change the output to pdf vignette for example. Luckily you have already gone through rmarkdown, so we dont need to talk about that, =)."
+    "text": "vignettes/\n\n\n\nA more complete guide to your package\n\nFor user/you\nExamples and use cases\n\nknitr & rmarkdown\n\nknitr: add r code to markdown\n\nvignettes/package-vignette.Rmd\n\nusethis::use_vignette(\"typicalr-vignette\")\n\nVignettes are a long-form guide, or manual, to the package that details what the functions in the package can do. It can also show and give examples of what the package is designed to do, using multiple functions in sequence. If functional documentation shows just a part, think of the vignette as a book chapter showing what your package can do. It can look very different if you intend it for your users or for yourself to read at a later date. You can use many things to create the vignette, but like with roxygen2 probably the easiest is to use knitr and rmarkdown.\n\n\ntypicalr-vignette.Rmd\n  ---\n  title: \"Vignette Title\"\n  author: \"Vignette Author\"\n  date: \"2023-03-26\"\n  output: rmarkdown::html_vignette\n  vignette: >\n    %\\VignetteIndexEntry{Vignette Title}\n    %\\VignetteEngine{knitr::rmarkdown}\n    %\\VignetteEncoding{UTF-8}\n  ---\n\n\n\nWhat we are seeing here is the top metadata of a template for a vignette that I created using usethis::use_vignette(\"typicalr-vignette\") which created typicalr-vignette.Rmd and the vignettes/ directory. It also edits DESCRIPTION, adding knitr and rmarkdown to suggests, and adding VignetteBuilder: knitr. You are free to edit any part of the rmarkdown file but should not change the structure of the metadata. Only add the title in both places where it says “Vignette title” and your name as author. You can also change the output to pdf vignette for example. Luckily you have already gone through rmarkdown, so we dont need to talk about that, =)."
   },
   {
     "objectID": "slides/packages/index.html#vignettes-1",
     "href": "slides/packages/index.html#vignettes-1",
     "title": "R packages",
     "section": "vignettes/",
-    "text": "vignettes/\n\n\n\nA more complete guide to your package\n\nFor user/you\nExamples and use cases\n\nknitr & rmarkdown\n\nknitr: add r code to markdown\n\nvignettes/package-vignette.Rmd\n\nusethis::use_vignette(\"typicalr-vignette\")\n\ntypicalr-vignette.Rmd\n  ---\n  title: \"typicalr\"\n  author: \"Sebastian DiLorenzo\"\n  date: \"2023-03-13\"\n  output: rmarkdown::html_vignette\n  vignette: >\n    %\\VignetteIndexEntry{typicalr}\n    %\\VignetteEngine{knitr::rmarkdown}\n    %\\VignetteEncoding{UTF-8}\n  ---"
+    "text": "vignettes/\n\n\n\nA more complete guide to your package\n\nFor user/you\nExamples and use cases\n\nknitr & rmarkdown\n\nknitr: add r code to markdown\n\nvignettes/package-vignette.Rmd\n\nusethis::use_vignette(\"typicalr-vignette\")\n\ntypicalr-vignette.Rmd\n  ---\n  title: \"typicalr\"\n  author: \"Sebastian DiLorenzo\"\n  date: \"2023-03-26\"\n  output: rmarkdown::html_vignette\n  vignette: >\n    %\\VignetteIndexEntry{typicalr}\n    %\\VignetteEngine{knitr::rmarkdown}\n    %\\VignetteEncoding{UTF-8}\n  ---"
   },
   {
     "objectID": "slides/packages/index.html#namespace",
@@ -2160,21 +2160,21 @@
     "href": "slides/parallelization/index.html#plansequential",
     "title": "Parallelization in R",
     "section": "plan(sequential)",
-    "text": "plan(sequential)\n\nBuilding block: variable %<-% {expression(s)}\n\n\nfuture::plan(sequential)\n\na %<-% {\n  Sys.sleep(3)\n  a <- 1\n}\nb %<-% {\n  Sys.sleep(3)\n  b <- 2\n}\n\na + b\n\n\nIn programming, a future is an abstraction for a value that may be available at some point in the future. The state of a future can either be unresolved or resolved. As soon as it is resolved, the value is available instantaneously. If the value is queried while the future is still unresolved, the current process is blocked until the future is resolved. It is possible to check whether a future is resolved or not without blocking.\n\n\n\n\n\n[1] 3\n   user  system elapsed \n  0.046   0.005   6.055"
+    "text": "plan(sequential)\n\nBuilding block: variable %<-% {expression(s)}\n\n\nfuture::plan(sequential)\n\na %<-% {\n  Sys.sleep(3)\n  a <- 1\n}\nb %<-% {\n  Sys.sleep(3)\n  b <- 2\n}\n\na + b\n\n\nIn programming, a future is an abstraction for a value that may be available at some point in the future. The state of a future can either be unresolved or resolved. As soon as it is resolved, the value is available instantaneously. If the value is queried while the future is still unresolved, the current process is blocked until the future is resolved. It is possible to check whether a future is resolved or not without blocking.\n\n\n\n\n\n[1] 3\n   user  system elapsed \n  0.036   0.004   6.045"
   },
   {
     "objectID": "slides/parallelization/index.html#planmultisession-planmulticore",
     "href": "slides/parallelization/index.html#planmultisession-planmulticore",
     "title": "Parallelization in R",
     "section": "plan(multisession) & plan(multicore)",
-    "text": "plan(multisession) & plan(multicore)\n\n\n\nplan(multicore)\n\na %<-% {\n  Sys.sleep(3)\n  a <- 1\n}\nb %<-% {\n  Sys.sleep(3)\n  b <- 2\n}\n\na + b\n\n\n\n[1] 3\n   user  system elapsed \n  0.029   0.016   3.036 \n\n\n\n\n\n\nNote: To compute plan(multicore) the rmarkdown must be rendered from terminal r console, as rstudio does not support multicore. rmarkdown::render(\"parallelization_Sebastian.Rmd\")\n\n\n\navailableCores()\n\nsystem \n    12"
+    "text": "plan(multisession) & plan(multicore)\n\n\n\nplan(multicore)\n\na %<-% {\n  Sys.sleep(3)\n  a <- 1\n}\nb %<-% {\n  Sys.sleep(3)\n  b <- 2\n}\n\na + b\n\n\n\n[1] 3\n   user  system elapsed \n  0.035   0.022   3.046 \n\n\n\n\n\n\nNote: To compute plan(multicore) the rmarkdown must be rendered from terminal r console, as rstudio does not support multicore. rmarkdown::render(\"parallelization_Sebastian.Rmd\")\n\n\n\navailableCores()\n\nsystem \n    12"
   },
   {
     "objectID": "slides/parallelization/index.html#planmultisession-planmulticore-1",
     "href": "slides/parallelization/index.html#planmultisession-planmulticore-1",
     "title": "Parallelization in R",
     "section": "plan(multisession) & plan(multicore)",
-    "text": "plan(multisession) & plan(multicore)\n\nplan(multicore)\n\na %<-% {\n  Sys.sleep(3)\n  a <- 1\n}\nb %<-% {\n  Sys.sleep(3)\n  b <- 2\n}\nc %<-% {\n  Sys.sleep(3)\n  c <- 3\n}\n\n}\nk %<-% {\n  Sys.sleep(3)\n  e <- 5\n}\n\na + b + c + d + e + f + g + h + j + k\n\n\n\n\n[1] 60\n   user  system elapsed \n  0.195   0.200   3.157"
+    "text": "plan(multisession) & plan(multicore)\n\nplan(multicore)\n\na %<-% {\n  Sys.sleep(3)\n  a <- 1\n}\nb %<-% {\n  Sys.sleep(3)\n  b <- 2\n}\nc %<-% {\n  Sys.sleep(3)\n  c <- 3\n}\n\n}\nk %<-% {\n  Sys.sleep(3)\n  e <- 5\n}\n\na + b + c + d + e + f + g + h + j + k\n\n\n\n\n[1] 60\n   user  system elapsed \n  0.140   0.143   3.151"
   },
   {
     "objectID": "slides/parallelization/index.html#plancluster",
@@ -2219,6 +2219,41 @@
     "text": "Output formats\n\n\n\n\nRmd\nQuarto\n\n\n\n\nhtml_document\nhtml\n\n\npdf_document\npdf\n\n\nword_document\ndocx\n\n\nbeamer_presentation\nbeamer\n\n\npowerpoint_presentation\npptx\n\n\nrevealjs\nrevealjs\n\n\nxaringan\n\n\n\ndistill/tufte\nquarto article layout\n\n\nhtml_document2\nquarto crossref\n\n\npdf_document2\nquarto crossref\n\n\nword_document2\nquarto crossref\n\n\nblogdown/distill\nquarto website/quarto blog\n\n\nbookdown\nquarto books\n\n\nshiny documents\nquarto interactive documents\n\n\npagedown\nTBA\n\n\nrticles\nTBA\n\n\nflexdashboard\nTBA"
   },
   {
+    "objectID": "slides/publishing/index.html#quarto-anatomy",
+    "href": "slides/publishing/index.html#quarto-anatomy",
+    "title": "Publishing with Quarto",
+    "section": "Quarto anatomy",
+    "text": "Quarto anatomy\n\n\n\n---\ntitle: \"Iris report\"\nauthor: \"John Doe\"\ndate: \"4-Mar-2023\"\nformat: html\n---\n\n## Iris\n\nLet's explore the **iris** dataset.\n\n```{r}\n#| echo: true\nhead(iris)\n```"
+  },
+  {
+    "objectID": "slides/publishing/index.html#quarto-anatomy-1",
+    "href": "slides/publishing/index.html#quarto-anatomy-1",
+    "title": "Publishing with Quarto",
+    "section": "Quarto anatomy",
+    "text": "Quarto anatomy\n\n\n\n\n\nMetadata (YAML)\n  \nText (Markdown)\n\nCode (R, Python, Julia, Observable)\n\n\nLiterate programming is natural language interspersed with programming code for the purpose of documentation, reproducibility and accessibility particularly relevant in data science."
+  },
+  {
+    "objectID": "slides/publishing/index.html#yaml-metadata",
+    "href": "slides/publishing/index.html#yaml-metadata",
+    "title": "Publishing with Quarto",
+    "section": "YAML metadata",
+    "text": "YAML metadata\n\n\n\nYet Another Markup Language (YAML)\n\n---\nkey: value\n---\n\n2 space indentation\n\nformat:\n  html:\n    smooth-scroll: true\n\nStrings\n\ndescription: \"This report contains...\"\n\nMultiline string (Literal/Folded)\n\n\n\ndescription: |\n  This is\n  a multiline\n  string\n\ndescription: >\n  This is\n  a multiline\n  string\n\n\n\n\nArrays\n\nitems: [ 1, 2, 3, 4, 5 ]\nnames: [ \"one\", \"two\", \"three\" ]\nnames:\n  - \"one\"\n  - \"two\"\n  - \"three\"\n\nDictionary arrays\n\nitems:\n  - things:\n      thing1: huey\n      things2: dewey\n      thing3: louie\n  - other things:\n      key: value\n\n\nYAML basics"
+  },
+  {
+    "objectID": "slides/publishing/index.html#yaml-metadata-1",
+    "href": "slides/publishing/index.html#yaml-metadata-1",
+    "title": "Publishing with Quarto",
+    "section": "YAML metadata",
+    "text": "YAML metadata\n\n\n\n---\ntitle: \"Iris report\"\nauthor: \"John Doe\"\ndate: \"4-Mar-2023\"\nformat:\n  html:\n    toc: true\n    number-sections: true\nexecute:\n  echo: false\n  warning: false\n---\n\n## Iris\n\nLet's explore the **iris** dataset.\n\n### Table\n\n```{r}\n#| echo: true\niris[1:3,]\n```\n\n### Plot\n\n```{r}\n#| label: fig-hist-sepal\n#| fig-cap: \"Distribution of Sepal lengths.\"\n#| fig-height: 3\nhist(iris$Sepal.Length)\n```"
+  },
+  {
+    "objectID": "slides/publishing/index.html#yaml-metadata-2",
+    "href": "slides/publishing/index.html#yaml-metadata-2",
+    "title": "Publishing with Quarto",
+    "section": "YAML metadata",
+    "text": "YAML metadata\ntitle: Report\nsubtitle: Topic\ndate: today\nauthor: \"John Doe\"\nformat:\n  html:\n    toc: true\n    toc-depth: 3\n    number-sections: true\n    code-fold: true\n    df-print: paged\n\nexecute:\n  eval: true\n  echo: false\n  warning: false\n  message: false\n  freeze: true\n\n\nHTML YAML documentation\nPDF YAML documentation"
+  },
+  {
     "objectID": "slides/publishing/index.html#markdown",
     "href": "slides/publishing/index.html#markdown",
     "title": "Publishing with Quarto",
@@ -2230,7 +2265,7 @@
     "href": "slides/publishing/index.html#rmarkdown",
     "title": "Publishing with Quarto",
     "section": "RMarkdown",
-    "text": "RMarkdown\n\nMarkdown + embedded R chunks\nRMarkdown mostly uses Pandoc markdown\nR code can be executed inline\n\nToday’s date is `r date()`\nToday’s date is Mon Mar 13 18:34:49 2023\n\nR code can be executed in code chunks as shown below\n\ndate()\n\nBy default shows input source code and output results.\n\n\ndate()\n\n[1] \"Mon Mar 13 18:34:49 2023\""
+    "text": "RMarkdown\n\nMarkdown + embedded R chunks\nRMarkdown mostly uses Pandoc markdown\nR code can be executed inline\n\nToday’s date is `r date()`\nToday’s date is Sun Mar 26 23:25:31 2023\n\nR code can be executed in code chunks\n\n```{r}\ndate()\n```\n\nBy default, input source code and output results are displayed.\n\n\ndate()\n\n[1] \"Sun Mar 26 23:25:31 2023\""
   },
   {
     "objectID": "slides/publishing/index.html#rmarkdown-chunk-options",
@@ -2252,13 +2287,6 @@
     "title": "Publishing with Quarto",
     "section": "RStudio • Notebook",
     "text": "RStudio • Notebook\n\nCreate a file that ends in .qmd\nFile > New File > Quarto Document\nAdd YAML matter to top\n\n---\ntitle: \"This is a title\"\nformat: html\n---\n\nText & visual editor\nRender interactively using the Render button\nRender from R console quarto::quarto_render(\"report.qmd\")\nRender from terminal quarto render report.qmd\n\n\nR Notebook demonstration. - Text editor - Visual editor"
-  },
-  {
-    "objectID": "slides/publishing/index.html#yaml",
-    "href": "slides/publishing/index.html#yaml",
-    "title": "Publishing with Quarto",
-    "section": "YAML",
-    "text": "YAML\ntitle: Report\nsubtitle: Topic\ndate: today\nauthor: \"John Doe\"\nformat:\n  html:\n    toc: true\n    toc-depth: 3\n    number-sections: true\n    code-fold: true\n    df-print: paged\n\nexecute:\n  eval: true\n  echo: false\n  warning: false\n  message: false\n  freeze: true\n\n\nHTML YAML documentation\nPDF YAML documentation"
   },
   {
     "objectID": "slides/publishing/index.html#pdf",
@@ -2293,7 +2321,7 @@
     "href": "slides/publishing/index.html#interactive-documents",
     "title": "Publishing with Quarto",
     "section": "Interactive documents",
-    "text": "Interactive documents"
+    "text": "Interactive documents\n\nShiny\nObservable"
   },
   {
     "objectID": "slides/publishing/index.html#quarto-from-the-terminal",
@@ -2307,7 +2335,7 @@
     "href": "slides/publishing/index.html#extending-quarto",
     "title": "Publishing with Quarto",
     "section": "Extending Quarto",
-    "text": "Extending Quarto"
+    "text": "Extending Quarto\nAwesome Quarto"
   },
   {
     "objectID": "slides/publishing/index.html#compared-to-rmd",
@@ -2321,7 +2349,7 @@
     "href": "slides/publishing/index.html#acknowledgements",
     "title": "Publishing with Quarto",
     "section": "Acknowledgements",
-    "text": "Acknowledgements\n\nQuarto workshop by Tom Mock\nQuarto introduction by Julia Müller"
+    "text": "Acknowledgements\n\nquarto.org\nQuarto workshop by Tom Mock\nQuarto introduction by Julia Müller\nAuthoring Quarto"
   },
   {
     "objectID": "slides/publishing/index.html#section",
@@ -2356,7 +2384,7 @@
     "href": "slides/reticulate/index.html#importing-python-modules",
     "title": "Reticulate",
     "section": "Importing Python modules",
-    "text": "Importing Python modules\n\ndatetime <- import(\"datetime\")\ntodays_r_date <- datetime$datetime$now()\n\n\n\ntodays_r_date\nclass(todays_r_date)\n\n[1] \"2023-03-13 19:34:42 CET\"\n[1] \"POSIXct\" \"POSIXt\" \n\n\n\n\nObjects are automatically converted to R types, unless otherwise specified\n\n\n\ndatetime <- import(\"datetime\", convert = FALSE)\ntodays_py_date <- datetime$datetime$now()\n\n\n\n\ntodays_py_date\nclass(todays_py_date)\n\ndatetime.datetime(2023, 3, 13, 19, 34, 42, 713596)\n[1] \"datetime.datetime\"     \"datetime.date\"         \"python.builtin.object\""
+    "text": "Importing Python modules\n\ndatetime <- import(\"datetime\")\ntodays_r_date <- datetime$datetime$now()\n\n\n\ntodays_r_date\nclass(todays_r_date)\n\n[1] \"2023-03-26 23:25:38 CEST\"\n[1] \"POSIXct\" \"POSIXt\" \n\n\n\n\nObjects are automatically converted to R types, unless otherwise specified\n\n\n\ndatetime <- import(\"datetime\", convert = FALSE)\ntodays_py_date <- datetime$datetime$now()\n\n\n\n\ntodays_py_date\nclass(todays_py_date)\n\ndatetime.datetime(2023, 3, 26, 23, 25, 38, 91907)\n[1] \"datetime.datetime\"     \"datetime.date\"         \"python.builtin.object\""
   },
   {
     "objectID": "slides/reticulate/index.html#importing-built-in-python-functions",
@@ -2895,7 +2923,7 @@
     "href": "slides/tidyverse/index.html#other-types-of-pipes-t-1",
     "title": "Tidy work in Tidyverse",
     "section": "Other Types of Pipes — %T>%",
-    "text": "Other Types of Pipes — %T>%\n\n\n\n\n\n\n\n       V1                 V2          \n Min.   :-2.02141   Min.   :-1.15534  \n 1st Qu.:-0.83002   1st Qu.:-0.55657  \n Median : 0.14981   Median : 0.04032  \n Mean   : 0.05109   Mean   : 0.18374  \n 3rd Qu.: 0.71998   3rd Qu.: 0.69639  \n Max.   : 2.22626   Max.   : 2.40305"
+    "text": "Other Types of Pipes — %T>%\n\n\n\n\n\n\n\n       V1                 V2          \n Min.   :-2.48409   Min.   :-1.86506  \n 1st Qu.:-0.77580   1st Qu.:-0.70429  \n Median :-0.25872   Median :-0.20564  \n Mean   :-0.05529   Mean   :-0.01886  \n 3rd Qu.: 0.76278   3rd Qu.: 0.89872  \n Max.   : 1.93974   Max.   : 1.78323"
   },
   {
     "objectID": "slides/tidyverse/index.html#other-types-of-magrittr-pipes",
@@ -2909,21 +2937,21 @@
     "href": "slides/tidyverse/index.html#other-types-of-magrittr-pipes-1",
     "title": "Tidy work in Tidyverse",
     "section": "Other Types of magrittr Pipes — %<>%",
-    "text": "Other Types of magrittr Pipes — %<>%\nIt exists but can lead to somewhat confusing code! ☠️\nx %<>% f \\(\\equiv\\) x <- f(x)\n\nM <- matrix(rnorm(16), nrow=4)\nM %<>% colSums()\nM\n\n[1] -0.4511660  1.0695463  0.7523792  3.6769559\n\n\nFrom R >= 4.1.0 we have a native |> pipe that is a bit faster than %>% but currently has no placeholders mechanism.\n\nc(1,2,3,4,5) |> mean()\n\n[1] 3\n\n\nbut\n\nmtcars |> (\\(x) lm(mpg ~ disp, data = x))()\n\n\nCall:\nlm(formula = mpg ~ disp, data = x)\n\nCoefficients:\n(Intercept)         disp  \n   29.59985     -0.04122"
+    "text": "Other Types of magrittr Pipes — %<>%\nIt exists but can lead to somewhat confusing code! 💀\nx %<>% f \\(\\equiv\\) x <- f(x)\n\nM <- matrix(rnorm(16), nrow=4)\nM %<>% colSums()\nM\n\n[1] -2.0526240  1.1099442 -1.2021226 -0.1443755\n\n\nFrom R >= 4.1.0 we have a native |> pipe that is a bit faster than %>% but currently has no placeholders mechanism.\n\nc(1,2,3,4,5) |> mean()\n\n[1] 3\n\n\nbut\n\nmtcars |> (\\(x) lm(mpg ~ disp, data = x))()\n\n\nCall:\nlm(formula = mpg ~ disp, data = x)\n\nCoefficients:\n(Intercept)         disp  \n   29.59985     -0.04122"
   },
   {
     "objectID": "slides/tidyverse/index.html#placeholders-in-magrittr-pipes",
     "href": "slides/tidyverse/index.html#placeholders-in-magrittr-pipes",
     "title": "Tidy work in Tidyverse",
     "section": "Placeholders in magrittr Pipes",
-    "text": "Placeholders in magrittr Pipes\nSometimes we want to pass the resulting data to other than the first argument of the next function in chain. magritter provides placeholder mechanism for this: - x %>% f(y, .) \\(\\equiv\\) f(y, x), - x %>% f(y, z = .) \\(\\equiv\\) f(y, z = x).\n\n\nM <- rnorm(4) %>% matrix(nrow = 2)\nM %>% `%*%`(., .)\n\n           [,1]       [,2]\n[1,]  0.2849240 -0.2681444\n[2,] -0.4288449  0.4195268\n\n\n\n\nBut for nested expressions:\n\nx %>% f(a = p(.), b = q(.)) \\(\\equiv\\) f(x, a = p(x), b = q(x))\nx %>% {f(a = p(.), b = q(.))} \\(\\equiv\\) f(a = p(x), b = q(x))\n\n\n\n\nprint_M_summ <- function(nrow, ncol) {\n  paste0('Matrix M has: ', nrow, ' rows and ', ncol, ' columns.')\n}\nM %>% {print_M_summ(nrow(.), ncol(.))}\n\n[1] \"Matrix M has: 2 rows and 2 columns.\""
+    "text": "Placeholders in magrittr Pipes\nSometimes we want to pass the resulting data to other than the first argument of the next function in chain. magritter provides placeholder mechanism for this: - x %>% f(y, .) \\(\\equiv\\) f(y, x), - x %>% f(y, z = .) \\(\\equiv\\) f(y, z = x).\n\n\nM <- rnorm(4) %>% matrix(nrow = 2)\nM %>% `%*%`(., .)\n\n           [,1]       [,2]\n[1,] -0.9132114  0.2560728\n[2,] -0.4715611 -0.7663729\n\n\n\n\nBut for nested expressions:\n\nx %>% f(a = p(.), b = q(.)) \\(\\equiv\\) f(x, a = p(x), b = q(x))\nx %>% {f(a = p(.), b = q(.))} \\(\\equiv\\) f(a = p(x), b = q(x))\n\n\n\n\nprint_M_summ <- function(nrow, ncol) {\n  paste0('Matrix M has: ', nrow, ' rows and ', ncol, ' columns.')\n}\nM %>% {print_M_summ(nrow(.), ncol(.))}\n\n[1] \"Matrix M has: 2 rows and 2 columns.\""
   },
   {
     "objectID": "slides/tidyverse/index.html#tibbles",
     "href": "slides/tidyverse/index.html#tibbles",
     "title": "Tidy work in Tidyverse",
     "section": "Tibbles",
-    "text": "Tibbles\n\n\n\n\nas_tibble(iris)\n\n# A tibble: 150 × 5\n   Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n          <dbl>       <dbl>        <dbl>       <dbl> <fct>  \n 1          5.1         3.5          1.4         0.2 setosa \n 2          4.9         3            1.4         0.2 setosa \n 3          4.7         3.2          1.3         0.2 setosa \n 4          4.6         3.1          1.5         0.2 setosa \n 5          5           3.6          1.4         0.2 setosa \n 6          5.4         3.9          1.7         0.4 setosa \n 7          4.6         3.4          1.4         0.3 setosa \n 8          5           3.4          1.5         0.2 setosa \n 9          4.4         2.9          1.4         0.2 setosa \n10          4.9         3.1          1.5         0.1 setosa \n# … with 140 more rows\n\n\n\n\ntibble is one of the unifying features of tidyverse,\nit is a better data.frame realization,\nobjects data.frame can be coerced to tibble using as_tibble()\n\n\n  tibble(\n    x = 1,          # recycling\n    y = runif(50), \n    z = x + y^2,\n    outcome = rnorm(50)\n  )\n\n# A tibble: 50 × 4\n       x      y     z outcome\n   <dbl>  <dbl> <dbl>   <dbl>\n 1     1 0.643   1.41  0.933 \n 2     1 0.288   1.08  0.255 \n 3     1 0.896   1.80  0.0548\n 4     1 0.149   1.02 -0.326 \n 5     1 0.483   1.23 -0.811 \n 6     1 0.0309  1.00 -0.679 \n 7     1 0.900   1.81  0.317 \n 8     1 0.128   1.02 -0.333 \n 9     1 0.0456  1.00  0.228 \n10     1 0.657   1.43 -1.62  \n# … with 40 more rows"
+    "text": "Tibbles\n\n\n\n\nas_tibble(iris)\n\n# A tibble: 150 × 5\n   Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n          <dbl>       <dbl>        <dbl>       <dbl> <fct>  \n 1          5.1         3.5          1.4         0.2 setosa \n 2          4.9         3            1.4         0.2 setosa \n 3          4.7         3.2          1.3         0.2 setosa \n 4          4.6         3.1          1.5         0.2 setosa \n 5          5           3.6          1.4         0.2 setosa \n 6          5.4         3.9          1.7         0.4 setosa \n 7          4.6         3.4          1.4         0.3 setosa \n 8          5           3.4          1.5         0.2 setosa \n 9          4.4         2.9          1.4         0.2 setosa \n10          4.9         3.1          1.5         0.1 setosa \n# … with 140 more rows\n\n\n\n\ntibble is one of the unifying features of tidyverse,\nit is a better data.frame realization,\nobjects data.frame can be coerced to tibble using as_tibble()\n\n\n  tibble(\n    x = 1,          # recycling\n    y = runif(50), \n    z = x + y^2,\n    outcome = rnorm(50)\n  )\n\n# A tibble: 50 × 4\n       x     y     z outcome\n   <dbl> <dbl> <dbl>   <dbl>\n 1     1 0.221  1.05   0.674\n 2     1 0.932  1.87  -0.993\n 3     1 0.640  1.41  -0.745\n 4     1 0.463  1.21   1.23 \n 5     1 0.413  1.17   1.62 \n 6     1 0.261  1.07  -0.932\n 7     1 0.901  1.81  -0.186\n 8     1 0.826  1.68  -1.28 \n 9     1 0.204  1.04  -1.14 \n10     1 0.604  1.36  -0.614\n# … with 40 more rows"
   },
   {
     "objectID": "slides/tidyverse/index.html#more-on-tibbles",
@@ -3119,7 +3147,7 @@
     "href": "slides/tidyverse/index.html#tidying-data-with-pivot_longer",
     "title": "Tidy work in Tidyverse",
     "section": "Tidying Data with pivot_longer",
-    "text": "Tidying Data with pivot_longer\nIf some of your column names are actually values of a variable, use pivot_longer (old gather):\n\nbijou2 %>% head(n = 5)\n\n# A tibble: 5 × 3\n  cut     `2008` `2009`\n  <ord>    <int>  <dbl>\n1 Ideal      326    332\n2 Premium    326    332\n3 Good       327    333\n4 Premium    334    340\n5 Good       335    341\n\n\n\nbijou2 %>% \n  pivot_longer(cols = c(`2008`, `2009`), names_to = 'year', values_to = 'price') %>% \n  head(n = 5)\n\n# A tibble: 5 × 3\n  cut     year  price\n  <ord>   <chr> <dbl>\n1 Ideal   2008    326\n2 Ideal   2009    332\n3 Premium 2008    326\n4 Premium 2009    332\n5 Good    2008    327"
+    "text": "Tidying Data with pivot_longer\nIf some of your column names are actually values of a variable, use pivot_longer (old gather):\n\nbijou2 %>% head(n = 5)\n\n# A tibble: 5 × 3\n  cut     `2008` `2009`\n  <ord>    <int>  <dbl>\n1 Ideal      326    333\n2 Premium    326    333\n3 Good       327    334\n4 Premium    334    341\n5 Good       335    342\n\n\n\nbijou2 %>% \n  pivot_longer(cols = c(`2008`, `2009`), names_to = 'year', values_to = 'price') %>% \n  head(n = 5)\n\n# A tibble: 5 × 3\n  cut     year  price\n  <ord>   <chr> <dbl>\n1 Ideal   2008    326\n2 Ideal   2009    333\n3 Premium 2008    326\n4 Premium 2009    333\n5 Good    2008    327"
   },
   {
     "objectID": "slides/tidyverse/index.html#tidying-data-with-pivot_wider",
@@ -3147,7 +3175,7 @@
     "href": "slides/tidyverse/index.html#completing-missing-values-using-complete",
     "title": "Tidy work in Tidyverse",
     "section": "Completing Missing Values Using complete",
-    "text": "Completing Missing Values Using complete\n\nbijou %>% head(n = 10) %>% \n  select(cut, clarity, price) %>% \n  mutate(continent = sample(c('AusOce', 'Eur'), \n                            size = 10, \n                            replace = T)) -> missing_stones\n\n\nmissing_stones %>% complete(cut, continent)\n\n# A tibble: 13 × 4\n   cut       continent clarity price\n   <ord>     <chr>     <ord>   <int>\n 1 Fair      AusOce    VS2       337\n 2 Fair      Eur       <NA>       NA\n 3 Good      AusOce    SI2       335\n 4 Good      Eur       VS1       327\n 5 Very Good AusOce    VVS2      336\n 6 Very Good AusOce    VVS1      336\n 7 Very Good AusOce    SI1       337\n 8 Very Good AusOce    VS1       338\n 9 Very Good Eur       <NA>       NA\n10 Premium   AusOce    VS2       334\n11 Premium   Eur       SI1       326\n12 Ideal     AusOce    <NA>       NA\n13 Ideal     Eur       SI2       326"
+    "text": "Completing Missing Values Using complete\n\nbijou %>% head(n = 10) %>% \n  select(cut, clarity, price) %>% \n  mutate(continent = sample(c('AusOce', 'Eur'), \n                            size = 10, \n                            replace = T)) -> missing_stones\n\n\nmissing_stones %>% complete(cut, continent)\n\n# A tibble: 12 × 4\n   cut       continent clarity price\n   <ord>     <chr>     <ord>   <int>\n 1 Fair      AusOce    VS2       337\n 2 Fair      Eur       <NA>       NA\n 3 Good      AusOce    SI2       335\n 4 Good      Eur       VS1       327\n 5 Very Good AusOce    VVS2      336\n 6 Very Good AusOce    VVS1      336\n 7 Very Good Eur       SI1       337\n 8 Very Good Eur       VS1       338\n 9 Premium   AusOce    SI1       326\n10 Premium   Eur       VS2       334\n11 Ideal     AusOce    <NA>       NA\n12 Ideal     Eur       SI2       326"
   },
   {
     "objectID": "slides/tidyverse/index.html#combining-datasets",
@@ -3217,7 +3245,7 @@
     "href": "slides/vectorization/index.html#repeating-actions-vectorization",
     "title": "Vectorization in R",
     "section": "Repeating actions — vectorization",
-    "text": "Repeating actions — vectorization\nLet us compare the time of execution of the vectorized version (vector with 10,000 elements):\n\n\n   user  system elapsed \n  0.006   0.000   0.006 \n\n\n\nto the loop version:\n\n\n   user  system elapsed \n  0.050   0.003   0.053"
+    "text": "Repeating actions — vectorization\nLet us compare the time of execution of the vectorized version (vector with 10,000 elements):\n\n\n   user  system elapsed \n  0.005   0.000   0.005 \n\n\n\nto the loop version:\n\n\n   user  system elapsed \n  0.048   0.004   0.053"
   },
   {
     "objectID": "slides/vectorization/index.html#vectorization-the-problem",
@@ -3259,7 +3287,7 @@
     "href": "slides/vectorization/index.html#recursion-iteration-really",
     "title": "Vectorization in R",
     "section": "Recursion == iteration, really?",
-    "text": "Recursion == iteration, really?\nMore writing for the iterative version, right? What about the time efficiency?\nThe recursive version:\n\n\n\nAnd the iterative one:\n\n\n         Function_Call Elapsed_Time_sec Total_RAM_Used_MiB Peak_RAM_Used_MiB\n1 factorial.iter(2000)            0.004                  0               0.1"
+    "text": "Recursion == iteration, really?\nMore writing for the iterative version, right? What about the time efficiency?\nThe recursive version:\n\n\n\nAnd the iterative one:\n\n\n         Function_Call Elapsed_Time_sec Total_RAM_Used_MiB Peak_RAM_Used_MiB\n1 factorial.iter(2000)            0.003                  0               0.1"
   },
   {
     "objectID": "slides/vectorization/index.html#loops-avoid-growing-data",

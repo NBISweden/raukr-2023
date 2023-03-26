@@ -2,7 +2,7 @@
 
 **NBIS Summer School • Advanced R for Bioinformatics**
 
-## Local render
+## Local preview/render
 
 - To preview/render, you must use [Quarto\>=1.2.269](https://quarto.org/docs/download/)
 - If using RStudio, use [v2022.07.1 or newer](https://posit.co/download/rstudio-desktop/)
@@ -61,7 +61,8 @@ git commit -m "Added topic"
 - For compute heavy steps, save intermediate and read them in
 - Be mindful of the size of files
   - Store large data files elsewhere (dropbox, google drive etc) and link them
-  - Scale down and [compress images](https://compressjpeg.com/)
+  - Scale down to about 600px-800px and [compress images](https://compressjpeg.com/)
+  - No reason for a image to be more than a few hundred KB
 - Use simple topic labels and do not make them needlessly complex
 - The qmd files must be in the correct location when rendering/previewing else metadata from config is not used
 - Declare R packages at the beginning of every qmd document

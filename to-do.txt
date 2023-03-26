@@ -39,6 +39,7 @@
 [ ] 404 page broken
 [ ] website sidebar. cannot hide demo.
 [ ] quarto topic publishing slide/lab
+    - https://rstudio-conf-2022.github.io/get-started-quarto/materials/02-authoring.html#/authoring-quarto
 [ ] quarto topic rep research slide/lab
 [ ] load assets locally (fonts)
 
