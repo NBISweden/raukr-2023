@@ -1,157 +1,139 @@
 ---
 title: "Publishing"
 author: "Roy Francis"
-description: "Publishing code, markup and documentation reproducibly in R."
+description: "Literate programming and documentation in R."
 image: "assets/featured.jpg"
 format: html
 ---
 
+::: callout-note
+These are exercises to get you started with quarto. Refer to the [official quarto documentation](https://quarto.org).
+
+- Quarto usage
+- markdown markup
+- Set up a quarto notebook
+- Add content and export to some common formats
+  - HTML and PDF reports
+  - RevealJS presentation
+  - Digital book
+:::
+
 ```{r}
-#| echo: false
+#| message: false
 library(ggplot2)
 library(dplyr)
 library(stringr)
 ```
 
-::: callout-note
-These are a series of exercises to help you get started with reproducible research using R. You can consult the [RMarkdown guide](https://quarto.org/docs/authoring/markdown-basics.html) or [RMarkdown cheatsheet](https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf) for quick reference. A complete guide to RMarkdown is available [here](https://bookdown.org/yihui/rmarkdown/).
+## Introduction
 
-- Familiarise yourself with Markdown/RMarkdown/Quarto syntax and commonly used snippets.
-- Set up a project in R
-- Prepare an RMarkdown document
-- Add content and export to some common formats
-- Introduction to Quarto
-:::
+Create a quarto document by creating a text file with **.qmd** extension. In RStudio, go to **File > New File > Quarto Document**. You are given the option to set title, author etc as well as output format. Set the output format as html. This document is a quarto notebook or R notebook. You can set the display mode to be **Source** or **Visual** (where text formatting is shown).
 
-## RStudio
-
-Create a new project in RStudio by going to `File > New Project > New Directory`. Select `New Project` if required. Then label the project name and the directory. An empty project is created. The R session has been refreshed. All variables are removed and the environment is cleared.
-
-Create a new RMarkdown file by going to `File > New File > RMarkdown...`. Use the default options.
-
-## R environment
-
-### Conda
-
-The environment within R is going to be managed by `renv`, while lower level, such as versions of R, can be managed by [Conda](https://docs.conda.io) management system. You can skip Conda at the moment, if you want, install `renv` package using `install.packages("renv")` on R, and continue to `renv` section below, instead. Regarding Conda, please refer to the [link](https://docs.conda.io) for questions about the installation. If your project includes programs written in other programming languages, e.g. Python, the overall environment can be managed by Conda. NBIS has a dedicated workshop titled [**Tools for reproducible research**](https://nbis-reproducible-research.readthedocs.io/en/latest/) which covers more on Conda and other programs for reproducible research.
-
-For R, we can start with a simple environment file by creating a file named `environment.yml` having following text. It describes which versions of R, `renv` and `tidyverse` are to be installed. The file should be created on the folder of your project, as `fancy_project/environment.yml`.
-
-```      
-channels:
-  - conda-forge
-dependencies:
-  - conda-forge::r=4.0
-  - conda-forge::r-renv=0.12.1
-  - conda-forge::r-tidyverse=1.3.0
-```
-
-Using Terminal (Mac/Linux) or Command line (Windows), run following commands to create an environment and activate it.
-
-```
-conda env create -n fancy_env -f environment.yml
-conda activate fancy_env
-```
-
-## renv
-
-The environment within R, e.g. installed packages, is managed by `renv`. A good reference about the package is available at [**Introduction to `renv`**](https://rstudio.github.io/renv/articles/renv.html).
-
-### Store R environment
-
-The first step is the initialization of a local environment using the command in R below.
-
-```{r}
-#| eval: false
-renv::init()
-```
-
-As an alternative, you could choose to initialize `renv` when an R project is created as shown below. After the command, you may find `renv` folder and `renv.lock` file created. Check the file `renv.lock` using a text viewer or `less` command on Mac/Linux.
-
-![](assets/alternative_renv_init.png){width="400px"}
-
-Whenever a package should be installed, please use `renv::install` instead of `install.packages` as below.
-
-```{r}
-#| eval: false
-renv::install("dplyr")  # from CRAN
-renv::install("bioc::Biobase")  # from Bioconductor
-renv::install("StoreyLab/qvalue")   # from GitHub
-# from GitLab/Bitbucket
-# renv::install("[gitlab|bitbucket]::`*user name*`/`*repository*`")
-```
-
-The current status of R environment of your project can be stored by calling `renv::snapshot()`. Please note that the function checks all R scripts under your R project folder. It updates `renv.lock` for the packages loaded in the scripts only. Check `renv.lock` file again after calling the `renv::snapshot()`. If no R script was created under the project folder yet, surprisingly no change in `renv.lock` will be found.
-
-Now, create a simple R script that loads one of the packages you installed, for example, a file named `test.R` that has just one line shown below.
-
-```{r}
-#| eval: false
-library(dplyr)
-```
-
-Call `renv::snapshot()` and check the `renv.lock` file. You will see it becomes so long, now.
-
-The `renv::snapshot()` command doesn't have to be called every time a package is installed. Just make sure it should be called when an environment is to be stored, e.g. before sharing the codes and the environment with colleagues.
-
-### Restore the environment
-
-The environment can be restored on a new place by the commands below.
-
-```{r}
-#| eval: false
-renv::init()
-renv::restore()
-```
-
-We can test it by creating a new R project. Copy your scripts but also `renv.lock` to the folder of the new R project, run the commands above on R and find what the R installs. Please note that **no contents under `renv`** folder is needed to restore the R environment.
-
-## RMarkdown
+You could just enter some text in the qmd file and render it and that would render a plain HTML file by default. And that's fine. But, it is often useful to enter some metadata information such as title, author etc. And this is defined in the YAML matter.
 
 ### YAML
 
-The content on the top of the RMarkdown document in three dashes is the YAML matter. The YAML matter for this could be as simple as this:
+The content on the top of the quarto document within three dashes is the YAML matter. This is optional. It is really up to the author to decide how much information needs to be entered here. Here are some common base level YAML parameters.
 
-```
+````
 ---
-title: "Reproducible research"
-subtitle: "RaukR • Advanced R for Bioinformatics"
-author: "Roy Francis"
-output: html_document
+title: "My report"
+subtitle: "A subtitle for the report"
+description: "This is a longer description of this report."
+author: "John Doe"
+date: "25-Apr-2022"
 ---
-```
+````
 
-The title, subtitle, author and date is displayed at the top of the rendered document. Argument `output` is used to specify output document type and related arguments. `rmarkdown::html_document` is commonly used to specify the standard HTML output. `rmarkdown::pdf_document` is used to specify the standard PDF output. This then takes further arguments. Sub arguments differ depending on the output document type.
+::: {.shadow}
+![](assets/report-a.png)
+:::
 
-A slightly more advanced version looks like this:
+The default output format is html and this can be changed or arguments for this can be adjusted by specifying this in the yaml. Here is an updated version:
 
-```
+````
 ---
-title: "Reproducible research"
-subtitle: "RaukR • Advanced R for Bioinformatics"
-author: "Roy Francis"
-output:
-  html_document:
+title: "My report"
+subtitle: "A subtitle for the report"
+description: "This is a longer description of this report."
+author: "John Doe"
+date: last-modified
+date-format: "DD-MMM-YYYY"
+format:
+  html:
     toc: true
-    toc_float: true
-    toc_depth: 3
-    number_sections: true
-    theme: united
-    highlight: textmate
-    df_print: paged
-    code_folding: none
-    self_contained: false
-    keep_md: false
-    encoding: "UTF-8"
-    css: ["assets/lab.css"]
+    toc-depth: 4
+    number-sections: true
+    number-depth: 4
 ---
-```
 
-Above are some of the arguments that can be supplied to the HTML document type. `theme` is used to specify the document style such as the font and layout. `highlight` is used to specify the code highlighting style. `toc` specifies that a table of contents must be included. `toc_float` specifies that the TOC must float on the left of the page while scrolling. `toc_depth` species the maximum level/depth to be displayed in the TOC. `number_sections` specifies if the headings/sections must be automatically numbered. `code_folding` denotes if code is displayed or hidden as a collapsible component. The `css` options adds additional styles. Use `?rmarkdown::html_document` for description of all the various options.
+# Section 1
+
+This is some text
+
+# Section 2
+
+Here is some more text
+````
+
+::: {.shadow}
+![](assets/report-b.png)
+:::
+
+Date is now set as **last-modified** which means it is automatically updated whenever the document is rendered. The date format is adjusted by setting **date-format: "DD-MMM-YYYY"**. In addition, the output format is now explicitly specified. The table of contents is enabled and it's depth is set to 4. Section numberings are enabled and depth is set to 4. Try changing some of these arguments to see how it affects the output.
+
+Here is a more complex version:
+
+````
+---
+title: "My report"
+subtitle: "A subtitle for the report"
+description: "This is a longer description of this report."
+author: "John Doe"
+date: last-modified
+date-format: "DD-MMM-YYYY"
+format:
+  html:
+    title-block-banner: true
+    smooth-scroll: true
+    toc: true
+    toc-depth: 4
+    toc-location: right
+    number-sections: true
+    number-depth: 4
+    code-fold: true
+    code-tools: true
+    code-copy: true
+    code-overflow: wrap
+    df-print: kable
+    standalone: false
+    fig-align: left
+---
+
+# Section 1
+
+This is some text
+
+# Section 2
+
+Here is some more text
+
+```{{r}}
+date()
+```
+````
+
+::: {.shadow}
+![](assets/report-c.png)
+:::
+
+**title-block-banner: true** displays the blue banner. **code-fold: true** folds the code and reduces clutter. **code-copy: true** adds a copy icon in the code chunk and allows the code to be copied easily. **code-tools: true** adds options to the top right of the document to allow the user to show/hide all code chunks and view source code. **df-print: kable** sets the default method of displaying tables. **standalone: false** specifies if all assets and libraries must be integrated into the output html file as a standalone document.
+
+For a complete guide to YAML metadata for HTML, see [here](https://quarto.org/docs/reference/formats/html.html#metadata).
 
 ### Text
 
-The above level 2 heading was created by specifying `## Text`. Other headings can be specified similarly.
+The above level 2 heading was created by specifying `# Section 1`. Other headings can be specified similarly.
 
 ```
 ## Level 2 heading  
@@ -163,7 +145,7 @@ The above level 2 heading was created by specifying `## Text`. Other headings ca
 
 Italic text like this *This is italic text* can be specified using `*This is italic text*` or `_This is italic text_`. Bold text like this **This is bold text** can be specified using `**This is italic text**` or `__This is italic text__`. Subscript written like this `H~2~O` renders as H~2~O. Superscript written like this `2^10^` renders as 2^10^.
 
-Bullet points are usually specified using `*` or `+` or `-`.
+Bullet points are usually specified using `-`.
 
 ```
 - Point one
@@ -192,7 +174,7 @@ Lists can also be created inside block quotes.
 > 1.  This is a list inside a block quote.
 > 2.  Second item.
 
-Links can be created using `[this](https://rmarkdown.rstudio.com/)` like [this](https://rmarkdown.rstudio.com/).
+Links can be created using `[this](https://quarto.org)` like [this](https://quarto.org).
 
 ### Images
 
@@ -299,7 +281,7 @@ ggplot(dfr4,aes(x=Month,y=fraction,colour=Year,group=Year))+
 ```
 ````
 
-when rendered (`echo=TRUE` by default, but not evaluated) looks like
+when rendered (`echo: true` by default, but not evaluated) looks like
 
 ```{r}
 #| eval: false
@@ -316,21 +298,19 @@ ggplot(dfr4,aes(x=Month,y=fraction,colour=Year,group=Year))+
         axis.ticks=element_blank())
 ```
 
-The chunk has several options which can be used to control chunk properties.
+The behaviour of code chunks can be adjusted using chunk parameters or execution options. The chunk has several options which can be used to control chunk properties.
 
-Using `` `{r,eval=FALSE}` `` prevents that chunk from being executed. `` `{r,eval=TRUE}` `` which is the default, executes the chunk. Using `` `{r,echo=FALSE}` `` prevents the code from that chunk from being displayed. Using `` `{r,results="hide"}` `` hides the output from that chunk. There are many other [chunk arguments](https://yihui.name/knitr/options/). Here are some of them:
+Using `eval: false` prevents that chunk from being executed. `eval: true` which is the default, executes the chunk. Using `echo: false` prevents the code from that chunk from being displayed. Using `output: false` hides the output from that chunk. Here are some of them:
 
 | Option  | Default  | Description                          |
 |---------|----------|--------------------------------------|
 | eval    | true     | Evaluates the code in this chunk     |
 | echo    | true     | Display the code                     |
-| results | "markup" | "markup", "asis", "hold" or "hide"   |
+| output  | true     | true, false or asis                  |
 | warning | true     | Display warnings from code execution |
 | error   | false    | Display error from code execution    |
 | message | true     | Display messages from this chunk     |
-| tidy    | false    | Reformat code in to be tidy          |
-| cache   | false    | Cache results for future renders     |
-| comment | "\##"    | Character to prefix result output    |
+| include | true     | Include this chunk or not            |
 
 Chunk options are specified like this:
 
@@ -343,12 +323,69 @@ Chunk options are specified like this:
 ```
 ````
 
+These chunk arguments or execution options can also be set globally in the YAML matter.
+
+```
+---
+execute:
+  eval: true
+  echo: false
+---
+```
+
+There are many other [execution options](https://quarto.org/docs/computations/execution-options.html). 
+
+### Tables
+
+This is a table with a label and a dynamically generated caption.
+
+````
+```{{r}}
+#| label: tbl-iris
+#| tbl-cap: !expr paste0("The column names are",paste(colnames(iris),collapse=", "))
+
+head(iris)
+```
+````
+
+```{r}
+#| echo: false
+#| label: tbl-iris
+#| tbl-cap: !expr paste0("The column names are",paste(colnames(iris),collapse=", "))
+
+head(iris)
+```
+
+Tables can be also be simple markdown.
+
+```
+|#|Sepal.Length|Sepal.Width|Petal.Length|Petal.Width|Species|
+|---|---|---|---|---|---|
+|1|5.1|3.5|1.4|0.2|setosa|
+|2|4.9|3.0|1.4|0.2|setosa|
+|3|4.7|3.2|1.3|0.2|setosa|
+|4|4.6|3.1|1.5|0.2|setosa|
+
+: This is a caption {#tbl-markdown-table}
+```
+
+|#|Sepal.Length|Sepal.Width|Petal.Length|Petal.Width|Species|
+|---|---|---|---|---|---|
+|1|5.1|3.5|1.4|0.2|setosa|
+|2|4.9|3.0|1.4|0.2|setosa|
+|3|4.7|3.2|1.3|0.2|setosa|
+|4|4.6|3.1|1.5|0.2|setosa|
+
+: This is a caption {#tbl-markdown-table}
+
 ### Plots
 
 R Plots can be plotted like below:
 
 ````         
 ```{{r}}
+#| label: fig-plot-a
+#| fig-cap: This is a figure caption.
 #| fig-height:6
 #| fig-width: 6
 plot(x=iris$Petal.Length,y=iris$Petal.Width)
@@ -357,425 +394,208 @@ plot(x=iris$Petal.Length,y=iris$Petal.Width)
 
 ```{r}
 #| echo: false
+#| label: fig-plot-a
+#| fig-cap: This is a figure caption.
 #| fig-height: 6
 #| fig-width: 6
 plot(x=iris$Petal.Length,y=iris$Petal.Width)
 ```
 
-Below are some of chunk options relating to plots.
-
-| Option     | Default  | Description                   |
-|------------|----------|-------------------------------|
-| fig-height | 7        | Figure height in inches       |
-| fig-width  | 7        | Figure width in inches        |
-| fig-cap    | ""       | Figure caption                |
-| fig-align  | "center" | Figure alignment              |
-| dev        | "png"    | Change png, jpg, pdf, svg etc |
-
 ### Export
 
-The RMarkdown notebook can be exported into various format. The most common formats are HTML and PDF.
+The quarto notebook can be exported into various format. The most common formats are HTML and PDF.
 
 #### HTML
 
-The RMarkdown document can be previewed as an HTML inside RStudio by clicking the 'Knit' button.
+The quarto document can be previewed as an HTML inside RStudio by clicking the 'Render' button.
 
-![](assets/knit-button.png)
-
-The document can also be exported as an HTML file by running the code below:
+The document can be exported from R using the **quarto** R package.
 
 ```{r}
 #| eval: false
-rmarkdown::render("document.Rmd")
+quarto::quarto_render("document.qmd")
+```
+
+The document can be rendered from the terminal as such:
+
+```{bash}
+#| eval: false
+quarto render document.qmd
 ```
 
 HTML documents can be opened and viewed in any standard browser such as Chrome, Safari, Firefox etc.
 
 #### PDF
 
-An Rmd document can be converted to a PDF. Behind the scenes, the markdown is converted to TeX format. The conversion to PDF needs a tool that understands TeX format and converts to PDF. This can be softwares like 'MacTeX', 'MikTeX' etc. which needs to be installed on the system beforehand.
+A qmd document can be converted to a PDF. Behind the scenes, the markdown is converted to TeX format. The conversion to PDF needs a tool that understands TeX format and converts to PDF. This can be softwares like 'MacTeX', 'MikTeX' etc. which needs to be installed on the system beforehand. A light-weight option is to install R package **tinytex**.
 
-The output argument in the YAML matter must be changed to `pdf_document`, and the Rmd file can be converted as follows:
-
-```{r}
-#| eval: false
-rmarkdown::render("document.Rmd")
-```
-
-The PDF output can also be specified as such:
-
-```{r}
-#| eval: false
-rmarkdown::render("document.Rmd",output_format=pdf_document())
-```
+The **format** argument in the YAML matter must be changed to `pdf`, and the **pdf-engine** option may need to be changed as needed. If using **tinytex**, set **pdf-engine: pdflatex**.
 
 Sometimes TeX converters may need additional libraries which may need to be installed. And all features of HTML are not supported on TeX which may return errors.
 
-See [here](https://bookdown.org/yihui/rmarkdown/documents.html) for other export formats.
+See [here](https://quarto.org/docs/reference/formats/pdf.html) for more PDF options.
 
 ## Report
 
-This is a do-it-yourself challenge to RMarkdown Notebook/Report. Have a look at the HTML page below and try to recreate the page. Instructions and helpful tips are given below. Use the [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/) to find the solutions.
+Try to recreate the report below:
 
-This is the [challenge report](rr_challenge_report.html) to prepare.
+::: {.shadow}
+![](challenges/report.png)
+:::
 
-1.  Create a new RMarkdown document
-2.  Set YAML matter
+Click [here](challenges/report.html) to view the sample report. The source code for the page is available on the page.
 
--   Set title, subtitle, Author name.
--   Set date to be automatically computed in this format "DD/MM/YYYY". See [here](https://www.statmethods.net/input/dates.html) on how to format dates.
+The aim of the report is to subset the iris dataset and create a report on the subsetted data.
 
-```{r,echo=FALSE,accordion=TRUE,class.output="r",comment=""}
-cat("date: \"`r format(Sys.Date(),format='%d/%m/%Y')`\"")
-```
+This is how the YAML metadata is organised:
 
--   Show a floating table of contents on the top left of the page.
-
-```{r,echo=FALSE,accordion=TRUE,class.output="r",comment=""}
-cat(
-"output:
-  rmarkdown::html_document:
+```{{yaml}}
+---
+subtitle: "Parameterized report"
+author: "John Doe"
+date: last-modified
+format:
+  html:
+    title-block-banner: true
     toc: true
-    toc_float: true")
-```
+    number-sections: true
+    theme: pulse
+    highlight: kate
+    code-tools: true
+    fig-align: left
 
--   Set automatic numbering of sections. Check `?html_document`.
-
-```{r,echo=FALSE,accordion=TRUE,class.output="r",comment=""}
-cat(
-"output:
-  rmarkdown::html_document:
-    number_sections: true"
-)
-```
-
--   Set theme to 'flatly'.
-
-```{r,echo=FALSE,accordion=TRUE,class.output="r",comment=""}
-cat(
-"output:
-  rmarkdown::html_document:
-    theme: united")
-```
-
--   Set code highlighting to 'kate'.
-
-```{r,echo=FALSE,accordion=TRUE,class.output="r",comment=""}
-cat(
-"output:
-  rmarkdown::html_document:
-    highlight: kate")
-```
-
--   Hide code blocks using show/hide code buttons. Check out `code_folding` option.
-
-```{r,echo=FALSE,accordion=TRUE,class.output="r",comment=""}
-cat(
-"output:
-  rmarkdown::html_document:
-    code_folding: hide")
-```
-
--   Set the default data.frame printing option to pageable HTML table. Check out `df_print` option.
-
-```{r,echo=FALSE,accordion=TRUE,class.output="r",comment=""}
-cat(
-"output:
-  html_document:
-    df_print: paged")
-```
-
-3.  Add a Level 1 heading
-4.  Add some text and a Level 2 heading
-5.  Create an R chunk to display the structure of cars dataset. Display the code and the results. See [here](https://yihui.name/knitr/options/#code-chunk) to read more about chunk options.
-6.  Display the first six rows and all columns of the cars dataset as a table.
-7.  Create a new sub-section and create a scatterplot with the two variables from cars dataset. Hide the code used and only show the plot. Create a square aspect ratio plot by setting equal figure height and width in the chunk options. Add a caption for the plot using chunk options.
-8.  Create a new sub-section, download a random image and include it in the document.
-9.  Render the document in RStudio by clicking on the 'Knit' button.
-10. Render the document to an HTML file using a console command.
-11. You can try to render this document to a PDF. Note that you will need to install additional software for this. For a lightweight latex distribution for knitr, see [here](https://yihui.name/tinytex). Change output type from `html_document` to `pdf_document` and remove all arguments except `toc: true`. Try rendering using 'Knit'.
-
-## Presentation
-
-### ioslides
-
-**ioslides** is an HTML and javascript based presentation system. RMarkdown provides a way to use this framework through R purely using R code. Here is an example of an [ioslide presentation](http://pauldijou.fr/ioslides/zenexity/mtfmw).
-
-This is a do-it-yourself challenge to ioslides Presentation using RMarkdown. Have a look at the presentation below and try to recreate it. Instructions and helpful tips are given below.
-
-This is the final result for [challenge ioslide presentation](rr_challenge_ioslides.html).
-
-1.  Create a new RMarkdown document.
-2.  Set YAML matter output to `output: ioslides_presentation`. See [here](https://rmarkdown.rstudio.com/ioslides_presentation_format.html) for a guide to using ioslides presentation in R. See `?ioslides_presentation()` for the options.
-3.  Set theme and highlight as needed.
-4.  New slides are defined using `#` with level 1 heading or `----` without a heading. Subtitle can be specified using a pipe symbol, like this `# Title | Subtitle`. Slides starting with `#` contains only the title and/or subtitle. `##` adds a standard content slide with a heading on the top.
-5.  Add a title slide
-
-```         
-# Title Slide | Subtitle
-```
-
-7.  Add a standard slide with a heading and a bulleted list. For example
-
-```         
-## Level 2 Heading
-
-- Point one
-- Point two
-```
-
-The bullets can set to show incrementally on click:
-
-```         
-## Level 2 Heading
-
-> - Point one
-> - Point two
-```
-
-8.  Create a new slide and add some R chunk. For example:
-
-````         
-```{{r}}
-data(iris)
-str(cars)
-```
-````
-
-9.  Create a new slide and display a table by executing an R chunk. For example:
-
-````         
-```{{r}}
-head(cars)
-```
-````
-
-10. Create a new slide and display an R plot. For example:
-
-````
-```{{r}}
-#| fig-height:3
-#| fig-width:5
-#| fig-cap: This is a scatterplot
-plot(cars$speed,cars$dist)
-```
-````
-
-11. Add an image to a new slide. For example:
-
-```         
-![](assets/gotland.jpg){width=60%}
-```
-
-12. When viewing the presentation, press `O` to see an overview of the slides.
-
-### revealjs
-
-**revealJS** is an HTML and javascript based presentation system. The `revealjs` R package provides a way to use this framework through R purely using R code. Here is an example of an [revealJS presentation](https://revealjs.com/#/).
-
-This is a do-it-yourself challenge to [RevealJS](https://revealjs.com/#/) 2-D Presentation using RMarkdown. Have a look at the presentation below and try to recreate it. Instructions and helpful tips are given below.
-
-This is the [challenge RevealJS presentation](rr_challenge_revealjs.html).
-
-1.  Install R package `revealjs` and load the library.
-2.  Create a new RMarkdown document.
-3.  Set YAML matter output to `output: revealjs_presentation`. See [here](https://rmarkdown.rstudio.com/revealjs_presentation_format.html) for a guide to using RevealJS presentation in R. See `?revealjs_presentation` for options.
-4.  Set theme and highlight as needed.
-5.  New slides are defined using `#` with level 1 heading,`##` with level 2 heading or `----` without a heading. The best feature of RevealJS is that slides are not restricted to horizontal (linear) flow. Slides can also flow vertical from any of the horizontal slides. A level 2 heading `##` signifies that the content under that flows vertically.
-6.  Add a level 1 heading and add some text content.
-7.  Create a new slide vertically by adding a level 2 heading and add some R chunk. For example:
-
-````         
-## Level 2 Heading
-
-````
-```{{r}}
-data(iris)
-str(cars)
-```
-````
-
-9.  Create a new slide vertically using level 2 heading and display a table by executing an R chunk. For example:
-
-````         
-## Level 2 Heading
-
-````
-```{{r}}
-head(cars)
-```
-````
-
-10. Create a new slide vertically and display an R plot. For example:
-
-````         
-## Level 2 Heading
-
-````
-```{{r}}
-#| fig-height:3
-#| fig-width:5
-#| fig-cap: This is a scatterplot
-plot(cars$speed,cars$dist)
-```
-````
-
-11. Create a new slide horizontally. Add an image to a new slide. For example:
-
-```         
-![](assets/gotland.jpg)
-```
-
-12. When viewing the presentation, press `O` to see an overview of the slides.
-
-### xaringan/remarkjs
-
-**xaringan** is an R package that provides bindings to remarkjs HTML and javascript based presentation system. Here is an example of a [remarkjs presentation](https://remarkjs.com/#1). [Here](https://slides.yihui.name/xaringan/) is an example that actually uses the xaringan package in R.
-
-The **remarkjs** [repo and wiki pages](https://github.com/gnab/remark/wiki) and the **xaringan** [repo and wiki](https://github.com/yihui/xaringan/wiki) are good sources of documentation.
-
-This is a do-it-yourself challenge to remarkjs presentation system using RMarkdown in xaringan. Have a look at the presentation below and try to recreate it. Instructions and helpful tips are given below.
-
-This is the [challenge Xaringan presentation](rr_challenge_xaringan.html).
-
-1.  Install R package `xaringan` and load the library.
-2.  Create a new RMarkdown document.
-3.  Set YAML matter output to `output: xaringan::moon_reader`. Use `?moon_reader()` for options.
-4.  Set theme and highlight as needed.
-5.  New slides are defined using `---`. Headings as usual are `#` for level 1 heading,`##` with level 2 heading etc.
-6.  Add a level 1 heading and add some bullet points.
-
-```         
-# Bullet points
-
-- Point One
-- Point Two
-```
-
-7.  Note that Xaringan/remarkjs does not use the regular pandoc markdown, therefore some features may not work or may be different. For example superscript is created using `2<sup>10</sup>` rather than `2^10^`. Subscript is created using `2<sub>10</sub>` rather than `2~10~`.
-
-8.  Add some code content. For example;
-
-````
-```{{r}}
-data(iris)
-str(cars)
-```
-````
-
-9.  Slides can be named which helps to create links back to this slide. Create a new slide and add a name like this `name: name`. Add a heading and add an R plot on this slide.
-
-````         
+params:
+  name: setosa
 ---
-name: plots
+```
 
-# Plots
+- Since this a parameterized report, `params` is defined in the YAML metadata. Here we have one parameter `name` with default value **setosa**. The parameter can be passed in while rendering the document. If no parameter is passed, the default value is used.
+- The title takes this parameter to create a title with the name.
+- The output format is set to `html`.
+- Table of contents (`toc`) is enabled.
+- `title-block-banner` is enabled
+- The theme is set to `pulse`. More themes are available at [bootswatch](https://bootswatch.com)
+- `code-tools` creates a widget on the top right side of the document to view source code.
+
+A heading is created through code using param value.
 
 ````
 ```{{r}}
-#| fig-height:3
-#| fig-width:5
-#| fig-cap: This is a scatterplot
-plot(cars$speed,cars$dist)
+#| echo: false
+#| output: asis
+cat("## ",params$name)
 ```
 ````
 
-Note that the slide name is added immediately under the new slide creator `---`.
-
-11. Create a new slide with a table and name the slide table.
-
-````         
----
-name: table
-
-# Table
+This code chunk is used to create a plot along with plot caption and plot numbering.
 
 ````
 ```{{r}}
-head(cars)
+#| label: fig-scatterplot
+#| fig-cap: !expr paste0("Scatterplot of ",params$name," species.")
+ggplot(iris_filtered,aes(Sepal.Length,Petal.Length,col=Species))+
+    geom_point()+
+    labs(title=params$name)
 ```
 ````
 
-From this slide, create a link to go back to plots.
+- It is important that the figure label starts with `fig-`
+- The figure caption can be generated from code using the special `!expr` usage
+- Try to create a new report for the species **versicolor**
+- Try to convert the document to PDF
 
-```         
-Click [here](#plots) to go to plots.
+HTML ouputs are documented [here](https://quarto.org/docs/output-formats/html-basics.html).
+
+## RevealJS
+
+Now, we will convert the report to a presentation using revealjs. [Here](challenges/revealjs.html) is how the final presentation will look like.
+
+- The most important change is `format: html` to `format: revealjs`
+- Slides are defined by heading `##`
+- Slides can be hidden using `{visibility="hidden"}`
+
+```
+## Title {visibility="hidden"}
 ```
 
-12. Create a new slide and add an image.
+- Incremental lists can be created like this
 
-```         
----
-name: image
-
-# Image
-
-![](assets/gotland.jpg)
+```
+::: {.incremental}
+- Eat spaghetti
+- Drink wine
+:::
 ```
 
-If this is too big, you can manually set the width using raw HTML `<img src="assets/gotland.jpg" width="250px">`
+- Columns can be defined like this
 
-13. It is possible to highlight parts of code. For example, in this code,
+```
+:::: {.columns}
+
+::: {.column width="40%"}
+Left column
+:::
+
+::: {.column width="60%"}
+Right column
+:::
+
+::::
+```
+
+- Speaker view is created like this:
+
+```
+::: {.notes}
+Speaker notes go here.
+:::
+```
+
+This can be viewed by pressing the <kbd>S</kbd> key.
+
+- The presentation theme can be changed
+
+```
+format:
+  revealjs: 
+    theme: dark
+```
+
+- Minor slide content can be defined as below. This content will be smaller font size and pushed to the bottom.
+
+```
+::: aside
+Some additional commentary of more peripheral interest.
+:::
+```
+
+- Code chunks can have line highlighting
 
 ````
-```{{r}}
-ggplot(iris,aes(x=Petal.Length,Sepal.Width,col=Species))+
-  geom_point(size=2)+
-  labs(x="Petal Length",y="Sepal Width")+
-  scale_colour_manual(values=c("#000000","#E69F00","#56B4E9",
-  "#009E73","#F0E442","#006699","#D55E00","#CC79A7"))+
-  theme_bw(base_size=12)+
-  theme(panel.border=element_blank(),
-        panel.grid.minor=element_blank(),
-        panel.grid.major.x=element_blank(),
-        axis.ticks=element_blank())
+```{{r code-line-numbers="4-5"}}
+library(ggplot2)
+
+ggplot(iris,aes(Sepal.Length, Petal.Length))+
+  geom_point()+
+  theme_bw()
 ```
 ````
 
-say, we want to highlight `theme_bw(base_size=12)`. We can add `{{}}` around it. Add the below code to a new slide called highlighting.
+- Tabset panels
 
-````
-```{{r}}
-ggplot(iris,aes(x=Petal.Length,Sepal.Width,col=Species))+
-  geom_point(size=2)+
-  labs(x="Petal Length",y="Sepal Width")+
-  scale_colour_manual(values=c("#000000","#E69F00","#56B4E9",
-  "#009E73","#F0E442","#006699","#D55E00","#CC79A7"))+
-  {{theme_bw(base_size=12)}}+
-  theme(panel.border=element_blank(),
-        panel.grid.minor=element_blank(),
-        panel.grid.major.x=element_blank(),
-        axis.ticks=element_blank())
 ```
-````
+::: {.panel-tabset}
 
-14. Try out some math expressions. Paste a few of the line below to your slide.
+### Tab A
 
-```         
-$e^{i\pi} + 1 = 0$
-$$\frac{E \times X^2 \prod I}{2+7} = 432$$
-$$\sum_{i=1}^n X_i$$
-$$\int_0^{2\pi} \sin x~dx$$
+Content for `Tab A`
+
+### Tab B
+
+Content for `Tab B`
+
+:::
 ```
 
-Add a `--` between each line to display them incrementally.
+RevealJS features are documented [here](https://quarto.org/docs/presentations/revealjs/).
 
-```         
-$e^{i\pi} + 1 = 0$
-
---
-
-$$\frac{E \times X^2 \prod I}{2+7} = 432$$
-
---
-
-$$\sum_{i=1}^n X_i$$
-
---
-
-$$\int_0^{2\pi} \sin x~dx$$
-```
-
-15. When viewing the presentation, press `H` to see an overview of keyboard shortcuts during presentation.
-
-16. remarkjs has a nifty feature where you can press `C` to clone the presentation in a new browser window. Now both these copies are linked. You can change one of them to the presenter mode by pressing `P`. Now changing the slide in one window changes the other. Convenient when a presenter view/audience view is needed.

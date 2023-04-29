@@ -2,9 +2,14 @@
 - flexdashboards for quarto?
 - xaringan for quarto?
 - css based pdf styling
-- self-contained, embed-resources, standalone
+- what's the difference between self-contained, embed-resources, standalone?
 - add filename as class to body, quarto-content, quarto-document-content
 - freeze vs cache
+- change bootstrap to something else
+- in yaml which params go under format and which go outside
+- why were some chunk arguments moved into the chunk, why not move the language as well
+- display language above chunk
+- why chunk options in fenced comments 
 
 # html issues
 - figure numbering doesn't work
@@ -70,7 +75,7 @@ AttributeError: 'OptionEngine' object has no attribute 'execute'
 NameError: name 'movies' is not defined
 conda install "sqlalchemy<=2.0"
 
-- slide debuggung gpuR
+- debugging slide 29, gpuR
 - tidyverse slide 23, readr challenge does not give an error
 - vectorisation slide 5, failure, set to error: true
 

@@ -4,7 +4,8 @@ project:
   render: 
     - "*.qmd"
     - "*.md"
-    - "!labs/publishing/index.qmd"
+    - "!labs/publishing/challenges/*.qmd"
+    - "!slides/publishing/sample/*.qmd"
 
 website:
   image: "assets/logos/raukr.png"
@@ -27,12 +28,7 @@ website:
     border: false
     left: "2023 [NBIS](about.html) | [GPL-3 License](https://choosealicense.com/licenses/gpl-3.0/)"
     right: "Published with [Quarto](https://quarto.org/) v<?quarto.version?>"
-  sidebar:
-    contents:
-        - section: Slides
-          contents: slides
-        - section: Labs
-          contents: labs
+
 format:
   html:
     quarto-required: ">=1.2.2"
@@ -66,8 +62,6 @@ format:
     transition: "fade"
     transition-speed: "fast"
     smaller: false
-    incremental: false
-    scrollable: false
     slide-number: true
     progress: true
     date:  last-modified
@@ -81,7 +75,6 @@ format:
     subtitle: "RaukR 2023 • Advanced R for Bioinformatics"
     header-logo-left: ../../assets/logos/raukr.png
     header-logo-right: ../../assets/logos/nbis-scilifelab.svg
-    
 
 knitr:
   opts_chunk:

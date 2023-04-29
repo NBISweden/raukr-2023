@@ -622,12 +622,14 @@ head(iris)
 
 #### Margin table
 
+````
 ```{{{r}}}
 #| fig-caption: This table is in the margin.
 #| column: margin
 
 head(cars)
 ```
+````
 
 ```{r}
 #| fig-caption: This table is in the margin.
@@ -771,6 +773,20 @@ iris %>%
 
 ## Interactive plots
 
+### rbokeh
+
+R package [rbokeh](https://hafen.github.io/rbokeh/index.html) is an easy and convenient option to get started with interactive plots.
+
+```{r}
+#| label: plot-rbokeh
+#| fig-cap: Interactive scatterplot using rbokeh.
+library(rbokeh)
+
+figure(height=400,width=600,xlab="Sepal Length",ylab="Sepal Width") %>%
+  ly_points(Sepal.Length,Sepal.Width,data=iris,
+  color=Species,glyph=Species,hover=list(Sepal.Length,Sepal.Width))
+```
+
 ### highcharter
 
 R package [`highcharter`](http://jkunst.com/highcharter/) is a wrapper around javascript library [`highcharts`](https://www.highcharts.com/).
@@ -906,6 +922,79 @@ py <- plot_ly(shared_quakes,x=~depth,y=~mag,size=~stations,height=300) %>%
 htmltools::div(lf,py)
 ```
 
+## ObservableJS
+
+- Quarto supports [ObservableJS](https://observablehq.com/) for interactive visualisations in the browser.
+
+Pass data from R to OJS
+
+```{r}
+irism <- iris
+colnames(irism) <- gsub("[.]","_",tolower(colnames(irism)))
+ojs_define(ojsd = irism)
+```
+
+```{ojs}
+ojsdata = transpose(ojsd)
+```
+
+Display as a table
+
+```{ojs}
+viewof filtered_table = Inputs.table(ojsdata)
+```
+
+Define inputs
+
+```{ojs}
+viewof x = Inputs.select(Object.keys(ojsdata[0]), {value: "sepal_length", multiple: false, label: "X axis"})
+```
+
+```{ojs}
+viewof y = Inputs.select(Object.keys(ojsdata[0]), {value: "sepal_width", multiple: false, label: "Y axis"})
+```
+
+Display plot
+
+```{ojs}
+Plot.plot({
+  marks: [
+    Plot.dot(ojsdata, {
+      x: x,
+      y: y,
+      fill: "species",
+      title: (d) =>
+        `${d.species} \n Petal length: ${d.petal_length} \n Sepal length: ${d.sepal_length}`
+    })
+  ],
+  grid: true
+})
+```
+
+ObservableJS in quarto [documentation](https://quarto.org/docs/interactive/index.html#observable-js).
+
+## Diagrams
+
+````
+```{{mermaid}}
+flowchart LR
+  A[Hard edge] --> B(Round edge)
+  B --> C{Decision}
+  C --> D[Result one]
+  C --> E[Result two]
+```
+````
+
+```{mermaid}
+flowchart LR
+  A[Hard edge] --> B(Round edge)
+  B --> C{Decision}
+  C --> D[Result one]
+  C --> E[Result two]
+```
+
+Diagram [documentation](https://quarto.org/docs/authoring/diagrams.html).
+
 ## Icons
 
 To use [fontawesome](https://fontawesome.com/search?m=free) icons as shortcodes, quarto extension [fontawesome](https://github.com/quarto-ext/fontawesome) needs to be installed.
@@ -923,7 +1012,6 @@ Icons can be placed using shortcodes.
 `{{{< fa skull >}}}`          {{< fa skull >}}         
 `{{{< fa skull size=2x >}}}`  {{< fa skull size=2x >}}   
 `{{{< fa brands github >}}}`  {{< fa brands github >}}
-      
 
 Icons can be displayed using the HTML `<i>` tag. Note that not all icons may work.
 
