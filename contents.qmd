@@ -35,6 +35,7 @@ execute:
 |[**15-Jun-2023 (Thu)**]{.highlight}|||
 |Tidyverse                            |Marcin Kierczak, Roy Francis           |[Slides](slides/tidyverse/index.html), [Lab](labs/tidyverse/index.html)|
 |Plotting with ggplot2                |Roy Francis and Julie Lorent           |[Slides](slides/ggplot/index.html), [Lab](labs/ggplot/index.html)|
+|Mathematical statistics     |Nikolay Oskolkov                       |[Slides](slides/statistics/index.html), [Lab](labs/statistics/index.html)|
 |Introduction to Machine Learning     |Nikolay Oskolkov                       |[Slides](slides/ml/index.html), [Lab](labs/ml/index.html)|
 |[**16-Jun-2023 (Fri)**]{.highlight}|||
 |Web apps with Shiny                  |Roy Francis                            |[Slides](slides/shiny/index.html), [Lab](labs/shiny/index.html)|
