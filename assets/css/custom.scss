@@ -139,6 +139,10 @@ $presentation-h6-font-size: 1em;
   margin-bottom: 0;
 }
 
+.shadow{
+  box-shadow: 2px 2px 10px lightgray;
+}
+
 /* presentation ---------------------------------------------------------------------- */
 
 .reveal .callout.callout-captioned .callout-icon::before {
