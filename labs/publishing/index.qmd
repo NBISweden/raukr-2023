@@ -15,7 +15,6 @@ These are exercises to get you started with quarto. Refer to the [official quart
 - Add content and export to some common formats
   - HTML and PDF reports
   - RevealJS presentation
-  - Digital book
 :::
 
 ```{r}

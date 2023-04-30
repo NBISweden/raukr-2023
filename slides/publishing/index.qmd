@@ -663,7 +663,8 @@ viewof y = Inputs.select(Object.keys(ojsdata[0]), {value: "sepal_width", multipl
 Plot.plot({
   marks: [
     Plot.dot(ojsdata, {
-      x: x, y: y, fill: "species" })
+      x: x, y: y, fill: "species",
+      title: (d) => `${d.species} \n Petal length: ${d.petal_length} \n Sepal length: ${d.sepal_length}`})
   ],
   grid: true
 })
@@ -678,7 +679,8 @@ Plot.plot({
 Plot.plot({
   marks: [
     Plot.dot(ojsdata, {
-      x: x, y: y, fill: "species" })
+      x: x, y: y, fill: "species",
+      title: (d) => `${d.species} \n Petal length: ${d.petal_length} \n Sepal length: ${d.sepal_length}`})
   ],
   grid: true
 })
@@ -693,21 +695,25 @@ Plot.plot({
 ```         
 🢒  quarto --help
 
-  Commands:
+Commands:
 
-    render          [input] [args...]     - Render files or projects to various document types.        
-    preview         [file] [args...]      - Render and preview a document or website project.          
-    serve           [input]               - Serve a Shiny interactive document.                        
-    create          [type] [commands...]  - Create a Quarto project or extension                       
-    create-project  [dir]                 - Create a project for rendering multiple documents          
-    convert         <input>               - Convert documents to alternate representations.            
-    pandoc          [args...]             - Run the version of Pandoc embedded within Quarto.          
-    run             [script] [args...]    - Run a TypeScript, R, Python, or Lua script.                
-    add             <extension>           - Add an extension to this folder or project                 
-    install         [target...]           - Installs an extension or global dependency.                
-    publish         [provider] [path]     - Publish a document or project. Available providers include:
-    check           [target]              - Verify correct functioning of Quarto installation.         
-    help            [command]             - Show this help or the help of a sub-command. 
+render          - Render files or projects to various document types.        
+preview         - Render and preview a document or website project.          
+serve           - Serve a Shiny interactive document.                        
+create          - Create a Quarto project or extension                       
+create-project  - Create a project for rendering multiple documents          
+convert         - Convert documents to alternate representations.            
+pandoc          - Run the version of Pandoc embedded within Quarto.          
+run             - Run a TypeScript, R, Python, or Lua script.                
+add             - Add an extension to this folder or project                 
+install         - Installs an extension or global dependency.                
+publish         - Publish a document or project. Available providers include:
+check           - Verify correct functioning of Quarto installation.         
+help            - Show this help or the help of a sub-command. 
+```
+```
+🢒  quarto --version
+1.3.340
 ```
 
 ## Extending Quarto

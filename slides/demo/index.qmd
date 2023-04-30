@@ -892,7 +892,7 @@ div(div(lf,style="float:left;width:49%"),div(py,style="float:right;width:49%"))
 - Quarto supports [ObservableJS](https://observablehq.com/) for interactive visualisations in the browser.
 
 :::: {.columns}
-::: {.column width="60%"}
+::: {.column width="50%"}
 
 Pass data from R to OJS
 
@@ -907,7 +907,7 @@ ojsdata = transpose(ojsd)
 ```
 
 :::
-::: {.column width="40%"}
+::: {.column width="50%"}
 
 Display as a table
 
@@ -946,14 +946,10 @@ Display plot
 Plot.plot({
   marks: [
     Plot.dot(ojsdata, {
-      x: x,
-      y: y,
-      fill: "species",
-      title: (d) =>
-        `${d.species} \n Petal length: ${d.petal_length} \n Sepal length: ${d.sepal_length}`
+      x: x, y: y, fill: "species",
+      title: (d) => `${d.species} \n Petal length: ${d.petal_length} \n Sepal length: ${d.sepal_length}`
     })
-  ],
-  grid: true
+  ], grid: true
 })
 ```
 
