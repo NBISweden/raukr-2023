@@ -33,10 +33,16 @@
 - For assets relating to the document (figures, files etc), create an **assets** folder
   - **slides/topic/assets/**
   - **labs/topic/assets/**
+
+:bulb: The document can be live previewed to view changes. Preview is automatically updated on saving the document. The preview files are copied to a temporary location and rendered independently from the defined output path. Sometimes, the preview can look a bit wonky, in which case, cancel and rerun.
+
 - To preview, run in terminal
   - `quarto preview slides/topic/index.qmd`
   - `quarto preview labs/topic/index.qmd`
   - Saving the file updates the preview
+
+:bulb: The document is rendered to the specified output format in the output directory.
+
 - To render, run in terminal
   - `quarto render slides/topic/index.qmd`
   - `quarto render labs/topic/index.qmd`
