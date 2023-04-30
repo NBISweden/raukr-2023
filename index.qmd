@@ -7,6 +7,7 @@ format:
   html:
     css: "assets/css/background.css"
     number-sections: false
+    title-block-banner: false
 execute:
   freeze: false
 ---
