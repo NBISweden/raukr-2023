@@ -9,7 +9,7 @@
 - [VSCode](https://arinbasu.medium.com/why-quarto-with-vscode-is-a-great-data-science-tool-f0a259d28702) is a good alternative to RStudio for quarto documents
 - You need to install the R packages necessary for your topic/file
 
-:bangbang: Do not use visual editor! It messes up the code formatting.
+:bangbang: Be wary of using the visual editor! It may mess up the code formatting.
 
 ## Adding/Modifying topics
 
