@@ -1,7 +1,7 @@
 ---
-title: "Publishing"
+title: "Reproducible research"
 author: "Roy Francis"
-description: "Publishing code, markup and documentation reproducibly in R."
+description: "Working reproducibly in R."
 image: "assets/featured.jpg"
 format: html
 ---
