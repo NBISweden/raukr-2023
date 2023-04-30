@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.340">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Nina Norgren">
+<meta name="description" content="Combining Python with R.">
+
+<title>reticulate</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<style>
+
+      .quarto-title-block .quarto-title-banner {
+        background-image: url(../../assets/images/banner.jpg);
+background-size: cover;
+      }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&amp;family=Nunito:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../assets/logos/raukr.png" alt="RaukR logo." class="navbar-logo">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html" rel="" target="">
+ <span class="menu-text">HOME</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../contents.html" rel="" target="">
+ <span class="menu-text">CONTENTS</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../program.html" rel="" target="">
+ <span class="menu-text">PROGRAM</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">ABOUT</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/NBISwe" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">reticulate</h1>
+            <p class="subtitle lead">RaukR 2023 • Advanced R for Bioinformatics</p>
+                  <div>
+        <div class="description">
+          Combining Python with R.
+        </div>
+      </div>
+                </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Nina Norgren </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">13-Mar-2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="header-section-number">1</span> Setup</a></li>
+  <li><a href="#imdb" id="toc-imdb" class="nav-link" data-scroll-target="#imdb"><span class="header-section-number">2</span> IMdB</a>
+  <ul>
+  <li><a href="#preparations" id="toc-preparations" class="nav-link" data-scroll-target="#preparations"><span class="header-section-number">2.1</span> Preparations</a></li>
+  <li><a href="#get-to-know-the-data" id="toc-get-to-know-the-data" class="nav-link" data-scroll-target="#get-to-know-the-data"><span class="header-section-number">2.2</span> Get to know the data</a></li>
+  <li><a href="#working-with-dataframes" id="toc-working-with-dataframes" class="nav-link" data-scroll-target="#working-with-dataframes"><span class="header-section-number">2.3</span> Working with Dataframes</a>
+  <ul class="collapse">
+  <li><a href="#the-highest-ranked-movie" id="toc-the-highest-ranked-movie" class="nav-link" data-scroll-target="#the-highest-ranked-movie"><span class="header-section-number">2.3.1</span> The highest ranked movie</a></li>
+  <li><a href="#average-ratings-over-time" id="toc-average-ratings-over-time" class="nav-link" data-scroll-target="#average-ratings-over-time"><span class="header-section-number">2.3.2</span> Average ratings over time</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#bonus-exercise" id="toc-bonus-exercise" class="nav-link" data-scroll-target="#bonus-exercise"><span class="header-section-number">3</span> Bonus exercise</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>These are exercises for practicing to use the <code>reticulate</code> package in R. Try to do the exercises yourself before looking at the answers. Some sections have more pure Python code than others, if you feel that your Python skills are rusty, feel free to look at the answers and try your best to follow along. We will be writing some Python code chunks, so use R Markdown for this exercise.</p>
+</div>
+</div>
+<section id="setup" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="setup"><span class="header-section-number">1</span> Setup</h2>
+<p>Load the following libraries else install them from CRAN.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reticulate)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Create and activate an environment using Conda</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## INSTALL CONDA!!!! otherwise this won't work</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">## reticulate::install_miniconda()</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">conda_create</span>(<span class="st">"raukr"</span>, <span class="at">python_version =</span> <span class="st">"3.9"</span>, <span class="at">packages =</span> <span class="fu">c</span>(<span class="st">"pandas"</span>,<span class="st">"sqlalchemy&lt;=2.0"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># activate environment</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">use_condaenv</span>(<span class="st">"raukr"</span>, <span class="at">required =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To make sure you will use the correct Python version (and the libraries associated with it), use the keyword <code>required</code> when starting your conda environment. The <code>reticulate</code> package will figure out which Python version to use, using a specified order. For more information, read the documentation for <a href="https://rstudio.github.io/reticulate/articles/versions.html">Python versions</a> and <a href="https://rstudio.github.io/reticulate/articles/python_packages.html">package installation</a>.</p>
+</section>
+<section id="imdb" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="imdb"><span class="header-section-number">2</span> IMdB</h2>
+<section id="preparations" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="preparations"><span class="header-section-number">2.1</span> Preparations</h3>
+<p>The International Movie Database is a large database containing all information about movies, TV series, actors, producers, etc, and the ratings they received. If you are not aware of it, check out their website <a href="https://www.imdb.com/">imdb.com</a> for more information.</p>
+<p>You will be working on a smaller subset of some of the data listed, which consists of movies, ratings, and the principal actors playing in the movies. You will receive a file with python functions used to query this small database from R, where you will further process the data to answer questions related to different movies and actors. The underlying Python code uses the <code>sqlalchemy</code> library for querying the <code>sqlite</code> database.</p>
+<p>In preparation for using the Python code in R, make sure that the following files are all located in your working directory:</p>
+<ol type="1">
+<li><code>imdb.db</code></li>
+<li><code>model.py</code></li>
+<li><code>imdb_functions.py</code></li>
+</ol>
+<p>Start by loading all the python functions into R</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source_python</span>(<span class="st">"imdb_functions.py"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>First, inspecting which functions got imported when you sourced your python file. You can find them in the <strong>Environment</strong> table in RStudio. Some of the functions listed are part of the SQLAlchemy package used, but one example to look at is the function <code>get_actors()</code>.</p>
+<p>As you can see, R creates a wrapper function in R, for calling the underlying Python function. This specific function takes a movie title as input, and returns the principal actors of the movie. You can further study what the function does by looking at the code in the <code>imdb_functions.py</code> file. You can see that it queries the database for a specific movie, and returns the principal actors in it.</p>
+</section>
+<section id="get-to-know-the-data" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="get-to-know-the-data"><span class="header-section-number">2.2</span> Get to know the data</h3>
+<ul>
+<li>Let’s try out the <code>get_actors()</code> function. Get the principal actors for the movie <strong>Gattaca</strong>, and inspect the output type</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>actors <span class="ot">&lt;-</span> <span class="fu">get_actors</span>(<span class="st">'Gattaca'</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(actors)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 1
+ $ Gattaca: chr [1:4] "Ethan Hawke (Vincent,Jerome)" "Uma Thurman (Irene)" "Jude Law (Jerome,Eugene)" "Gore Vidal (Director Josef)"</code></pre>
+</div>
+</div>
+<ul>
+<li>Next let’s do the same with the function <code>get_movies()</code>. List movies that <strong>Brent Spiner</strong> has been in</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>movies <span class="ot">&lt;-</span> <span class="fu">get_movies</span>(<span class="st">'Brent Spiner'</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(movies)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 1
+ $ Brent Spiner: chr [1:3] "Star Trek: First Contact" "Star Trek: Insurrection" "Star Trek: Nemesis"</code></pre>
+</div>
+</div>
+<ul>
+<li>For printing some basic information about a movie, without saving anything to an R object, use the <code>print_movie_info</code> function. Here, find out information about the <strong>Avengers</strong> movies</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print_movie_info</span>(<span class="st">'Avengers'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Capture the output from the previous function and save it as a variable</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">py_capture_output</span>(<span class="fu">print_movie_info</span>(<span class="st">'Avengers'</span>))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Title:  The Avengers
+Year:  1998
+Runtime (min):  89
+Genres:  Action,Adventure,Sci-Fi
+Average rating:  3.8
+Number of votes:  41414 
+
+Title:  The Avengers
+Year:  2012
+Runtime (min):  143
+Genres:  Action,Adventure,Sci-Fi
+Average rating:  8.0
+Number of votes:  1283281 
+
+Title:  Avengers: Age of Ultron
+Year:  2015
+Runtime (min):  141
+Genres:  Action,Adventure,Sci-Fi
+Average rating:  7.3
+Number of votes:  769172 
+
+Title:  Avengers: Infinity War
+Year:  2018
+Runtime (min):  149
+Genres:  Action,Adventure,Sci-Fi
+Average rating:  8.4
+Number of votes:  881191 
+
+Title:  Avengers: Endgame
+Year:  2019
+Runtime (min):  181
+Genres:  Action,Adventure,Drama
+Average rating:  8.4
+Number of votes:  880234 </code></pre>
+</div>
+</div>
+<ul>
+<li>Inspect the types of the variables <code>actors</code> and <code>movies</code>. What type are they? What type where they converted from in Python?</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(actors)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(movies)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Both are of the R type `named list`, which is the type a Python `dictionary` gets converted to/from.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 1
+ $ Gattaca: chr [1:4] "Ethan Hawke (Vincent,Jerome)" "Uma Thurman (Irene)" "Jude Law (Jerome,Eugene)" "Gore Vidal (Director Josef)"
+List of 1
+ $ Brent Spiner: chr [1:3] "Star Trek: First Contact" "Star Trek: Insurrection" "Star Trek: Nemesis"</code></pre>
+</div>
+</div>
+<ul>
+<li>Source the python file again, but set <code>convert=FALSE</code>. What are the types now?</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source_python</span>(<span class="st">"imdb_functions.py"</span>, <span class="at">convert =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>actors <span class="ot">&lt;-</span> <span class="fu">get_actors</span>(<span class="st">'Gattaca'</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(actors)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>movies <span class="ot">&lt;-</span> <span class="fu">get_movies</span>(<span class="st">'Brent Spiner'</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(movies)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Now actors and movies are both of the python type dictionary</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "python.builtin.dict"   "python.builtin.object"
+[1] "python.builtin.dict"   "python.builtin.object"</code></pre>
+</div>
+</div>
+<ul>
+<li>Convert the types manually back to R types</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>actors.r <span class="ot">&lt;-</span> <span class="fu">py_to_r</span>(actors)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(actors.r)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>movies.r <span class="ot">&lt;-</span> <span class="fu">py_to_r</span>(movies)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(movies.r)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 1
+ $ Gattaca: chr [1:4] "Ethan Hawke (Vincent,Jerome)" "Uma Thurman (Irene)" "Jude Law (Jerome,Eugene)" "Gore Vidal (Director Josef)"
+List of 1
+ $ Brent Spiner: chr [1:3] "Star Trek: First Contact" "Star Trek: Insurrection" "Star Trek: Nemesis"</code></pre>
+</div>
+</div>
+</section>
+<section id="working-with-dataframes" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="working-with-dataframes"><span class="header-section-number">2.3</span> Working with Dataframes</h3>
+<p>In the following sections we will be working with pandas dataframes in R. The answers we show will mostly be using the Python <code>pandas</code> library from R, but there are of course pure R ways of doing the following exercises once we have converted the output from the python functions. You are free to choose how you solve the following exercises, either only python in R, a mix, or pure R. But we encourage you to mix, as you will then practice the type conversions and usages of the <code>reticulate</code> library, especially for those of you that are more fluent in Python.</p>
+<section id="the-highest-ranked-movie" class="level4" data-number="2.3.1">
+<h4 data-number="2.3.1" class="anchored" data-anchor-id="the-highest-ranked-movie"><span class="header-section-number">2.3.1</span> The highest ranked movie</h4>
+<p>The function <code>get_all_movies()</code> from the file <code>imdb_functions.py</code> can be used to retrieve all movies, either within a specified time period, or all of the movies in the database. If the imported function has a docstring, you can view the help documentation with:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">py_help</span>(get_all_movies)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Start by importing all movies into a pandas dataframe, by sourcing the python functions into R. Do <em>not</em> convert the result into an R dataframe:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source_python</span>(<span class="st">"imdb_functions.py"</span>, <span class="at">convert =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>movies_py <span class="ot">&lt;-</span> <span class="fu">get_all_movies</span>()</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(movies_py)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "pandas.core.frame.DataFrame"        "pandas.core.generic.NDFrame"       
+[3] "pandas.core.base.PandasObject"      "pandas.core.accessor.DirNamesMixin"
+[5] "pandas.core.indexing.IndexingMixin" "pandas.core.arraylike.OpsMixin"    
+[7] "python.builtin.object"             </code></pre>
+</div>
+</div>
+<p>Inspecting the <code>movies_py</code> variable we can see that it is of the type <code>pandas.dataframe</code>.</p>
+<p>Now we are ready to answer our first question:</p>
+<h4 class="anchored">
+<strong>Which movie/movies are the highest ranked of all times?</strong>
+</h4>
+<p>We will try to answer this with a pandas method <em>directly</em> in a Python chunk. To do this we first have to make our <code>movies_py</code> variable visible to Python. Even though it is a Python object, since it was created within a R code chunk, Python code chunks cannot directly access them. To make R variables accessible in Python code chunks we use the <code>r</code> object. Remember that to access a Python variable from R, we used <code>py$</code>, to do the opposite we use <code>r.</code>. The $ and the . denotes the different ways in which Python and R represents methods.</p>
+<p>Use the method <code>.max()</code> from the <code>pandas</code> module to find and filter out the top movie/movies</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the code below is python code written in a python code chunk</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>movies <span class="op">=</span> r.movies_py</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect what columns are present</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>movies.columns</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># find movies that has the highest averageRating</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>top_movies <span class="op">=</span> movies[movies.averageRating <span class="op">==</span> movies.averageRating.<span class="bu">max</span>()]</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>top_movies[<span class="st">'primaryTitle'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Index(['id', 'tconst', 'titleType', 'primaryTitle', 'originalTitle',
+       'startYear', 'endYear', 'runtimeMinutes', 'genres', 'averageRating',
+       'numVotes'],
+      dtype='object')
+3822    The Shawshank Redemption
+5450             The Chaos Class
+Name: primaryTitle, dtype: object</code></pre>
+</div>
+</div>
+<p>Above we are using pure pandas code directly in our RMarkdown document.</p>
+<ul>
+<li>Save <code>top_movies</code> as an R object, and find out from what years these movies are, and how many votes they got</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>movies_r <span class="ot">&lt;-</span> py<span class="sc">$</span>top_movies</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(movies_r<span class="sc">$</span>primaryTitle, movies_r<span class="sc">$</span>startYear, movies_r<span class="sc">$</span>numVotes)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">movies_r.primaryTitle</th>
+<th style="text-align: left;">movies_r.startYear</th>
+<th style="text-align: right;">movies_r.numVotes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">The Shawshank Redemption</td>
+<td style="text-align: left;">1994</td>
+<td style="text-align: right;">2399394</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The Chaos Class</td>
+<td style="text-align: left;">1975</td>
+<td style="text-align: right;">38290</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>So the answer to which are the highest ranked movies of all times is <strong>The Shawshank Redemption</strong> and <strong>The Chaos Class</strong>. Although, The Chaos Class did not get as many votes as The Shawshank Redemption.</p>
+</section>
+<section id="average-ratings-over-time" class="level4" data-number="2.3.2">
+<h4 data-number="2.3.2" class="anchored" data-anchor-id="average-ratings-over-time"><span class="header-section-number">2.3.2</span> Average ratings over time</h4>
+<p>Next we want to explore how the average ratings for movies has changed over time. This one we will solve in normal R chunks, by importing the required python functions from the file <code>imdb_functions.py</code>, and also load <code>pandas</code> into R. As we will be using pandas in R, import the Python file without converting it</p>
+<ul>
+<li>Get all movies and save into a pandas dataframe</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source_python</span>(<span class="st">"imdb_functions.py"</span>, <span class="at">convert =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>movies_py <span class="ot">&lt;-</span> <span class="fu">get_all_movies</span>()</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(movies_py)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Import pandas into R</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>pandas <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"pandas"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Use pandas to group the data by startYear, and calculate the average ratings. Next, convert the result back into an R dataframe</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use pandas to group columns by startYear</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>movies_grouped <span class="ot">&lt;-</span> movies_py<span class="sc">$</span><span class="fu">groupby</span>(<span class="st">'startYear'</span>)<span class="sc">$</span><span class="fu">mean</span>()</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># convert the pandas dataframe to r dataframe</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>movies_grouped_r <span class="ot">&lt;-</span> <span class="fu">py_to_r</span>(movies_grouped)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(movies_grouped_r)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   105 obs. of  4 variables:
+ $ id            : num  1 2 3 5.5 9 ...
+ $ runtimeMinutes: num  195 163 90 91.5 90.7 ...
+ $ averageRating : num  6.3 7.7 7.3 7.42 8 ...
+ $ numVotes      : num  23130 14472 9597 18906 44311 ...
+ - attr(*, "pandas.index")=Index(['1915', '1916', '1919', '1920', '1921', '1922', '1923', '1924', '1925',
+       '1926',
+       ...
+       '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020',
+       '2021'],
+      dtype='object', name='startYear', length=105)</code></pre>
+</div>
+</div>
+<ul>
+<li>In this case the conversion seems to have done something to our startYear column. To fix this, add startYear column back into the dataframe, using R</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add Year column back to dataframe, and rename columns</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>movies_grouped_r <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">rownames</span>(movies_grouped_r), movies_grouped_r)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(movies_grouped_r) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"startYear"</span>,<span class="st">"id"</span>,<span class="st">"runtimeMinutes"</span>, <span class="st">"averageRating"</span>, <span class="st">"numVotes"</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>movies_grouped_r[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">startYear</th>
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">runtimeMinutes</th>
+<th style="text-align: right;">averageRating</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1915</td>
+<td style="text-align: left;">1915</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">195.00000</td>
+<td style="text-align: right;">6.300</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1916</td>
+<td style="text-align: left;">1916</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">163.00000</td>
+<td style="text-align: right;">7.700</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1919</td>
+<td style="text-align: left;">1919</td>
+<td style="text-align: right;">3.0</td>
+<td style="text-align: right;">90.00000</td>
+<td style="text-align: right;">7.300</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1920</td>
+<td style="text-align: left;">1920</td>
+<td style="text-align: right;">5.5</td>
+<td style="text-align: right;">91.50000</td>
+<td style="text-align: right;">7.425</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1921</td>
+<td style="text-align: left;">1921</td>
+<td style="text-align: right;">9.0</td>
+<td style="text-align: right;">90.66667</td>
+<td style="text-align: right;">8.000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Make sure to inspect that the dataframe looks like it is supposed to, and that the values make sense. Once we are sure we have managed to transform the data, we can proceed.</p>
+<ul>
+<li>Plot the average ratings for each year</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(movies_grouped_r, <span class="fu">aes</span>(<span class="at">x=</span>startYear, <span class="at">y=</span>averageRating)) <span class="sc">+</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">ggtitle</span>(<span class="st">'Average ratings over years'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="index_files/figure-html/unnamed-chunk-21-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="index_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="1344"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="bonus-exercise" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="bonus-exercise"><span class="header-section-number">3</span> Bonus exercise</h2>
+<p>This is a bonus exercise if you have time left in the end of the exercise. This one is more tricky!</p>
+<ul>
+<li>Which actors have played together with both Ian McKellen and Patrick Stewart, but when they were in separate movies? Or rephrased, which actor has played with Ian McKellen Lee in one movie, and Patrick Stewart in another movie?</li>
+</ul>
+<p>For example:</p>
+<ol type="1">
+<li>Actor 1 has played with IM in movie a, and with PS in movie b. PS was not in movie a, and IM was not in movie b</li>
+<li>Actor 2 has played with IM in movie c, and with PS in movie c.&nbsp;</li>
+</ol>
+<p>Scenario 1 would count, while scenario 2 would not, as IM and PS was in this movie both together.</p>
+<p>To solve this one you need to think in several steps. There are of course several solutions, and you are free to approach this exercise however you want. We will give you a suggestion to one approach that could be used below:</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>Get a list of movies where Ian McKellen has played</li>
+<li>Get a list of movies where Patrick Stewart has played</li>
+<li>Remove intersections</li>
+<li>Get all actors for all movies that Ian McKellen was in</li>
+<li>Get all actors for all movies that Patrick Stewart was in</li>
+<li>Remove duplicates</li>
+<li>Get intersection of actors</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Remember that this database only has the PRINCIPAL actor of movies, meaning you might have results where an actor has a minor role and is not listed here. If you are unsure if your results are correct, we provide you with a Python function to check your results.</p>
+</div>
+</div>
+<p>To find out if your answer is correct, your can import and use the function <code>check_results</code> from the <code>imdb_functions.py</code> file. Replace <code>'Actor Name'</code> with the name of the actor that you think is the answer to the question above.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source_python</span>(<span class="st">"imdb_functions.py"</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>res_actor <span class="ot">&lt;-</span> <span class="st">'Actor Name'</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">check_results</span>(res_actor, <span class="st">'Ian McKellen'</span>, <span class="st">'Patrick Stewart'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br> And if you want to see one suggested solution to this problem:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source_python</span>(<span class="st">"imdb_functions.py"</span>, <span class="at">convert =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>act1 <span class="ot">&lt;-</span> <span class="st">'Ian McKellen'</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>act2 <span class="ot">&lt;-</span> <span class="st">'Patrick Stewart'</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co"># get movies for Patrick Stewart</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>act1_movies <span class="ot">&lt;-</span> <span class="fu">get_movies</span>(act1)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>act1_movies</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>movies1_lst <span class="ot">&lt;-</span> <span class="fu">py_to_r</span>(act1_movies[act1])</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co"># get movies for Ian McKellen</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>act2_movies <span class="ot">&lt;-</span> <span class="fu">get_movies</span>(act2)</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>act2_movies</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>movies2_lst <span class="ot">&lt;-</span> <span class="fu">py_to_r</span>(act2_movies[act2])</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="co"># get movies both has played in</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>overlap <span class="ot">&lt;-</span> <span class="fu">intersect</span>(movies1_lst, movies2_lst)</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a><span class="co"># remove overlap from each movielist</span></span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>new_movies1_lst <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(movies1_lst, overlap)</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>new_movies2_lst <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(movies2_lst, overlap)</span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a><span class="co"># get all actors that has played in those movies</span></span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a><span class="co"># below we do things the functional way for the first </span></span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a><span class="co"># movie list</span></span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>actors_lst <span class="ot">&lt;-</span> purrr<span class="sc">::</span><span class="fu">map</span>(new_movies1_lst, </span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>             <span class="sc">~</span> .x <span class="sc">%&gt;%</span> </span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>             <span class="fu">get_actors</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>             <span class="fu">py_to_r</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>             .[[.x]] <span class="sc">%&gt;%</span> </span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a>             <span class="fu">unlist</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a>             <span class="fu">str_remove</span>(<span class="st">' </span><span class="sc">\\</span><span class="st">(.*</span><span class="sc">\\</span><span class="st">)'</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unlist</span>() </span>
+<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a><span class="co"># remove all duplicates</span></span>
+<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a>actors_lst_uniq <span class="ot">&lt;-</span> actors_lst <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
+<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a><span class="co"># and now, the same for the second movie list, but the </span></span>
+<span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a><span class="co"># non-functional way, using Python-inspired syntax. </span></span>
+<span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a>actors_lst2 <span class="ot">&lt;-</span> <span class="fu">character</span>()</span>
+<span id="cb31-42"><a href="#cb31-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-43"><a href="#cb31-43" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (movie <span class="cf">in</span> new_movies2_lst) {</span>
+<span id="cb31-44"><a href="#cb31-44" aria-hidden="true" tabindex="-1"></a>  actors <span class="ot">&lt;-</span> <span class="fu">get_actors</span>(movie)</span>
+<span id="cb31-45"><a href="#cb31-45" aria-hidden="true" tabindex="-1"></a>  actors_r <span class="ot">&lt;-</span> <span class="fu">py_to_r</span>(actors[movie])</span>
+<span id="cb31-46"><a href="#cb31-46" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (actor <span class="cf">in</span> actors_r) {</span>
+<span id="cb31-47"><a href="#cb31-47" aria-hidden="true" tabindex="-1"></a>    a <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(<span class="fu">as.character</span>(actor), <span class="st">'</span><span class="sc">\\</span><span class="st">s*[()]'</span>)[[<span class="dv">1</span>]]</span>
+<span id="cb31-48"><a href="#cb31-48" aria-hidden="true" tabindex="-1"></a>    actors_lst2 <span class="ot">&lt;-</span> <span class="fu">append</span>(actors_lst2, a[<span class="dv">1</span>])</span>
+<span id="cb31-49"><a href="#cb31-49" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb31-50"><a href="#cb31-50" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-51"><a href="#cb31-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-52"><a href="#cb31-52" aria-hidden="true" tabindex="-1"></a>actors_lst2_uniq <span class="ot">&lt;-</span> <span class="fu">unique</span>(actors_lst2)</span>
+<span id="cb31-53"><a href="#cb31-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-54"><a href="#cb31-54" aria-hidden="true" tabindex="-1"></a><span class="co"># finally, intersect the two lists with actors to</span></span>
+<span id="cb31-55"><a href="#cb31-55" aria-hidden="true" tabindex="-1"></a><span class="co"># find the ones that played with both actors</span></span>
+<span id="cb31-56"><a href="#cb31-56" aria-hidden="true" tabindex="-1"></a><span class="fu">intersect</span>(actors_lst_uniq, actors_lst2_uniq)</span>
+<span id="cb31-57"><a href="#cb31-57" aria-hidden="true" tabindex="-1"></a><span class="do">## {'Ian McKellen': ['The Keep', 'Six Degrees of Separation', 'Richard III', 'Apt Pupil', 'Gods and Monsters', 'The Lord of the Rings: The Fellowship of the Ring', 'X-Men', 'The Lord of the Rings: The Return of the King', 'The Lord of the Rings: The Two Towers', 'X2: X-Men United', 'The Da Vinci Code', 'Neverwas', 'Flushed Away', 'Stardust', 'The Hobbit: An Unexpected Journey', 'The Hobbit: The Desolation of Smaug', 'X-Men: Days of Future Past', 'The Hobbit: The Battle of the Five Armies', 'Mr. Holmes', 'The Good Liar']}</span></span>
+<span id="cb31-58"><a href="#cb31-58" aria-hidden="true" tabindex="-1"></a><span class="do">## {'Patrick Stewart': ['Star Trek: Generations', 'Star Trek: First Contact', 'Conspiracy Theory', 'Star Trek: Insurrection', 'X-Men', 'Star Trek: Nemesis', 'X2: X-Men United', 'Steamboy', 'X-Men: The Last Stand', 'Earth', 'TMNT', 'African Cats', 'X-Men: Days of Future Past', 'Logan', 'Green Room']}</span></span>
+<span id="cb31-59"><a href="#cb31-59" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Hugh Jackman"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Try some other actors and see what you find. For example, try actors that have played with <em>Johnny Depp</em> and <em>Helena Bonham Carter</em>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">2023 <a href="about.html">NBIS</a> | <a href="https://choosealicense.com/licenses/gpl-3.0/">GPL-3 License</a></div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">Published with <a href="https://quarto.org/">Quarto</a> v1.3.340</div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"loop":true,"openEffect":"zoom","selector":".lightbox","closeEffect":"zoom","descPosition":"bottom"});</script>
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

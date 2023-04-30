@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.340">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Nikolay Oskolkov">
+<meta name="description" content="Introduction to advanced statistical concepts">
+
+<title>Mathematical Statistics in R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<style>
+
+      .quarto-title-block .quarto-title-banner {
+        background-image: url(../../assets/images/banner.jpg);
+background-size: cover;
+      }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&amp;family=Nunito:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap" rel="stylesheet">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../assets/logos/raukr.png" alt="RaukR logo." class="navbar-logo">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html" rel="" target="">
+ <span class="menu-text">HOME</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../contents.html" rel="" target="">
+ <span class="menu-text">CONTENTS</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../program.html" rel="" target="">
+ <span class="menu-text">PROGRAM</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">ABOUT</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/NBISwe" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Mathematical Statistics in R</h1>
+            <p class="subtitle lead">RaukR 2023 • Advanced R for Bioinformatics</p>
+                  <div>
+        <div class="description">
+          Introduction to advanced statistical concepts
+        </div>
+      </div>
+                </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Nikolay Oskolkov </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">29-Apr-2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#ordinary-least-squares-linear-regression" id="toc-ordinary-least-squares-linear-regression" class="nav-link active" data-scroll-target="#ordinary-least-squares-linear-regression"><span class="header-section-number">1</span> Ordinary Least Squares Linear Regression</a></li>
+  <li><a href="#linear-mixed-models-lmm" id="toc-linear-mixed-models-lmm" class="nav-link" data-scroll-target="#linear-mixed-models-lmm"><span class="header-section-number">2</span> Linear Mixed Models (LMM)</a></li>
+  <li><a href="#maximum-likelihood-ml-vs.-bayesian-fitting" id="toc-maximum-likelihood-ml-vs.-bayesian-fitting" class="nav-link" data-scroll-target="#maximum-likelihood-ml-vs.-bayesian-fitting"><span class="header-section-number">3</span> Maximum Likelihood (ML) vs.&nbsp;Bayesian Fitting</a></li>
+  <li><a href="#bayesian-multilevel-models" id="toc-bayesian-multilevel-models" class="nav-link" data-scroll-target="#bayesian-multilevel-models"><span class="header-section-number">4</span> Bayesian Multilevel Models</a></li>
+  <li><a href="#why-to-do-dimensionality-reduction" id="toc-why-to-do-dimensionality-reduction" class="nav-link" data-scroll-target="#why-to-do-dimensionality-reduction"><span class="header-section-number">5</span> Why to Do Dimensionality Reduction?</a></li>
+  <li><a href="#principal-component-analysis-pca" id="toc-principal-component-analysis-pca" class="nav-link" data-scroll-target="#principal-component-analysis-pca"><span class="header-section-number">6</span> Principal Component Analysis (PCA)</a></li>
+  <li><a href="#multi-dimensional-scaling-mds" id="toc-multi-dimensional-scaling-mds" class="nav-link" data-scroll-target="#multi-dimensional-scaling-mds"><span class="header-section-number">7</span> Multi-Dimensional Scaling (MDS)</a></li>
+  <li><a href="#t-distributed-stochastic-neighbor-embedding-tsne" id="toc-t-distributed-stochastic-neighbor-embedding-tsne" class="nav-link" data-scroll-target="#t-distributed-stochastic-neighbor-embedding-tsne"><span class="header-section-number">8</span> t-distributed Stochastic Neighbor Embedding (tSNE)</a></li>
+  <li><a href="#why-to-select-good-features" id="toc-why-to-select-good-features" class="nav-link" data-scroll-target="#why-to-select-good-features"><span class="header-section-number">9</span> Why to Select Good Features?</a></li>
+  <li><a href="#univariate-feature-selection" id="toc-univariate-feature-selection" class="nav-link" data-scroll-target="#univariate-feature-selection"><span class="header-section-number">10</span> Univariate Feature Selection</a></li>
+  <li><a href="#multivariate-feature-selection-lasso-ridge-elastic-net" id="toc-multivariate-feature-selection-lasso-ridge-elastic-net" class="nav-link" data-scroll-target="#multivariate-feature-selection-lasso-ridge-elastic-net"><span class="header-section-number">11</span> Multivariate Feature Selection: LASSO, Ridge, Elastic Net</a></li>
+  <li><a href="#multivariate-feature-selection-pls" id="toc-multivariate-feature-selection-pls" class="nav-link" data-scroll-target="#multivariate-feature-selection-pls"><span class="header-section-number">12</span> Multivariate Feature Selection: PLS</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">13</span> References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In this tutorial, we cover basic concepts of Linear Modelling in R, and compare Frequentist and Bayesian approaches. We start with a basic Ordinary Least Squeres Linear Regression model and show how it can be improved by accounting for non-independent observations within Linear Mixed Models (LMM) formalism. Later, we extend Frequentist LMM for Bayesian Multilevel Models and emphasize the difference between the two approaches.</p>
+<p>Further, we will cover basic concepts of univariate and multivariate feature selection using LASSO, Ridge, Elastic Net and Partial Least Squares (PLS) regression models.</p>
+<p>Finally, we talk about the Curse of Dimensionality and ideas behind dimensionality reduction. We are going to cover a) linear dimensionality reduction techniques (PCA, metric MDS), and b) non-linear dimensionality reduction techniques (tSNE)</p>
+</div>
+</div>
+<p><br></p>
+<section id="ordinary-least-squares-linear-regression" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="ordinary-least-squares-linear-regression"><span class="header-section-number">1</span> Ordinary Least Squares Linear Regression</h2>
+<p>As a test data set we will use a sleep deprevation study data set [1], where sleeping time of all individuals was restricted and reaction of their organism on a series of tests every day was meeasured during 10 days. Let us have a look at the data set, it seems to include 3 variables: 1) Reaction, 2) Days, 3) Subject, i.e.&nbsp;the same individual was followed during 10 days.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sleepstudy,<span class="dv">20</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sleepstudy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Reaction</th>
+<th style="text-align: right;">Days</th>
+<th style="text-align: left;">Subject</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">249.5600</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">308</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">258.7047</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">308</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">250.8006</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">308</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">321.4398</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">308</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">356.8519</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">308</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">414.6901</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">308</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">382.2038</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">308</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">290.1486</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">308</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">430.5853</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">308</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">466.3535</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">308</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">222.7339</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">309</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">205.2658</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">309</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">202.9778</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">309</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">204.7070</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">309</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">207.7161</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">309</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">215.9618</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">309</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">213.6303</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">309</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">217.7272</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">309</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">224.2957</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">309</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">237.3142</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">309</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   180 obs. of  3 variables:
+ $ Reaction: num  250 259 251 321 357 ...
+ $ Days    : num  0 1 2 3 4 5 6 7 8 9 ...
+ $ Subject : Factor w/ 18 levels "308","309","310",..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+</div>
+</div>
+<p>Another important thing we can notice is that there are 18 individuals in the sleep deprevation study. Let us now check how the reaction of all individuals changed as a response to sleep deprevation. For this purpose we will fit an Ordinary Least Squares Linear Regression with one response variable (Reaction) and one predictor/explanatory variable (Days):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Reaction<span class="sc">~</span>Days,<span class="at">data=</span>sleepstudy))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sleepstudy,<span class="fu">aes</span>(<span class="at">x=</span>Days,<span class="at">y=</span>Reaction)) <span class="sc">+</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="index_files/figure-html/unnamed-chunk-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="768"></a></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Reaction ~ Days, data = sleepstudy)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-110.848  -27.483    1.546   26.142  139.953 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  251.405      6.610  38.033  &lt; 2e-16 ***
+Days          10.467      1.238   8.454 9.89e-15 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 47.71 on 178 degrees of freedom
+Multiple R-squared:  0.2865,    Adjusted R-squared:  0.2825 
+F-statistic: 71.46 on 1 and 178 DF,  p-value: 9.894e-15</code></pre>
+</div>
+</div>
+<p>We can see that it has a increasing trend but with a lot of variation between days and individuals. Looking at the summary of linear regression fit we conclude that the slope is significantly different from zero, i.e.&nbsp;there is a statistically significant increasing relation between Reaction and Days.</p>
+<p>The confidence interval (grey area around the fitting line) is delivered automatically in “ggplot” but what does it mean? In the classical Frequentist Statistics there is a vague definition of e.g.&nbsp;95% confidence according to the formula:</p>
+<p><span class="math display">\[\left( \textrm{median} - 1.96 \frac{\textrm{sd}}{\sqrt n} ;\quad  \textrm{median} + 1.96 \frac{\textrm{sd}}{\sqrt n} \right)\]</span></p>
+<p>The magic number 1.96 originates from the Gaussian distribution and reflects the z-score value covering 95% of the data in the distribution. To further demostrate how the confidence interval is calculated under the hood by ggplot we implement the same Linear Regression fitting in plain R using “predict” function and display the table of confidence interval points:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Reaction<span class="sc">~</span>Days,<span class="at">data=</span>sleepstudy)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(Reaction<span class="sc">~</span>Days,<span class="at">data=</span>sleepstudy))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>conf_interval <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="fu">lm</span>(Reaction<span class="sc">~</span>Days,<span class="at">data=</span>sleepstudy), <span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">Days=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">9</span>,<span class="at">by=</span><span class="fl">0.1</span>)), <span class="at">interval=</span><span class="st">"confidence"</span>, <span class="at">level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">9</span>,<span class="at">by=</span><span class="fl">0.1</span>), conf_interval[,<span class="dv">2</span>], <span class="at">col=</span><span class="st">"blue"</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">9</span>,<span class="at">by=</span><span class="fl">0.1</span>), conf_interval[,<span class="dv">3</span>], <span class="at">col=</span><span class="st">"blue"</span>, <span class="at">lty=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="index_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="960"></a></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(conf_interval)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       fit      lwr      upr
+1 251.4051 238.3608 264.4495
+2 252.4518 239.6128 265.2909
+3 253.4986 240.8634 266.1337
+4 254.5453 242.1126 266.9780
+5 255.5920 243.3602 267.8238
+6 256.6387 244.6062 268.6712</code></pre>
+</div>
+</div>
+<p>Here “fit” reflects the median value at each Days point, “lwr” and “upr” correspond to upper and lower confidence interval boundaries.</p>
+<p>Everything looks great! However, we have a severe problem with the fitting above. Ordinary Least Squares Linear Regression assumes that all the observations (data points on the plot) are independent, which will result in uncorrelated and hence Gaussian distributed residuals. However, we know that the data points on the plot belong to 18 individuals, i.e.&nbsp;10 points for each individual. In principal, we can fit a linear model for each individual separately:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sleepstudy, <span class="fu">aes</span>(<span class="at">x =</span> Days, <span class="at">y =</span> Reaction)) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">level =</span> <span class="fl">0.95</span>) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>Subject, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="index_files/figure-html/Linear Fit Per Individual ggplot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="index_files/figure-html/Linear Fit Per Individual ggplot-1.png" class="img-fluid figure-img" width="960"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can see that most of the individuals have increasing Reaction profile while some have a neutral or even decreasing profile. What does it mean and what can we do here? Did we capture all the variation in the data with our simple Ordinary Least Squares Linear Regression model?</p>
+<p>When the observations (data points on the plot) are not independent they should be modelled via so-called Random Effects model (in terms of classical Frequentist statistics), which is nothing else as a Prior distribution put on the coefficients of the linear model withing the Bayesian framework (we will come back to this later). Random Effects modelling is a part of so-called Mixed Models (Linear Mixed models, Linear Mixed Effects models).</p>
+</section>
+<section id="linear-mixed-models-lmm" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="linear-mixed-models-lmm"><span class="header-section-number">2</span> Linear Mixed Models (LMM)</h2>
+<p>When we use Linear Mixed Models (LMM) we assume that there is a non-independence between observations. In our case, the observations cluster for each individual. It can be different types of clustering, for eaxample individuals might be genetically related, i.e.&nbsp;cluter in different families or populations. Alternatively, it can be technical replicates from the same individuals which are useful to include into the analysis (to capture technical variation) instead of including averege values (across technical replicates) into the analysis. A calssical setup for LMM is “repeated measurements” or “time series”, i.e.&nbsp;when the same individual is measured many times during a log period. It can be e.g.&nbsp;effect of treatment or desease evolving in time and followed by clinicians.</p>
+<p>Lets us fir Random Effects model with random slopes and random intercepts:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lmer</span>(Reaction <span class="sc">~</span> Days <span class="sc">+</span> (Days <span class="sc">|</span> Subject), sleepstudy))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML ['lmerMod']
+Formula: Reaction ~ Days + (Days | Subject)
+   Data: sleepstudy
+
+REML criterion at convergence: 1743.6
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-3.9536 -0.4634  0.0231  0.4634  5.1793 
+
+Random effects:
+ Groups   Name        Variance Std.Dev. Corr
+ Subject  (Intercept) 612.10   24.741       
+          Days         35.07    5.922   0.07
+ Residual             654.94   25.592       
+Number of obs: 180, groups:  Subject, 18
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept)  251.405      6.825  36.838
+Days          10.467      1.546   6.771
+
+Correlation of Fixed Effects:
+     (Intr)
+Days -0.138</code></pre>
+</div>
+</div>
+<p>Let us compare resudual error between fixed effects (lm) and random effects (lmer) models:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="fu">residuals</span>(<span class="fu">lm</span>(Reaction<span class="sc">~</span>Days,<span class="at">data=</span>sleepstudy))<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span><span class="dv">178</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="fu">resid</span>(<span class="fu">lmer</span>(Reaction <span class="sc">~</span> Days <span class="sc">+</span> (Days <span class="sc">|</span> Subject), sleepstudy))<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span><span class="dv">178</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 47.71472
+[1] 23.56935</code></pre>
+</div>
+</div>
+<p>The resudual error decreased for the Random Effects model meaning that we captured more phenotypic variation within the Random Effects model. Let us also compare AIC:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Reaction <span class="sc">~</span> Days, <span class="at">data =</span> sleepstudy)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(Reaction <span class="sc">~</span> Days <span class="sc">+</span> (Days <span class="sc">|</span> Subject), sleepstudy, <span class="at">REML =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit2, fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 14%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 4%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">npar</th>
+<th style="text-align: right;">AIC</th>
+<th style="text-align: right;">BIC</th>
+<th style="text-align: right;">logLik</th>
+<th style="text-align: right;">deviance</th>
+<th style="text-align: right;">Chisq</th>
+<th style="text-align: right;">Df</th>
+<th style="text-align: right;">Pr(&gt;Chisq)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">fit1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1906.293</td>
+<td style="text-align: right;">1915.872</td>
+<td style="text-align: right;">-950.1465</td>
+<td style="text-align: right;">1900.293</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">fit2</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">1763.939</td>
+<td style="text-align: right;">1783.097</td>
+<td style="text-align: right;">-875.9697</td>
+<td style="text-align: right;">1751.939</td>
+<td style="text-align: right;">148.3537</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Again we see a significant improvement of modeling by introducing Random Effects. AIC and BIC are lower for the Random Effects Model, i.e.&nbsp;this model is more informative and explains more variation in the data by accounting for groupping the points between the 18 individuals.</p>
+<p>Another strength of LMM is that it fits all individuals simultaneously but non-independently, i.e.&nbsp;all fits “know” about each other. In this way, slopes, intercepts and confidence intervals of fits for each individual are influenced by their common statistics, this effect is called “shrinkage toward the mean”.</p>
+<p>Nice! We see that LMM captures more variation in the data, but can we display it and see the shrinkage effect? Let us start with the overall/average fit:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arm)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>lmerfit <span class="ot">&lt;-</span> <span class="fu">lmer</span>(Reaction <span class="sc">~</span> Days <span class="sc">+</span> (Days <span class="sc">|</span> Subject), sleepstudy)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> <span class="fu">sim</span>(lmerfit, <span class="at">n.sims =</span> <span class="dv">10000</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>fs <span class="ot">&lt;-</span> <span class="fu">fixef</span>(sims)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>newavg <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Days =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>Xmat <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> Days, <span class="at">data =</span> newavg)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>fitmat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="fu">nrow</span>(fs), <span class="at">nrow =</span> <span class="fu">nrow</span>(newavg))</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(fs)) {</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    fitmat[, i] <span class="ot">&lt;-</span> Xmat <span class="sc">%*%</span> <span class="fu">as.matrix</span>(fs)[i, ]</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>newavg<span class="sc">$</span>lower <span class="ot">&lt;-</span> <span class="fu">apply</span>(fitmat, <span class="dv">1</span>, quantile, <span class="at">prob =</span> <span class="fl">0.05</span>)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>newavg<span class="sc">$</span>median <span class="ot">&lt;-</span> <span class="fu">apply</span>(fitmat, <span class="dv">1</span>, quantile, <span class="at">prob =</span> <span class="fl">0.5</span>)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>newavg<span class="sc">$</span>upper <span class="ot">&lt;-</span> <span class="fu">apply</span>(fitmat, <span class="dv">1</span>, quantile, <span class="at">prob =</span> <span class="fl">0.95</span>)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sleepstudy, <span class="fu">aes</span>(<span class="at">x =</span> Days, <span class="at">y =</span> Reaction)) <span class="sc">+</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data =</span> newavg, <span class="fu">aes</span>(<span class="at">y =</span> median), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data =</span> newavg, <span class="fu">aes</span>(<span class="at">y =</span> lower), <span class="at">lty =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data =</span> newavg, <span class="fu">aes</span>(<span class="at">y =</span> upper), <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="index_files/figure-html/Plot LMM Average Fit-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="index_files/figure-html/Plot LMM Average Fit-1.png" class="img-fluid figure-img" width="768"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can see that the average/mean fit for LMM/Random Effects Model (lmer, black line) is identical to Fixed Effects Model (lm, blue line), the difference is hardly noticable, they overlap pretty well. However, the confidence interval for LMM (dashed line) is wider than for the Fixed Effects fit (grey area). This difference is due to the fact that Fixed Effects Model does not account for inter-individual variation in contrast to LMM hich accounts for both population-wide and inter-individual variations.</p>
+<p>What about slopes, intercepts and confidence intervals for each of the 18 individuals?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>yhat <span class="ot">&lt;-</span> <span class="fu">fitted</span>(sims, lmerfit)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sleepstudy<span class="sc">$</span>lower <span class="ot">&lt;-</span> <span class="fu">apply</span>(yhat, <span class="dv">1</span>, quantile, <span class="at">prob =</span> <span class="fl">0.025</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>sleepstudy<span class="sc">$</span>median <span class="ot">&lt;-</span> <span class="fu">apply</span>(yhat, <span class="dv">1</span>, quantile, <span class="at">prob =</span> <span class="fl">0.5</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>sleepstudy<span class="sc">$</span>upper <span class="ot">&lt;-</span> <span class="fu">apply</span>(yhat, <span class="dv">1</span>, quantile, <span class="at">prob =</span> <span class="fl">0.975</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sleepstudy, <span class="fu">aes</span>(<span class="at">x =</span> Days, <span class="at">y =</span> Reaction)) <span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">level =</span> <span class="fl">0.95</span>) <span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>Subject, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data =</span> sleepstudy, <span class="fu">aes</span>(<span class="at">y =</span> median), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data =</span> sleepstudy, <span class="fu">aes</span>(<span class="at">y =</span> lower), <span class="at">lty =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data =</span> sleepstudy, <span class="fu">aes</span>(<span class="at">y =</span> upper), <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="index_files/figure-html/Plot LMM Individual Fit-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="index_files/figure-html/Plot LMM Individual Fit-1.png" class="img-fluid figure-img" width="960"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Again, black solin and dashed lines correspond to the LMM fitting while blue solid line and the grey area depict Fixed Effects Model. We can see that individual LMM fits and their confidence intervals might be very different from the Fixed Effects (lm) Model. In other words the individual fits are “shrunk” toward the common mean, all the fits help each other to stabilize variance so that the model does not get excited about extreme/outlying values. This leads to a more stable and correct fitting.</p>
+</section>
+<section id="maximum-likelihood-ml-vs.-bayesian-fitting" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="maximum-likelihood-ml-vs.-bayesian-fitting"><span class="header-section-number">3</span> Maximum Likelihood (ML) vs.&nbsp;Bayesian Fitting</h2>
+<p>Before we move to the Bayesian Multilevel Models, let us briefly introduce the major differences between Frequentist and Bayesian Statistics.</p>
+<p>Frequentist fitting used by LMM via lme4/lmer is based on Maximum Likelihood principle:</p>
+<p><span class="math display">\[y = \alpha+\beta x\]</span> <span class="math display">\[L(y) \sim e^{-\frac{(y-\alpha-\beta x)^2}{2\sigma^2}}\]</span> <span class="math display">\[\max_{\alpha,\beta,\sigma}L(y) \Longrightarrow \hat\alpha, \hat\beta, \hat\sigma\]</span></p>
+<p>Here, we maximize the likelihood L(y) of observing the data y, which is equivalent to minimizing residuals of the model (Ordinary Least Squares approach). Now ask youself a rhetoric question: why should we maximize a probability of observing the data if we have already observed the data?</p>
+<p>Bayesian fitting is based on Maximum Posterior Probability principle: we assume that the data is distributed with some (Normal in our case) likelihood L(y) and set Prior assimtions on the parameters of the Liner Model.</p>
+<p><span class="math display">\[y \sim \it N(\mu,\sigma) \quad\textrm{- Likelihood L(y)}\]</span> <span class="math display">\[\mu = \alpha + \beta x\]</span> <span class="math display">\[\alpha \sim \it N(\mu_\alpha,\sigma_\alpha) \quad\textrm{- Prior on} \quad\alpha\]</span> <span class="math display">\[\beta \sim \it N(\mu_\beta,\sigma_\beta) \quad\textrm{- Prior on} \quad\beta\]</span> <span class="math display">\[P(\mu_\alpha,\sigma_\alpha,\mu_\beta,\sigma_\beta,\sigma) \sim  L(y)*N(\mu_\alpha,\sigma_\alpha)*N(\mu_\beta,\sigma_\beta)\]</span> <span class="math display">\[\max_{\mu_\alpha,\sigma_\alpha,\mu_\beta,\sigma_\beta,\sigma}P(\mu_\alpha,\sigma_\alpha,\mu_\beta,\sigma_\beta,\sigma) \Longrightarrow \hat\mu_\alpha,\hat\sigma_\alpha,\hat\mu_\beta,\hat\sigma_\beta,\hat\sigma\]</span></p>
+<p>Here we calculate a probability distribution of parameters (and not the data) of the model which automatically gives us uncertainties (Credible Intervals) on the parameters.</p>
+</section>
+<section id="bayesian-multilevel-models" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="bayesian-multilevel-models"><span class="header-section-number">4</span> Bayesian Multilevel Models</h2>
+<p>Linear Mixed Models (LMM) with Bayesian Prior distributions applied to the parameters are called Bayesian Multilevel MOdels or Bayesian Hierarcical Models. To implement Bayesian fitting in R, here we will use “brms” package which has absolutely the same syntax as lme4/lmer does. One important difference which one should remember is that fitting LMM via lme4/lmer uses Maximum Likelihood (ML) principle, i.e.&nbsp;it does not use prior assumptions about the parameters (or rather uses flat Priors) while Bayesian Multilevel Models in brms set reasonable priors which reflect the data. Another thing which is worth mentioning is that brms runs probabilistoc programming software/language Stan under the hood. Let us do Bayesian fitting with brms:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this chunk is precomputed because it is compute heavy</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(brms)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">mc.cores =</span> parallel<span class="sc">::</span><span class="fu">detectCores</span>())  <span class="co"># Run many chains simultaneously</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>brmfit <span class="ot">&lt;-</span> <span class="fu">brm</span>(Reaction <span class="sc">~</span> Days <span class="sc">+</span> (Days <span class="sc">|</span> Subject), <span class="at">data =</span> sleepstudy, <span class="at">family =</span> gaussian, <span class="at">iter =</span> <span class="dv">2000</span>, <span class="at">chains =</span> <span class="dv">4</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(brmfit,<span class="st">"assets/brmsfit.Rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Again, let us display the average fit for all individuals:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(brms)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>brmfit <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"assets/brmsfit.Rds"</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>newavg <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Days =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>fitavg <span class="ot">&lt;-</span> <span class="fu">cbind</span>(newavg, <span class="fu">fitted</span>(brmfit, <span class="at">newdata =</span> newavg, <span class="at">re_formula =</span> <span class="cn">NA</span>)[,<span class="sc">-</span><span class="dv">2</span>])</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(fitavg) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Days"</span>, <span class="st">"Reaction"</span>, <span class="st">"Lower"</span>, <span class="st">"Upper"</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sleepstudy, <span class="fu">aes</span>(<span class="at">x =</span> Days, <span class="at">y =</span> Reaction)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>) <span class="sc">+</span> </span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> fitavg, <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> fitavg, <span class="fu">aes</span>(<span class="at">y =</span> Lower), <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">lty =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> fitavg, <span class="fu">aes</span>(<span class="at">y =</span> Upper), <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="index_files/figure-html/brm plot average-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="index_files/figure-html/brm plot average-1.png" class="img-fluid figure-img" width="768"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Again, the result of Bayesian fitting with brms looks very similar to the LMM fitting with lme4/lmer. Essential difference is that the Bayesian Multilevel Models (brm) are much more stable compared to Maximum Likelihod models (lm, lmer) and calculartion of Credible Intervals is much more straightforward for brm compated to lmer. Now, what about individual fits?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>newvary <span class="ot">&lt;-</span> <span class="fu">subset</span>(sleepstudy, <span class="at">select =</span> <span class="fu">c</span>(<span class="st">"Subject"</span>, <span class="st">"Days"</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>fitvary <span class="ot">&lt;-</span> <span class="fu">cbind</span>(newvary, <span class="fu">fitted</span>(brmfit, <span class="at">newdata =</span> newvary)[, <span class="sc">-</span><span class="dv">2</span>])</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(fitvary) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Subject"</span>, <span class="st">"Days"</span>, <span class="st">"Reaction"</span>, <span class="st">"Lower"</span>, <span class="st">"Upper"</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sleepstudy, <span class="fu">aes</span>(<span class="at">x =</span> Days, <span class="at">y =</span> Reaction)) <span class="sc">+</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">level =</span> <span class="fl">0.95</span>) <span class="sc">+</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>Subject, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data =</span> fitvary, <span class="fu">aes</span>(<span class="at">y =</span> Reaction), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data =</span> fitvary, <span class="fu">aes</span>(<span class="at">y =</span> Lower), <span class="at">lty =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data =</span> fitvary, <span class="fu">aes</span>(<span class="at">y =</span> Upper), <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="index_files/figure-html/brm plot individual-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="index_files/figure-html/brm plot individual-1.png" class="img-fluid figure-img" width="960"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Again, the slopes, intercepts and credible intervals look very similar to LMM Maximum Likelihood fitting with lmer.</p>
+</section>
+<section id="why-to-do-dimensionality-reduction" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="why-to-do-dimensionality-reduction"><span class="header-section-number">5</span> Why to Do Dimensionality Reduction?</h2>
+<p>Dimensionality Reduction concept is really not just about visualization like many of use might think. This is a necessaty in Data Scince in order to overcome the Curse of Dimensionality, also known as Rao’s paradox. What is it about? When we work with data we have n observations (samples) for p variables (features). Very often (almost always unless you are lucky) we have p&gt;&gt;n, i.e.&nbsp;we have a highly dimensional space. It turns out that the classical Frequentist statistics blows up in a highly-dimensional space, i.e.&nbsp;the conclusions of the models are not valid (robust) any more. Let us simulate just a few (n=20-nish) observations of a response variable Y and a few (e.g.p=2) predictor variables incapsuletd into a matrix X and run a simple linear association between X and Y:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>Y</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n <span class="sc">*</span> p), n, p)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>X</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Y <span class="sc">~</span> X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] -0.56047565 -0.23017749  1.55870831  0.07050839  0.12928774  1.71506499
+ [7]  0.46091621 -1.26506123 -0.68685285 -0.44566197  1.22408180  0.35981383
+[13]  0.40077145  0.11068272 -0.55584113  1.78691314  0.49785048 -1.96661716
+[19]  0.70135590 -0.47279141
+             [,1]        [,2]
+ [1,] -1.06782371 -0.69470698
+ [2,] -0.21797491 -0.20791728
+ [3,] -1.02600445 -1.26539635
+ [4,] -0.72889123  2.16895597
+ [5,] -0.62503927  1.20796200
+ [6,] -1.68669331 -1.12310858
+ [7,]  0.83778704 -0.40288484
+ [8,]  0.15337312 -0.46665535
+ [9,] -1.13813694  0.77996512
+[10,]  1.25381492 -0.08336907
+[11,]  0.42646422  0.25331851
+[12,] -0.29507148 -0.02854676
+[13,]  0.89512566 -0.04287046
+[14,]  0.87813349  1.36860228
+[15,]  0.82158108 -0.22577099
+[16,]  0.68864025  1.51647060
+[17,]  0.55391765 -1.54875280
+[18,] -0.06191171  0.58461375
+[19,] -0.30596266  0.12385424
+[20,] -0.38047100  0.21594157
+
+Call:
+lm(formula = Y ~ X)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.0522 -0.6380  0.1451  0.3911  1.8829 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)  0.14950    0.22949   0.651    0.523
+X1          -0.09405    0.28245  -0.333    0.743
+X2          -0.11919    0.24486  -0.487    0.633
+
+Residual standard error: 1.017 on 17 degrees of freedom
+Multiple R-squared:  0.02204,   Adjusted R-squared:  -0.09301 
+F-statistic: 0.1916 on 2 and 17 DF,  p-value: 0.8274</code></pre>
+</div>
+</div>
+<p>Looks good, the variables are not related as expected (since they are drawn from a Gaussian distribution) but the math works, no problems as long as n&gt;p.&nbsp;Let us now increase the number of features p and see what happens.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123456</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n <span class="sc">*</span> p), n, p)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Y <span class="sc">~</span> X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Y ~ X)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.0255 -0.4320  0.1056  0.4493  1.0617 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)  0.54916    0.26472   2.075   0.0679 .
+X1           0.30013    0.21690   1.384   0.1998  
+X2           0.68053    0.27693   2.457   0.0363 *
+X3          -0.10675    0.26010  -0.410   0.6911  
+X4          -0.21367    0.33690  -0.634   0.5417  
+X5          -0.19123    0.31881  -0.600   0.5634  
+X6           0.81074    0.25221   3.214   0.0106 *
+X7           0.09634    0.24143   0.399   0.6992  
+X8          -0.29864    0.19004  -1.571   0.1505  
+X9          -0.78175    0.35408  -2.208   0.0546 .
+X10          0.83736    0.36936   2.267   0.0496 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.8692 on 9 degrees of freedom
+Multiple R-squared:  0.6592,    Adjusted R-squared:  0.2805 
+F-statistic: 1.741 on 10 and 9 DF,  p-value: 0.2089</code></pre>
+</div>
+</div>
+<p>Opps! What happened? Some explanatory variables from X seem to be significantly associated with Y. How come, we drew them from the Gaussian distribution? The reason for that is that we have a limited number of obstevations n.&nbsp;So any two variables with just a few observations can be correlated by chance alone. Roughly speaking, if you have 10 samples and 5 variables one could expect that the corraltions between the variables you might observe is not true since any two variables are significantly correlated by chance alone because we do not have enough variation in our data to detect the differences. This violates very basic Maximum Likelihood (ML) principle assumtions which lies behind the Ordinary Least Square Linear Regression Model which we have been fitting. Let us go further and hot the case n=p:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123456</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n <span class="sc">*</span> p), n, p)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Y <span class="sc">~</span> X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Y ~ X)
+
+Residuals:
+ALL 20 residuals are 0: no residual degrees of freedom!
+
+Coefficients: (1 not defined because of singularities)
+            Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)  1.34889        NaN     NaN      NaN
+X1           0.66218        NaN     NaN      NaN
+X2           0.76212        NaN     NaN      NaN
+X3          -1.35033        NaN     NaN      NaN
+X4          -0.57487        NaN     NaN      NaN
+X5           0.02142        NaN     NaN      NaN
+X6           0.40290        NaN     NaN      NaN
+X7           0.03313        NaN     NaN      NaN
+X8          -0.31983        NaN     NaN      NaN
+X9          -0.92833        NaN     NaN      NaN
+X10          0.18091        NaN     NaN      NaN
+X11         -1.37618        NaN     NaN      NaN
+X12          2.11438        NaN     NaN      NaN
+X13         -1.75103        NaN     NaN      NaN
+X14         -1.55073        NaN     NaN      NaN
+X15          0.01112        NaN     NaN      NaN
+X16         -0.50943        NaN     NaN      NaN
+X17         -0.47576        NaN     NaN      NaN
+X18          0.31793        NaN     NaN      NaN
+X19          1.43615        NaN     NaN      NaN
+X20               NA         NA      NA       NA
+
+Residual standard error: NaN on 0 degrees of freedom
+Multiple R-squared:      1, Adjusted R-squared:    NaN 
+F-statistic:   NaN on 19 and 0 DF,  p-value: NA</code></pre>
+</div>
+</div>
+<p>What happened, we see lots of “NA”? The Linear Regression Model could not converge. If we further increase p, when p&gt;n or p&gt;&gt;n, the convergence will not become any better. We hit the limitation of the Maximum Likelihood (ML) principle which demands many things like large sample size, Normal distribution of the data, uncorrelated errors, homoscedasticity etc. Let us now take a closer look at why exactly the ML math blows up when n&lt;=p.&nbsp;Consider a linear model:</p>
+<p><span class="math display">\[Y = \beta X\]</span></p>
+<p>Let us make a few mathematical tricks in order to get a solution for the coefficients of the linear model:</p>
+<p><span class="math display">\[X^TY = \beta X^TX\]</span> <span class="math display">\[(X^TX)^{-1}X^TY = \beta(X^TX)^{-1} X^TX\]</span> <span class="math display">\[(X^TX)^{-1}X^TY = \beta\]</span></p>
+<p>This is the solution for linear model. We can see that it is proportional to an inverse matrix. From Linear Algebra, inverse matrix is inversely proportional to a determinant of that matrix. again, from Linear Algebra, determinant of a matrix is equal to zero (approaches zero) when columns or rows of the matrix are collinear, i.e.&nbsp;can be expressed as linear combinations of each other, i.e.&nbsp;correlated. This implies, if we have a limited number of observations n and large p such that p&gt;=n, when, as we saw, some (at least two) can become correlated just by chance alone (if X1 and X2 are correlated to Y separately, they must be correlated wih each other), the determinant of X is approaching zero, so one over determinant leads to singularity, i.e.&nbsp;it diverges. Therefore the solution of the linear model does not hold any more. This is what is meant by “the math blows up”.</p>
+<p>Now comes the question: how can we overcome the curse of dimensionality? Well, the easiest answer would be: increase n or/and decrease p.&nbsp;Increasing the sample size is usually very expensive and often not feasible. If increasing n is not an option, Dimensionality Reduction, i.e.&nbsp;a way of conceptualizing p variables in m (where p&gt;&gt;m) latent variables, can be very useful. Thus two main motivation points for doing Dimensionality Reduction can be following:</p>
+<ul>
+<li>Dimensionality Reduction gives a handy way to visualize and cluster samples in 2D or 3D using all explanatory variables together</li>
+<li>Dimensionality Reduction is a good way to overcome the curse of dimensionality</li>
+</ul>
+</section>
+<section id="principal-component-analysis-pca" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="principal-component-analysis-pca"><span class="header-section-number">6</span> Principal Component Analysis (PCA)</h2>
+<p>Principal Component Aalysis (PCA) is the simplest and most popular way to perform Dimensionality Reduction. There are numerous ways to think about PCA, i.e.&nbsp;the it has an “infinite depth of understanding” with multiple layers. Despite its popularity and inclination to view it as a “simple technique that everyone can do by just one line of code”, the method has many hidden pitfalls and can generate misleading results if applied without precautions. Below we will describe possible ways to understand PCA in a bullet point fasion:</p>
+<ul>
+<li><p>The basic idea of PCA is to collapse p features (p&gt;&gt;n) down to just a few latent variables called principal components (transformation to a space with at most min(n-1,p) directions) and keep as much variation within the data in the low-dimensional space as it was in the p-dimensional space.</p></li>
+<li><p>Geometrically PCA can be seen as a linear transformation ivolving rotattion and shift of the coordinate system in order to find directions of most variation within the data. Hence, PCA makes sense to do only if you suspect linear correlation between variables in your data. For example, if two variables X1 and X2 are fairly correlated, one of them is redundant for the analysis and can be dropped off. So if we put the origin of the coordinate system somewhere in the middle of the clous of points, like mean(X1) and mean(X2), and rotate the coordinate system so that the X1 axis coincides with the main direction of covariation between X1 and X2, we can conclude that the variation along X2 is negligible and can be ignored and we will keep only the variation with respect to X1. Thus we have done Dimensionality Reduction, i.e.&nbsp;replace (X1, X2) by just X1 without loosing to much variation in the data.</p></li>
+<li><p>Often we hear that PCA problem can be solved through Eigen Matrix Decomposition (the other and a faster way is Singular Matrix Decomposition (SVD)). Let us show how finding axes of maximal variation can mathematically lead to the Eigen Matrix Decomposition problem. Let us define a projection (called Principal Component) of a matrix X onto a basic (eigen) unit vector u as</p></li>
+</ul>
+<p><span class="math display">\[PC = u^T X = X^Tu\]</span></p>
+<p>If X is a mean centered matrix, then the mean of PC is equal to zero</p>
+<p><span class="math display">\[&lt;PC&gt; = 0\]</span></p>
+<p>and the variance of PC is:</p>
+<p><span class="math display">\[&lt;(PC-&lt;PC&gt;)^2&gt; = &lt;PC^2&gt; = u^T X X^Tu\]</span></p>
+<p>Here the matrix in the middle is called variance-covariance matrix:</p>
+<p><span class="math display">\[X X^T=A\]</span> <span class="math display">\[&lt;PC^2&gt; = u^T Au\]</span></p>
+<p>Let us now find such direction, i.e.&nbsp;eigen vector u, that capture most of the variation in X, i.e.&nbsp;let us maximize the variance of PC taking into account (with Lagrange multiplier) that vector u is a unit vector:</p>
+<p><span class="math display">\[\rm{max}(u^T Au + \lambda(1-u^Tu))=0\]</span></p>
+<p>Differentiating the function with respect to u one can arraive to the eigen vector-eigen value problem:</p>
+<p><span class="math display">\[Au = \lambda u\]</span></p>
+<p>where A is the variance-covariance matrix of the initial data X.</p>
+<p>Let us demonstrate how PCA works using the MNIST data set [2]. The MNIST database (Modified National Institute of Standards and Technology database) is a large database of handwritten digits that is commonly used for training various image processing systems.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Download data
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Download the data <a href="https://raw.githubusercontent.com/NBISweden/raukr-2023/main/labs/statistics/assets/2017-10-13-mnist_train.csv">here</a>.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>mnist <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"assets/2017-10-13-mnist_train.csv"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> mnist<span class="sc">$</span>label</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>mnist<span class="sc">$</span>label <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>mnist[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(mnist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">pixel0</th>
+<th style="text-align: right;">pixel1</th>
+<th style="text-align: right;">pixel2</th>
+<th style="text-align: right;">pixel3</th>
+<th style="text-align: right;">pixel4</th>
+<th style="text-align: right;">pixel5</th>
+<th style="text-align: right;">pixel6</th>
+<th style="text-align: right;">pixel7</th>
+<th style="text-align: right;">pixel8</th>
+<th style="text-align: right;">pixel9</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10000   784</code></pre>
+</div>
+</div>
+<p>We will use the most native R function for PCA which is “prcomp”. Here we perform PCA, look at the percentage of variation explained by the top principal components and finally plot MNIST digits.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>PC <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="fu">log10</span>(mnist <span class="sc">+</span> <span class="dv">1</span>), <span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>vars <span class="ot">&lt;-</span> PC<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>vars <span class="ot">&lt;-</span> vars <span class="sc">/</span> <span class="fu">sum</span>(vars)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(vars[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>], <span class="at">names.arg =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">xlab =</span> <span class="st">"PCs"</span>, <span class="at">ylab =</span> <span class="st">"PERCENT OF VARIANCE EXPLAINED"</span>, <span class="at">main =</span> <span class="st">"PERCENT OF VARIANCE EXPLAINED BY PCs"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="index_files/figure-html/PCA DimRed-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="index_files/figure-html/PCA DimRed-1.png" class="img-fluid figure-img" width="960"></a></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">rainbow</span>(<span class="fu">length</span>(<span class="fu">unique</span>(labels)))</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(colors) <span class="ot">&lt;-</span> <span class="fu">unique</span>(labels)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(PC<span class="sc">$</span>x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="at">t =</span> <span class="st">"n"</span>, <span class="at">main =</span> <span class="st">"PCA PLOT WITH PRCOMP"</span>, <span class="at">xlab =</span> <span class="st">"PC1"</span>, <span class="at">ylab =</span> <span class="st">"PC2"</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(PC<span class="sc">$</span>x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="at">labels =</span> labels, <span class="at">col =</span> colors[<span class="fu">as.character</span>(labels)], <span class="at">cex =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="index_files/figure-html/PCA DimRed-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="index_files/figure-html/PCA DimRed-2.png" class="img-fluid figure-img" width="960"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Obviously replicas of the same digit tend to cluster together, i.e.&nbsp;zeros cluster together with zeros etc.. However they are still quite mixed and do not form distinct cluster. This might be a result of non-linear relation between variables which can not be captured in 2D by linear transformation.</p>
+</section>
+<section id="multi-dimensional-scaling-mds" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="multi-dimensional-scaling-mds"><span class="header-section-number">7</span> Multi-Dimensional Scaling (MDS)</h2>
+<p>Next, we will consider another popular linear Dimensionality Reduction technique called Multi-Dimensional Scaling, sometimes it is also called Principal Coordinate Analysis (PCoA). The principal of Eigen Matrix Decomposition holds here as well, the ony difference is that we decompose not the variance-covariance matrix of initial data X, but build a matrix of pairwise Eucledian distances between all the variables in X.</p>
+<p>For Multi-Dimensional Scaling plot we will use “cmdscale” R function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this chunk is precomputed because it is compute heavy</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">dist</span>(<span class="fu">log10</span>(mnist <span class="sc">+</span> <span class="dv">1</span>))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>mds <span class="ot">&lt;-</span> <span class="fu">cmdscale</span>(d, <span class="at">k =</span> <span class="dv">2</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(mds,<span class="st">"assets/mds.Rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>mds <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"assets/mds.Rds"</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mds[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="at">t =</span> <span class="st">"n"</span>, <span class="at">main =</span> <span class="st">"MDS PLOT WITH CMDSCALE"</span>, <span class="at">xlab =</span> <span class="st">"DIM1"</span>, <span class="at">ylab =</span> <span class="st">"DIM2"</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(mds[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="at">labels =</span> labels, <span class="at">col =</span> colors[<span class="fu">as.character</span>(labels)], <span class="at">cex =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="index_files/figure-html/MDS-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="index_files/figure-html/MDS-1.png" class="img-fluid figure-img" width="960"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>One can see that MDS gives quite a similar to PCA 2D representation, and this is not at all surprising if one thinks about what kind of relation Euclidean distance and variance-covariance matrix have. Let us expand the Euclidean distance between two points, i.e.&nbsp;variables (columns) of data X:</p>
+<p><span class="math display">\[(x_i-x_j)^2 = x_i^2 + x_j^2 - 2x_ix_j\]</span></p>
+<p>The last term in the expansion is nothing else as the variance-covariance matrix. So Euclidean distance and variance-covariance matrix are linearly related, therefore it is not suprising that they give us similar results.</p>
+<p>Often PCA is performed on a correlation matrix (i.e.&nbsp;matrix of pairwise correlations between the variables in X) instead of variance-covariance matrix. Again this is all about the same thing since according to Pearson’s definition of correlation coefficient:</p>
+<p><span class="math display">\[\rho_{xy} = \frac{cov(x,y)}{\sigma_x\sigma_y}\]</span></p>
+<p>So Euclidean distance, variance-covariance and correlation coefficient are linearly related and should bring similar matrix decomposition results, i.e .eigen vectors and eigen values.</p>
+</section>
+<section id="t-distributed-stochastic-neighbor-embedding-tsne" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="t-distributed-stochastic-neighbor-embedding-tsne"><span class="header-section-number">8</span> t-distributed Stochastic Neighbor Embedding (tSNE)</h2>
+<p>PCA or MDS make sense to do when we suspect linear relations between the variables in X. Sometimes however correlation between two variables can be zero, does it mean that the two variables are not related? No, it does not, the relationship can be non-linear, e.g.&nbsp;quadratic, logarithmic, sinesoidal etc. To figure out non-linear relationship between observations there are non-linear Dimensionality Rediction techniques such as tSNE, Isomaps, LLE, Self-Organizing Maps etc. Among them tSNE is especially popular in many Data Science areas due to its intersting visualization properties.</p>
+<p>In a nutshell tSNE projects high-dimensional data into low-dimensional space in such a way so that points close/far in a high-dimensional space are also close/far in the low-dimensional space. tSNE has its special way to measure similarity in the high- and low-dimensional spaces, namely the Gaussian law</p>
+<p><span class="math display">\[p_{ij} \sim \exp{(-||x_i-x_j||^2/2\sigma^2)}\]</span></p>
+<p>is used for highly-dimensional space, and the heavy-tailed Student t-distribution is used for measuring similarities in the low-dimensional space:</p>
+<p><span class="math display">\[q_{ij} \sim (1+||y_i-y_j||^2)^{-1}\]</span></p>
+<p>In order to make distributions of points in high- and low-dimensional spaces as similar as possible, they are mixed together with the Kullback-Leibler divergence which is known as the entropy of mixing in the Information Theory:</p>
+<p><span class="math display">\[KL = \sum_{i \neq j}p_{ij}\log\frac{p_{ij}}{q_{ij}}\]</span></p>
+<p>Kullback-Leibler entropy is minimized with gradient descent method in an iterative way. The entropy has an asymmetric shape, i.e.&nbsp;it has a lower cost for points that are far apart in the high-dimensional space (p=0) but close in the low-dimensional space (q=1) compared to the opposite situation when points are close in the high-dimenional space (p=1) and far in the low-dimensional space (q=0). This leads to a more “condensed” representation of the data in the low-dimensional space.</p>
+<p>The denominator of exponential power in the p matrix is called perplexity. It is responsible for finding a balance between low- and high-dimenional representations, i.e.&nbsp;how close or far the points should be placed with respect to each other. Simply put, perplexity reflects the number of neighbors each point has in the hogh-dimensional space.</p>
+<p>Let us use the MNIST data set and check how tSNE plot looks like:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this chunk is precomputed because it is compute heavy</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Rtsne)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12</span>)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>tsne_out <span class="ot">&lt;-</span> <span class="fu">Rtsne</span>(<span class="fu">log10</span>(mnist <span class="sc">+</span> <span class="dv">1</span>), <span class="at">initial_dims =</span> <span class="dv">20</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>, <span class="at">perplexity =</span> <span class="dv">30</span>, <span class="at">max_iter =</span> <span class="dv">1000</span>)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(tsne_out, <span class="st">"assets/tsne_out.Rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>tsne_out <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"assets/tsne_out.Rds"</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tsne_out<span class="sc">$</span>Y, <span class="at">t =</span> <span class="st">"n"</span>, <span class="at">main =</span> <span class="st">"tSNE MNIST"</span>, <span class="at">xlab =</span> <span class="st">"tSNE1"</span>, <span class="at">ylab =</span> <span class="st">"tSNE2"</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(tsne_out<span class="sc">$</span>Y, <span class="at">labels =</span> labels, <span class="at">col =</span> colors[<span class="fu">as.character</span>(labels)], <span class="at">cex =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="index_files/figure-html/tSNE-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="index_files/figure-html/tSNE-1.png" class="img-fluid figure-img" width="960"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>It is obvious that the clouds of different digits look more distinct now compared to the linear Dimensionality Reduction representations. Thus tSNE is handy when it concerns non-linear relations between data points which can not be captured by PCA or MDS. One caution is important to remember: due to its highly non-linear nature, the visual distances at the tSNE plot do not necessarily reflect the true distances in the high-dimensional space. In other words, it is hard to say with certanty how far or how close two clusters on the tSNE plot are since tSNE distances do not have a trivial meaning. Another consequence of the non-linear transformation is that the features that drive the clustering on the tSNE plot are not easy to extract since we are not doing any linear matrix decomposition as with e.g.&nbsp;PCA.</p>
+</section>
+<section id="why-to-select-good-features" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="why-to-select-good-features"><span class="header-section-number">9</span> Why to Select Good Features?</h2>
+<p>Imagine that we are interested in monitoring a variable Y (we will call it a Response), which can be e.g.&nbsp;a phenotype of interest (in biology), sell profit (in econometrics and business), reaction of a person on some action (in phycology) etc. We have collected 10 independent (or dependent) observations/samples Y1, Y2,…, Y10 of the Response and we observe some variation in the Response from sample to sample.</p>
+<p>Now, we want to understand what this variation is due to. We need to know this in order to understand mechanisms (biological, economical etc.) behid this variation. Assume that besides the Response Y, we collected data about possible drivers/causes of Y such as gene expression (in biology), customer’s social status and income (in econometrics) etc. Suppose we collected 100 possible drivers/predictors/causes for each of Y1, Y2,…, Y10, we can represent those predictors as a matrix X with 100 columns (one for each predictor) and 10 rows (one for each observation Y1, Y2,…, Y10). We know that the variation in Y is probably due to some variables (columns/predictors) in X matrix, but do all of them equally explain the variation? Probably not, <strong>it is reasonable to assume that only a fraction of the variables in X are causal for the variation in Y</strong>, but which of them are causal? To answer this question we have to test the variables in X against Y, but how should we do it: test them all or one-by-one?</p>
+<p>Here we have a typical biological case scanario when number of drivers/causes/predictors (we will call them features in the future), p=100, is much greater than the number of samples/observations, n=10, <strong>p&gt;&gt;n</strong>. This case is called “the underdetermined system” in mathematics, it does not have a unique solution but infinitely many solutions. Therefore <strong>if we want to select features explaining the variation in the Response Y, we can not directly test all the features together without regularizations</strong>. Therefore it makes sense to stick (at least in the beginning) to testing the features one-by-one.</p>
+<p>Here, we are going to go through methods for a) Univariate (one-by-one) Feature Selection, and b) Multivariate (all together) Feature Selection. For practicing the concept of Feature Selection, we will use the skeletal muscle gene expression subset (randomly sampled 1000 genes) from GTEX Human Tussue Gene Expression Consortium [3]. Here we load the gene expression matrix X, remove lowly expressed genes and pre-view it:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"gtex/GTEX_SkeletalMuscles_157Samples_1000Genes.txt"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">row.names =</span> <span class="dv">1</span>, <span class="at">check.names =</span> <span class="cn">FALSE</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> X[, <span class="fu">colMeans</span>(X) <span class="sc">&gt;=</span> <span class="dv">1</span>]</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>X[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 30%">
+<col style="width: 23%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">ENSG00000243824.1_RP11-434O22.1</th>
+<th style="text-align: right;">ENSG00000140527.10_WDR93</th>
+<th style="text-align: right;">ENSG00000205352.6_PRR13</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">GTEX-N7MS-0426-SM-2YUN6</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">543</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GTEX-NFK9-0626-SM-2HMIV</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1482</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GTEX-NPJ8-1626-SM-2HMIY</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1958</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GTEX-O5YT-1626-SM-32PK6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1174</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GTEX-OHPM-1626-SM-2HMK4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1092</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 157 546</code></pre>
+</div>
+</div>
+<p>We can see that the gene expression data set includes p = 546 expressed genes (features) and n = 157 samples, i.e.&nbsp;p &gt;&gt; n.&nbsp;The phenotype of interest we are going to address is Gender, i.e.&nbsp;we will figure out which of the 546 genes expressed in human skeletal muscles drive the phenotypic difference between Males and Females. Thus our response Y vector is the following:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"gtex/GTEX_SkeletalMuscles_157Samples_Gender.txt"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)<span class="sc">$</span>GENDER</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Y)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(Y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Length     Class      Mode 
+      157 character character 
+[1] 157</code></pre>
+</div>
+</div>
+<p>The data set used here includes 99 Males and 58 Females, it is not perfectly balanced but still not too bad. To visualize the samples, let us display a PCA plot of the 157 samples.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mixOmics)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>pca.gtex <span class="ot">&lt;-</span> <span class="fu">pca</span>(X, <span class="at">ncomp =</span> <span class="dv">10</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>pca.gtex</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca.gtex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="index_files/figure-html/PCA-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="index_files/figure-html/PCA-1.png" class="img-fluid figure-img" width="768"></a></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIndiv</span>(pca.gtex, <span class="at">group =</span> Y, <span class="at">ind.names =</span> <span class="cn">FALSE</span>, <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">title =</span> <span class="st">"PCA on GTEX Skeletal Muscles"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="index_files/figure-html/PCA-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="index_files/figure-html/PCA-2.png" class="img-fluid figure-img" width="768"></a></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Eigenvalues for the first 10 principal components, see object$sdev^2: 
+        PC1         PC2         PC3         PC4         PC5         PC6 
+11979554198  1922793376   470907790   173035873    83960716    38937526 
+        PC7         PC8         PC9        PC10 
+   29568540    24951919    19376723    17467325 
+  
+  Proportion of  explained variance for the first 10 principal components, see object$prop_expl_var: 
+        PC1              PC2              PC3              PC4      
+0.804731856      0.129164496      0.031633439      0.011623761      
+        PC5              PC6              PC7              PC8      
+0.005640098      0.002615646      0.001986280      0.001676156      
+        PC9             PC10      
+0.001301640      0.001173375      
+  
+  Cumulative proportion of  explained variance for the first 10 principal components, see object$cum.var: 
+      PC1            PC2            PC3            PC4            PC5      
+0.8047319      0.9338964      0.9655298      0.9771536      0.9827937      
+      PC6            PC7            PC8            PC9           PC10      
+0.9854093      0.9873956      0.9890717      0.9903734      0.9915467      
+  
+  Other available components: 
+ -------------------- 
+  loading vectors: see object$rotation 
+  Other functions: 
+ -------------------- 
+  plotIndiv, plot, plotVar, selectVar, biplot</code></pre>
+</div>
+</div>
+<p>The PCA plot demonstrates that there is a lot of variation between samples with respect to both PC1 and PC2, but there is no clear seggregation of Males and Females based on their skeletal muscle gene expression data. Now we are going to start with a simple gene-by-gene univariate feature selection and extend it to a multivariate features selection with different methods.</p>
+</section>
+<section id="univariate-feature-selection" class="level2" data-number="10">
+<h2 data-number="10" class="anchored" data-anchor-id="univariate-feature-selection"><span class="header-section-number">10</span> Univariate Feature Selection</h2>
+<p>One way to understand what genes stand behind the variation between (Males and Females) samples would be to test correlation of each individual feature (gene) against the phenotype of interest (Gender), in our case this is equivalent to a simple Differential Gene Expression (DGE) analysis. Here we will use a simple non-parametric Spearman correlation for inferring relation between X and Y, one can alternatively use other measures of relatedness like Mann-Whittney test (wilcox.test function in base R), Linear Regression (lm function in base R), Distance Correlations (dcor function in “energy” R package), Maximal Information Coefficient (MIC) (mine function in “minerva” R package) etc.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this chunk doesn't work</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>rho <span class="ot">&lt;-</span> <span class="fu">vector</span>()</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">vector</span>()</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="fu">dim</span>(X)[<span class="dv">2</span>], <span class="at">by =</span> <span class="dv">100</span>)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">dim</span>(X)[<span class="dv">2</span>]){</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  corr_output <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(X[, i], <span class="fu">as.numeric</span>(Y), <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  rho <span class="ot">&lt;-</span> <span class="fu">append</span>(rho, <span class="fu">as.numeric</span>(corr_output<span class="sc">$</span>estimate))</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">append</span>(p, <span class="fu">as.numeric</span>(corr_output<span class="sc">$</span>p.value))</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">isTRUE</span>(i <span class="sc">%in%</span> a) <span class="sc">==</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"FINISHED "</span>, i, <span class="st">" FEATURES"</span>, <span class="at">sep =</span> <span class="st">""</span>))</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">GENE =</span> <span class="fu">colnames</span>(X), <span class="at">SPEARMAN_RHO =</span> rho, <span class="at">PVALUE =</span> p)</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>FDR <span class="ot">&lt;-</span> <span class="fu">p.adjust</span>(output<span class="sc">$</span>PVALUE, <span class="at">method =</span> <span class="st">"BH"</span>)</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> output[<span class="fu">order</span>(output<span class="sc">$</span>FDR, output<span class="sc">$</span>PVALUE, <span class="sc">-</span>output<span class="sc">$</span>SPEARMAN_RHO), ]</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(output, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We have ranked all genes by their contribution to the variation in skeletal muscles gene expression between Males and Females. The ranking is based on Spearman correlation p-value which was adjusted (FDR column) to acount for the effect of multiple independent statistical tests.</p>
+<p>Now there is a temptation to take the top differentially expressed genes with e.g.&nbsp;FDR &lt; 0.05 and build a prediction score that can be used for descriminating Males and Females based on skeletal muscle gene expression in any other cohort. Why do we need that kind of prediction score? Suppose the phenotype of interest is a disease status (Sick-Healthy), then this prediction is of a major need and importance for clinical diagnostics in e.g.&nbsp;cancer and diabetes.</p>
+<p>However, in practice this type of prediction based on Univariate Feature Selection works very poorly. The reason is that the Univariate Feature Selection has at least two severe problems which we have not addressed yet.</p>
+<ul>
+<li>Univariate Feature Selection does not fully overcome the p &gt;&gt; n obstacle (FDR correction is not enough), i.e.&nbsp;it is prone to overfitting and has a poor generalization.</li>
+<li>Univariate Feature Selection does not account for multi-collinearity between features, i.e.&nbsp;when different features are strongly related/correlated with each other.</li>
+</ul>
+<p>The shortcomings mentioned above can be addressed with Sparse Linear Models, i.e.&nbsp;models with regularization penalties like LASSO, Ridge and Elastic Net which are basic techniques for Multivariate Feature Selection.</p>
+</section>
+<section id="multivariate-feature-selection-lasso-ridge-elastic-net" class="level2" data-number="11">
+<h2 data-number="11" class="anchored" data-anchor-id="multivariate-feature-selection-lasso-ridge-elastic-net"><span class="header-section-number">11</span> Multivariate Feature Selection: LASSO, Ridge, Elastic Net</h2>
+<p>The simplest way to account for all explanatory variables (genes) in X simultaneously would be to put them all into the the multiple/multivariate linear regression model and perform Ordinary Least Squares minimization:</p>
+<p><span class="math display">\[Y = \beta_1X_1+\beta_2X_2+\epsilon\]</span> <span class="math display">\[\textrm{OLS} = (y-\beta_1X_1-\beta_2X_2)^2\]</span></p>
+<p>Here for simplicity we used only two predictors X1 and X2, but there can be thousands and millions of them. It implies that in order to minimize the OLS cost function we have to do it in highly-dimensional spaces which is inherently difficult because of the “curse of dimensionality”. This leads to a very unstable sulution of multiple linear reression. To vercome this obstacle we can add a penalty term to the OLS cost function:</p>
+<p><span class="math display">\[\textrm{Penalized OLS} = (y-\beta_1X_1-\beta_2X_2)^2 + \lambda[\alpha(|\beta_1|+|\beta_2|)+(1-\alpha)(\beta_1^2+\beta_2^2)]\]</span></p>
+<p>Here, <span class="math inline">\(\lambda\)</span> is called Lagrange multiplier and is a measure of how much penalty we would like to put on our Linear Regression Model, its optimal value is usually found through K-fold cross-validation. The parameter <span class="math inline">\(\alpha\)</span> is usually fixed (but in principle can also be found through cross-validation) and the regularization is called 1) LASSO if <span class="math inline">\(\alpha=1\)</span>, 2) Ridge if <span class="math inline">\(\alpha=0\)</span>, and 3) Elastic Net if <span class="math inline">\(\alpha=0.5\)</span>. These penalty methods have a few differences which are good to remember when you select a method for your analysis. LASSO is the most strict penalty and works best at the data with lots of noise. A problem of LASSO is that it can not fully handle multi-collinearity among predictors. If two variables are strongly correlated, LASSO will select only one of them (by chance) and set the coefficient in front of the other one to zero. Sometimes this type of selection can be problematic if it happens that the feature that was ignored/omitted has more physical/biological interpretation/meaning than the one which was selected by LASSO. This situation can be avoided with Ridge penalty, in addition Ridge is much more stable for numerical minimization as it provides a fully convex manifold in a multi-dimensional space. However, in ultra-higly-dimensional spaces Ridge can be too allowing and provide too many “noisy” features which might not be very interesting. Elastic Net penalty provides a compromise between LASSO and Ridge and is generally prefered and recommended by Machine Learning practicioners.</p>
+<p>In the example below we will run LASSO penalty on Y vs.&nbsp;X Linear Model and find an optimal value of <span class="math inline">\(\lambda\)</span> via 10-fold cross-validation:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>lasso_fit <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(<span class="fu">as.matrix</span>(X), Y, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">alpha =</span> <span class="dv">1</span>)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lasso_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="index_files/figure-html/LASSO-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="index_files/figure-html/LASSO-1.png" class="img-fluid figure-img" width="960"></a></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>lasso_fit<span class="sc">$</span>lambda.min</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(lasso_fit<span class="sc">$</span>lambda.min)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02741586
+[1] -3.596634</code></pre>
+</div>
+</div>
+<p>Once we know the optimal <span class="math inline">\(\lambda\)</span>, we can display the names of the most informative features selected by LASSO for that optimal <span class="math inline">\(\lambda\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>coef <span class="ot">&lt;-</span> <span class="fu">predict</span>(lasso_fit, <span class="at">s =</span> <span class="st">"lambda.min"</span>, <span class="at">type =</span> <span class="st">"nonzero"</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(X)[<span class="fu">unlist</span>(coef)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "ENSG00000183808.7_RBM12B"         "ENSG00000129007.10_CALML4"       
+ [3] "ENSG00000244306.5_CTD-2314B22.3"  "ENSG00000135541.16_AHI1"         
+ [5] "ENSG00000151023.12_ENKUR"         "ENSG00000257647.1_RP11-701H24.3" 
+ [7] "ENSG00000184949.10_FAM227A"       "ENSG00000261529.1_RP13-487P22.1" 
+ [9] "ENSG00000180817.6_PPA1"           "ENSG00000234336.2_JAZF1-AS1"     
+[11] "ENSG00000198954.4_KIAA1279"       "ENSG00000109943.4_CRTAM"         
+[13] "ENSG00000144677.10_CTDSPL"        "ENSG00000198729.4_PPP1R14C"      
+[15] "ENSG00000187239.12_FNBP1"         "ENSG00000203836.7_NBPF24"        
+[17] "ENSG00000250240.1_CTD-2154I11.2"  "ENSG00000233012.2_HDAC1P2"       
+[19] "ENSG00000016602.8_CLCA4"          "ENSG00000136279.14_DBNL"         
+[21] "ENSG00000162512.11_SDC3"          "ENSG00000124749.12_COL21A1"      
+[23] "ENSG00000254510.1_RP11-867G23.10" "ENSG00000155761.9_SPAG17"        
+[25] "ENSG00000130300.4_PLVAP"          "ENSG00000184368.11_MAP7D2"       
+[27] "ENSG00000267834.1_RP11-167N5.5"   "ENSG00000168566.11_SNRNP48"      
+[29] "ENSG00000128487.12_SPECC1"        "ENSG00000230267.2_HERC2P4"       
+[31] "ENSG00000110013.8_SIAE"           "ENSG00000113312.6_TTC1"          
+[33] "ENSG00000227407.1_AC008746.3"     "ENSG00000271964.1_RP11-415F23.2" 
+[35] "ENSG00000261064.1_RP11-1000B6.3"  "ENSG00000207697.1_MIR573"        
+[37] "ENSG00000182742.5_HOXB4"          "ENSG00000184304.10_PRKD1"        
+[39] "ENSG00000135127.7_CCDC64"         "ENSG00000140391.10_TSPAN3"       
+[41] "ENSG00000161847.9_RAVER1"         "ENSG00000172766.14_NAA16"        
+[43] "ENSG00000137168.7_PPIL1"          "ENSG00000152766.5_ANKRD22"       </code></pre>
+</div>
+</div>
+<p>We can see that LASSO selected 44 most informative features and set the coefficients in front of the other features to zero. Finally, let us use LASSO scoring system for ranking of selected features by their importance:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">GENE =</span> <span class="fu">names</span>(<span class="fu">as.matrix</span>(<span class="fu">coef</span>(lasso_fit, <span class="at">s =</span> <span class="st">"lambda.min"</span>))[<span class="fu">as.matrix</span>(<span class="fu">coef</span>(lasso_fit, <span class="at">s =</span> <span class="st">"lambda.min"</span>))[, <span class="dv">1</span>] <span class="sc">!=</span> <span class="dv">0</span>, <span class="dv">1</span>])[<span class="sc">-</span><span class="dv">1</span>], <span class="at">SCORE =</span> <span class="fu">as.numeric</span>(<span class="fu">as.matrix</span>(<span class="fu">coef</span>(lasso_fit, <span class="at">s =</span> <span class="st">"lambda.min"</span>))[<span class="fu">as.matrix</span>(<span class="fu">coef</span>(lasso_fit, <span class="at">s =</span> <span class="st">"lambda.min"</span>))[, <span class="dv">1</span>] <span class="sc">!=</span> <span class="dv">0</span>, <span class="dv">1</span>])[<span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> result[<span class="fu">order</span>(<span class="sc">-</span><span class="fu">abs</span>(result<span class="sc">$</span>SCORE)), ]</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(result, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">GENE</th>
+<th style="text-align: right;">SCORE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">23</td>
+<td style="text-align: left;">ENSG00000254510.1_RP11-867G23.10</td>
+<td style="text-align: right;">-0.0661912</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">33</td>
+<td style="text-align: left;">ENSG00000227407.1_AC008746.3</td>
+<td style="text-align: right;">-0.0440225</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">ENSG00000151023.12_ENKUR</td>
+<td style="text-align: right;">0.0372565</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">18</td>
+<td style="text-align: left;">ENSG00000233012.2_HDAC1P2</td>
+<td style="text-align: right;">-0.0355491</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">26</td>
+<td style="text-align: left;">ENSG00000184368.11_MAP7D2</td>
+<td style="text-align: right;">-0.0351925</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">44</td>
+<td style="text-align: left;">ENSG00000152766.5_ANKRD22</td>
+<td style="text-align: right;">-0.0284155</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">27</td>
+<td style="text-align: left;">ENSG00000267834.1_RP11-167N5.5</td>
+<td style="text-align: right;">-0.0279728</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">36</td>
+<td style="text-align: left;">ENSG00000207697.1_MIR573</td>
+<td style="text-align: right;">-0.0263197</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">ENSG00000129007.10_CALML4</td>
+<td style="text-align: right;">0.0226816</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">ENSG00000183808.7_RBM12B</td>
+<td style="text-align: right;">-0.0214588</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>We conclude that the features selected by Multivariate Feature Selection approach do not look quite similar to the ones selected by Univariate Feature Selection in the previous section, this is generally the case in practice and it is good to remember that the features selected in Multivariate fashion have proven to have much higher modelling/predictive capacity.</p>
+</section>
+<section id="multivariate-feature-selection-pls" class="level2" data-number="12">
+<h2 data-number="12" class="anchored" data-anchor-id="multivariate-feature-selection-pls"><span class="header-section-number">12</span> Multivariate Feature Selection: PLS</h2>
+<p>Another elegant Multivariate Feature Selection method is Partial Least Squares (PLS) regression which is also called (by its author) Projection on Latent Structures (PLS). The idea behind PLS is very simple, it perfoms feature selection as a group via maximizing the covariance between X and Y:</p>
+<p><span class="math display">\[\max_{\beta}\textrm{cov}(X,Y) \Longrightarrow \hat\beta\]</span></p>
+<p>This algorithm can roughly be viewed as a process of collective selection of features that provides the largest separation in a lower dimensional space like PCA plot. The maximized covariance matrix (build on selected most informative features) can then be factorized (expanded into orthogonal components) and visualized:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mixOmics)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>gtex.plsda <span class="ot">&lt;-</span> <span class="fu">plsda</span>(X, Y, <span class="at">ncomp =</span> <span class="dv">2</span>)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>background <span class="ot">&lt;-</span> <span class="fu">background.predict</span>(gtex.plsda, <span class="at">comp.predicted =</span> <span class="dv">2</span>, <span class="at">dist =</span> <span class="st">"max.dist"</span>)</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIndiv</span>(gtex.plsda, <span class="at">comp =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">group =</span> Y, <span class="at">ind.names =</span> <span class="cn">FALSE</span>, <span class="at">ellipse =</span> <span class="cn">TRUE</span>, <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">title =</span> <span class="st">"PLSDA on GTEX Skeletal Muscles"</span>, <span class="at">background =</span> background)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="index_files/figure-html/PLS-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="index_files/figure-html/PLS-1.png" class="img-fluid figure-img" width="768"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We observe a much more clear separation between Males and Females compared to the PCA plot above. This separation is achied by selecting most informative features which can be visualized and ranked by their contribution via PLS loadings:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotLoadings</span>(gtex.plsda, <span class="at">comp =</span> <span class="dv">1</span>, <span class="at">title =</span> <span class="st">"Loadings on comp 1"</span>, <span class="at">contrib =</span> <span class="st">"max"</span>, <span class="at">method =</span> <span class="st">"median"</span>, <span class="at">ndisplay =</span> <span class="dv">10</span>, <span class="at">size.name =</span> <span class="fl">0.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="index_files/figure-html/PLS Loadings-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="index_files/figure-html/PLS Loadings-1.png" class="img-fluid figure-img" width="768"></a></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotLoadings</span>(gtex.plsda, <span class="at">comp =</span> <span class="dv">2</span>, <span class="at">title =</span> <span class="st">"Loadings on comp 2"</span>, <span class="at">contrib =</span> <span class="st">"max"</span>, <span class="at">method =</span> <span class="st">"median"</span>, <span class="at">ndisplay =</span> <span class="dv">10</span>, <span class="at">size.name =</span> <span class="fl">0.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="index_files/figure-html/PLS Loadings-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="index_files/figure-html/PLS Loadings-2.png" class="img-fluid figure-img" width="768"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Again, we conclude that the Multivariate Feature Selection via PLS provided a set of features which looks quite different from the one-by-one feature selection.</p>
+</section>
+<section id="references" class="level2" data-number="13">
+<h2 data-number="13" class="anchored" data-anchor-id="references"><span class="header-section-number">13</span> References</h2>
+<p>[1] Gregory Belenky, Nancy J. Wesensten, David R. Thorne, Maria L. Thomas, Helen C. Sing, Daniel P. Redmond, Michael B. Russo and Thomas J. Balkin (2003) Patterns of performance degradation and restoration during sleep restriction and subsequent recovery: a sleep dose-response study. Journal of Sleep Research 12, 1–12.</p>
+<p>[2] LeCun, Y., Bottou, L., Bengio, Y., and Haffner, P. (1998). Gradient-based learning applied to document recognition. Proceedings of the IEEE, 86, 2278–2324.</p>
+<p>[3] The Genotype-Tissue Expression (GTEx) project. The GTEx Consortium. Nature Genetics. 29 May 2013. 45(6):580-5.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">2023 <a href="about.html">NBIS</a> | <a href="https://choosealicense.com/licenses/gpl-3.0/">GPL-3 License</a></div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">Published with <a href="https://quarto.org/">Quarto</a> v1.3.340</div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","descPosition":"bottom","selector":".lightbox","closeEffect":"zoom","loop":true});</script>
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
