@@ -39,14 +39,14 @@
     "href": "index.html",
     "title": "",
     "section": "",
-    "text": "In Life Sciences and Bioinformatics, R programming language is increasingly being used to transform and analyse data, perform statistical analysis and produce publication-ready visualisations. This workshop aims to take the participants beyond the basics of R to a deeper and comprehensive understanding of the R ecosystem.\nThis workshop is organised by the National Bioinformatics Infrastructure, Sweden (NBIS). NBIS is a platform of the Science for Life Laboratory (SciLifeLab). The event is organised in co-operation with Uppsala University, Lund University and Stockholm University, Sweden.\n   \n\n\nUpdated: 30-04-2023 at 12:54:34.."
+    "text": "In Life Sciences and Bioinformatics, R programming language is increasingly being used to transform and analyse data, perform statistical analysis and produce publication-ready visualisations. This workshop aims to take the participants beyond the basics of R to a deeper and comprehensive understanding of the R ecosystem.\nThis workshop is organised by the National Bioinformatics Infrastructure, Sweden (NBIS). NBIS is a platform of the Science for Life Laboratory (SciLifeLab). The event is organised in co-operation with Uppsala University, Lund University and Stockholm University, Sweden.\n   \n\n\nUpdated: 30-04-2023 at 13:35:14.."
   },
   {
     "objectID": "index.html#raukr-summer-school-2023",
     "href": "index.html#raukr-summer-school-2023",
     "title": "",
     "section": "",
-    "text": "In Life Sciences and Bioinformatics, R programming language is increasingly being used to transform and analyse data, perform statistical analysis and produce publication-ready visualisations. This workshop aims to take the participants beyond the basics of R to a deeper and comprehensive understanding of the R ecosystem.\nThis workshop is organised by the National Bioinformatics Infrastructure, Sweden (NBIS). NBIS is a platform of the Science for Life Laboratory (SciLifeLab). The event is organised in co-operation with Uppsala University, Lund University and Stockholm University, Sweden.\n   \n\n\nUpdated: 30-04-2023 at 12:54:34.."
+    "text": "In Life Sciences and Bioinformatics, R programming language is increasingly being used to transform and analyse data, perform statistical analysis and produce publication-ready visualisations. This workshop aims to take the participants beyond the basics of R to a deeper and comprehensive understanding of the R ecosystem.\nThis workshop is organised by the National Bioinformatics Infrastructure, Sweden (NBIS). NBIS is a platform of the Science for Life Laboratory (SciLifeLab). The event is organised in co-operation with Uppsala University, Lund University and Stockholm University, Sweden.\n   \n\n\nUpdated: 30-04-2023 at 13:35:14.."
   },
   {
     "objectID": "labs/coding/index.html",
@@ -277,7 +277,7 @@
     "href": "labs/ml/index.html#keras-solution",
     "title": "Introduction to Machine Learning",
     "section": "2 Keras solution",
-    "text": "2 Keras solution\nLet us first define the X matrix of the feature vectors and the y vector of the class labels:\n\nX &lt;- matrix(c(c(0, 0, 1, 1), c(0, 1, 0, 1)), ncol = 2)\nX\n\n     [,1] [,2]\n[1,]    0    0\n[2,]    0    1\n[3,]    1    0\n[4,]    1    1\n\n\n\ny &lt;- c(0, 0, 1, 1)\ny\n\n[1] 0 0 1 1\n\n\nNow, let us define a sequential Keras model of the ANN corresponding to the scheme above and print the summary of the model. Here, we are going to use Sigmoid activation function on the output node because we have a binary classification problem.\n\nlibrary(keras)\nmodel &lt;- keras_model_sequential() \nmodel &lt;- model %&gt;% \n  layer_dense(units = 1, activation = 'sigmoid', input_shape = c(2))\nsummary(model)\n\nModel: \"sequential\"\n________________________________________________________________________________\n Layer (type)                       Output Shape                    Param #     \n================================================================================\n dense (Dense)                      (None, 1)                       3           \n================================================================================\nTotal params: 3\nTrainable params: 3\nNon-trainable params: 0\n________________________________________________________________________________\n\n\nNext, we are going to compile and fit the Keras ANN model. Again, for simplicity, we are going to use Mean Squared Error (MSE) loss function, and Stochastic Gradient Descent (SGD) as an optimization algorithm (with a high learning rate 0.1). The training will be for 3000 epochs, it should be enough for MSE to reach zero.\n\nmodel %&gt;% \n  compile(loss = 'mean_squared_error',optimizer = optimizer_sgd(lr = 0.1))\nhistory &lt;- model %&gt;% fit(X, y, epochs = 3000)\nsaveRDS(history,\"history.rds\")\n\n\nhistory &lt;- readRDS(\"history.rds\")\nplot(history$metrics$loss~seq(1:length(history$metrics$loss)),xlab=\"Epochs\",ylab=\"Loss\",col=\"blue\",cex=0.5)\n\n\n\n\n\n\n\n\nFinally, we will make predictions on the same data set. Overfitting is not a concern here because we want to make sure that the model was capable of linearly separating the two classes of data points.\n\nmodel %&gt;% predict(X)\n\n           [,1]\n[1,] 0.50000000\n[2,] 0.25778905\n[3,] 0.22656417\n[4,] 0.09234721\n\n\n\nmodel %&gt;% predict(X) %&gt;% `&gt;`(0.5) %&gt;% k_cast(\"int32\")\n\ntf.Tensor(\n[[0]\n [0]\n [0]\n [0]], shape=(4, 1), dtype=int32)\n\n\nIt looks like the Keras model successfully can assign correct labels to the four data points."
+    "text": "2 Keras solution\nLet us first define the X matrix of the feature vectors and the y vector of the class labels:\n\nX &lt;- matrix(c(c(0, 0, 1, 1), c(0, 1, 0, 1)), ncol = 2)\nX\n\n     [,1] [,2]\n[1,]    0    0\n[2,]    0    1\n[3,]    1    0\n[4,]    1    1\n\n\n\ny &lt;- c(0, 0, 1, 1)\ny\n\n[1] 0 0 1 1\n\n\nNow, let us define a sequential Keras model of the ANN corresponding to the scheme above and print the summary of the model. Here, we are going to use Sigmoid activation function on the output node because we have a binary classification problem.\n\nlibrary(keras)\nmodel &lt;- keras_model_sequential() \nmodel &lt;- model %&gt;% \n  layer_dense(units = 1, activation = 'sigmoid', input_shape = c(2))\nsummary(model)\n\nModel: \"sequential\"\n________________________________________________________________________________\n Layer (type)                       Output Shape                    Param #     \n================================================================================\n dense (Dense)                      (None, 1)                       3           \n================================================================================\nTotal params: 3\nTrainable params: 3\nNon-trainable params: 0\n________________________________________________________________________________\n\n\nNext, we are going to compile and fit the Keras ANN model. Again, for simplicity, we are going to use Mean Squared Error (MSE) loss function, and Stochastic Gradient Descent (SGD) as an optimization algorithm (with a high learning rate 0.1). The training will be for 3000 epochs, it should be enough for MSE to reach zero.\n\nmodel %&gt;% \n  compile(loss = 'mean_squared_error',optimizer = optimizer_sgd(lr = 0.1))\nhistory &lt;- model %&gt;% fit(X, y, epochs = 3000)\nsaveRDS(history,\"history.rds\")\n\n\nhistory &lt;- readRDS(\"history.rds\")\nplot(history$metrics$loss~seq(1:length(history$metrics$loss)),xlab=\"Epochs\",ylab=\"Loss\",col=\"blue\",cex=0.5)\n\n\n\n\n\n\n\n\nFinally, we will make predictions on the same data set. Overfitting is not a concern here because we want to make sure that the model was capable of linearly separating the two classes of data points.\n\nmodel %&gt;% predict(X)\n\n          [,1]\n[1,] 0.5000000\n[2,] 0.3140459\n[3,] 0.3768798\n[4,] 0.2168557\n\n\n\nmodel %&gt;% predict(X) %&gt;% `&gt;`(0.5) %&gt;% k_cast(\"int32\")\n\ntf.Tensor(\n[[0]\n [0]\n [0]\n [0]], shape=(4, 1), dtype=int32)\n\n\nIt looks like the Keras model successfully can assign correct labels to the four data points."
   },
   {
     "objectID": "labs/ml/index.html#coding-ann-from-scratch-in-r",
@@ -851,7 +851,7 @@
     "href": "slides/coding/index.html#topics-of-this-presentation",
     "title": "Best Coding Practises",
     "section": "Topics of This Presentation",
-    "text": "Topics of This Presentation\n\n\nStyle — _howTo_style.yourCode?\nStructure — how to think 🤔 about the code and manufacture your own building 🚧 blocks\n\n\n\nDebugging — my code does not run 😢\nProfiling — now it does run but… out of memory 💣\nOptimization — making things better 👨‍🏭\n\n\n\n\nVectorization — more details on optimization via vectorization ⬅️\nParallelization — run things in parallel, rule them all! 💍"
+    "text": "Topics of This Presentation\n\n\nStyle — _howTo_style.yourCode?\nStructure — how to think 🤔 about the code and manufacture your own building 🚧 blocks\n\n\n\nDebugging — my code does not run 😢\nProfiling — now it does run but… out of memory 💣\nOptimization — making things better 👷‍♀️\n\n\n\n\nVectorization — more details on optimization via vectorization 🔚\nParallelization — run things in parallel, rule them all! 💍"
   },
   {
     "objectID": "slides/coding/index.html#what-is-coding-style",
@@ -872,7 +872,7 @@
     "href": "slides/coding/index.html#naming-style",
     "title": "Best Coding Practises",
     "section": "Naming Style",
-    "text": "Naming Style\nVariable names that are legal are not necessarily a good style and they may be dangerous ⚡:\n\nF\nT\n\n[1] FALSE\n[1] TRUE\n\n\n\nF + T  \n\n[1] 1\n\n\n\nF &lt;- 3  \nF + T  \n\n[1] 4\n\n\ndo not do this!\n\nunless you are a politician 🕴…\nAvoid T and F as variable names."
+    "text": "Naming Style\nVariable names that are legal are not necessarily a good style and they may be dangerous ☠️:\n\nF\nT\n\n[1] FALSE\n[1] TRUE\n\n\n\nF + T  \n\n[1] 1\n\n\n\nF &lt;- 3  \nF + T  \n\n[1] 4\n\n\ndo not do this!\n\nunless you are a politician 🕴…\nAvoid T and F as variable names."
   },
   {
     "objectID": "slides/coding/index.html#customary-variable-names",
@@ -907,14 +907,14 @@
     "href": "slides/coding/index.html#how-to-write-functions",
     "title": "Best Coding Practises",
     "section": "How to write functions",
-    "text": "How to write functions\n\navoid accessing and modifying globals\n\navoid 🚯 a &lt;&lt;- 42\nand 🆗 use a closure instead\n\n\n\n\nnew_counter &lt;- function() {\n  i &lt;- 0\n  function() {\n    # do something useful, then ...\n    i &lt;&lt;- i + 1\n    i\n  }\n}\n\ncounter1 &lt;- new_counter()\ncounter2 &lt;- new_counter()\ncounter1()\ncounter1()\ncounter2()\n\n[1] 1\n[1] 2\n[1] 1\n\n\nbased on Stackoverflow answer"
+    "text": "How to write functions\n\navoid accessing and modifying globals\n\navoid 🚷 a &lt;&lt;- 42\nand 🆗 use a closure instead\n\n\n\n\nnew_counter &lt;- function() {\n  i &lt;- 0\n  function() {\n    # do something useful, then ...\n    i &lt;&lt;- i + 1\n    i\n  }\n}\n\ncounter1 &lt;- new_counter()\ncounter2 &lt;- new_counter()\ncounter1()\ncounter1()\ncounter2()\n\n[1] 1\n[1] 2\n[1] 1\n\n\nbased on Stackoverflow answer"
   },
   {
     "objectID": "slides/coding/index.html#how-to-write-functions-1",
     "href": "slides/coding/index.html#how-to-write-functions-1",
     "title": "Best Coding Practises",
     "section": "How to write functions",
-    "text": "How to write functions\n\nuse data as the very first argument for %&gt;% pipes sake:\n\nmyfun &lt;- function(x, arg) 🆗\nmyfun &lt;- function(arg, x) 🔞\n\n\n\n\nset arguments to defaults — better too many args than too few:\n\nmyfun &lt;- function(x, seed = 42) 🆗\nmyfun &lt;- function(x, ...) ⛔\n\n\n\n\n\nremember that global defaults can be changed by options\n\n\n\n\nif you are re-using functions written by someone else — write a wrapper function around them\n\n\nmy_awesome_plot &lt;- function(...) {\n  plot(..., col='red', pch=19, cex.axis=.7, las=1)\n}\nmy_awesome_plot(1:5)"
+    "text": "How to write functions\n\nuse data as the very first argument for %&gt;% pipes sake:\n\nmyfun &lt;- function(x, arg) 🆗\nmyfun &lt;- function(arg, x) 🙅\n\n\n\n\nset arguments to defaults — better too many args than too few:\n\nmyfun &lt;- function(x, seed = 42) 🆗\nmyfun &lt;- function(x, ...) 🙅‍♂️\n\n\n\n\n\nremember that global defaults can be changed by options\n\n\n\n\nif you are re-using functions written by someone else — write a wrapper function around them\n\n\nmy_awesome_plot &lt;- function(...) {\n  plot(..., col='red', pch=19, cex.axis=.7, las=1)\n}\nmy_awesome_plot(1:5)"
   },
   {
     "objectID": "slides/coding/index.html#how-to-write-functions-2",
@@ -1012,14 +1012,14 @@
     "href": "slides/debugging/index.html#profiling-proc.time",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Profiling – proc.time()",
-    "text": "Profiling – proc.time()\nProfiling is the process of identifying memory and time bottlenecks in your code.\n\nproc.time()\n\n   user  system elapsed \n  1.703   0.649   1.388 \n\n\n\nuser time – CPU time charged for the execution of user instructions of the calling process,\nsystem time – CPU time charged for execution by the system on behalf of the calling process,\nelapsed time – total CPU time elapsed for the currently running R process.\n\n\npt1 &lt;- proc.time()\ntmp &lt;- runif(n =  10e5)\npt2 &lt;- proc.time()\npt2 - pt1\n\n   user  system elapsed \n  0.026   0.000   0.027"
+    "text": "Profiling – proc.time()\nProfiling is the process of identifying memory and time bottlenecks in your code.\n\nproc.time()\n\n   user  system elapsed \n  1.771   0.616   1.388 \n\n\n\nuser time – CPU time charged for the execution of user instructions of the calling process,\nsystem time – CPU time charged for execution by the system on behalf of the calling process,\nelapsed time – total CPU time elapsed for the currently running R process.\n\n\npt1 &lt;- proc.time()\ntmp &lt;- runif(n =  10e5)\npt2 &lt;- proc.time()\npt2 - pt1\n\n   user  system elapsed \n  0.024   0.004   0.027"
   },
   {
     "objectID": "slides/debugging/index.html#profiling-system.time",
     "href": "slides/debugging/index.html#profiling-system.time",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Profiling – system.time()",
-    "text": "Profiling – system.time()\n\nsystem.time(runif(n = 10e6))\nsystem.time(rnorm(n = 10e6))\n\n   user  system elapsed \n  0.278   0.016   0.294 \n   user  system elapsed \n  0.501   0.025   0.526 \n\n\nAn alternative approach is to use tic and toc statements from the tictoc package.\n\nlibrary(tictoc)\ntic()\ntmp1 &lt;-runif(n = 10e6)\ntoc()\n\n0.268 sec elapsed"
+    "text": "Profiling – system.time()\n\nsystem.time(runif(n = 10e6))\nsystem.time(rnorm(n = 10e6))\n\n   user  system elapsed \n  0.279   0.021   0.299 \n   user  system elapsed \n  0.496   0.036   0.532 \n\n\nAn alternative approach is to use tic and toc statements from the tictoc package.\n\nlibrary(tictoc)\ntic()\ntmp1 &lt;-runif(n = 10e6)\ntoc()\n\n0.268 sec elapsed"
   },
   {
     "objectID": "slides/debugging/index.html#profiling-in-action",
@@ -1089,21 +1089,21 @@
     "href": "slides/debugging/index.html#copy-on-modify",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Copy-on-modify",
-    "text": "Copy-on-modify\n\nlibrary(pryr)\norder &lt;- 1024\nmatrix_A &lt;- matrix(rnorm(order^2), nrow = order)\nmatrix_B &lt;- matrix_A\n\n\nCheck where the objects are in the memory:\n\n\n\naddress(matrix_A)\naddress(matrix_B)\n\n[1] \"0x7fda1132e010\"\n[1] \"0x7fda1132e010\"\n\n\n\n\nWhat happens if we modify a value in one of the matrices?\n\n\n\nmatrix_B[1,1] &lt;- 1\naddress(matrix_A)\naddress(matrix_B)\n\n[1] \"0x7fda1132e010\"\n[1] \"0x7fda10b2d010\""
+    "text": "Copy-on-modify\n\nlibrary(pryr)\norder &lt;- 1024\nmatrix_A &lt;- matrix(rnorm(order^2), nrow = order)\nmatrix_B &lt;- matrix_A\n\n\nCheck where the objects are in the memory:\n\n\n\naddress(matrix_A)\naddress(matrix_B)\n\n[1] \"0x7fb6d5ffc010\"\n[1] \"0x7fb6d5ffc010\"\n\n\n\n\nWhat happens if we modify a value in one of the matrices?\n\n\n\nmatrix_B[1,1] &lt;- 1\naddress(matrix_A)\naddress(matrix_B)\n\n[1] \"0x7fb6d5ffc010\"\n[1] \"0x7fb6d57fb010\""
   },
   {
     "objectID": "slides/debugging/index.html#avoid-copying-by-allocating-memory",
     "href": "slides/debugging/index.html#avoid-copying-by-allocating-memory",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Avoid copying by allocating memory",
-    "text": "Avoid copying by allocating memory\nNo memory allocation\n\nf1 &lt;- function(to = 3, silent=F) {\n  tmp &lt;- c()\n  for (i in 1:to) {\n    a1 &lt;- address(tmp)\n    tmp &lt;- c(tmp, i)\n    a2 &lt;- address(tmp)\n    if(!silent) { print(paste0(a1, \" --&gt; \", a2)) } \n  }\n}\nf1()\n\n[1] \"0x5644ef2f1a10 --&gt; 0x5644f8bac248\"\n[1] \"0x5644f8bac248 --&gt; 0x5644f8bac5c8\"\n[1] \"0x5644f8bac5c8 --&gt; 0x5644f62316c8\""
+    "text": "Avoid copying by allocating memory\nNo memory allocation\n\nf1 &lt;- function(to = 3, silent=F) {\n  tmp &lt;- c()\n  for (i in 1:to) {\n    a1 &lt;- address(tmp)\n    tmp &lt;- c(tmp, i)\n    a2 &lt;- address(tmp)\n    if(!silent) { print(paste0(a1, \" --&gt; \", a2)) } \n  }\n}\nf1()\n\n[1] \"0x55f257a89a10 --&gt; 0x55f261344b80\"\n[1] \"0x55f261344b80 --&gt; 0x55f261344f00\"\n[1] \"0x55f261344f00 --&gt; 0x55f25e9a7378\""
   },
   {
     "objectID": "slides/debugging/index.html#avoid-copying-by-allocating-memory-cted.",
     "href": "slides/debugging/index.html#avoid-copying-by-allocating-memory-cted.",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Avoid copying by allocating memory cted.",
-    "text": "Avoid copying by allocating memory cted.\nWith allocation\n\nf2 &lt;- function(to = 3, silent = FALSE) {\n  tmp &lt;- vector(length = to, mode='numeric')\n  for (i in 1:to) {\n    a1 &lt;- address(tmp)\n    tmp[i] &lt;- i\n    a2 &lt;- address(tmp)\n    if(!silent) { print(paste0(a1, \" --&gt; \", a2)) }\n  }\n}\nf2()\n\n[1] \"0x5644f6e446b8 --&gt; 0x5644f6e446b8\"\n[1] \"0x5644f6e446b8 --&gt; 0x5644f6e446b8\"\n[1] \"0x5644f6e446b8 --&gt; 0x5644f6e446b8\""
+    "text": "Avoid copying by allocating memory cted.\nWith allocation\n\nf2 &lt;- function(to = 3, silent = FALSE) {\n  tmp &lt;- vector(length = to, mode='numeric')\n  for (i in 1:to) {\n    a1 &lt;- address(tmp)\n    tmp[i] &lt;- i\n    a2 &lt;- address(tmp)\n    if(!silent) { print(paste0(a1, \" --&gt; \", a2)) }\n  }\n}\nf2()\n\n[1] \"0x55f25ff07088 --&gt; 0x55f25ff07088\"\n[1] \"0x55f25ff07088 --&gt; 0x55f25ff07088\"\n[1] \"0x55f25ff07088 --&gt; 0x55f25ff07088\""
   },
   {
     "objectID": "slides/debugging/index.html#allocating-memory-benchmark.",
@@ -2125,7 +2125,7 @@
     "href": "slides/oop/index.html#r-and-design-pattern",
     "title": "Object-Oriented Programming Models in R",
     "section": "R and Design Pattern",
-    "text": "R and Design Pattern\n\nstrategy — apply()\ndecorator — system_time()\n\n\nsystem.time(x &lt;- runif(n = 100000))\nx[1:5]\n\n   user  system elapsed \n  0.002   0.000   0.003 \n[1] 0.9921744 0.4009876 0.8359487 0.2666762 0.9789624\n\n\n\nwrapper\n\n\nmy_plot &lt;- function(...) {\n  plot(..., col = 'blue', las = 1, cex = .5, pch = 19, cex.axis = .7)\n}\n\n\nSingleton see this gist\nFluent function interface — tidyverse functions take data x as the very first argument and return object similar to x so that they can be chained by %&gt;%\n\nEven more patterns here."
+    "text": "R and Design Pattern\n\nstrategy — apply()\ndecorator — system_time()\n\n\nsystem.time(x &lt;- runif(n = 100000))\nx[1:5]\n\n   user  system elapsed \n  0.002   0.000   0.003 \n[1] 0.14131163 0.90665056 0.35159563 0.31524915 0.06441906\n\n\n\nwrapper\n\n\nmy_plot &lt;- function(...) {\n  plot(..., col = 'blue', las = 1, cex = .5, pch = 19, cex.axis = .7)\n}\n\n\nSingleton see this gist\nFluent function interface — tidyverse functions take data x as the very first argument and return object similar to x so that they can be chained by %&gt;%\n\nEven more patterns here."
   },
   {
     "objectID": "slides/oop/index.html#constructor-validator",
@@ -2426,21 +2426,21 @@
     "href": "slides/parallelization/index.html#plansequential",
     "title": "Parallelization in R",
     "section": "plan(sequential)",
-    "text": "plan(sequential)\n\nBuilding block: variable %&lt;-% {expression(s)}\n\n\nfuture::plan(sequential)\n\na %&lt;-% {\n  Sys.sleep(3)\n  a &lt;- 1\n}\nb %&lt;-% {\n  Sys.sleep(3)\n  b &lt;- 2\n}\n\na + b\n\n\nIn programming, a future is an abstraction for a value that may be available at some point in the future. The state of a future can either be unresolved or resolved. As soon as it is resolved, the value is available instantaneously. If the value is queried while the future is still unresolved, the current process is blocked until the future is resolved. It is possible to check whether a future is resolved or not without blocking.\n\n\n\n\n\n[1] 3\n   user  system elapsed \n  0.025   0.001   6.033"
+    "text": "plan(sequential)\n\nBuilding block: variable %&lt;-% {expression(s)}\n\n\nfuture::plan(sequential)\n\na %&lt;-% {\n  Sys.sleep(3)\n  a &lt;- 1\n}\nb %&lt;-% {\n  Sys.sleep(3)\n  b &lt;- 2\n}\n\na + b\n\n\nIn programming, a future is an abstraction for a value that may be available at some point in the future. The state of a future can either be unresolved or resolved. As soon as it is resolved, the value is available instantaneously. If the value is queried while the future is still unresolved, the current process is blocked until the future is resolved. It is possible to check whether a future is resolved or not without blocking.\n\n\n\n\n\n[1] 3\n   user  system elapsed \n  0.029   0.001   6.035"
   },
   {
     "objectID": "slides/parallelization/index.html#planmultisession-planmulticore",
     "href": "slides/parallelization/index.html#planmultisession-planmulticore",
     "title": "Parallelization in R",
     "section": "plan(multisession) & plan(multicore)",
-    "text": "plan(multisession) & plan(multicore)\n\n\n\nplan(multicore)\n\na %&lt;-% {\n  Sys.sleep(3)\n  a &lt;- 1\n}\nb %&lt;-% {\n  Sys.sleep(3)\n  b &lt;- 2\n}\n\na + b\n\n\n\n[1] 3\n   user  system elapsed \n  0.028   0.024   3.044 \n\n\n\nNote: To compute plan(multicore) the rmarkdown must be rendered from terminal r console, as rstudio does not support multicore. rmarkdown::render(\"parallelization_Sebastian.Rmd\")\n\n\n\navailableCores()\n\nsystem \n    12"
+    "text": "plan(multisession) & plan(multicore)\n\n\n\nplan(multicore)\n\na %&lt;-% {\n  Sys.sleep(3)\n  a &lt;- 1\n}\nb %&lt;-% {\n  Sys.sleep(3)\n  b &lt;- 2\n}\n\na + b\n\n\n\n[1] 3\n   user  system elapsed \n  0.040   0.012   3.046 \n\n\n\nNote: To compute plan(multicore) the rmarkdown must be rendered from terminal r console, as rstudio does not support multicore. rmarkdown::render(\"parallelization_Sebastian.Rmd\")\n\n\n\navailableCores()\n\nsystem \n    12"
   },
   {
     "objectID": "slides/parallelization/index.html#planmultisession-planmulticore-1",
     "href": "slides/parallelization/index.html#planmultisession-planmulticore-1",
     "title": "Parallelization in R",
     "section": "plan(multisession) & plan(multicore)",
-    "text": "plan(multisession) & plan(multicore)\n\nplan(multicore)\n\na %&lt;-% {\n  Sys.sleep(3)\n  a &lt;- 1\n}\nb %&lt;-% {\n  Sys.sleep(3)\n  b &lt;- 2\n}\nc %&lt;-% {\n  Sys.sleep(3)\n  c &lt;- 3\n}\n\n}\nk %&lt;-% {\n  Sys.sleep(3)\n  e &lt;- 5\n}\n\na + b + c + d + e + f + g + h + j + k\n\n\n\n\n[1] 60\n   user  system elapsed \n  0.161   0.095   3.137"
+    "text": "plan(multisession) & plan(multicore)\n\nplan(multicore)\n\na %&lt;-% {\n  Sys.sleep(3)\n  a &lt;- 1\n}\nb %&lt;-% {\n  Sys.sleep(3)\n  b &lt;- 2\n}\nc %&lt;-% {\n  Sys.sleep(3)\n  c &lt;- 3\n}\n\n}\nk %&lt;-% {\n  Sys.sleep(3)\n  e &lt;- 5\n}\n\na + b + c + d + e + f + g + h + j + k\n\n\n\n\n[1] 60\n   user  system elapsed \n  0.140   0.130   3.145"
   },
   {
     "objectID": "slides/parallelization/index.html#plancluster",
@@ -2531,7 +2531,7 @@
     "href": "slides/publishing/index.html#rmarkdown",
     "title": "Publishing with Quarto",
     "section": "RMarkdown",
-    "text": "RMarkdown\n\nMarkdown + embedded R chunks\nRMarkdown mostly uses Pandoc markdown\nR code can be executed inline\n\nToday’s date is `r date()`\nToday’s date is Sun Apr 30 12:58:57 2023\n\nR code can be executed in code chunks\n\n```{r}\ndate()\n```\n\nBy default, input source code and output results are displayed.\n\n\ndate()\n\n[1] \"Sun Apr 30 12:58:57 2023\""
+    "text": "RMarkdown\n\nMarkdown + embedded R chunks\nRMarkdown mostly uses Pandoc markdown\nR code can be executed inline\n\nToday’s date is `r date()`\nToday’s date is Sun Apr 30 13:39:20 2023\n\nR code can be executed in code chunks\n\n```{r}\ndate()\n```\n\nBy default, input source code and output results are displayed.\n\n\ndate()\n\n[1] \"Sun Apr 30 13:39:20 2023\""
   },
   {
     "objectID": "slides/publishing/index.html#rmarkdown-chunk-options",
@@ -2664,7 +2664,7 @@
     "href": "slides/reticulate/index.html#importing-python-modules",
     "title": "Reticulate",
     "section": "Importing Python modules",
-    "text": "Importing Python modules\n\ndatetime &lt;- import(\"datetime\")\ntodays_r_date &lt;- datetime$datetime$now()\n\n\n\ntodays_r_date\nclass(todays_r_date)\n\n[1] \"2023-04-30 12:59:05 CEST\"\n[1] \"POSIXct\" \"POSIXt\" \n\n\n\n\nObjects are automatically converted to R types, unless otherwise specified\n\n\n\ndatetime &lt;- import(\"datetime\", convert = FALSE)\ntodays_py_date &lt;- datetime$datetime$now()\n\n\n\n\ntodays_py_date\nclass(todays_py_date)\n\ndatetime.datetime(2023, 4, 30, 12, 59, 5, 383682)\n[1] \"datetime.datetime\"     \"datetime.date\"         \"python.builtin.object\""
+    "text": "Importing Python modules\n\ndatetime &lt;- import(\"datetime\")\ntodays_r_date &lt;- datetime$datetime$now()\n\n\n\ntodays_r_date\nclass(todays_r_date)\n\n[1] \"2023-04-30 13:39:28 CEST\"\n[1] \"POSIXct\" \"POSIXt\" \n\n\n\n\nObjects are automatically converted to R types, unless otherwise specified\n\n\n\ndatetime &lt;- import(\"datetime\", convert = FALSE)\ntodays_py_date &lt;- datetime$datetime$now()\n\n\n\n\ntodays_py_date\nclass(todays_py_date)\n\ndatetime.datetime(2023, 4, 30, 13, 39, 28, 439059)\n[1] \"datetime.datetime\"     \"datetime.date\"         \"python.builtin.object\""
   },
   {
     "objectID": "slides/reticulate/index.html#importing-built-in-python-functions",
@@ -3364,7 +3364,7 @@
     "href": "slides/statistics/index.html#bayesian-linear-model",
     "title": "Mathematical Statistics in R",
     "section": "Bayesian Linear Model",
-    "text": "Bayesian Linear Model\n\nlibrary(\"brms\")\noptions(mc.cores = parallel::detectCores())\nbrmfit &lt;- brm(Reaction ~ Days + (Days | Subject), data = sleepstudy)\nsummary(brmfit)\n\n Family: gaussian \n  Links: mu = identity; sigma = identity \nFormula: Reaction ~ Days + (Days | Subject) \n   Data: sleepstudy (Number of observations: 180) \n  Draws: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;\n         total post-warmup draws = 4000\n\nGroup-Level Effects: \n~Subject (Number of levels: 18) \n                    Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS\nsd(Intercept)          26.82      6.85    15.42    42.38 1.00     1504     2304\nsd(Days)                6.56      1.52     4.11    10.12 1.00     1277     1984\ncor(Intercept,Days)     0.08      0.30    -0.48     0.68 1.00      914     1546\n\nPopulation-Level Effects: \n          Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS\nIntercept   251.32      7.52   236.22   266.44 1.00     1825     2516\nDays         10.40      1.63     7.29    13.70 1.00     1407     1990\n\nFamily Specific Parameters: \n      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS\nsigma    25.94      1.59    22.99    29.25 1.00     3186     2705\n\nDraws were sampled using sampling(NUTS). For each parameter, Bulk_ESS\nand Tail_ESS are effective sample size measures, and Rhat is the potential\nscale reduction factor on split chains (at convergence, Rhat = 1)."
+    "text": "Bayesian Linear Model\n\nlibrary(\"brms\")\noptions(mc.cores = parallel::detectCores())\nbrmfit &lt;- brm(Reaction ~ Days + (Days | Subject), data = sleepstudy)\nsummary(brmfit)\n\n Family: gaussian \n  Links: mu = identity; sigma = identity \nFormula: Reaction ~ Days + (Days | Subject) \n   Data: sleepstudy (Number of observations: 180) \n  Draws: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;\n         total post-warmup draws = 4000\n\nGroup-Level Effects: \n~Subject (Number of levels: 18) \n                    Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS\nsd(Intercept)          27.04      6.95    15.84    42.63 1.00     1779     2356\nsd(Days)                6.61      1.56     4.15    10.19 1.00     1391     1944\ncor(Intercept,Days)     0.09      0.31    -0.49     0.68 1.01      992     1641\n\nPopulation-Level Effects: \n          Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS\nIntercept   250.77      7.24   236.27   265.08 1.00     1685     2376\nDays         10.48      1.74     6.93    14.03 1.01     1271     1687\n\nFamily Specific Parameters: \n      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS\nsigma    25.94      1.51    23.16    29.18 1.00     3128     2816\n\nDraws were sampled using sampling(NUTS). For each parameter, Bulk_ESS\nand Tail_ESS are effective sample size measures, and Rhat is the potential\nscale reduction factor on split chains (at convergence, Rhat = 1)."
   },
   {
     "objectID": "slides/statistics/index.html#bayesian-population-level-fit",
@@ -3532,7 +3532,7 @@
     "href": "slides/tidyverse/index.html#other-types-of-pipes-t-1",
     "title": "Tidy work in Tidyverse",
     "section": "Other Types of Pipes — %T>%",
-    "text": "Other Types of Pipes — %T&gt;%\n\n\n\n\n\n\n\n       V1                V2         \n Min.   :-2.4352   Min.   :-1.5136  \n 1st Qu.:-0.3210   1st Qu.:-0.6433  \n Median :-0.1290   Median : 0.2126  \n Mean   :-0.1327   Mean   : 0.2367  \n 3rd Qu.: 0.5285   3rd Qu.: 1.0017  \n Max.   : 2.0093   Max.   : 1.4481"
+    "text": "Other Types of Pipes — %T&gt;%\n\n\n\n\n\n\n\n       V1                 V2         \n Min.   :-1.75002   Min.   :-2.5652  \n 1st Qu.:-0.63572   1st Qu.:-0.9836  \n Median :-0.13809   Median :-0.3298  \n Mean   : 0.05044   Mean   :-0.3842  \n 3rd Qu.: 0.76042   3rd Qu.: 0.2805  \n Max.   : 2.76846   Max.   : 2.1921"
   },
   {
     "objectID": "slides/tidyverse/index.html#other-types-of-magrittr-pipes",
@@ -3546,21 +3546,21 @@
     "href": "slides/tidyverse/index.html#other-types-of-magrittr-pipes-1",
     "title": "Tidy work in Tidyverse",
     "section": "Other Types of magrittr Pipes — %<>%",
-    "text": "Other Types of magrittr Pipes — %&lt;&gt;%\nIt exists but can lead to somewhat confusing code! ☠️\nx %&lt;&gt;% f \\(\\equiv\\) x &lt;- f(x)\n\nM &lt;- matrix(rnorm(16), nrow=4)\nM %&lt;&gt;% colSums()\nM\n\n[1] -0.3828308 -2.7508745 -2.6108880 -1.5750220\n\n\nFrom R &gt;= 4.1.0 we have a native |&gt; pipe that is a bit faster than %&gt;% but currently has no placeholders mechanism.\n\nc(1,2,3,4,5) |&gt; mean()\n\n[1] 3\n\n\nbut\n\nmtcars |&gt; (\\(x) lm(mpg ~ disp, data = x))()\n\n\nCall:\nlm(formula = mpg ~ disp, data = x)\n\nCoefficients:\n(Intercept)         disp  \n   29.59985     -0.04122"
+    "text": "Other Types of magrittr Pipes — %&lt;&gt;%\nIt exists but can lead to somewhat confusing code! ☠️\nx %&lt;&gt;% f \\(\\equiv\\) x &lt;- f(x)\n\nM &lt;- matrix(rnorm(16), nrow=4)\nM %&lt;&gt;% colSums()\nM\n\n[1]  2.56381515 -0.19576769  0.06990051 -0.25066516\n\n\nFrom R &gt;= 4.1.0 we have a native |&gt; pipe that is a bit faster than %&gt;% but currently has no placeholders mechanism.\n\nc(1,2,3,4,5) |&gt; mean()\n\n[1] 3\n\n\nbut\n\nmtcars |&gt; (\\(x) lm(mpg ~ disp, data = x))()\n\n\nCall:\nlm(formula = mpg ~ disp, data = x)\n\nCoefficients:\n(Intercept)         disp  \n   29.59985     -0.04122"
   },
   {
     "objectID": "slides/tidyverse/index.html#placeholders-in-magrittr-pipes",
     "href": "slides/tidyverse/index.html#placeholders-in-magrittr-pipes",
     "title": "Tidy work in Tidyverse",
     "section": "Placeholders in magrittr Pipes",
-    "text": "Placeholders in magrittr Pipes\nSometimes we want to pass the resulting data to other than the first argument of the next function in chain. magritter provides placeholder mechanism for this: - x %&gt;% f(y, .) \\(\\equiv\\) f(y, x), - x %&gt;% f(y, z = .) \\(\\equiv\\) f(y, z = x).\n\n\nM &lt;- rnorm(4) %&gt;% matrix(nrow = 2)\nM %&gt;% `%*%`(., .)\n\n           [,1]       [,2]\n[1,] -0.3796197 -0.1695757\n[2,]  0.3243595 -0.1082855\n\n\n\n\nBut for nested expressions:\n\nx %&gt;% f(a = p(.), b = q(.)) \\(\\equiv\\) f(x, a = p(x), b = q(x))\nx %&gt;% {f(a = p(.), b = q(.))} \\(\\equiv\\) f(a = p(x), b = q(x))\n\n\n\n\nprint_M_summ &lt;- function(nrow, ncol) {\n  paste0('Matrix M has: ', nrow, ' rows and ', ncol, ' columns.')\n}\nM %&gt;% {print_M_summ(nrow(.), ncol(.))}\n\n[1] \"Matrix M has: 2 rows and 2 columns.\""
+    "text": "Placeholders in magrittr Pipes\nSometimes we want to pass the resulting data to other than the first argument of the next function in chain. magritter provides placeholder mechanism for this: - x %&gt;% f(y, .) \\(\\equiv\\) f(y, x), - x %&gt;% f(y, z = .) \\(\\equiv\\) f(y, z = x).\n\n\nM &lt;- rnorm(4) %&gt;% matrix(nrow = 2)\nM %&gt;% `%*%`(., .)\n\n            [,1]       [,2]\n[1,] -0.02758162  0.4098692\n[2,] -1.27769018 -0.6736166\n\n\n\n\nBut for nested expressions:\n\nx %&gt;% f(a = p(.), b = q(.)) \\(\\equiv\\) f(x, a = p(x), b = q(x))\nx %&gt;% {f(a = p(.), b = q(.))} \\(\\equiv\\) f(a = p(x), b = q(x))\n\n\n\n\nprint_M_summ &lt;- function(nrow, ncol) {\n  paste0('Matrix M has: ', nrow, ' rows and ', ncol, ' columns.')\n}\nM %&gt;% {print_M_summ(nrow(.), ncol(.))}\n\n[1] \"Matrix M has: 2 rows and 2 columns.\""
   },
   {
     "objectID": "slides/tidyverse/index.html#tibbles",
     "href": "slides/tidyverse/index.html#tibbles",
     "title": "Tidy work in Tidyverse",
     "section": "Tibbles",
-    "text": "Tibbles\n\n\n\n\nas_tibble(iris)\n\n# A tibble: 150 × 5\n   Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;  \n 1          5.1         3.5          1.4         0.2 setosa \n 2          4.9         3            1.4         0.2 setosa \n 3          4.7         3.2          1.3         0.2 setosa \n 4          4.6         3.1          1.5         0.2 setosa \n 5          5           3.6          1.4         0.2 setosa \n 6          5.4         3.9          1.7         0.4 setosa \n 7          4.6         3.4          1.4         0.3 setosa \n 8          5           3.4          1.5         0.2 setosa \n 9          4.4         2.9          1.4         0.2 setosa \n10          4.9         3.1          1.5         0.1 setosa \n# ℹ 140 more rows\n\n\n\n\ntibble is one of the unifying features of tidyverse,\nit is a better data.frame realization,\nobjects data.frame can be coerced to tibble using as_tibble()\n\n\n  tibble(\n    x = 1,          # recycling\n    y = runif(50), \n    z = x + y^2,\n    outcome = rnorm(50)\n  )\n\n# A tibble: 50 × 4\n       x       y     z outcome\n   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;\n 1     1 0.781    1.61 -1.36  \n 2     1 0.0668   1.00 -0.882 \n 3     1 0.856    1.73  0.251 \n 4     1 0.202    1.04  0.598 \n 5     1 0.781    1.61 -0.0689\n 6     1 0.00896  1.00 -0.535 \n 7     1 0.364    1.13 -0.478 \n 8     1 0.241    1.06  1.06  \n 9     1 0.302    1.09  0.400 \n10     1 0.993    1.99 -1.28  \n# ℹ 40 more rows"
+    "text": "Tibbles\n\n\n\n\nas_tibble(iris)\n\n# A tibble: 150 × 5\n   Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;  \n 1          5.1         3.5          1.4         0.2 setosa \n 2          4.9         3            1.4         0.2 setosa \n 3          4.7         3.2          1.3         0.2 setosa \n 4          4.6         3.1          1.5         0.2 setosa \n 5          5           3.6          1.4         0.2 setosa \n 6          5.4         3.9          1.7         0.4 setosa \n 7          4.6         3.4          1.4         0.3 setosa \n 8          5           3.4          1.5         0.2 setosa \n 9          4.4         2.9          1.4         0.2 setosa \n10          4.9         3.1          1.5         0.1 setosa \n# ℹ 140 more rows\n\n\n\n\ntibble is one of the unifying features of tidyverse,\nit is a better data.frame realization,\nobjects data.frame can be coerced to tibble using as_tibble()\n\n\n  tibble(\n    x = 1,          # recycling\n    y = runif(50), \n    z = x + y^2,\n    outcome = rnorm(50)\n  )\n\n# A tibble: 50 × 4\n       x      y     z outcome\n   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;\n 1     1 0.208   1.04  -0.721\n 2     1 0.251   1.06   0.905\n 3     1 0.0541  1.00   1.35 \n 4     1 0.145   1.02   1.70 \n 5     1 0.619   1.38   1.03 \n 6     1 0.470   1.22   0.752\n 7     1 0.0413  1.00  -0.255\n 8     1 0.605   1.37  -1.74 \n 9     1 0.536   1.29   0.832\n10     1 0.224   1.05   0.612\n# ℹ 40 more rows"
   },
   {
     "objectID": "slides/tidyverse/index.html#more-on-tibbles",
@@ -3756,7 +3756,7 @@
     "href": "slides/tidyverse/index.html#tidying-data-with-pivot_longer",
     "title": "Tidy work in Tidyverse",
     "section": "Tidying Data with pivot_longer",
-    "text": "Tidying Data with pivot_longer\nIf some of your column names are actually values of a variable, use pivot_longer (old gather):\n\nbijou2 %&gt;% head(n = 5)\n\n# A tibble: 5 × 3\n  cut     `2008` `2009`\n  &lt;ord&gt;    &lt;int&gt;  &lt;dbl&gt;\n1 Ideal      326    331\n2 Premium    326    331\n3 Good       327    332\n4 Premium    334    339\n5 Good       335    340\n\n\n\nbijou2 %&gt;% \n  pivot_longer(cols = c(`2008`, `2009`), names_to = 'year', values_to = 'price') %&gt;% \n  head(n = 5)\n\n# A tibble: 5 × 3\n  cut     year  price\n  &lt;ord&gt;   &lt;chr&gt; &lt;dbl&gt;\n1 Ideal   2008    326\n2 Ideal   2009    331\n3 Premium 2008    326\n4 Premium 2009    331\n5 Good    2008    327"
+    "text": "Tidying Data with pivot_longer\nIf some of your column names are actually values of a variable, use pivot_longer (old gather):\n\nbijou2 %&gt;% head(n = 5)\n\n# A tibble: 5 × 3\n  cut     `2008` `2009`\n  &lt;ord&gt;    &lt;int&gt;  &lt;dbl&gt;\n1 Ideal      326    333\n2 Premium    326    333\n3 Good       327    334\n4 Premium    334    341\n5 Good       335    342\n\n\n\nbijou2 %&gt;% \n  pivot_longer(cols = c(`2008`, `2009`), names_to = 'year', values_to = 'price') %&gt;% \n  head(n = 5)\n\n# A tibble: 5 × 3\n  cut     year  price\n  &lt;ord&gt;   &lt;chr&gt; &lt;dbl&gt;\n1 Ideal   2008    326\n2 Ideal   2009    333\n3 Premium 2008    326\n4 Premium 2009    333\n5 Good    2008    327"
   },
   {
     "objectID": "slides/tidyverse/index.html#tidying-data-with-pivot_wider",
@@ -3784,7 +3784,7 @@
     "href": "slides/tidyverse/index.html#completing-missing-values-using-complete",
     "title": "Tidy work in Tidyverse",
     "section": "Completing Missing Values Using complete",
-    "text": "Completing Missing Values Using complete\n\nbijou %&gt;% head(n = 10) %&gt;% \n  select(cut, clarity, price) %&gt;% \n  mutate(continent = sample(c('AusOce', 'Eur'), \n                            size = 10, \n                            replace = T)) -&gt; missing_stones\n\n\nmissing_stones %&gt;% complete(cut, continent)\n\n# A tibble: 14 × 4\n   cut       continent clarity price\n   &lt;ord&gt;     &lt;chr&gt;     &lt;ord&gt;   &lt;int&gt;\n 1 Fair      AusOce    &lt;NA&gt;       NA\n 2 Fair      Eur       VS2       337\n 3 Good      AusOce    &lt;NA&gt;       NA\n 4 Good      Eur       VS1       327\n 5 Good      Eur       SI2       335\n 6 Very Good AusOce    VVS1      336\n 7 Very Good AusOce    SI1       337\n 8 Very Good Eur       VVS2      336\n 9 Very Good Eur       VS1       338\n10 Premium   AusOce    SI1       326\n11 Premium   AusOce    VS2       334\n12 Premium   Eur       &lt;NA&gt;       NA\n13 Ideal     AusOce    SI2       326\n14 Ideal     Eur       &lt;NA&gt;       NA"
+    "text": "Completing Missing Values Using complete\n\nbijou %&gt;% head(n = 10) %&gt;% \n  select(cut, clarity, price) %&gt;% \n  mutate(continent = sample(c('AusOce', 'Eur'), \n                            size = 10, \n                            replace = T)) -&gt; missing_stones\n\n\nmissing_stones %&gt;% complete(cut, continent)\n\n# A tibble: 13 × 4\n   cut       continent clarity price\n   &lt;ord&gt;     &lt;chr&gt;     &lt;ord&gt;   &lt;int&gt;\n 1 Fair      AusOce    VS2       337\n 2 Fair      Eur       &lt;NA&gt;       NA\n 3 Good      AusOce    VS1       327\n 4 Good      Eur       SI2       335\n 5 Very Good AusOce    VVS2      336\n 6 Very Good AusOce    VVS1      336\n 7 Very Good Eur       SI1       337\n 8 Very Good Eur       VS1       338\n 9 Premium   AusOce    SI1       326\n10 Premium   AusOce    VS2       334\n11 Premium   Eur       &lt;NA&gt;       NA\n12 Ideal     AusOce    &lt;NA&gt;       NA\n13 Ideal     Eur       SI2       326"
   },
   {
     "objectID": "slides/tidyverse/index.html#combining-datasets",
@@ -3854,7 +3854,7 @@
     "href": "slides/vectorization/index.html#repeating-actions-vectorization",
     "title": "Vectorization in R",
     "section": "Repeating actions — vectorization",
-    "text": "Repeating actions — vectorization\nLet us compare the time of execution of the vectorized version (vector with 10,000 elements):\n\n\n   user  system elapsed \n  0.005   0.001   0.006 \n\n\n\nto the loop version:\n\n\n   user  system elapsed \n  0.056   0.003   0.060"
+    "text": "Repeating actions — vectorization\nLet us compare the time of execution of the vectorized version (vector with 10,000 elements):\n\n\n   user  system elapsed \n  0.005   0.000   0.005 \n\n\n\nto the loop version:\n\n\n   user  system elapsed \n  0.065   0.004   0.069"
   },
   {
     "objectID": "slides/vectorization/index.html#vectorization-the-problem",
