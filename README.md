@@ -34,7 +34,7 @@
   - **slides/topic/assets/**
   - **labs/topic/assets/**
 
-:bulb: The document can be live previewed to view changes. Preview is automatically updated on saving the document. The preview files are copied to a temporary location and rendered independently from the defined output path. Sometimes, the preview can look a bit wonky, in which case, cancel and rerun.
+:bulb: The document can be live previewed to view changes. Preview is automatically updated on saving the document. Sometimes, the preview can look a bit wonky, in which case, cancel and rerun.
 
 - To preview, run in terminal
   - `quarto preview slides/topic/index.qmd`
