@@ -577,7 +577,7 @@ Just because you can doesn't mean you should!
 - scales: position, color, fill, size, shape, alpha, linetype
 - syntax: `scale_<aesthetic>_<type>`
 
-![](assets/scales.png){width="50%""}
+![](assets/scales.png){width="50%"}
 
 :::: {.columns}
 ::: {.column width="50%"}
@@ -690,6 +690,7 @@ Shape scale can be adjusted using `scale_shape_manual()`. Multiple mappings for 
 
 :::: {.columns}
 ::: {.column width="50%"}
+
 ```{r}
 #| fig-height: 5
 #| fig-width: 5
@@ -697,15 +698,18 @@ p <- ggplot(iris)+geom_point(
   aes(x=Sepal.Length,y=Sepal.Width))
 p
 ```
+
 :::
 
 ::: {.column width="50%"}
+
 ```{r}
 #| fig-height: 5
 #| fig-width: 5
 p + scale_x_continuous(name="Sepal Length",
         breaks=seq(1,8),limits=c(3,5))
 ```
+
 :::
 ::::
 
@@ -730,6 +734,7 @@ When setting limits using `scale_`, the data outside the limits are dropped. Lim
 
 :::: {.columns}
 ::: {.column width="50%"}
+
 ```{r}
 #| fig-height: 4
 #| fig-width: 5
@@ -739,9 +744,11 @@ p <- ggplot(iris)+
                      color=Species))
 p
 ```
+
 :::
 
 ::: {.column width="50%"}
+
 ```{r}
 #| fig-height: 2.4
 #| fig-width: 4.5
@@ -753,6 +760,7 @@ p + facet_wrap(~Species)
 #| fig-width: 4.5
 p + facet_wrap(~Species,nrow=3)
 ```
+
 :::
 ::::
 
@@ -768,6 +776,7 @@ p + facet_wrap(~Species,nrow=3)
 
 :::: {.columns}
 ::: {.column width="50%"}
+
 ```{r}
 #| fig-height: 3.8
 #| fig-width: 5
@@ -776,20 +785,24 @@ p <- diamonds %>%
      geom_point()
 p + facet_grid(~cut+clarity)
 ```
+
 :::
 
 ::: {.column width="50%"}
+
 ```{r}
 #| fig-height: 5
 #| fig-width: 5
 p + facet_grid(cut~clarity)
 ```
+
 :::
 ::::
 
 ::: {.notes}
 
 `facet_grid` is also used to split a plot into subplots based on the categories in one or more variables. `facet_grid` can be used to create a matrix-like grid of two variables.
+
 :::
 
 ## Coordinates
@@ -894,19 +907,23 @@ p <- ggplot(iris)+
 
 :::: {.columns}
 ::: {.column width="50%"}
+
 ```{r}
 #| fig-height: 4
 #| fig-width: 4
 p + theme(legend.position="top")
 ```
+
 :::
 
 ::: {.column width="50%"}
+
 ```{r}
 #| fig-height: 4
 #| fig-width: 4
 p + theme(legend.position="bottom")
 ```
+
 :::
 ::::
 
@@ -1040,19 +1057,23 @@ newtheme <- theme_bw() + theme(
 
 :::: {.columns}
 ::: {.column width="50%"}
+
 ```{r}
 #| fig-height: 4
 #| fig-width: 5
 p
 ```
+
 :::
 
 ::: {.column width="50%"}
+
 ```{r}
 #| fig-height: 4
 #| fig-width: 4.5
 p + newtheme
 ```
+
 :::
 ::::
 
@@ -1074,19 +1095,23 @@ p <- ggplot(us,aes(x=state,y=value,fill=type))
 
 :::: {.columns}
 ::: {.column width="50%"}
+
 ```{r}
 #| fig-height: 4
 #| fig-width: 5
 p + geom_bar(stat="identity",position="stack")
 ```
+
 :::
 
 ::: {.column width="50%"}
+
 ```{r}
 #| fig-height: 4
 #| fig-width: 5
 p + geom_bar(stat="identity",position="dodge")
 ```
+
 :::
 ::::
 
@@ -1159,15 +1184,18 @@ p <- ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width,col=Species))
 
 :::: {.columns}
 ::: {.column width="50%"}
+
 ```{r}
 #| fig-height: 4
 #| fig-width: 4
 p1 <- p+geom_point()
 plotly::ggplotly(p1,width=400,height=300)
 ```
+
 :::
 
 ::: {.column width="50%"}
+
 ```{r}
 #| fig-height: 4.5
 #| fig-width: 4.5
@@ -1176,11 +1204,14 @@ p2 <- p+ggiraph::geom_point_interactive(
   theme_bw(base_size=12)
 ggiraph::ggiraph(code=print(p2))
 ```
+
 :::
 ::::
 
 ::: {.notes}
+
 Most interactive plotting libraries are not as complete as `ggplot2`. Therefore, some packages explore ways of converting `ggplot2` objects into interactive graphics
+
 :::
 
 ## Extensions
