@@ -28,6 +28,7 @@ website:
     border: false
     left: "2023 [NBIS](about.html) | [GPL-3 License](https://choosealicense.com/licenses/gpl-3.0/)"
     right: "Published with [Quarto](https://quarto.org/) v<?quarto.version?>"
+  site-url: "https://nbisweden.github.io/raukr-2023/"
 
 format:
   html:
