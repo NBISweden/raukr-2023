@@ -1,6 +1,6 @@
 # questions
 - flexdashboards for quarto?
-- xaringan for quarto?
+- xaringan for quarto? And issues with revealjs
 - css based pdf styling
 - what's the difference between self-contained, embed-resources, standalone?
 - add filename as class to body, quarto-content, quarto-document-content
@@ -10,17 +10,18 @@
 - why were some chunk arguments moved into the chunk, why not move the language as well
 - display language above chunk
 - why chunk options in fenced comments 
+- webr
 
 # html issues
 - figure numbering doesn't work
 - figure cross referencing doesn't work
-- three dot incremental operator does not work within columns
 
 # slide issues
 - responsive slides
 - call-out with collapse does not work
 - blockquote does not work? maybe
 - section number decimal
+- three dot incremental operator does not work within columns
 
 [x] improve footer similar to https://www.quantumjitter.com/
 [x] move slide format options to config
@@ -38,17 +39,15 @@
 [x] update featured images for remaining topics
 [x] panel tab style update
 [x] slides cover and end images graphics
+[x] 404 page broken
+[x] website sidebar. cannot hide demo. sidebar removed.
 [ ] fix publishing lab
 [ ] link from slides to home
 [ ] add category to qmd file
-[ ] 404 page broken
-[ ] website sidebar. cannot hide demo.
-[ ] quarto topic publishing slide/lab
-    - https://rstudio-conf-2022.github.io/get-started-quarto/materials/02-authoring.html#/authoring-quarto
 [ ] quarto topic rep research slide/lab
 [ ] load assets locally (fonts)
 
-[ ] reproducible reserach
+[ ] reproducible research
     - git
     - github
     - projects
@@ -56,12 +55,6 @@
     - conda
     - notebooks
     https://the-turing-way.netlify.app/reproducible-research/reproducible-research.html
-[ ] publishing with quarto
-    - markdown
-    - rmarkdown
-    - reports (html/pdf)
-    - revealjs
-    - xaringan
 [ ] shiny
     - add shinylive
     - shiny for python
@@ -83,9 +76,7 @@ conda install "sqlalchemy<=2.0"
 http://aeturrell.com/2021/11/04/setting-up-r-in-vscode/
 https://renkun.me/2022/03/06/my-recommendations-of-vs-code-extensions-for-r/
 
-
-# Colors
-
+# colors
 primary: #4ab4ac;
 secondary: #b3dbdb;
 link-color: #3c7b75;
