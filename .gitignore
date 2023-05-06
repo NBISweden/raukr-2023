@@ -6,7 +6,6 @@
 **/*_cache/
 /.luarc.json
 /.quarto/
-_freeze/
 .DS_Store
 to-do.txt
 notes.txt
