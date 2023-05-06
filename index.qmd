@@ -9,26 +9,38 @@ format:
     css: "assets/css/background.css"
     number-sections: false
     title-block-banner: false
+    page-layout: custom
 execute:
   freeze: false
 ---
 
+<div class="page-layout-custom">
+<div class='home-grid-parent'>
+<div class='home-grid-child-left'>
+
 ## [**RaukR** • Summer School 2023]{.large}
-
 ### Advanced R for Bioinformatics
-
+:::{style="margin-bottom:1em;"}
 ##### 11-22 June 2023, Visby, Gotland, Sweden.
-
-<br>
+:::
 
 In Life Sciences and Bioinformatics, R programming language is increasingly being used to transform and analyse data, perform statistical analysis and produce publication-ready visualisations. This workshop aims to take the participants beyond the basics of R to a deeper and comprehensive understanding of the R ecosystem.
 
-This workshop is organised by the National Bioinformatics Infrastructure, Sweden (NBIS). NBIS is a platform of the Science for Life Laboratory (SciLifeLab). The event is organised in co-operation with Uppsala University, Lund University and Stockholm University, Sweden.
+This workshop aims to take the participants beyond the basics of R to a deeper and comprehensive understanding of the R ecosystem.
 
-![](assets/logos/raukr.svg){height="1.3em"} &nbsp; ![](assets/logos/nbis-scilifelab.svg){height="1.2em"}
+![](assets/logos/raukr.svg){height="1.2em" style="margin-bottom:-3px;"} &nbsp; ![](assets/logos/nbis-scilifelab.svg){height="1.1em"}
 
 ---
 
 ::: small
-Updated: <?lua.date?> at <?lua.time?>..
+Updated: <?lua.date?> at <?lua.time?>.
 :::
+
+</div>
+<div class='home-grid-child-right'>
+
+![](assets/images/hero.png)
+
+</div>
+</div>
+</div>
