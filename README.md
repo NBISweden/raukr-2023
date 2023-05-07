@@ -2,12 +2,14 @@
 
 **NBIS Summer School • Advanced R for Bioinformatics**
 
-## Local preview/render
+## Requirements
 
-- To preview/render, you must use [Quarto\>=1.2.269](https://quarto.org/docs/download/)
+To edit, preview and render documents, you need one or more of the following requirements:
+
+- You must use [Quarto\>=1.2.269](https://quarto.org/docs/download/)
 - If using RStudio, use [v2022.07.1 or newer](https://posit.co/download/rstudio-desktop/)
 - [VSCode](https://arinbasu.medium.com/why-quarto-with-vscode-is-a-great-data-science-tool-f0a259d28702) is a good alternative to RStudio for quarto documents
-- You need to install the R packages necessary for your topic/file
+- You need to install the R packages necessary for your topic/document
 
 :bangbang: Be wary of using the visual editor! It may mess up the code formatting.
 
@@ -64,16 +66,15 @@ git commit -m "Added topic"
 
 ## Tips & Conventions
 
-- For compute heavy steps, save intermediate and read them in
+- For compute heavy steps, save intermediates and read them in
 - Be mindful of the size of files
   - Store large data files elsewhere (dropbox, google drive etc) and link them
-  - Scale down to about 600px-800px and [compress images](https://compressjpeg.com/)
-  - No reason for a image to be more than a few hundred KB
+  - If you have images that are more than a few hundred KB in size, scale them down to about 600px-800px and [compress](https://compressjpeg.com/) them
 - Use simple topic labels and do not make them needlessly complex
-- The qmd files must be in the correct location when rendering/previewing else metadata from config is not used
+- The qmd files must be in the correct location when rendering/previewing else metadata from config is not used. 
 - Declare R packages at the beginning of every qmd document
-- Qmd files must have a format defined, either **format: html** or **format: revealjs**
-- Make a note of the default **execute** settings in `_quarto.yml`. You can override this for your document specifically if needed:
+- qmd files must have a format defined, either **format: html** or **format: revealjs**
+- Make a note of the default **execute** settings in `_quarto.yml`. This applies to all documents. You can override this by copying the code below to the yaml part of your document and modifying it.
 
   ```
   execute:
@@ -81,12 +82,11 @@ git commit -m "Added topic"
     echo: false
   ```
   
-- Use level 2 heading as the highest level
+- Use level 2 heading (##) as the highest level heading
 - Bullet points are defined by `-`
 - Define options in code chunks using `#|` like `#| echo: true`
 - Adjusting dimension of images `![Caption](path/to/image.jpg){width="50%"}`
-- Divs are defined using `:::`
-- Classes are defined using `{.class}`
+- Divs are defined using `:::` and classes are defined using `{.class}`
   - Example of a class on a div
   
   ```
@@ -111,6 +111,8 @@ Contents
 - Remember to spell-check your document
   - Language used is en-us
 
+- To view a demo report, click [here](https://nbisweden.github.io/raukr-2023/labs/demo/)
+
 ### RevealJS
 
 These are slide specific info. Comparisons here are to xaringan used previously for RaukR.
@@ -126,3 +128,5 @@ These are slide specific info. Comparisons here are to xaringan used previously 
 Contents
 :::
 ```
+
+- To view a demo presentation, click [here](https://nbisweden.github.io/raukr-2023/slides/demo/) 
