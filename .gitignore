@@ -1,12 +1,11 @@
-**/__pycache__
 **/.Rhistory
 *.Rproj*
 *.code-workspace
 **/.ipynb_checkpoints
-**/*_cache/
 /.luarc.json
 /.quarto/
 .DS_Store
 to-do.txt
 notes.txt
-
+**/*_cache/
+**/__pycache__
