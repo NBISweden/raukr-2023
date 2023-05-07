@@ -1,9 +1,7 @@
-**/__pycache__
 **/.Rhistory
 *.Rproj*
 *.code-workspace
 **/.ipynb_checkpoints
-**/*_cache/
 /.luarc.json
 /.quarto/
 .DS_Store
