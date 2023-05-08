@@ -9,3 +9,5 @@ to-do.txt
 notes.txt
 **/*_cache/
 **/__pycache__
+slides/**/*_files
+labs/**/*_files
