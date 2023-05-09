@@ -185,7 +185,7 @@ background-size: cover;
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">30-Apr-2023</p>
+        <p class="date">08-May-2023</p>
       </div>
     </div>
     
@@ -217,6 +217,7 @@ background-size: cover;
   </ul></li>
   <li><a href="#report" id="toc-report" class="nav-link" data-scroll-target="#report"><span class="header-section-number">2</span> Report</a></li>
   <li><a href="#revealjs" id="toc-revealjs" class="nav-link" data-scroll-target="#revealjs"><span class="header-section-number">3</span> RevealJS</a></li>
+  <li><a href="#projects" id="toc-projects" class="nav-link" data-scroll-target="#projects"><span class="header-section-number">4</span> Projects</a></li>
   </ul>
 </nav>
     </div>
@@ -361,7 +362,10 @@ Here is some more text</code></pre>
 #### Level 4 heading  
 ##### Level 5 heading  
 ###### Level 6 heading</code></pre>
-<p>Italic text like this <em>This is italic text</em> can be specified using <code>*This is italic text*</code> or <code>_This is italic text_</code>. Bold text like this <strong>This is bold text</strong> can be specified using <code>**This is italic text**</code> or <code>__This is italic text__</code>. Subscript written like this <code>H~2~O</code> renders as H<sub>2</sub>O. Superscript written like this <code>2^10^</code> renders as 2<sup>10</sup>.</p>
+<p>This <code>*This is italic text*</code> becomes <em>This is italic text</em>.<br>
+THis <code>**This is italic text**</code> becomes <strong>This is bold text</strong>.<br>
+Subscript written like this <code>H~2~O</code> renders as H<sub>2</sub>O.<br>
+Superscript written like this <code>2^10^</code> renders as 2<sup>10</sup>.</p>
 <p>Bullet points are usually specified using <code>-</code>.</p>
 <pre><code>- Point one
 - Point two</code></pre>
@@ -535,7 +539,7 @@ This is generic block code.
 <tr class="odd">
 <td>include</td>
 <td>true</td>
-<td>Include this chunk or not</td>
+<td>Disable message, warnings and all output</td>
 </tr>
 </tbody>
 </table>
@@ -734,36 +738,31 @@ execute:
 </section>
 <section id="report" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="report"><span class="header-section-number">2</span> Report</h2>
-<p>Try to recreate the report below:</p>
+<p>In this example, we will recreate the parameterized report shown below:</p>
 <div class="shadow">
-<div class="quarto-figure quarto-figure-left">
-<figure class="figure">
-<p><a href="challenges/report.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="challenges/report.png" class="img-fluid figure-img"></a></p>
-</figure>
+<iframe width="100%" height="600" src="https://royfrancis.github.io/quarto-exp/documents/report/index.html" title="Quarto report"></iframe>
 </div>
-</div>
-<p>Click <a href="challenges/report.html">here</a> to view the sample report. The source code for the page is available on the page.</p>
-<p>The aim of the report is to subset the iris dataset and create a report on the subsetted data.</p>
+<p><br></p>
+<p>The source code for the page is available on the page by clicking the code-tools icon on top right.</p>
+<p>The aim of the report is to subset the iris dataset and create a report on the subsetted data. This is a parameterized report because the species to subset is provided as a parameter to the document during run time.</p>
 <p>This is how the YAML metadata is organised:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{yaml}</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">subtitle</span><span class="kw">:</span><span class="at"> </span><span class="st">"Parameterized report"</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"John Doe"</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> last-modified</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">title-block-banner</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">number-sections</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> pulse</span></span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">highlight</span><span class="kw">:</span><span class="at"> kate</span></span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">code-tools</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fig-align</span><span class="kw">:</span><span class="at"> left</span></span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> setosa</span></span>
-<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>---
+subtitle: "Parameterized report"
+author: "John Doe"
+date: last-modified
+format:
+  html:
+    title-block-banner: true
+    toc: true
+    number-sections: true
+    theme: pulse
+    highlight: kate
+    code-tools: true
+    fig-align: left
+
+params:
+  name: setosa
+---</code></pre>
 <ul>
 <li>Since this a parameterized report, <code>params</code> is defined in the YAML metadata. Here we have one parameter <code>name</code> with default value <strong>setosa</strong>. The parameter can be passed in while rendering the document. If no parameter is passed, the default value is used.</li>
 <li>The title takes this parameter to create a title with the name.</li>
@@ -790,14 +789,22 @@ execute:
 <ul>
 <li>It is important that the figure label starts with <code>fig-</code></li>
 <li>The figure caption can be generated from code using the special <code>!expr</code> usage</li>
+</ul>
+<p>In the last chunk, an image of the species is displayed.</p>
+<ul>
 <li>Try to create a new report for the species <strong>versicolor</strong></li>
 <li>Try to convert the document to PDF</li>
 </ul>
-<p>HTML ouputs are documented <a href="https://quarto.org/docs/output-formats/html-basics.html">here</a>.</p>
+<p>HTML outputs are documented <a href="https://quarto.org/docs/output-formats/html-basics.html">here</a>.</p>
 </section>
 <section id="revealjs" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="revealjs"><span class="header-section-number">3</span> RevealJS</h2>
-<p>Now, we will convert the report to a presentation using revealjs. <a href="challenges/revealjs.html">Here</a> is how the final presentation will look like.</p>
+<p>Now, we will convert the report to a presentation using revealjs.</p>
+<div class="shadow">
+<iframe width="100%" height="400" src="https://royfrancis.github.io/quarto-exp/documents/revealjs/index.html" title="Quarto revealjs presentation"></iframe>
+</div>
+<p><br></p>
+<p>The raw code is available <a href="https://raw.githubusercontent.com/royfrancis/quarto-exp/main/documents/revealjs/index.qmd">here</a>.</p>
 <ul>
 <li>The most important change is <code>format: html</code> to <code>format: revealjs</code></li>
 <li>Slides are defined by heading <code>##</code></li>
@@ -816,11 +823,11 @@ execute:
 </ul>
 <pre><code>:::: {.columns}
 
-::: {.column width="40%"}
+::: {.column width="50%"}
 Left column
 :::
 
-::: {.column width="60%"}
+::: {.column width="50%"}
 Right column
 :::
 
@@ -869,6 +876,22 @@ Content for `Tab B`
 
 :::</code></pre>
 <p>RevealJS features are documented <a href="https://quarto.org/docs/presentations/revealjs/">here</a>.</p>
+</section>
+<section id="projects" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="projects"><span class="header-section-number">4</span> Projects</h2>
+<p>So far, the output formats have been a single document. We can also have a project composed of multiple documents and document types. In this case, the files are organised in a directory and the configuration is defined in <code>_quarto.yml</code>. This will be referred to as the config file. Think of this as a shared YAML metadata file for all of the documents. In addition, an <strong>index.qmd</strong> file defines the home page.</p>
+<p>For a website, the minimal config looks like this</p>
+<pre><code>project:
+  type: website</code></pre>
+<p>And for a book:</p>
+<pre><code>project:
+  type: book</code></pre>
+<p>Then running <code>quarto render</code> renders the output into a directory named **_site<strong>. The output can be changed to </strong>docs** for example for GitHub Pages.</p>
+<pre><code>project:
+  type: website
+  output_dir: docs</code></pre>
+<p>The output format by default is HTML. This can be changed or modified by adding <code>format</code> to the config file or to individual qmd files. The parameters defined in the config file will be shared by all other qmd files.</p>
+<p>For more project options, see <a href="https://quarto.org/docs/reference/projects/options.html">here</a>.</p>
 
 
 </section>
@@ -1117,7 +1140,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-right">Published with <a href="https://quarto.org/">Quarto</a> v1.3.340</div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"loop":true,"selector":".lightbox","closeEffect":"zoom","openEffect":"zoom","descPosition":"bottom"});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","closeEffect":"zoom","loop":true,"descPosition":"bottom","openEffect":"zoom"});</script>
 
 
 

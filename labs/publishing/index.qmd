@@ -142,7 +142,10 @@ The above level 2 heading was created by specifying `# Section 1`. Other heading
 ###### Level 6 heading
 ```
 
-Italic text like this *This is italic text* can be specified using `*This is italic text*` or `_This is italic text_`. Bold text like this **This is bold text** can be specified using `**This is italic text**` or `__This is italic text__`. Subscript written like this `H~2~O` renders as H~2~O. Superscript written like this `2^10^` renders as 2^10^.
+This `*This is italic text*` becomes *This is italic text*.  
+THis `**This is italic text**` becomes **This is bold text**.  
+Subscript written like this `H~2~O` renders as H~2~O.  
+Superscript written like this `2^10^` renders as 2^10^.  
 
 Bullet points are usually specified using `-`.
 
@@ -301,15 +304,15 @@ The behaviour of code chunks can be adjusted using chunk parameters or execution
 
 Using `eval: false` prevents that chunk from being executed. `eval: true` which is the default, executes the chunk. Using `echo: false` prevents the code from that chunk from being displayed. Using `output: false` hides the output from that chunk. Here are some of them:
 
-| Option  | Default  | Description                          |
-|---------|----------|--------------------------------------|
-| eval    | true     | Evaluates the code in this chunk     |
-| echo    | true     | Display the code                     |
-| output  | true     | true, false or asis                  |
-| warning | true     | Display warnings from code execution |
-| error   | false    | Display error from code execution    |
-| message | true     | Display messages from this chunk     |
-| include | true     | Include this chunk or not            |
+| Option  | Default  | Description                             |
+|---------|----------|-----------------------------------------|
+| eval    | true     | Evaluates the code in this chunk        |
+| echo    | true     | Display the code                        |
+| output  | true     | true, false or asis                     |
+| warning | true     | Display warnings from code execution    |
+| error   | false    | Display error from code execution       |
+| message | true     | Display messages from this chunk        |
+| include | true     | Disable message, warnings and all output|
 
 Chunk options are specified like this:
 
@@ -436,19 +439,22 @@ See [here](https://quarto.org/docs/reference/formats/pdf.html) for more PDF opti
 
 ## Report
 
-Try to recreate the report below:
+In this example, we will recreate the parameterized report shown below:
 
 ::: {.shadow}
-![](challenges/report.png)
+```{=html}
+<iframe width="100%" height="600" src="https://royfrancis.github.io/quarto-exp/documents/report/index.html" title="Quarto report"></iframe>
+```
 :::
+<br>
 
-Click [here](challenges/report.html) to view the sample report. The source code for the page is available on the page.
+The source code for the page is available on the page by clicking the code-tools icon on top right.
 
-The aim of the report is to subset the iris dataset and create a report on the subsetted data.
+The aim of the report is to subset the iris dataset and create a report on the subsetted data. This is a parameterized report because the species to subset is provided as a parameter to the document during run time.
 
 This is how the YAML metadata is organised:
 
-```{{yaml}}
+````
 ---
 subtitle: "Parameterized report"
 author: "John Doe"
@@ -466,7 +472,7 @@ format:
 params:
   name: setosa
 ---
-```
+````
 
 - Since this a parameterized report, `params` is defined in the YAML metadata. Here we have one parameter `name` with default value **setosa**. The parameter can be passed in while rendering the document. If no parameter is passed, the default value is used.
 - The title takes this parameter to create a title with the name.
@@ -500,14 +506,26 @@ ggplot(iris_filtered,aes(Sepal.Length,Petal.Length,col=Species))+
 
 - It is important that the figure label starts with `fig-`
 - The figure caption can be generated from code using the special `!expr` usage
+
+In the last chunk, an image of the species is displayed.
+
 - Try to create a new report for the species **versicolor**
 - Try to convert the document to PDF
 
-HTML ouputs are documented [here](https://quarto.org/docs/output-formats/html-basics.html).
+HTML outputs are documented [here](https://quarto.org/docs/output-formats/html-basics.html).
 
 ## RevealJS
 
-Now, we will convert the report to a presentation using revealjs. [Here](challenges/revealjs.html) is how the final presentation will look like.
+Now, we will convert the report to a presentation using revealjs. 
+
+::: {.shadow}
+```{=html}
+<iframe width="100%" height="400" src="https://royfrancis.github.io/quarto-exp/documents/revealjs/index.html" title="Quarto revealjs presentation"></iframe>
+```
+:::
+<br>
+
+The raw code is available [here](https://raw.githubusercontent.com/royfrancis/quarto-exp/main/documents/revealjs/index.qmd).
 
 - The most important change is `format: html` to `format: revealjs`
 - Slides are defined by heading `##`
@@ -531,11 +549,11 @@ Now, we will convert the report to a presentation using revealjs. [Here](challen
 ```
 :::: {.columns}
 
-::: {.column width="40%"}
+::: {.column width="50%"}
 Left column
 :::
 
-::: {.column width="60%"}
+::: {.column width="50%"}
 Right column
 :::
 
@@ -598,3 +616,32 @@ Content for `Tab B`
 
 RevealJS features are documented [here](https://quarto.org/docs/presentations/revealjs/).
 
+## Projects
+
+So far, the output formats have been a single document. We can also have a project composed of multiple documents and document types. In this case, the files are organised in a directory and the configuration is defined in `_quarto.yml`. This will be referred to as the config file. Think of this as a shared YAML metadata file for all of the documents. In addition, an **index.qmd** file defines the home page.
+
+For a website, the minimal config looks like this
+
+```
+project:
+  type: website
+```
+
+And for a book:
+
+```
+project:
+  type: book
+```
+
+Then running `quarto render` renders the output into a directory named **_site**. The output can be changed to **docs** for example for GitHub Pages.
+
+```
+project:
+  type: website
+  output_dir: docs
+```
+
+The output format by default is HTML. This can be changed or modified by adding `format` to the config file or to individual qmd files. The parameters defined in the config file will be shared by all other qmd files.
+
+For more project options, see [here](https://quarto.org/docs/reference/projects/options.html).

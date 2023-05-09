@@ -4,7 +4,6 @@ project:
   render: 
     - "*.qmd"
     - "*.md"
-    - "!labs/publishing/challenges/*.qmd"
     - "!slides/publishing/sample/*.qmd"
 
 website:

@@ -2,7 +2,9 @@
 title: "Plotting with **ggplot2**"
 author: "Roy Francis"
 image: "assets/featured.jpg"
-format: revealjs
+format:
+  revealjs:
+    css: assets/styles.css
 ---
 
 ## Packages {visibility="hidden"}
@@ -48,14 +50,20 @@ Graphing is an essential part of data analyses. Data with same summary statistic
 
 ## Graph quality
 
-::: {layout-ncol="2"}
-![](assets/scientific_paper_graph_quality.jpg)
+:::: {.columns}
 
+::: {.column width="60%"}
+![](assets/scientific_paper_graph_quality.jpg)
+:::
+
+::: {.column width="40%"}
 ![](assets/excel.png){width="100%"}
 :::
 
-::: {.aside}
-[Source: xkcd](https://xkcd.com/1945/)
+::::
+
+::: {.smaller}
+Source: [xkcd](https://xkcd.com/1945/)
 :::
 
 ## R graphics
@@ -196,7 +204,13 @@ Grammar of graphics (GOG) tries to unify all graphs under a common umbrella. GOG
 
 ## Building A Graph: Syntax
 
+:::: {.columns}
+::: {.column width="60%"}
+
 ![](assets/syntax.png)
+
+:::
+::::
 
 ## Building A Graph
 
@@ -390,7 +404,7 @@ Geoms are the geometric components of a graph such as points, lines etc used to 
 - Geoms have default stats.
 
 ```{r}
-#| fig-height: 1.7
+#| fig-height: 3
 #| fig-width: 8
 x <- ggplot(iris) + geom_bar(aes(x=Sepal.Length),stat="bin")
 y <- ggplot(iris) + geom_bar(aes(x=Species),stat="count")
@@ -398,12 +412,12 @@ z <- ggplot(iris) + geom_bar(aes(x=Species,y=Sepal.Length),stat="identity")
 wrap_plots(x,y,z,nrow=1)
 ```
 
-. . .
+## Stats
 
 - Plots can be built with stats.
 
 ```{r}
-#| fig-height: 1.7
+#| fig-height: 3
 #| fig-width: 8
 x <- ggplot(iris) + stat_bin(aes(x=Sepal.Length),geom="bar")
 y <- ggplot(iris) + stat_count(aes(x=Species),geom="bar")
@@ -450,13 +464,13 @@ Use `args(geom_bar)` to check arguments.
 
 ## Aesthetics
 
-- Aesthetic mapping vs aesthetic parameter
-
 :::: {.columns}
 ::: {.column width="50%"}
 
+- Aesthetic mapping
+
 ```{r}
-#| fig-height: 4
+#| fig-height: 3.5
 #| fig-width: 5.5
 ggplot(iris)+
   geom_point(aes(x=Sepal.Length,
@@ -471,8 +485,10 @@ ggplot(iris)+
 
 ::: {.column width="50%"}
 
+- Aesthetic parameter
+
 ```{r}
-#| fig-height: 4
+#| fig-height: 3.5
 #| fig-width: 5
 ggplot(iris)+
   geom_point(aes(x=Sepal.Length,
@@ -523,8 +539,8 @@ If the same aesthetics are used in multiple geoms, they can be moved to `ggplot(
 ## Multiple Geoms
 
 ```{r}
-#| eval: false
-#| echo: false
+#| eval: true
+#| echo: true
 #| fig-height: 6
 #| fig-width: 12
 ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width))+
@@ -564,9 +580,9 @@ Each geom takes input from `ggplot()` inputs. If extra input is required to a ge
 
 ## 
 
-![](assets/complicated-graphs.jpg)
-
 Just because you can doesn't mean you should!
+
+![](assets/complicated-graphs.jpg)
 
 ## Scales
 
@@ -577,12 +593,10 @@ Just because you can doesn't mean you should!
 - scales: position, color, fill, size, shape, alpha, linetype
 - syntax: `scale_<aesthetic>_<type>`
 
-![](assets/scales.png){width="50%"}
-
 :::: {.columns}
 ::: {.column width="50%"}
 ```{r}
-#| fig-height: 2.8
+#| fig-height: 4
 #| fig-width: 5
 p <- ggplot(iris)+geom_point(aes(x=Sepal.Length,
                      y=Sepal.Width,color=Species))
@@ -592,7 +606,7 @@ p
 
 ::: {.column width="50%"}
 ```{r}
-#| fig-height: 2.8
+#| fig-height: 4
 #| fig-width: 5
 p + scale_color_manual(
      name="Manual",
@@ -605,6 +619,8 @@ p + scale_color_manual(
 
 Scales are used to control the aesthetics. For example the aesthetic color is mapped to a variable `x`. The palette of colors used, the mapping of which color to which value, the upper and lower limit of the data and colors etc is controlled by scales.
 
+![](assets/scales.png){width="50%"}
+
 :::
 
 ## Scales • Continuous Colors
@@ -616,7 +632,7 @@ Scales are used to control the aesthetics. For example the aesthetic color is ma
 :::: {.columns}
 ::: {.column width="50%"}
 ```{r}
-#| fig-height: 5
+#| fig-height: 4
 #| fig-width: 5.5
 p <- ggplot(iris)+
       geom_point(aes(x=Sepal.Length,
@@ -628,7 +644,7 @@ p
 
 ::: {.column width="50%"}
 ```{r}
-#| fig-height: 5
+#| fig-height: 4
 #| fig-width: 5.5
 p +
 scale_color_gradient(name="Pet Len",
@@ -651,7 +667,7 @@ Continuous colours can be changed using `scale_color_gradient()` for two colour 
 :::: {.columns}
 ::: {.column width="50%"}
 ```{r}
-#| fig-height: 5
+#| fig-height: 4
 #| fig-width: 5.5
 p <- ggplot(iris)+
       geom_point(aes(x=Sepal.Length,
@@ -663,7 +679,7 @@ p
 
 ::: {.column width="50%"}
 ```{r}
-#| fig-height: 5
+#| fig-height: 4
 #| fig-width: 5.5
 p +
 scale_color_manual(name="New",
@@ -692,7 +708,7 @@ Shape scale can be adjusted using `scale_shape_manual()`. Multiple mappings for 
 ::: {.column width="50%"}
 
 ```{r}
-#| fig-height: 5
+#| fig-height: 4
 #| fig-width: 5
 p <- ggplot(iris)+geom_point(
   aes(x=Sepal.Length,y=Sepal.Width))
@@ -704,7 +720,7 @@ p
 ::: {.column width="50%"}
 
 ```{r}
-#| fig-height: 5
+#| fig-height: 4
 #| fig-width: 5
 p + scale_x_continuous(name="Sepal Length",
         breaks=seq(1,8),limits=c(3,5))
@@ -727,10 +743,7 @@ When setting limits using `scale_`, the data outside the limits are dropped. Lim
 
 ## Facets • `facet_wrap`
 
-- Split to subplots based on variable(s)
-- Faceting in one dimension
-
-. . .
+- Split to subplots based on variable(s), Faceting in one dimension
 
 :::: {.columns}
 ::: {.column width="50%"}
@@ -750,13 +763,13 @@ p
 ::: {.column width="50%"}
 
 ```{r}
-#| fig-height: 2.4
+#| fig-height: 2
 #| fig-width: 4.5
 p + facet_wrap(~Species)
 ```
 
 ```{r}
-#| fig-height: 2.5
+#| fig-height: 2.2
 #| fig-width: 4.5
 p + facet_wrap(~Species,nrow=3)
 ```
@@ -772,14 +785,14 @@ p + facet_wrap(~Species,nrow=3)
 
 ## Facets • `facet_grid`
 
+:::: {.columns}
+::: {.column width="60%"}
+
 - Faceting in two dimensions
 
-:::: {.columns}
-::: {.column width="50%"}
-
 ```{r}
-#| fig-height: 3.8
-#| fig-width: 5
+#| fig-height: 3
+#| fig-width: 7
 p <- diamonds %>%
      ggplot(aes(carat,price))+
      geom_point()
@@ -788,10 +801,10 @@ p + facet_grid(~cut+clarity)
 
 :::
 
-::: {.column width="50%"}
+::: {.column width="40%"}
 
 ```{r}
-#| fig-height: 5
+#| fig-height: 4
 #| fig-width: 5
 p + facet_grid(cut~clarity)
 ```
@@ -811,14 +824,12 @@ p + facet_grid(cut~clarity)
 
 ## Coordinate Systems
 
-![](assets/coordinate.png)
+:::: {.columns}
+::: {.column width="60%"}
 
 - `coord_cartesian(xlim=c(2,8))` for zooming in
 - `coord_map` for controlling limits on maps
-- `coord_polar`
-
-:::: {.columns}
-::: {.column width="50%"}
+- `coord_polar` for polar ccordinates
 
 ```{r}
 #| fig-height: 4
@@ -830,12 +841,14 @@ p
 
 :::
 
-::: {.column width="50%"}
+::: {.column width="40%"}
+
+![](assets/coordinate.png)
 
 ```{r}
 #| fig-height: 3.8
 #| fig-width: 5
-p+coord_polar("y",start=0)
+p + coord_polar("y", start = 0)
 ```
 
 :::
@@ -847,42 +860,40 @@ The coordinate system defines the surface used to represent numbers. Most plots 
 
 :::
 
-## Theme
+## Theming
 
 ![](assets/meme-theme.jpg)
 
-## Theme
-
-- Modify non-data plot elements/appearance
-- Axis labels, panel colors, legend appearance etc
-- Save a particular appearance for reuse
-- `?theme`
-
-. . .
+## Theming
 
 :::: {.columns}
 ::: {.column width="50%"}
 
+- Modify non-data plot elements/appearance
+- Axis labels, panel colors, legend appearance etc
+
 ```{r}
 #| fig-height: 4
 #| fig-width: 5
-ggplot(iris,aes(Petal.Length))+
-  geom_histogram()+
-  facet_wrap(~Species,nrow=2)+
-  theme_grey()
+ggplot(iris, aes(Petal.Length)) +
+    geom_histogram() +
+    facet_wrap(~Species, nrow = 2) +
+    theme_grey()
 ```
 
 :::
-
 ::: {.column width="50%"}
+
+- Save a particular appearance for reuse
+- `?theme`
 
 ```{r}
 #| fig-height: 4
 #| fig-width: 5
-ggplot(iris,aes(Petal.Length))+
-  geom_histogram()+
-  facet_wrap(~Species,nrow=2)+
-  theme_bw()
+ggplot(iris, aes(Petal.Length)) +
+    geom_histogram() +
+    facet_wrap(~Species, nrow = 2) +
+    theme_bw()
 ```
 
 :::
@@ -1044,14 +1055,10 @@ p <- diamonds %>%
 
 ```{r}
 newtheme <- theme_bw() + theme(
-  axis.ticks=element_blank(),
-  panel.background=element_rect(fill="white"),
-  panel.grid.minor=element_blank(),
-  panel.grid.major.x=element_blank(),
-  panel.grid.major.y=element_line(size=0.3,color="grey90"),
-  panel.border=element_blank(),
-  legend.position="top",
-  legend.justification="right"
+  axis.ticks=element_blank(), panel.background=element_rect(fill="white"),
+  panel.grid.minor=element_blank(), panel.grid.major.x=element_blank(),
+  panel.grid.major.y=element_line(size=0.3,color="grey90"), panel.border=element_blank(),
+  legend.position="top", legend.justification="right"
 )
 ```
 
@@ -1059,7 +1066,7 @@ newtheme <- theme_bw() + theme(
 ::: {.column width="50%"}
 
 ```{r}
-#| fig-height: 4
+#| fig-height: 3.4
 #| fig-width: 5
 p
 ```
@@ -1069,7 +1076,7 @@ p
 ::: {.column width="50%"}
 
 ```{r}
-#| fig-height: 4
+#| fig-height: 3.5
 #| fig-width: 4.5
 p + newtheme
 ```
@@ -1081,6 +1088,7 @@ p + newtheme
 
 ```{r}
 #| echo: false
+#| eval: false
 USArrests %>% head(n=3) %>%
   kable("html",escape=F,align="c") %>%
   kable_styling(bootstrap_options=c("striped","hover","responsive","condensed"),
@@ -1161,6 +1169,8 @@ q <- ggplot(us,aes(x=state,y=value,fill=type))+geom_bar(stat="identity")
 patchwork::wrap_plots(p,q)
 ```
 
+[Refer to [patchwork](https://patchwork.data-imaginist.com/) documentation.]{.smaller}
+
 ::: {.notes}
 
 Combining two or more `ggplot2` plots is often required and several packages exist to help with this situation. Some functions allow plots to be placed adjacently, also allowing varying heights or widths of each plot. Some functions allow one plot to be plotted on another plot like a subset plot. Here are alternative options.
@@ -1189,7 +1199,7 @@ p <- ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width,col=Species))
 #| fig-height: 4
 #| fig-width: 4
 p1 <- p+geom_point()
-plotly::ggplotly(p1,width=400,height=300)
+plotly::ggplotly(p1,width=500,height=400)
 ```
 
 :::
@@ -1197,7 +1207,7 @@ plotly::ggplotly(p1,width=400,height=300)
 ::: {.column width="50%"}
 
 ```{r}
-#| fig-height: 4.5
+#| fig-height: 4
 #| fig-width: 4.5
 p2 <- p+ggiraph::geom_point_interactive(
   aes(tooltip=paste0("<b>Species: </b>",Species)))+
@@ -1218,7 +1228,7 @@ Most interactive plotting libraries are not as complete as `ggplot2`. Therefore,
 
 - [**patchwork**](https://patchwork.data-imaginist.com/): Combining plots
 - [**ggrepel**](https://ggrepel.slowkow.com/index.html): Text labels including overlap control 
-- [**ggforce**](https://ggforce.data-imaginist.com/): Additional features
+- [**ggforce**](https://ggforce.data-imaginist.com/): Circles, splines, hulls, voronoi etc
 - [**ggpmisc**](https://github.com/aphalo/ggpmisc): Miscellaneaous features
 - [**ggthemes**](https://jrnold.github.io/ggthemes/): Set of extra themes  
 - [**ggthemr**](https://github.com/cttobin/ggthemr): More themes  
@@ -1227,7 +1237,8 @@ Most interactive plotting libraries are not as complete as `ggplot2`. Therefore,
 - [**ggraph**](https://ggraph.data-imaginist.com/): Network graphs  
 - [**ggiraph**](http://davidgohel.github.io/ggiraph/): Converting ggplot2 to interactive graphics  
 
-A collection of ggplot extension packages: [https://exts.ggplot2.tidyverse.org/](https://exts.ggplot2.tidyverse.org/).
+A collection of ggplot extension packages: [https://exts.ggplot2.tidyverse.org/](https://exts.ggplot2.tidyverse.org/).  
+Curated list of ggplot2 links: [https://github.com/erikgahner/awesome-ggplot2](https://github.com/erikgahner/awesome-ggplot2).  
 
 ## Help
 
