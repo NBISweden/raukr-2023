@@ -1,8 +1,6 @@
 ## CALENDAR PLANNER
 ## R shinyapp to generate ggplot2 calendar
 ## 2019 Roy Mathew Francis
-
-## load libraries
 library(ggplot2)
 library(shiny)
 library(colourpicker)
@@ -14,9 +12,11 @@ cols <- toupper(c(
   "#A4A4A4","#fbb4ae","#b3cde3","#ccebc5","#decbe4","#fed9a6","#ffffcc","#e5d8bd",
   "#fddaec","#f2f2f2","#8dd3c7","#d9d9d9"))
 
+shinyApp(
+
 # UI ---------------------------------------------------------------------------
 
-ui <- fluidPage(
+ui=fluidPage(
   pageWithSidebar(
     headerPanel(title="Calendar Planner",windowTitle="Calendar Planner"),
     sidebarPanel(
@@ -121,7 +121,7 @@ ui <- fluidPage(
       ),
       downloadButton("btn_downloadplot","Download Plot"),
       tags$hr(),
-      helpText("2022 | RaukR")
+      helpText("RaukR")
     ),
     mainPanel(
       sliderInput("in_scale","Image preview scale",min=0.1,max=3,step=0.10,value=1),
@@ -130,11 +130,11 @@ ui <- fluidPage(
       imageOutput("out_plot")
     )
   )
-)
+),
 
 # SERVER -----------------------------------------------------------------------
 
-server <- function(input, output, session) {
+server=function(input, output, session) {
 
   store <- reactiveValues(week=NULL)
 
@@ -258,7 +258,7 @@ server <- function(input, output, session) {
                 width=round(((width*res)/2.54)*input$in_scale,0),
                 height=round(((height*res)/2.54)*input$in_scale,0),
                 alt="calendar_plot"))
-  })
+  }, deleteFile=TRUE)
 
   # FN: fn_downloadplotname ----------------------------------------------------
   # creates filename for download plot
@@ -324,7 +324,5 @@ server <- function(input, output, session) {
     updateDateInput(session,"in_track_date_end_2",label="To",value=as.Date(r1[2+1],"%Y-%m-%d")-1)
     
   })
-  
-}
+})
 
-shinyApp(ui=ui, server=server)

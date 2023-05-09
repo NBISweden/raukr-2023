@@ -4,6 +4,7 @@ author: "Roy Francis"
 description: "Interactive web applications in R."
 image: "assets/featured.jpg"
 format: html
+code-annotations: hover
 ---
 
 ```{r}
@@ -424,7 +425,8 @@ shinyApp(
 )
 ```
 
-## Shiny in Rmarkdown
+## Interactive documents
+### Shiny in Rmarkdown
 
 Shiny interactive widgets can be embedded into Rmarkdown documents. These documents need to be live and can handle interactivity. The important addition is the line `runtime: shiny` to the YAML matter. Here is an example:
 
@@ -463,6 +465,237 @@ hist(iris$Sepal.Length,breaks=input$in_breaks)
 
 This code can be copied to a new file in RStudio and saved as, for example, **shiny.Rmd**. Then click 'Knit'. Alternatively, you can run `rmarkdown::run("shiny.Rmd")`.
 
+### Shiny in Quarto
+
+Shiny widgets can be embedded into quarto documents. The YAML needs to specify `server: shiny` which runs shiny server in the background.
+
+````
+---
+title: "This is a title"
+format: html
+server: shiny
+---
+
+```{{r}}
+sliderInput("bins", "Number of bins:", 
+            min = 1, max = 50, value = 30)
+plotOutput("distPlot")
+```
+
+```{{r}}
+#| context: server
+output$distPlot <- renderPlot({
+  x <- faithful[, 2]  # Old Faithful Geyser data
+  bins <- seq(min(x), max(x), length.out = input$bins + 1)
+  hist(x, breaks = bins, col = 'darkgray', border = 'white')
+})
+```
+````
+
+It is also possible to run individual chunks in shiny using `context` chunk parameter.
+
+````
+```{{r}}
+#| context: server
+```
+````
+
+More information about using shiny and quarto together is [here](https://quarto.org/docs/interactive/shiny/).
+
+## ggplot2 builder
+
+In the ggplot2 presentation, we had a [few slides](https://nbisweden.github.io/raukr-2023/docs/slides/ggplot/index.html#/theme-text) with theme customisation. We will try to recreate that as a shiny app, so we can interactively customise a plot.
+
+**Topics covered**
+
+-  UI sidebar layout
+-  Input and output widgets
+-  Using colorpicker widget
+-  Creating plots in a shiny app
+
+The following R packages will be required for this app: `ggplot2`, `shiny`, `colourpicker`.
+
+Below is a preview of the complete app.
+
+![](assets/ggplot-builder-3.png)
+
+We start with a shiny app template with sidebar layout.
+
+```{r}
+#| eval: false
+library(shiny)
+
+shinyApp(
+  ui=pageWithSidebar(
+    sidebarPanel(),
+    mainPanel()
+  ),
+  server=function(input,output){
+  }
+)
+```
+
+In the ui part, we will define inputs. Most of the inputs are colours, so we use the `colorInput()` widget from the R package `colorpicker`. The output plot is defined as `plotOutput("plot")`. In the server part, we define a `renderPlot()` function that generates a ggplot object.
+
+```{r}
+#| code-fold: true
+#| eval: false
+
+library(shiny)
+library(ggplot2)
+library(colourpicker)
+
+shinyApp(
+    ui = pageWithSidebar(
+        headerPanel("ggplot2 plot builder"),
+        sidebarPanel(
+            colourInput("in_plot_title", "Plot title", value = "#4daf4a"),
+            colourInput("in_plot_subtitle", "Plot subtitle", value = "#984ea3"),
+            colourInput("in_legend_title", "Legend title", value = "#ffff33"),
+            colourInput("in_legend_text", "legend text", value = "#ff7f00"),
+            selectInput("in_legend_pos", "Legend position", choices = c("right", "left", "top", "bottom"), selected = "right"),
+            colourInput("in_axis_title", "Axis title", value = "#e41a1c"),
+            colourInput("in_axis_text", "Axis text", value = "#377eb8"),
+            colourInput("in_strip_text", "Strip text", value = "#a65628"),
+        ),
+        mainPanel(
+            plotOutput("plot")
+        )
+    ),
+    server = function(input, output) {
+
+        output$plot <- renderPlot({
+            ggplot(iris, aes(Sepal.Length, Petal.Length, col = Species)) +
+                geom_point() +
+                facet_wrap(~Species) +
+                labs(title = "Iris dataset", subtitle = "Scatterplots of Sepal and Petal lengths", caption = "The iris dataset by Edgar Anderson") +
+                theme_grey(base_size = 16)
+        })
+
+    }
+)
+```
+
+![](assets/ggplot-builder-1.png)
+
+The input widgets now need to be connected to the ggplot function.
+
+```{r}
+#| code-fold: true
+#| eval: false
+
+library(shiny)
+library(ggplot2)
+library(colourpicker)
+
+shinyApp(
+    ui = pageWithSidebar(
+        headerPanel("ggplot2 plot builder"),
+        sidebarPanel(
+            colourInput("in_plot_title", "Plot title", value = "#4daf4a"),
+            colourInput("in_plot_subtitle", "Plot subtitle", value = "#984ea3"),
+            colourInput("in_legend_title", "Legend title", value = "#ffff33"),
+            colourInput("in_legend_text", "legend text", value = "#ff7f00"),
+            selectInput("in_legend_pos", "Legend position", choices = c("right", "left", "top", "bottom"), selected = "right"),
+            colourInput("in_axis_title", "Axis title", value = "#e41a1c"),
+            colourInput("in_axis_text", "Axis text", value = "#377eb8"),
+            colourInput("in_strip_text", "Strip text", value = "#a65628"),
+        ),
+        mainPanel(
+            plotOutput("plot")
+        )
+    ),
+    server = function(input, output) {
+
+        output$plot <- renderPlot({
+            ggplot(iris, aes(Sepal.Length, Petal.Length, col = Species)) +
+                geom_point() +
+                facet_wrap(~Species) +
+                labs(title = "Iris dataset", subtitle = "Scatterplots of Sepal and Petal lengths", caption = "The iris dataset by Edgar Anderson") +
+                theme_grey(base_size = 16)+
+                theme(
+                  plot.title=element_text(color=input$in_plot_title),
+                  plot.subtitle=element_text(color=input$in_plot_subtitle),
+                  legend.title=element_text(color=input$in_legend_title),
+                  legend.text=element_text(color=input$in_legend_text),
+                  legend.position=input$in_legend_pos,
+                  axis.title=element_text(color=input$in_axis_title),
+                  axis.text=element_text(color=input$in_axis_text),
+                  strip.text=element_text(color=input$in_strip_text)
+                )
+        })
+
+    }
+)
+```
+
+![](assets/ggplot-builder-2.png)
+
+Now try changing the colours of plot elements and hopefully, it should change. 
+
+{{< fa clipboard-list >}}  You can add more options to the input if you like, for example; rectangular elements such as backgrounds.
+
+```{r}
+#| code-fold: true
+#| eval: false
+
+library(shiny)
+library(ggplot2)
+library(colourpicker)
+
+shinyApp(
+    ui = pageWithSidebar(
+        headerPanel("ggplot2 plot builder"),
+        sidebarPanel(
+            colourInput("in_plot_title", "Plot title", value = "#4daf4a"),
+            colourInput("in_plot_subtitle", "Plot subtitle", value = "#984ea3"),
+            colourInput("in_legend_title", "Legend title", value = "#ffff33"),
+            colourInput("in_legend_text", "legend text", value = "#ff7f00"),
+            selectInput("in_legend_pos", "Legend position", choices = c("right", "left", "top", "bottom"), selected = "right"),
+            colourInput("in_axis_title", "Axis title", value = "#e41a1c"),
+            colourInput("in_axis_text", "Axis text", value = "#377eb8"),
+            colourInput("in_strip_text", "Strip text", value = "#a65628"),
+            colourInput("in_plot_background", "Plot background", value = "#b3e2cd"),
+            colourInput("in_panel_background", "Panel background", value = "#fdcdac"),
+            colourInput("in_panel_border", "Panel border", value = "#cbd5e8"),
+            colourInput("in_legend_background", "Legend background", value = "#f4cae4"),
+            colourInput("in_legend_box_background", "Legend box background", value = "#e6f5c9"),
+            colourInput("in_strip_background", "Strip background", value = "#fff2ae")
+        ),
+        mainPanel(
+            plotOutput("plot")
+        )
+    ),
+    server = function(input, output) {
+        output$plot <- renderPlot({
+            ggplot(iris, aes(Sepal.Length, Petal.Length, col = Species)) +
+                geom_point() +
+                facet_wrap(~Species) +
+                labs(title = "Iris dataset", subtitle = "Scatterplots of Sepal and Petal lengths", caption = "The iris dataset by Edgar Anderson") +
+                theme_grey(base_size = 16) +
+                theme(
+                    plot.title = element_text(color = input$in_plot_title),
+                    plot.subtitle = element_text(color = input$in_plot_subtitle),
+                    legend.title = element_text(color = input$in_legend_title),
+                    legend.text = element_text(color = input$in_legend_text),
+                    legend.position = input$in_legend_pos,
+                    axis.title = element_text(color = input$in_axis_title),
+                    axis.text = element_text(color = input$in_axis_text),
+                    strip.text = element_text(color = input$in_strip_text),
+                    plot.background = element_rect(fill = input$in_plot_background),
+                    panel.background = element_rect(fill = input$in_panel_background),
+                    panel.border = element_rect(fill = NA, color = input$in_panel_border, size = 3),
+                    legend.background = element_rect(fill = input$in_legend_background),
+                    legend.box.background = element_rect(fill = input$in_legend_box_background),
+                    strip.background = element_rect(fill = input$in_strip_background)
+                )
+        })
+    }
+)
+```
+
+![](assets/ggplot-builder-3.png)
+
 ## Data explorer
 
 A common use case of shiny apps is to explore a dataset interactively. So we will build a simple app that can create a scatterplot from a dataframe which a user can modify interactively. We will use the built-in `iris` dataset and the user should be able to select x and y axes variables as well the variable mapped to the color of the points.
@@ -474,44 +707,19 @@ A common use case of shiny apps is to explore a dataset interactively. So we wil
 -   Creating plots in a shiny app
 -   Passing variables into ggplot through non standard evaluation
 
+The following R packages will be required for this app: `ggplot2`, `shiny`.
+
 Below is a preview of the complete app.
 
-```{r,data-explorer}
-#| echo: false
-library(shiny)
-
-shinyApp(
-  ui=fluidPage(
-    titlePanel("Data explorer"),
-    sidebarLayout(
-      sidebarPanel(
-          selectInput("in_x","X axis variable", choices=colnames(iris), selected=colnames(iris)[1], multiple=FALSE),
-          selectInput("in_y","Y axis variable", choices=colnames(iris), selected=colnames(iris)[2], multiple=FALSE),
-          selectInput("in_col","Colour variable", choices=colnames(iris), selected=colnames(iris)[3], multiple=FALSE),
-      ),
-      mainPanel(
-        plotOutput("out_plot")
-      )
-    )
-  ),
-  server=function(input,output){
-    
-  output$out_plot <- renderPlot({
-    ggplot(iris,aes(!!sym(input$in_x),y=!!sym(input$in_y),col=!!sym(input$in_col)))+
-      geom_point()
-  })
-      
-  },
-  options=list(height="500px")
-)
-```
+![](assets/data-explorer-2.png)
 
 ### UI
 
-We start with the standard shiny app template.
+We start with a standard shiny app template.
 
 ```{r}
 #| eval: false
+
 library(shiny)
 
 shinyApp(
@@ -523,8 +731,8 @@ shinyApp(
 And then we start building the UI. We will add a title panel and a sidebar layout with a sidebar and a main panel.
 
 ```{r}
-#| fig-height: 6
-#| fig-width: 8
+#| eval: false
+
 library(shiny)
 
 shinyApp(
@@ -539,9 +747,13 @@ shinyApp(
 )
 ```
 
+![](assets/data-explorer-1.png)
+
 And to the sidebar, we will add 3 input widgets corresponding to x axis variable, y axis variable and color variable. These will be dropdown type (`selectInput()`) and choices will be column names of the iris dataframe. And we add the output widget (`plotOutput()`) in the main panel.
 
 ```{r}
+#| eval: false
+
 library(shiny)
 
 shinyApp(
@@ -561,6 +773,8 @@ shinyApp(
   server=function(input,output){}
 )
 ```
+
+![](assets/data-explorer-2.png)
 
 ### Server
 
@@ -597,7 +811,233 @@ This is finally added to the server function.
 ```{r,data-explorer}
 ```
 
-This was a quick and easy start to shiny apps. You can expand this app to other datasets and map more variables to ggplot etc. Can you add the functionality to [download the plots](https://shiny.rstudio.com/gallery/file-download.html)? Or perhaps to [upload a csv file](https://shiny.rstudio.com/articles/upload.html) and plot from that file?
+You can expand this app to other datasets and map more variables to ggplot etc. Can you add the functionality to [download the plots](https://shiny.rstudio.com/gallery/file-download.html)? Or perhaps to [upload a csv file](https://shiny.rstudio.com/articles/upload.html) and plot from that file?
+
+## Color generator
+
+A shiny app to create a distinct color generator.
+
+**Topics covered**
+
+-   UI layout using bslib
+-   Input and output widgets and reactivity
+-   Use of custom CSS and custom HTML
+
+The following R packages will be required for this app: `shiny`, `hues`, `bslib`.
+
+Below is a preview of the finished app.
+
+![](assets/hues-4.png)
+
+The core function that generates colors is `hues::iwanthue()`. What it does is sample colors from the HCL colorspace. [Here](https://colorspace.r-forge.r-project.org/articles/color_spaces.html) is an introduction to colorspaces and HCL colorspace. It requires the number of colors to generate.
+
+```{r}
+hues::iwanthue(5)
+```
+
+In addition, this function has six parameters (`hmin`,`hmax`,`cmin`,`cmax`,`lmin`,`lmax`) to control min and max hue, chroma and lightness. This allows you to define where in the HCL colorspace to sample colors from. Hue controls the color wavelength (red, green etc), chroma controls the intensity or saturation of the color and lightness control the brightness.
+
+This gives you mostly warm reddish colors.
+
+```{r}
+hues::iwanthue(5,hmin=0,hmax=5,cmin=80,cmax=160,lmin=38,lmax=70)
+```
+
+What we are creating is a graphical user interface around this function.
+
+In this example, we will use the `bslib` package to create a bootstrap 5 themed layout using cards. See [bslib](https://rstudio.github.io/bslib/index.html) for more info. This is the structure of the app with cards defined inside a fixed page. See help page for `bslib::card()` for more information on cards. We also define the page title.
+
+```{r}
+#| eval: false
+
+library(bslib)
+
+shinyApp(
+  ui = page_fixed(
+    title = "Hues",
+    card(
+      card_header(),
+      layout_sidebar(
+        sidebar()
+      ),
+      card_footer()
+    )
+  ),
+  server = function(input, output) {
+  }
+)
+```
+
+![](assets/hues-1.png)
+
+Now we define the inputs in the sidebar panel. The number of colors and the three parameters to the colorspace as ranges. Outside the sidebar panel we define our two outputs: an html output to display the names of the colors as hex values. In the footer, we add an acknowledgement link to the hues package.
+
+```{r}
+#| eval: false
+
+library(shiny)
+library(hues)
+library(bslib)
+
+shinyApp(
+  ui = page_fixed(
+    title = "Hues",
+    card(
+      card_header(
+        h2("Colour Generator"),
+      ),
+      layout_sidebar(
+        sidebar(
+          numericInput("in_n", "Number of colours", value = 15),
+          sliderInput("in_hue", "Hue", min = 0, max = 360, value = c(0, 360)),
+          sliderInput("in_chr", "Chroma", min = 0, max = 180, value = c(0, 180)),
+          sliderInput("in_lig", "Lightness", min = 0, max = 100, value = c(0, 100)),
+        ),
+        textOutput("out_text")
+      ),
+      card_footer(
+        div("Built on ", a("hues package", href = "https://github.com/johnbaums/hues"))
+      )
+    )
+  ),
+  server = function(input, output) {
+  }
+)
+```
+
+![](assets/hues-2.png)
+
+Now, we add content into the server part. The inputs are passed to the `get_colours()` reactive function. This function is run inside the `renderText()` function which outputs the colors as hex values.
+
+```{r}
+#| eval: false
+
+library(shiny)
+library(hues)
+library(bslib)
+
+shinyApp(
+  ui = page_fixed(
+    title = "Hues",
+    card(
+      card_header(
+        h2("Colour Generator"),
+      ),
+      layout_sidebar(
+        sidebar(
+          numericInput("in_n", "Number of colours", value = 15),
+          sliderInput("in_hue", "Hue", min = 0, max = 360, value = c(0, 360)),
+          sliderInput("in_chr", "Chroma", min = 0, max = 180, value = c(0, 180)),
+          sliderInput("in_lig", "Lightness", min = 0, max = 100, value = c(0, 100)),
+        ),
+        textOutput("out_text")
+      ),
+      card_footer(
+        div("Built on ", a("hues package", href = "https://github.com/johnbaums/hues"))
+      )
+    )
+  ),
+  server = function(input, output) {
+    get_colours <- reactive({
+        hues::iwanthue(
+            n = input$in_n,
+            hmin = min(input$in_hue),
+            hmax = max(input$in_hue),
+            cmin = min(input$in_chr),
+            cmax = max(input$in_chr),
+            lmin = min(input$in_lig),
+            lmax = max(input$in_lig)
+        )
+    })
+
+    output$out_text <- renderText({
+        cols <- get_colours()
+        paste(cols, collapse = ", ")
+    })
+  }
+)
+```
+
+![](assets/hues-3.png)
+
+The app will now generate colors as hex values, but we can't see the colors. It would be nice to visualise the colors. One option would be to create a plot which is generating an image. An alternative  lightweight option is to create div elements with the generated colors. For that we add an `htmlOutput()` element and a new `renderText()` function to the server part.
+
+This function is creating a span element for each color. These spans are organised inside a div. The div and spans have a parent-child relationship. The span elements are laid out in a grid manner using some custom CSS. The custom CSS is added to the head of the app. We have also added a bit of CSS to add some space above the app so it doesn't touch the top.
+
+```{r}
+#| eval: false
+
+library(shiny)
+library(hues)
+library(bslib)
+
+shinyApp(
+    ui = page_fixed(
+      class = "app-container",
+      tags$head(tags$style(HTML("
+      .app-container {
+          margin-top: 1em;
+      }
+
+      .grid-parent {
+          display: grid;
+          gap: 5px;
+          grid-template-columns: repeat(auto-fit, minmax(40px, 40px));
+      }
+
+      .grid-child {
+          height: 40px;
+          width: 40px;
+      }
+    "))),
+        title = "Hues",
+        card(
+            card_header(
+                h2("Colour Generator"),
+            ),
+            layout_sidebar(
+                sidebar(
+                    numericInput("in_n", "Number of colours", value = 15),
+                    sliderInput("in_hue", "Hue", min = 0, max = 360, value = c(0, 360)),
+                    sliderInput("in_chr", "Chroma", min = 0, max = 180, value = c(0, 180)),
+                    sliderInput("in_lig", "Lightness", min = 0, max = 100, value = c(0, 100)),
+                ),
+                htmlOutput("out_display"),
+                hr(),
+                textOutput("out_text")
+            ),
+            card_footer(
+                div("Built on ", a("hues package", href = "https://github.com/johnbaums/hues"))
+            )
+        )
+    ),
+    server = function(input, output) {
+        get_colours <- reactive({
+            hues::iwanthue(
+                n = input$in_n,
+                hmin = min(input$in_hue),
+                hmax = max(input$in_hue),
+                cmin = min(input$in_chr),
+                cmax = max(input$in_chr),
+                lmin = min(input$in_lig),
+                lmax = max(input$in_lig)
+            )
+        })
+
+        output$out_display <- renderText({
+            cols <- get_colours()
+            paste("<div class='grid-parent'>", paste("<span class='grid-child' style='background-color:", cols, ";'>  </span>", collapse = ""), "</div>", sep = "", collapse = "")
+        })
+
+        output$out_text <- renderText({
+            cols <- get_colours()
+            paste(cols, collapse = ", ")
+        })
+    }
+)
+```
+
+![](assets/hues-4.png)
 
 ## RNA-Seq power
 
@@ -1263,7 +1703,7 @@ A shiny app to create a calendar planner plot.
 -   Update inputs using observe
 -   Validating inputs with custom error messages
 
-The following R packages will be required for this app: `ggplot2, shiny, colourpicker`.
+The following R packages will be required for this app: `ggplot2`, `shiny`, `colourpicker`.
 
 Below is a preview of the finished app.
 
@@ -1853,7 +2293,7 @@ output$out_plot <- renderImage({
               width=round(((width*res)/2.54)*input$in_scale,0),
               height=round(((height*res)/2.54)*input$in_scale,0),
               alt="calendar_plot"))
-})
+}, deleteFile=TRUE)
 ```
 
 The `fn_downloadplotname()` function simply generates the output filename depending on the filetype extension.
@@ -2201,7 +2641,7 @@ server=function(input, output, session) {
                 width=round(((width*res)/2.54)*input$in_scale,0),
                 height=round(((height*res)/2.54)*input$in_scale,0),
                 alt="calendar_plot"))
-  })
+  }, deleteFile=TRUE)
 
   # FN: fn_downloadplotname ----------------------------------------------------
   # creates filename for download plot
@@ -2271,804 +2711,5 @@ server=function(input, output, session) {
 ```
 
 ![](assets/calendar-preview.png)
-
-## Nametagger app
-
-Generate labels for clip-on nametags.
-
-**Topics covered**
-
--   UI layout using rows and columns
--   Input and output widgets and reactivity
--   Uploading and using the contents of a tabular text file
--   Reading in tabular text using text field (shinyAce)
--   Conditional settings panel
--   Read in and plot a raster image (logo)
--   Generate multiple output files
--   Download zipped output files
--   Validating inputs with custom error messages
-
-The following R packages will be required for this app:
-
-```{r}
-#| eval: false
-install.packages(c(ggplot2, shiny, shinythemes, shinyAce, showtext, curl))
-```
-
-The final app will look something like below.
-
-![](assets/nametagger_preview.png)
-
-The idea is to create the labels suitable for A4 paper size and generate as many pages as needed. We wish to include one, two or three lines of text on each label. Also, we may choose to include a logo. We need input for label information, option to select logo, a preview plot and finally an option to download the images.
-
-### Creating the figure
-
-We need to first write the code needed to take some input labels and generate a figure.
-
-We have measured the labels to be 9cm x 5.5cm which means that 8 of them will fit on an A4 paper suitable for print. We have the function for generating the plot below.
-
-```{r}
-#| eval: false
-# nametag_plot_page ------------------------------------------------------------
-
-#' @title nametag_plot_page
-#' @description Creates a page with 1-8 nametags.
-#' @param dfr A data.frame. See details.
-#' @param logo_right A raster logo to be placed on the right.
-#' @param logo_right_scale A scale value. Typically 0.1-0.4.
-#' @param logo_right_offset Logo offset from the edge. Around 0.01-0.1.
-#' @param height Height of nametag in cm. Defaults to 5.5.
-#' @param width Width of nametag in cm. Defaults to 9.
-#' @details Argument 'dfr' is a data.frame that must have columns
-#' label1, label1_x, label1_y, page, row and col.
-#'
-nametag_plot_page <- function(dfr,logo_right=NULL,logo_right_scale,logo_right_offset,height=5.5,width=9)
-{
-  if(missing(dfr)) stop("Input argument 'dfr' missing.")
-
-  # check columns
-  req_cols <- c("label1","label1_sz","label1_x","label1_y","page","row","col")
-  chk_cols <- req_cols %in% colnames(dfr)
-  if(any(!chk_cols)) stop(paste0("Input data is missing columns: ",paste0(req_cols[!chk_cols],collapse=","),"."))
-
-  # add labels if any has length >0
-  p <- ggplot(dfr)
-  if(any(nchar(dfr$label1)!=0)) p <- p + geom_text(aes(x=label1_x,y=label1_y,label=label1),size=dfr$label1_sz[1],fontface="bold")
-
-  if("label2" %in% colnames(dfr)) {
-    req_cols <- c("label2_sz","label2_x","label2_y")
-    chk_cols <- req_cols %in% colnames(dfr)
-    if(any(!chk_cols)) stop(paste0("Input data contains column 'label2' but missing columns: ",paste0(req_cols[!chk_cols],collapse=","),"."))
-
-    if(any(nchar(dfr$label2)!=0)) p <- p + geom_text(aes(x=label2_x,y=label2_y,label=label2),size=dfr$label2_sz[1])
-  }
-
-  if("label3" %in% colnames(dfr)) {
-    req_cols <- c("label3_sz","label3_x","label3_y")
-    chk_cols <- req_cols %in% colnames(dfr)
-    if(any(!chk_cols)) stop(paste0("Input data contains column 'label2' but missing columns: ",paste0(req_cols[!chk_cols],collapse=","),"."))
-
-    if(any(nchar(dfr$label3)!=0)) p <- p + geom_text(aes(x=label3_x,y=label3_y,label=label3),size=dfr$label3_sz[1])
-  }
-
-  p <- p + scale_x_continuous(limits=c(0,1),expand=c(0,0))+
-    scale_y_continuous(limits=c(0,1),expand=c(0,0))+
-    labs(x=NULL,y=NULL)
-
-  w_scaler <- width/height
-
-  # check and add right logo
-  if(!is.null(logo_right)) {
-
-    # height scaling multiplier 1.6
-    logo_right_height <- ((logo_right_scale*nrow(logo_right))/ncol(logo_right))*w_scaler
-
-    # create logo positions
-    logo_right_x2 <- 1-logo_right_offset
-    logo_right_x1 <- logo_right_x2-logo_right_scale
-    logo_right_y2 <- 1-(logo_right_offset+(logo_right_offset*w_scaler))
-    logo_right_y1 <- round(logo_right_y2-logo_right_height,3)
-
-    # add right logo to plot
-    p <- p + annotation_raster(logo_right,xmin=logo_right_x1,xmax=logo_right_x2,ymin=logo_right_y1,ymax=logo_right_y2)
-  }
-  
-  p <- p+
-    facet_grid(row~col)+
-    theme(axis.text=element_blank(),
-          axis.title=element_blank(),
-          panel.grid=element_blank(),
-          panel.spacing=unit(0,"lines"),
-          strip.background=element_blank(),
-          strip.text=element_blank(),
-          axis.ticks=element_blank(),
-          panel.background=element_rect(colour="grey75",fill="white",size=0.4,linetype="25"),
-          plot.background=element_blank(),
-          plot.margin=margin(0.1,0.1,0.1,0.1),
-          axis.ticks.length=unit(0,"pt"))
-
-  return(p)
-}
-
-# nametag ----------------------------------------------------------------------
-
-#' @title nametag
-#' @description Creates an A4 paper with 1-8 name tags.
-#' @param dfr A data.frame with column 'label1'. Optionally 'label2' and 'label3'.
-#' @param label1_sz Size of label on line 1.
-#' @param label1_x X-axis coordinate for the label on line 1.
-#' @param label1_y Y-axis coordinate for the label on line 1.
-#' @param label2_sz Size of label on line 2.
-#' @param label2_x X-axis coordinate for the label on line 2.
-#' @param label2_y Y-axis coordinate for the label on line 2.
-#' @param label3_sz Size of label on line 3.
-#' @param label3_x X-axis coordinate for the label on line 3.
-#' @param label3_y Y-axis coordinate for the label on line 3.
-#' @param logo_right A raster logo for the right side.
-#' @param logo_right_offset Logo offset from the edge. Around 0.01-0.1.
-#' @param logo_right_scale A scale value. Typically 0.1-0.4.
-#' @param filename A character denoting filename (prefix) of exported files.Defaults to 'nametag_' followed by page number and '.png'.
-#' @param path A character path to the directory where file(s) are to be exported. Do not add / at the end of the path.
-#' @param ftype Export file type. 'png' or 'pdf'. Defaults to 'png'.
-#' @param height Height of nametag in cm. Defaults to 5.5.
-#' @param width Width of nametag in cm. Defaults to 9.
-#' @details A data.frame with one column 'label1' is the only mandatory input for this function.
-#'
-nametag <- function(dfr,label1_sz=8,label1_x=0.5,label1_y=0.54,
-                    label2_sz=6.5,label2_x=0.5,label2_y=0.37,
-                    label3_sz=6,label3_x=0.5,label3_y=0.22,
-                    logo_right=NULL,logo_right_offset=0.04,logo_right_scale=0.2,
-                    filename="nametag_",path=".",ftype="png",height=5.5,width=9)
-{
-  if(missing(dfr)) stop("Input argument 'dfr' is missing.")
-  if(!is.data.frame(dfr)) stop("Input argument 'dfr' must be a data.frame.")
-  if(nrow(dfr)<1) stop("Input data must have at least 1 row.")
-  if(!("label1"  %in% colnames(dfr))) stop("Input data must contain a column named 'label1'.")
-  if("label3"  %in% colnames(dfr)) {if(!("label2"  %in% colnames(dfr))) stop("Column 'label3' is present, but 'label2' is missing. If 'label3' is used, 'label2' must be present." )}
-  if(is.null(filename)) filename <- "nametag_"
-
-  # compute tags and pages
-  n <- nrow(dfr)
-  npages <- ceiling(n/8)
-  ntags <- npages*8
-  filler <- ntags-n
-  l1 <- c(dfr$label1,rep("",filler))
-  if("label2"  %in% colnames(dfr)) l2 <- c(dfr$label2,rep("",filler))
-  if("label3"  %in% colnames(dfr)) l3 <- c(dfr$label3,rep("",filler))
-  nn <- length(l1)
-
-  # create working df
-  dfw <- data.frame(label1=l1,label1_sz=label1_sz,
-                    label1_x=rep(label1_x,nn),label1_y=rep(label1_y,nn),
-                    stringsAsFactors=F)
-
-  if("label2"  %in% colnames(dfr)) {
-    dfw$label2 <- l2
-    dfw$label2_sz <- label2_sz
-    dfw$label2_x <- rep(label2_x,nn)
-    dfw$label2_y <- rep(label2_y,nn)
-  }
-
-  if("label3"  %in% colnames(dfr)) {
-    dfw$label3 <- l3
-    dfw$label3_sz <- label3_sz
-    dfw$label3_x <- rep(label3_x,nn)
-    dfw$label3_y <- rep(label3_y,nn)
-  }
-
-  dfw$page <- rep(1:npages,each=8)
-  dfw$row <- rep(rep(1:4,each=2),npages)
-  dfw$col <- rep(rep(c(1,2),4),npages)
-
-  dflist <- split(dfw,dfw$page)
-  ids <- names(dflist)
-
-  # creates plots and saves ggplot objects to a list
-  plist <- lapply(dflist,nametag_plot_page,logo_right,logo_right_scale,logo_right_offset,height=height,width=width)
-
-  # function to export images
-  efun <- function(p,id,height,width,filename,ftype) {
-    if(ftype=="png") {
-      fname <- paste0(path,"/",filename,id,".png")
-      ggsave(filename=fname,plot=p,height=height*4,width=width*2,units="cm",dpi=300,device="png")
-    }
-    if(ftype=="pdf") {
-      fname <- paste0(path,"/",filename,id,".pdf")
-      ggsave(filename=fname,plot=p,height=height*4*0.3937,width=width*2*0.3937,device="pdf")
-    }
-  }
-
-  # exports images
-  mapply(function(p,id,height,width,filename,ftype) efun(p,id,height,width,filename,ftype),plist,ids,height,width,filename,ftype)
-}
-```
-
-We will skip the details of the function as it is not exactly shiny related. There is a function called `nametag()` which generates the figures given appropriate input. It needs an input data.frame with at least one column named `label1`. We can test this out.
-
-```{r}
-#| eval: false
-dfr <- data.frame(label1=c("Person A","Person B"),label2=c("Institution X","Institution Y"),stringsAsFactors = F)
-nametag(dfr)
-```
-
-This should have exported a PNG image to the working directory. `nametag()` also has an argument called `logo_right` to pass in a raster image which will be plotted as a logo on the top right side. `nametag()` also has numerous other arguments to adjust label positions, logo position, size justification etc. But, these arguments have reasonable defaults.
-
-### Building the app
-
-Now that we have the function, we are ready to build the GUI around it. Let's remind ourselves of the app layout.
-
-![](assets/nametagger_preview.png)
-
-#### UI
-
-We want a three-column layout with a title panel on the top. The input widgets go on the left and the preview figure in the middle and the optional settings on the right. We can start by building up the structure using row and column functions.
-
-```{r}
-shinyApp(
-ui=fluidPage(
-  fixedRow(
-      column(12,
-    h1("Nametagger"),
-    fixedRow(
-    column(3
-    ),
-    column(6
-    ),
-    uiOutput("ui_settings")
-    )
-  )
-)
-),
-server=function(input,output) {},
-  options=list(height="400px")
-)
-```
-
-This code displays a blank page with the title. But, there is quite a bit going on here. We started with a responsive `fluidPage` container. We added a row and a column to hold everything. This column has the full width of 12. We added the h1 heading. Then we added a new row which contains 3 columns of widths 3,6 and 3 adding up to 12. The first column will hold the standard input widgets, second column will contain the preview plot and the last column is a hidden conditional UI which will hold the optional settings. Conditional UI defined using `uiOutput()` is hidden by default and is displayed only if a condition is true.
-
-Next, we will populate the columns with widgets.
-
-```{r}
-#| eval: false
-shinyApp(
-ui=fluidPage(
-  fixedRow(
-      column(12,style="margin:15px;",
-    h1("Nametagger"),
-    fixedRow(
-    column(3,
-      fluidRow(
-        column(6,
-               selectInput("in_input","Input method",choices=c("Upload file","Paste text"),
-                           selected="Paste text",multiple=FALSE)),
-        column(6,
-               selectInput("in_data_format","File format",choices=c("tsv","csv","csv2"),selected="csv",multiple=FALSE))
-        ),
-      uiOutput("ui_input"),
-      helpText("Input must contain column names. 'label1' is a mandatory column. Optional columns are 'label2' and 'label3'.",style="display:inline;"),
-      selectInput("in_logo_right",label="Logo",c("None","NBIS Green","NBIS Blue","NBIS Orange","SciLifeLab Green","SciLifeLab Blue","SciLifeLab Orange","Elixir"),selected="None",multiple=FALSE),
-      downloadButton("btn_download","Download"),
-      checkboxInput("in_settings","Settings",value=FALSE),
-      tags$hr(),
-      helpText("RaukR")
-    ),
-    column(6,
-      textOutput("out_pagecount"),
-      tags$br(),
-      imageOutput("out_plot")
-    ),
-    uiOutput("ui_settings")
-    )
-  )
-)),
-server=function(input,output) {}
-)
-```
-
-![](assets/nametagger-1.png)
-
-We have added input for file upload and paste text so that users can input labels either way. The tabular column delimiter can be user-defined. The actual input widget is hidden since it's a conditional UI. This works only when further code is defined under server. A help text is added to explain the input format to the user. A download button to download the images. A settings checkbox to optionally display the advanced settings panel. The main column has text showing number of files generated and the preview plot.
-
-Finally, we will add some custom styling to the columns. For example `style="max-width:300px;border-radius:4px;background:#ebedef;"` was added to the left input column to color the background gray, rounded corners and limit responsive width to 300px.
-
-```{r}
-#| eval: false
-shinyApp(
-ui=fluidPage(
-  fixedRow(
-      column(12,style="margin:15px;",
-    h1("Nametagger"),
-    fixedRow(
-    column(3,style="max-width:300px;background:#ebedef;padding-top:15px;padding-bottom:15px;border-radius:4px;",
-      fluidRow(
-        column(6,style=list("padding-right:5px;"),
-               selectInput("in_input","Input method",choices=c("Upload file","Paste text"),
-                           selected="Paste text",multiple=FALSE)),
-        column(6,style=list("padding-left: 5px;"),
-               selectInput("in_data_format","File format",choices=c("tsv","csv","csv2"),selected="csv",multiple=FALSE))
-        ),
-      uiOutput("ui_input"),
-      helpText("Input must contain column names. 'label1' is a mandatory column. Optional columns are 'label2' and 'label3'.",style="display:inline;"),
-      selectInput("in_logo_right",label="Logo",c("None","NBIS Green","NBIS Blue","NBIS Orange","SciLifeLab Green","SciLifeLab Blue","SciLifeLab Orange","Elixir"),selected="None",multiple=FALSE),
-      downloadButton("btn_download","Download"),
-      checkboxInput("in_settings","Settings",value=FALSE),
-      tags$hr(),
-      helpText("RaukR")
-    ),
-    column(6,style="max-width:450px;min-width:400px;padding-top:15px;padding-bottom:15px;border-radius:4px;",
-      textOutput("out_pagecount"),
-      tags$br(),
-      imageOutput("out_plot")
-    ),
-    uiOutput("ui_settings")
-    )
-  )
-)
-),
-server=function(input,output) {}
-)
-```
-
-![](assets/nametagger-2.png)
-
-#### Server
-
-Now let's plan a bit on how to organize the server code. We can break it up into 8 blocks.
-
-1.  Conditional UI for input
-2.  Conditional UI for settings
-3.  Reactive function for reading and processing input
-4.  Reactive function for computing plotting parameters
-5.  Plot output for plotting preview
-6.  Text output for displaying number of files generated
-7.  Function for downloading files
-8.  A download handler for the download button
-
-Here is a flow diagram roughly showing the sequence of steps. `< > v` denotes direction, `()` denotes optional input and `[]` denotes endpoint outputs.
-
-```         
-      1
-      v
-[6] < 3 < (2)
-      v
-      4 > [7] < 8
-      v
-     [5]
-```
-
-The plot preview block (5) and download block (7) depends on common reactive functions 3 and 4.
-
-Let's look at block 1. This is a conditional UI which is active only if the **Input method** (`input$in_input`) is not NULL. If input method is **Upload file**, then the UI for file upload is displayed, otherwise the input method is paste text (aceEditor).
-
-```{r}
-#| eval: false
-## UI: ui_input --------------------------------------------------------------
-## ui to select input type: upload or paste
-output$ui_input <- renderUI({
-validate(fn_validate(input$in_input))
-
-if(input$in_input=="Upload file") {
-  fileInput("in_data","Upload a text file.",multiple=FALSE)
-}else{
-  shinyAce::aceEditor("in_data","label1,label2\nJohn Doe,Uppsala University\nMary Jane,Stockholm University",mode="text",theme="textmate",readOnly=FALSE,height="150px",fontSize=12)
-}
-})
-```
-
-The settings panel is displayed only if the **Settings** checkbox is displayed. This panel contains input widgets for adjusting the position and alignment of text and logo.
-
-Let's look at block 3 to process input data. It depends on input method and input data format. Depending on the input method (file upload/paste text), different processing steps are carried out eventually resulting in identical output data.frame structure. Upload file is read in using defined separator. For paste-text field, the input is split by separator and organized into a data.frame.
-
-```{r}
-#| eval: false
-## FN: fn_input --------------------------------------------------------
-## function to get input data
-
-fn_input <- reactive({
-  validate(fn_validate(input$in_input))
-  validate(fn_validate(try(input$in_data),message1="Upload a file or paste text."))
-  validate(fn_validate(input$in_data_format))
-  fr <- ifelse(input$in_data_format=="tsv","\t",ifelse(input$in_data_format=="csv",",",";"))
-
-  if(input$in_input=="Upload file") {
-    dfr <- read.delim(input$in_data$datapath,header=TRUE,sep=fr,stringsAsFactors=F)
-  }
-  if(input$in_input=="Paste text") {
-    df1 <- as.data.frame(strsplit(as.character(unlist(strsplit(input$in_data,"\n"))),fr))
-    cnames <- as.character(df1[,1])
-    df1[,1] <- NULL
-    dfr <- as.data.frame(t(df1),stringsAsFactors=F)
-    colnames(dfr) <- cnames
-    rownames(dfr) <- 1:nrow(dfr)
-  }
-
-  colnames(dfr) <- tolower(colnames(dfr))
-  return(dfr)
-})
-```
-
-Let's explore the block 4 that generates the plotting parameters. It depends on block 3 (`fn_input()`), settings checkbox (`input$in_settings`) and logo dropdown (`input$in_logo_right`).
-
-It checks if columns `label1`,`label2` and `label3` are present in the input data.frame. Label size, x-position, y-position, logo scale and logo offset and set from input widgets or defaults are set. Depending on selected logo, the path is set and logo is read in. All these parameters are returned as a list.
-
-The logos are placed under a directory named **www** in the app root.
-
-```{r}
-#| eval: false
-## FN: fn_params ------------------------------------------------------------
-## function to get plot params
-
-fn_params <- reactive({
-
-  validate(fn_validate(fn_input()))
-  validate(fn_validate(input$in_settings))
-  validate(fn_validate(input$in_logo_right))
-
-  if("label1" %in% colnames(fn_input())) {l1 <- TRUE}else{l1 <- FALSE}
-  if("label2" %in% colnames(fn_input())) {l2 <- TRUE}else{l2 <- FALSE}
-  if("label3" %in% colnames(fn_input())) {l3 <- TRUE}else{l3 <- FALSE}
-
-  # if values are available, use them, else use defaults
-  if(is.null(input$in_label1_size)){l1s <- 8}else{l1s <- input$in_label1_size}
-  if(is.null(input$in_label1_x)){l1x <- 0.5}else{l1x <- input$in_label1_x}
-  if(is.null(input$in_label1_y)){l1y <- 0.54}else{l1y <- input$in_label1_y}
-  if(is.null(input$in_label2_size)){l2s <- 6.5}else{l2s <- input$in_label2_size}
-  if(is.null(input$in_label2_x)){l2x <- 0.5}else{l2x <- input$in_label2_x}
-  if(is.null(input$in_label2_y)){l2y <- 0.37}else{l2y <- input$in_label2_y}
-  if(is.null(input$in_label3_size)){l3s <- 6}else{l3s <- input$in_label3_size}
-  if(is.null(input$in_label3_x)){l3x <- 0.5}else{l3x <- input$in_label3_x}
-  if(is.null(input$in_label3_y)){l3y <- 0.22}else{l3y <- input$in_label3_y}
-  if(is.null(input$in_logo_right_offset)){lro <- 0.04}else{lro <- input$in_logo_right_offset}
-  if(is.null(input$in_logo_right_scale)){lrs <- 0.2}else{lrs <- input$in_logo_right_scale}
-
-  # logos
-  lr = switch(
-    input$in_logo_right,
-    "None"=NULL,
-    "NBIS Green"="./www/nbis_200_green.png",
-    "NBIS Blue"="./www/nbis_200_blue.png",
-    "NBIS Orange"="./www/nbis_200_orange.png",
-    "SciLifeLab Green"="./www/scilifelab_200_green.png",
-    "SciLifeLab Blue"="./www/scilifelab_200_blue.png",
-    "SciLifeLab Orange"="./www/scilifelab_200_orange.png",
-    "Elixir"="./www/elixir_200.png"
-  )
-  if(!is.null(lr)) {lri <- readPNG(lr)}else{lri <- NULL}
-
-  return(list(l1s=l1s,l1x=l1x,l1y=l1y,l2s=l2s,l2x=l2x,l2y=l2y,l3s=l3s,l3x=l3x,l3y=l3y,
-              lro=lro,lrs=lrs,lri=lri))
-})
-```
-
-Now, we have block 5 which creates the preview plot. It takes input from block 3 (`fn_input()`) and parameters from block 4 (`fn_params()`) which are passed to our `nametag()` function. Lastly, a list is returned with image path and render dimensions.
-
-```{r}
-#| eval: false
-## OUT: out_plot ------------------------------------------------------------
-## plots figure
-output$out_plot <- renderImage({
-
-  validate(fn_validate(fn_input()))
-  validate(fn_validate(fn_params()))
-  p <- fn_params()
-
-  nametag(dfr=fn_input(),label1_sz=p$l1s,label1_x=p$l1x,label1_y=p$l1y,
-          label2_sz=p$l2s,label2_x=p$l2x,label2_y=p$l2y,
-          label3_sz=p$l3s,label3_x=p$l3x,label3_y=p$l3y,
-          logo_right=p$lri,logo_right_offset=p$lro,logo_right_scale=p$lrs)
-
-  return(list(src="nametag_1.png",contentType="image/png",
-              width=round(9*2*37.7*0.6,0),
-              height=round(5.5*4*37.7*0.6,0),
-              alt="nametagger_image"))
-})
-```
-
-Block 6 simply prints out the number of pages of images.
-
-```{r}
-#| eval: false
-## OUT: out_pagecount -------------------------------------------------------
-## prints general variables for debugging
-
-output$out_pagecount <- renderText({
-
-  req(fn_input())
-
-  npages <- ceiling(nrow(fn_input())/8)
-  paste0("Showing 1 of ",npages," pages.")
-})
-```
-
-Here is block 7 and 8. Block 7 is the download function. This is very similar to the plotting block. The only real addition here is creation of the zip file collating all output PNGs. Individual images are then deleted. Block 8 below when triggered using the download button calls the `fn_download()` function.
-
-```{r}
-#| eval: false
-## FN: fn_download -----------------------------------------------------------
-## function to download a zipped file with images
-
-fn_download <- function(){
-
-  validate(fn_validate(fn_input()))
-  validate(fn_validate(fn_params()))
-
-  p <- fn_params()
-  nametag(dfr=fn_input(),label1_sz=p$l1s,label1_x=p$l1x,label1_y=p$l1y,
-          label2_sz=p$l2s,label2_x=p$l2x,label2_y=p$l2y,
-          label3_sz=p$l3s,label3_x=p$l3x,label3_y=p$l3y,
-          logo_right=p$lri,logo_right_offset=p$lro,logo_right_scale=p$lrs,
-          path=".")
-
-  unlink("nametagger.zip")
-  zip("nametagger.zip",files=list.files()[grep("nametag_[0-9]+[.png$|.pdf$]",list.files())])
-  unlink(list.files()[grep("nametag_[0-9]+[.png$|.pdf$]",list.files())])
-}
-
-## DHL: btn_download ---------------------------------------------------------
-## download handler for downloading zipped file
-
-output$btn_download <- downloadHandler(
-  filename="nametagger.zip",
-  content=function(file) {
-    fn_download()
-    file.copy("nametagger.zip",file,overwrite=T)
-  }
-)
-```
-
-Now, we can add all of this to the server section. The final code looks like below.
-
-```{r}
-#| eval: false
-
-library(ggplot2)
-library(shinyAce)
-
-shinyApp(
-  
-  # UI -------------------------------------------------------------------------
-  ui=fluidPage(
-    fixedRow(
-      column(12,style="margin:15px;",
-             h1("Nametagger"),
-             fixedRow(
-               column(3,style="max-width:300px;background:#ebedef;padding-top:15px;padding-bottom:15px;border-radius:4px;",
-                      fluidRow(
-                        column(6,style=list("padding-right:5px;"),
-                               selectInput("in_input","Input method",choices=c("Upload file","Paste text"),
-                                           selected="Paste text",multiple=FALSE)),
-                        column(6,style=list("padding-left: 5px;"),
-                               selectInput("in_data_format","File format",choices=c("tsv","csv","csv2"),selected="csv",multiple=FALSE))
-                      ),
-                      uiOutput("ui_input"),
-                      helpText("Input must contain column names. 'label1' is a mandatory column. Optional columns are 'label2' and 'label3'.",style="display:inline;"),
-                      selectInput("in_logo_right",label="Logo",c("None","NBIS Green","NBIS Blue","NBIS Orange","SciLifeLab Green","SciLifeLab Blue","SciLifeLab Orange","Elixir"),selected="None",multiple=FALSE),
-                      downloadButton("btn_download","Download"),
-                      checkboxInput("in_settings","Settings",value=FALSE),
-                      tags$hr(),
-                      helpText("RaukR")
-               ),
-               column(6,style="max-width:450px;min-width:400px;padding-top:15px;padding-bottom:15px;border-radius:4px;",
-                      textOutput("out_pagecount"),
-                      tags$br(),
-                      imageOutput("out_plot")
-               ),
-               uiOutput("ui_settings")
-             )
-      )
-    )
-  ),
-  
-  # SERVER -----------------------------------------------------------------------
-  
-  server=function(input, output, session) {
-    
-    ## UI: ui_input --------------------------------------------------------------
-    ## ui to select input type: upload or paste
-    output$ui_input <- renderUI({
-      validate(fn_validate(input$in_input))
-      
-      if(input$in_input=="Upload file") {
-        fileInput("in_data","Upload a text file.",multiple=FALSE)
-      }else{
-        shinyAce::aceEditor("in_data","label1,label2\nJohn Doe,Uppsala University\nMary Jane,Stockholm University",mode="text",theme="textmate",readOnly=FALSE,height="150px",fontSize=12)
-      }
-    })
-    
-    ## UI: ui_settings -----------------------------------------------------------
-    ## ui to display settings
-    output$ui_settings <- renderUI({
-      validate(fn_validate(input$in_settings))
-      
-      if(input$in_settings) {
-        column(3,style="max-width:300px;border-radius:4px;background:#ebedef;",
-               h4("Settings"),
-               div(
-                 tags$b("Label 1"),
-                 fluidRow(
-                   column(4,style=list("padding-right: 3px;"),
-                          numericInput("in_label1_size",label="Size",value=8,min=4,max=12,step=0.5)
-                   ),
-                   column(4,style=list("padding-right: 3px; padding-left: 3px;"),
-                          numericInput("in_label1_x",label="X pos",value=0.5,min=0,max=1,step=0.02)
-                   ),
-                   column(4,style=list("padding-left: 3px;"),
-                          numericInput("in_label1_y",label="Y pos",value=0.54,min=0,max=1,step=0.02)
-                   )
-                 ),
-                 tags$b("Label 2"),
-                 fluidRow(
-                   column(4,style=list("padding-right: 3px;"),
-                          numericInput("in_label2_size",label="Size",value=6.5,min=4,max=12,step=0.5)
-                   ),
-                   column(4,style=list("padding-right: 3px; padding-left: 3px;"),
-                          numericInput("in_label2_x",label="X pos",value=0.5,min=0,max=1,step=0.02)
-                   ),
-                   column(4,style=list("padding-left: 3px;"),
-                          numericInput("in_label2_y",label="Y pos",value=0.37,min=0,max=1,step=0.02)
-                   )
-                 ),
-                 tags$b("Label 3"),
-                 fluidRow(
-                   column(4,style=list("padding-right: 3px;"),
-                          numericInput("in_label3_size",label="Size",value=6,min=4,max=12,step=0.5)
-                   ),
-                   column(4,style=list("padding-right: 3px; padding-left: 3px;"),
-                          numericInput("in_label3_x",label="X pos",value=0.5,min=0,max=1,step=0.02)
-                   ),
-                   column(4,style=list("padding-left: 3px;"),
-                          numericInput("in_label3_y",label="Y pos",value=0.22,min=0,max=1,step=0.02)
-                   )
-                 ),
-                 tags$b("Logo"),
-                 fluidRow(
-                   column(6,style=list("padding-right: 3px;"),
-                          numericInput("in_logo_right_offset",label="Offset",value=0.02,min=0,max=0.2,step=0.01)
-                   ),
-                   column(6,style=list("padding-left: 3px;"),
-                          numericInput("in_logo_right_scale",label="Width",value=0.2,min=0.1,max=0.6,step=0.01)
-                   )
-                 )
-               )
-        )
-      }
-      
-    })
-    
-    ## FN: fn_input --------------------------------------------------------
-    ## function to get input data
-    
-    fn_input <- reactive({
-      validate(fn_validate(input$in_input))
-      validate(fn_validate(try(input$in_data),message1="Upload a file or paste text."))
-      validate(fn_validate(input$in_data_format))
-      fr <- ifelse(input$in_data_format=="tsv","\t",ifelse(input$in_data_format=="csv",",",";"))
-      
-      if(input$in_input=="Upload file") {
-        dfr <- read.delim(input$in_data$datapath,header=TRUE,sep=fr,stringsAsFactors=F)
-      }
-      if(input$in_input=="Paste text") {
-        df1 <- as.data.frame(strsplit(as.character(unlist(strsplit(input$in_data,"\n"))),fr))
-        cnames <- as.character(df1[,1])
-        df1[,1] <- NULL
-        dfr <- as.data.frame(t(df1),stringsAsFactors=F)
-        colnames(dfr) <- cnames
-        rownames(dfr) <- 1:nrow(dfr)
-      }
-      
-      colnames(dfr) <- tolower(colnames(dfr))
-      return(dfr)
-    })
-    
-    ## FN: fn_params ------------------------------------------------------------
-    ## function to get plot params
-    
-    fn_params <- reactive({
-      
-      validate(fn_validate(fn_input()))
-      validate(fn_validate(input$in_settings))
-      validate(fn_validate(input$in_logo_right))
-      
-      if("label1" %in% colnames(fn_input())) {l1 <- TRUE}else{l1 <- FALSE}
-      if("label2" %in% colnames(fn_input())) {l2 <- TRUE}else{l2 <- FALSE}
-      if("label3" %in% colnames(fn_input())) {l3 <- TRUE}else{l3 <- FALSE}
-      
-      # if values are available, use them, else use defaults
-      if(is.null(input$in_label1_size)){l1s <- 8}else{l1s <- input$in_label1_size}
-      if(is.null(input$in_label1_x)){l1x <- 0.5}else{l1x <- input$in_label1_x}
-      if(is.null(input$in_label1_y)){l1y <- 0.54}else{l1y <- input$in_label1_y}
-      if(is.null(input$in_label2_size)){l2s <- 6.5}else{l2s <- input$in_label2_size}
-      if(is.null(input$in_label2_x)){l2x <- 0.5}else{l2x <- input$in_label2_x}
-      if(is.null(input$in_label2_y)){l2y <- 0.37}else{l2y <- input$in_label2_y}
-      if(is.null(input$in_label3_size)){l3s <- 6}else{l3s <- input$in_label3_size}
-      if(is.null(input$in_label3_x)){l3x <- 0.5}else{l3x <- input$in_label3_x}
-      if(is.null(input$in_label3_y)){l3y <- 0.22}else{l3y <- input$in_label3_y}
-      if(is.null(input$in_logo_right_offset)){lro <- 0.04}else{lro <- input$in_logo_right_offset}
-      if(is.null(input$in_logo_right_scale)){lrs <- 0.2}else{lrs <- input$in_logo_right_scale}
-      
-      # logos
-      lr = switch(
-        input$in_logo_right,
-        "None"=NULL,
-        "NBIS Green"="./www/nbis_200_green.png",
-        "NBIS Blue"="./www/nbis_200_blue.png",
-        "NBIS Orange"="./www/nbis_200_orange.png",
-        "SciLifeLab Green"="./www/scilifelab_200_green.png",
-        "SciLifeLab Blue"="./www/scilifelab_200_blue.png",
-        "SciLifeLab Orange"="./www/scilifelab_200_orange.png",
-        "Elixir"="./www/elixir_200.png"
-      )
-      if(!is.null(lr)) {lri <- readPNG(lr)}else{lri <- NULL}
-      
-      return(list(l1s=l1s,l1x=l1x,l1y=l1y,l2s=l2s,l2x=l2x,l2y=l2y,l3s=l3s,l3x=l3x,l3y=l3y,
-                  lro=lro,lrs=lrs,lri=lri))
-    })
-    
-    ## OUT: out_plot ------------------------------------------------------------
-    ## plots figure
-    
-    output$out_plot <- renderImage({
-      
-      validate(fn_validate(fn_input()))
-      validate(fn_validate(fn_params()))
-      p <- fn_params()
-      
-      nametag(dfr=fn_input(),label1_sz=p$l1s,label1_x=p$l1x,label1_y=p$l1y,
-              label2_sz=p$l2s,label2_x=p$l2x,label2_y=p$l2y,
-              label3_sz=p$l3s,label3_x=p$l3x,label3_y=p$l3y,
-              logo_right=p$lri,logo_right_offset=p$lro,logo_right_scale=p$lrs)
-      
-      return(list(src="nametag_1.png",contentType="image/png",
-                  width=round(9*2*37.7*0.6,0),
-                  height=round(5.5*4*37.7*0.6,0),
-                  alt="nametagger_image"))
-    })
-    
-    ## OUT: out_pagecount -------------------------------------------------------
-    ## prints general variables for debugging
-    
-    output$out_pagecount <- renderText({
-      
-      req(fn_input())
-      
-      npages <- ceiling(nrow(fn_input())/8)
-      paste0("Showing 1 of ",npages," pages.")
-    })
-    
-    ## FN: fn_download -----------------------------------------------------------
-    ## function to download a zipped file with images
-    
-    fn_download <- function(){
-      
-      validate(fn_validate(fn_input()))
-      validate(fn_validate(fn_params()))
-      
-      p <- fn_params()
-      nametag(dfr=fn_input(),label1_sz=p$l1s,label1_x=p$l1x,label1_y=p$l1y,
-              label2_sz=p$l2s,label2_x=p$l2x,label2_y=p$l2y,
-              label3_sz=p$l3s,label3_x=p$l3x,label3_y=p$l3y,
-              logo_right=p$lri,logo_right_offset=p$lro,logo_right_scale=p$lrs,
-              path=".")
-      
-      unlink("nametagger.zip")
-      zip("nametagger.zip",files=list.files()[grep("nametag_[0-9]+[.png$|.pdf$]",list.files())])
-      unlink(list.files()[grep("nametag_[0-9]+[.png$|.pdf$]",list.files())])
-    }
-    
-    ## DHL: btn_download ---------------------------------------------------------
-    ## download handler for downloading zipped file
-    
-    output$btn_download <- downloadHandler(
-      filename="nametagger.zip",
-      content=function(file) {
-        fn_download()
-        file.copy("nametagger.zip",file,overwrite=T)
-      }
-    )
-  }
-)
-```
-
-![](assets/nametagger_preview.png)
 
 Hopefully, this has not been too overwhelming. Shiny app code may look over-complicated on the first look, but it is easier to understand what is happening by breaking it apart into smaller chunks and understanding how the various components are connected. It is crucial to plan out the structure of your app well in advanced as it is easy to get confused. Remember to name functions and variables sensibly. Use text output widgets and/or print statements in the code to keep track of internal variable values during run-time. Go forth and build awesome apps!
