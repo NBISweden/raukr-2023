@@ -129,4 +129,12 @@ Contents
 :::
 ```
 
+- If content overflows the slide in vertical direction, add class `.scrollable`
+
+```
+::: scrollable
+content
+:::
+```
+
 - To view a demo presentation, click [here](https://nbisweden.github.io/raukr-2023/slides/demo/) 
