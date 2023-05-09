@@ -3007,7 +3007,7 @@
     "href": "slides/shiny/index.html#what-is-shiny",
     "title": "Interactive web apps with Shiny",
     "section": "What is shiny?",
-    "text": "What is shiny?\n\nInteractive documents & web applications\nCompletely created using R\nNeeds a live environment\n\n\nUsage\n\nStandalone web applications\nDashboard/Flexboard\nInteractive RMarkdown\nGadgets/RStudio extensions\n\n. . .\nApp structure\n\nUI Layout\nUI Inputs (Widgets)\nUI Outputs\nRenderer\nBuilder\nFunction reference"
+    "text": "What is shiny?\n\n\n\nInteractive documents & web applications\nCompletely created using R\nNeeds a live environment\n\nUsage\n\nStandalone web applications\nDashboard/Flexboard\nInteractive RMarkdown\nGadgets/RStudio extensions\n\n\nApp structure\n\nUI Layout\nUI Inputs (Widgets)\nUI Outputs\nRenderer\nBuilder\nFunction reference"
   },
   {
     "objectID": "slides/shiny/index.html#code-structure",
@@ -3028,63 +3028,63 @@
     "href": "slides/shiny/index.html#ui-layout",
     "title": "Interactive web apps with Shiny",
     "section": "UI • Layout",
-    "text": "UI • Layout\n\nshinyApp(\nui=fluidPage(\n  titlePanel(\"Title Panel\"),\n  sidebarLayout(\n    sidebarPanel(\n      helpText(\"Sidebar Panel\")\n    ),\n    mainPanel(tabsetPanel(\n                tabPanel(\"tab1\",\n                         fluidRow(\n                           column(6,helpText(\"Col1\")),\n                           column(6,\n                                  helpText(\"Col2\"),\n                                  fluidRow(\n                                    column(4,style=\"background-color:#b0c6fb\",\n                                           helpText(\"Col1\")\n                                    ),\n                                    column(4,style=\"background-color:#ffa153\",\n                                           helpText(\"Col2\")\n                                    ),\n                                    column(4,style=\"background-color:#b1f6c6\",\n                                           helpText(\"Col3\")\n                                    )\n                                  )\n                           )\n                         )\n                ),\n                tabPanel(\"tab2\",\n                         inputPanel(helpText(\"Input Panel\"))\n                ),\n                tabPanel(\"tab3\",\n                  wellPanel(helpText(\"Well Panel\"))\n                )\n              )\n    )\n  )\n),\nserver=function(input,output) {})"
+    "text": "UI • Layout\n\nshinyApp(\nui=fluidPage(\n  titlePanel(\"Title Panel\"),\n  sidebarLayout(\n    sidebarPanel(\n      helpText(\"Sidebar Panel\")\n    ),\n    mainPanel(tabsetPanel(\n                tabPanel(\"tab1\",\n                         fluidRow(\n                           column(6,helpText(\"Col1\")),\n                           column(6,\n                                  helpText(\"Col2\"),\n                                  fluidRow(\n                                    column(4,style=\"background-color:#b0c6fb\",helpText(\"Col1\")),\n                                    column(4,style=\"background-color:#ffa153\",helpText(\"Col2\")),\n                                    column(4,style=\"background-color:#b1f6c6\",helpText(\"Col3\"))\n                                  )\n                           )\n                         )\n                ),\n                tabPanel(\"tab2\",\n                         inputPanel(helpText(\"Input Panel\"))\n                ),\n                tabPanel(\"tab3\",\n                  wellPanel(helpText(\"Well Panel\"))\n                )\n              )\n    )\n  )\n),\nserver=function(input,output) {})"
   },
   {
     "objectID": "slides/shiny/index.html#ui-widgets-input",
     "href": "slides/shiny/index.html#ui-widgets-input",
     "title": "Interactive web apps with Shiny",
     "section": "UI • Widgets • Input",
-    "text": "UI • Widgets • Input\n\n\n\nshinyApp(\nui=fluidPage(\n  fluidRow(\n    column(4,\n           fileInput(\"file-input\",\"fileInput:\"),\n           selectInput(\"select-input\",label=\"selectInput\",choices=c(\"A\",\"B\",\"C\")),\n           numericInput(\"numeric-input\",label=\"numericInput\",value=5,min=1,max=10),\n           sliderInput(\"slider-input\",label=\"sliderInput\",value=5,min=1,max=10),\n           textInput(\"text-input\",label=\"textInput\"),\n           textAreaInput(\"text-area-input\",label=\"textAreaInput\"),\n           dateInput(\"date-input\",label=\"dateInput\"),\n           dateRangeInput(\"date-range-input\",label=\"dateRangeInput\"),\n           radioButtons(\"radio-button\",label=\"radioButtons\",choices=c(\"A\",\"B\",\"C\"),inline=T),\n           checkboxInput(\"checkbox\",\"checkboxInput\",value=FALSE),\n           actionButton(\"action-button\",\"Action\"),\n           hr(),\n           submitButton()\n    )\n  )\n),\nserver=function(input,output) {\n})\n\n\n{width=“50%”“}\n\n\nWidgets gallery\n\nWidgets are visual objects on a page to allow for data input. Input and output variables."
+    "text": "UI • Widgets • Input\n\n\n\nshinyApp(\nui=fluidPage(\n  fluidRow(\n    column(4,\n           fileInput(\"file-input\",\"fileInput:\"),\n           selectInput(\"select-input\",label=\"selectInput\",choices=c(\"A\",\"B\",\"C\")),\n           numericInput(\"numeric-input\",label=\"numericInput\",value=5,min=1,max=10),\n           sliderInput(\"slider-input\",label=\"sliderInput\",value=5,min=1,max=10),\n           textInput(\"text-input\",label=\"textInput\"),\n           textAreaInput(\"text-area-input\",label=\"textAreaInput\"),\n           dateInput(\"date-input\",label=\"dateInput\"),\n           dateRangeInput(\"date-range-input\",label=\"dateRangeInput\"),\n           radioButtons(\"radio-button\",label=\"radioButtons\",choices=c(\"A\",\"B\",\"C\"),inline=T),\n           checkboxInput(\"checkbox\",\"checkboxInput\",value=FALSE),\n           actionButton(\"action-button\",\"Action\"),\n           hr(),\n           submitButton()\n    )\n  )\n),\nserver=function(input,output) {\n})\n\n\n\n\n\nWidgets gallery\n\nWidgets are visual objects on a page to allow for data input. Input and output variables."
   },
   {
     "objectID": "slides/shiny/index.html#ui-widgets-outputs",
     "href": "slides/shiny/index.html#ui-widgets-outputs",
     "title": "Interactive web apps with Shiny",
     "section": "UI • Widgets • Outputs",
-    "text": "UI • Widgets • Outputs\n\n\n\nshinyApp(\nui=fluidPage(fluidRow(column(5,\n           textInput(\"text_input\",label=\"textInput\",value=\"&lt;h3 style='color:red'&gt;Red text&lt;/h3&gt;\"),\n           hr(),\n           htmlOutput(\"html_output\"),\n           textOutput(\"text_output\"),\n           verbatimTextOutput(\"verbatim_text_output\"),\n           tableOutput(\"table_output\"),\n           plotOutput(\"plot_output\",width=\"300px\",height=\"300px\")\n    ))),\n\nserver=function(input, output) {\n  output$html_output &lt;- renderText({input$text_input})\n  output$text_output &lt;- renderText({input$text_input})\n  output$verbatim_text_output &lt;- renderText({input$text_input})\n  output$table_output &lt;- renderTable({iris[1:3,1:3]})\n  output$plot_output &lt;- renderPlot({\n    plot(iris[,1],iris[,2])\n  })\n})\n\n\n{.width=“80%”}"
+    "text": "UI • Widgets • Outputs\n\n\n\nshinyApp(\nui=fluidPage(fluidRow(column(5,\n           textInput(\"text_input\",label=\"textInput\",value=\"&lt;h3 style='color:red'&gt;Red text&lt;/h3&gt;\"),\n           hr(),\n           htmlOutput(\"html_output\"),\n           textOutput(\"text_output\"),\n           verbatimTextOutput(\"verbatim_text_output\"),\n           tableOutput(\"table_output\"),\n           plotOutput(\"plot_output\",width=\"300px\",height=\"300px\")\n    ))),\n\nserver=function(input, output) {\n  output$html_output &lt;- renderText({input$text_input})\n  output$text_output &lt;- renderText({input$text_input})\n  output$verbatim_text_output &lt;- renderText({input$text_input})\n  output$table_output &lt;- renderTable({iris[1:3,1:3]})\n  output$plot_output &lt;- renderPlot({\n    plot(iris[,1],iris[,2])\n  })\n})"
   },
   {
     "objectID": "slides/shiny/index.html#dynamic-ui",
     "href": "slides/shiny/index.html#dynamic-ui",
     "title": "Interactive web apps with Shiny",
     "section": "Dynamic UI",
-    "text": "Dynamic UI\n\nUI elements are created conditionally using uiOutput()/renderUI()\n\nshinyApp(\nui=fluidPage(\n  selectInput(\"data\",label=\"Select data\",\n              choices=c(\"mtcars\",\"faithful\",\"iris\")),\n  tableOutput(\"table\"),\n uiOutput(\"ui\")\n),\n\nserver=function(input, output) {\n  \n  data &lt;- reactive({ get(input$data, 'package:datasets') })\n  \n output$ui &lt;- renderUI({\n  if(input$data==\"iris\") plotOutput(\"plot\",width=\"400px\")\n  })\n  \n  output$plot &lt;- renderPlot({hist(data()[, 1])})\n  output$table &lt;- renderTable({head(data())})\n})\n\nOther options include conditionalPanel(), ìnsertUI() and removeUI()"
+    "text": "Dynamic UI\n\nUI elements are created conditionally using uiOutput()/renderUI()\n\n\nshinyApp(\nui=fluidPage(\n  selectInput(\"data\",label=\"Select data\",\n              choices=c(\"mtcars\",\"faithful\",\"iris\")),\n  tableOutput(\"table\"),\n uiOutput(\"ui\")\n),\n\nserver=function(input, output) {\n  \n  data &lt;- reactive({ get(input$data, 'package:datasets') })\n  \n output$ui &lt;- renderUI({\n  if(input$data==\"iris\") plotOutput(\"plot\",width=\"400px\")\n  })\n  \n  output$plot &lt;- renderPlot({hist(data()[, 1])})\n  output$table &lt;- renderTable({head(data())})\n})\n\n\nOther options include conditionalPanel(), ìnsertUI() and removeUI()"
   },
   {
     "objectID": "slides/shiny/index.html#code-execution",
     "href": "slides/shiny/index.html#code-execution",
     "title": "Interactive web apps with Shiny",
     "section": "Code execution",
-    "text": "Code execution\nApp launch\n\nui &lt;- fluidPage(\n textInput(\"text_input\",label=\"textInput\"),\n  textOutput(\"text_output\"))\nserver &lt;- function(input,output) {\n  output$text_output &lt;- renderText({input$text_input})\n}\n\n\nNew user\n\nui &lt;- fluidPage(\n  textInput(\"text_input\",label=\"textInput\"),\n  textOutput(\"text_output\"))\nserver &lt;- function(input,output) {\n  output$text_output &lt;- renderText({input$text_input})\n}\n\n\n\nWidget update\n\nui &lt;- fluidPage(\n  textInput(\"text_input\",label=\"textInput\"),\n  textOutput(\"text_output\"))\nserver &lt;- function(input,output) {\n  output$text_output &lt;- renderText({input$text_input})\n}"
+    "text": "Code execution\nApp launch\n\nui &lt;- fluidPage(textInput(\"text_input\",label=\"textInput\"), textOutput(\"text_output\"))\nserver &lt;- function(input,output) {\n  output$text_output &lt;- renderText({input$text_input})\n}\n\n\nNew user\n\nui &lt;- fluidPage(textInput(\"text_input\",label=\"textInput\"), textOutput(\"text_output\"))\nserver &lt;- function(input,output) {\n  output$text_output &lt;- renderText({input$text_input})\n}\n\n\n\nWidget update\n\nui &lt;- fluidPage(textInput(\"text_input\",label=\"textInput\"), textOutput(\"text_output\"))\nserver &lt;- function(input,output) {\n  output$text_output &lt;- renderText({input$text_input})\n}"
   },
   {
     "objectID": "slides/shiny/index.html#reactivity",
     "href": "slides/shiny/index.html#reactivity",
     "title": "Interactive web apps with Shiny",
     "section": "Reactivity",
-    "text": "Reactivity\n\nshinyApp(\n  \n  ui=fluidPage(\n    numericInput(\"num_input\",label=\"Observations\",value=50),\n    plotOutput(\"plot_output\")),\n  \n  server=function(input,output) {\n  \n    output$plot_output &lt;- renderPlot({\n      hist(rnorm(input$num_input))\n    })\n  \n  }\n)"
+    "text": "Reactivity\n\nshinyApp(\n  ui=fluidPage(\n    numericInput(\"num_input\",label=\"Observations\",value=50),\n    textOutput(\"text_output\")),\n  \n  server=function(input,output) {\n    output$text_output &lt;- renderText({\n        mean(rnorm(input$num_input))\n    })\n  })"
   },
   {
     "objectID": "slides/shiny/index.html#reactivity-1",
     "href": "slides/shiny/index.html#reactivity-1",
     "title": "Interactive web apps with Shiny",
     "section": "Reactivity",
-    "text": "Reactivity\n\nshinyApp(\n  \n  ui=fluidPage(\n    numericInput(\"num_input\",label=\"Observations\",value=50),\n    plotOutput(\"plot_output\"),\n    textOutput(\"text_output\")),\n  \n  server=function(input,output) {\n    \n    output$plot_output &lt;- renderPlot({\n    hist(rnorm(input$num_input))\n    })\n    \n    output$text_output &lt;- renderText({\n      mean(rnorm(input$num_input))\n    })\n    \n  }\n)"
+    "text": "Reactivity\n\nshinyApp(\n  \n  ui=fluidPage(\n    numericInput(\"num_input\",label=\"Observations\",value=50),\n    textOutput(\"text_output1\"), textOutput(\"text_output2\")\n    ),\n  server=function(input,output) {\n    output$text_output1 &lt;- renderText({\n        mean(rnorm(input$num_input))\n    })\n    output$text_output2 &lt;- renderText({\n      mean(rnorm(input$num_input))\n    })\n  })"
   },
   {
     "objectID": "slides/shiny/index.html#reactivity-2",
     "href": "slides/shiny/index.html#reactivity-2",
     "title": "Interactive web apps with Shiny",
     "section": "Reactivity",
-    "text": "Reactivity\n\nshinyApp(\n  \n  ui=fluidPage(\n    numericInput(\"num_input\",label=\"Observations\",value=50),\n    plotOutput(\"plot_output\"),\n    textOutput(\"text_output\")),\n  \n  server=function(input,output) {\n  \n    rand &lt;- reactive({ rnorm(input$num_input) })\n    \n    output$plot_output &lt;- renderPlot({\n      hist(rand())\n    })\n    \n    output$text_output &lt;- renderText({\n      mean(rand())\n    })\n  }\n)\n\n\n\nReactive functions can be use to share output from a common source. They can be used to reduce computation for demanding functions. Reactive values cannot be accessed from outside the reactive environment.\nTry changing the reactive function\nrand &lt;- reactive({ rnorm(input$num_input) })\nto a regular function\nrand &lt;- function(){ rnorm(input$num_input) }"
+    "text": "Reactivity\n\nshinyApp(\n  \n  ui=fluidPage(\n    numericInput(\"num_input\",label=\"Observations\",value=50),\n    textOutput(\"text_output1\"), textOutput(\"text_output2\")\n    ),\n  server=function(input,output) {\n    rand &lt;- reactive({ rnorm(input$num_input) })\n    output$text_output1 &lt;- renderText({\n      mean(rand())\n    })\n    output$text_output2 &lt;- renderText({\n      mean(rand())\n    })\n  })\n\n\n\nReactive functions can be use to share output from a common source. They can be used to reduce computation for demanding functions. Reactive values cannot be accessed from outside the reactive environment.\nTry changing the reactive function\nrand &lt;- reactive({ rnorm(input$num_input) })\nto a regular function\nrand &lt;- function(){ rnorm(input$num_input) }"
   },
   {
     "objectID": "slides/shiny/index.html#updating-widgets",
     "href": "slides/shiny/index.html#updating-widgets",
     "title": "Interactive web apps with Shiny",
     "section": "Updating widgets",
-    "text": "Updating widgets\n\nWidgets can be updated once initialised.\nAdd third argument session to server function\n\nserver=function(input,output,session) {}\n\n\nExample of a typical UI\n\n\nui=fluidPage(\n  selectInput(\"select-input\",label=\"selectInput\",choices=c(\"A\",\"B\",\"C\")),\n  numericInput(\"numeric-input\",label=\"numericInput\",value=5,min=1,max=10),\n  sliderInput(\"slider-input\",label=\"sliderInput\",value=5,min=1,max=10),\n)\n\n\n\n\nUpdate functions can be used to update input widgets\nReactive observer observe({}) monitors for a conditional change\n\n\nserver=function(input,output,session) {\n  observe({\n    if(something) {\n      updateSelectInput(session,\"select-input\",label=\"selectInput\",choices=c(\"D\",\"E\",\"F\"))\n      updateNumericInput(session,\"numeric-input\",label=\"numericInput\",value=10,min=1,max=10)\n      updateSliderInput(session,\"slider-input\",label=\"sliderInput\",value=8,min=1,max=10)\n    }\n  })\n}"
+    "text": "Updating widgets\n\nWidgets can be updated once initialised.\n\n\n\nExample of a typical UI\n\n\nui=fluidPage(\n  selectInput(\"select-input\",label=\"selectInput\",choices=c(\"A\",\"B\",\"C\")),\n  numericInput(\"numeric-input\",label=\"numericInput\",value=5,min=1,max=10),\n)\n\n\n\n\nAdd third argument session to server function\nUpdate functions can be used to update input widgets\nReactive observer observe({}) monitors for a conditional change\n\n\nserver=function(input,output,session) {\n  observe({\n    if(something) {\n      updateSelectInput(session,\"select-input\",label=\"selectInput\",choices=c(\"D\",\"E\",\"F\"))\n      updateNumericInput(session,\"numeric-input\",label=\"numericInput\",value=10,min=1,max=10)\n    }\n  })}"
   },
   {
     "objectID": "slides/shiny/index.html#isolate-reactivity",
@@ -3098,14 +3098,14 @@
     "href": "slides/shiny/index.html#error-validation",
     "title": "Interactive web apps with Shiny",
     "section": "Error validation",
-    "text": "Error validation\n\nShiny returns an error with missing or incorrect values\n\n\n\n\nshinyApp(\nui=fluidPage(\n  selectInput(\"data_input\",label=\"Select data\",\n              choices=c(\"\",\"mtcars\",\"faithful\",\"iris\")),\n  tableOutput(\"table_output\")\n),\n\nserver=function(input, output) {\n  getdata &lt;- reactive({ get(input$data_input,'package:datasets') })\n  output$table_output &lt;- renderTable({head(getdata())})\n})\n\n\n\n\n\n\n\nErrors can be handled in a controlled manner\n\n\n\n\nvalidate() can be used to check input\nvalidate() using need()\n\n\n\n\nshinyApp(\nui=fluidPage(\n  selectInput(\"data_input\",label=\"Select data\",\n              choices=c(\"\",\"mtcars\",\"faithful\",\"iris\")),\n  tableOutput(\"table_output\")\n),\n\nserver=function(input, output) {\n  getdata &lt;- reactive({ \n  validate(need(try(input$data_input),\"Please select a data set\"))\n    get(input$data_input,'package:datasets') \n    })\n  output$table_output &lt;- renderTable({head(getdata())})\n})\n\n\n\n\n\n\n\n\nvalidate() using custom function\n\n\n\n\nvalfn &lt;- function(x) if(is.null(x) | is.na(x) | x==\"\") return(\"Input data is incorrect.\")\n\nshinyApp(\nui=fluidPage(\n  selectInput(\"data_input\",label=\"Select data\",\n              choices=c(\"\",\"mtcars\",\"faithful\",\"iris\")),\n  tableOutput(\"table_output\")\n),\n\nserver=function(input,output) {\n  getdata &lt;- reactive({ \n  validate(valfn(try(input$data_input)))\n    get(input$data_input,'package:datasets')\n    })\n  output$table_output &lt;- renderTable({head(getdata())})\n})\n\n\n\n\n\n\n\n\nshiny::req() checks input variable and silently stops execution"
+    "text": "Error validation\n\nShiny returns an error with missing or incorrect values\n\n\n\n\nshinyApp(\nui=fluidPage(\n  selectInput(\"data_input\",label=\"Select data\",\n              choices=c(\"\",\"mtcars\",\"faithful\",\"iris\")),\n  tableOutput(\"table_output\")\n),\n\nserver=function(input, output) {\n  getdata &lt;- reactive({ get(input$data_input,'package:datasets') })\n  output$table_output &lt;- renderTable({head(getdata())})\n})"
   },
   {
     "objectID": "slides/shiny/index.html#download-data",
     "href": "slides/shiny/index.html#download-data",
     "title": "Interactive web apps with Shiny",
     "section": "Download • Data",
-    "text": "Download • Data\n\nAdd button and downloadHandler() function\n\n\nshinyApp(\nui=fluidPage(\n  selectInput(\"data_input\",label=\"Select data\",\n              choices=c(\"mtcars\",\"faithful\",\"iris\")),\n  textOutput(\"text_output\"),\n  downloadButton(\"button_download\",\"Download\")\n),\n\nserver=function(input, output) {\n  getdata &lt;- reactive({ get(input$data_input, 'package:datasets') })\n  output$text_output &lt;- renderText(paste0(\"Selected dataset: \",input$data_input))\n  \n  output$button_download &lt;- downloadHandler(\n  filename = function() {\n     paste0(input$data_input,\".csv\")\n   },\n  content = function(file) {\n     write.csv(getdata(),file,row.names=FALSE,quote=F)\n   })\n})\n\n\nRun in system browser if Rstudio browser doesn’t work\nSee usage of download buttons"
+    "text": "Download • Data\n\nAdd button and downloadHandler() function\n\n\nshinyApp(\nui=fluidPage(\n  selectInput(\"data_input\",label=\"Select data\", choices=c(\"mtcars\",\"faithful\",\"iris\")),\n  textOutput(\"text_output\"),\n  downloadButton(\"button_download\",\"Download\")),\nserver=function(input, output) {\n  getdata &lt;- reactive({ get(input$data_input, 'package:datasets') })\n  output$text_output &lt;- renderText(paste0(\"Selected dataset: \",input$data_input))\n  \n  output$button_download &lt;- downloadHandler(\n  filename = function() {\n     paste0(input$data_input,\".csv\")\n   },\n  content = function(file) {\n     write.csv(getdata(),file,row.names=FALSE,quote=F)\n   })\n})\n\n\nRun in system browser if Rstudio browser doesn’t work"
   },
   {
     "objectID": "slides/shiny/index.html#download-plots",
@@ -3126,7 +3126,7 @@
     "href": "slides/shiny/index.html#interactive-documents",
     "title": "Interactive web apps with Shiny",
     "section": "Interactive documents",
-    "text": "Interactive documents\n\nShiny can run in RMarkdown documents. Set YAML runtime: shiny.\n\n---\ntitle: Interactive document\noutput: html_document\nruntime: shiny\n---\n\nShiny widgets can be included directly\n\n```{r}\nselectInput('n_breaks',label='Number of bins:',choices=c(10,20,35,50),selected=20)\n```\n\nWhole shiny apps can be included directly\n\n```{r}\nshinyApp(\n  ui=fluidPage(),\n  server=function(input,output) {}\n)\n```\n\nHosted shiny apps can be embedded using &lt;iframe&gt;\n\n&lt;iframe src=\"https://user.shinyapps.io/app\"&gt;&lt;/iframe&gt;"
+    "text": "Interactive documents\n\nShiny can run in RMarkdown documents. Set YAML runtime: shiny.\n\n---\ntitle: Interactive document\noutput: html_document\nruntime: shiny\n---\n\nShiny widgets can be included directly\n\n```{r}\nselectInput('n_breaks',label='Number of bins:',choices=c(10,20,35,50),selected=20)\n```"
   },
   {
     "objectID": "slides/shiny/index.html#extensions",
@@ -3967,5 +3967,26 @@
     "title": "Web apps with Shiny",
     "section": "10 Interactive documents",
     "text": "10 Interactive documents\n\n10.1 Shiny in Rmarkdown\nShiny interactive widgets can be embedded into Rmarkdown documents. These documents need to be live and can handle interactivity. The important addition is the line runtime: shiny to the YAML matter. Here is an example:\n---\nruntime: shiny\noutput: html_document\n---\n\n```{r}\nlibrary(shiny)\n```\n\nThis is a standard RMarkdown document. Here is some code:\n\n```{r}\nhead(iris)\n```\n\n```{r}\nplot(iris$Sepal.Length,iris$Petal.Width)\n```\n\nBut, here is an interactive shiny widget.\n\n```{r}\nsliderInput(\"in_breaks\",label=\"Breaks:\",min=5,max=50,value=5,step=5)\n```\n\n```{r}\nrenderPlot({{\nhist(iris$Sepal.Length,breaks=input$in_breaks)\n}})\n```\nThis code can be copied to a new file in RStudio and saved as, for example, shiny.Rmd. Then click ‘Knit’. Alternatively, you can run rmarkdown::run(\"shiny.Rmd\").\n\n\n10.2 Shiny in Quarto\nShiny widgets can be embedded into quarto documents. The YAML needs to specify server: shiny which runs shiny server in the background.\n---\ntitle: \"This is a title\"\nformat: html\nserver: shiny\n---\n\n```{r}\nsliderInput(\"bins\", \"Number of bins:\", \n            min = 1, max = 50, value = 30)\nplotOutput(\"distPlot\")\n```\n\n```{r}\n#| context: server\noutput$distPlot &lt;- renderPlot({\n  x &lt;- faithful[, 2]  # Old Faithful Geyser data\n  bins &lt;- seq(min(x), max(x), length.out = input$bins + 1)\n  hist(x, breaks = bins, col = 'darkgray', border = 'white')\n})\n```\nIt is also possible to run individual chunks in shiny using context chunk parameter.\n```{r}\n#| context: server\n```\nMore information about using shiny and quarto together is here."
+  },
+  {
+    "objectID": "slides/shiny/index.html#error-validation-1",
+    "href": "slides/shiny/index.html#error-validation-1",
+    "title": "Interactive web apps with Shiny",
+    "section": "Error validation",
+    "text": "Error validation\n\nErrors can be handled in a controlled manner\n\n\n\nvalidate() can be used to check input\nvalidate() using need()\n\n\n\n\nshinyApp(\nui=fluidPage(\n  selectInput(\"data_input\",label=\"Select data\",\n              choices=c(\"\",\"mtcars\",\"faithful\",\"iris\")),\n  tableOutput(\"table_output\")\n),\n\nserver=function(input, output) {\n  getdata &lt;- reactive({ \n  validate(need(try(input$data_input),\"Please select a data set\"))\n    get(input$data_input,'package:datasets') \n    })\n  output$table_output &lt;- renderTable({head(getdata())})\n})"
+  },
+  {
+    "objectID": "slides/shiny/index.html#error-validation-2",
+    "href": "slides/shiny/index.html#error-validation-2",
+    "title": "Interactive web apps with Shiny",
+    "section": "Error validation",
+    "text": "Error validation\n\n\n\nvalidate() using custom function\n\n\nvalfn &lt;- function(x) if(is.null(x) | is.na(x) | x==\"\") return(\"Input data is incorrect.\")\n\nshinyApp(\nui=fluidPage(\n  selectInput(\"data_input\",label=\"Select data\",\n              choices=c(\"\",\"mtcars\",\"faithful\",\"iris\")),\n  tableOutput(\"table_output\")\n),\n\nserver=function(input,output) {\n  getdata &lt;- reactive({ \n  validate(valfn(try(input$data_input)))\n    get(input$data_input,'package:datasets')\n    })\n  output$table_output &lt;- renderTable({head(getdata())})\n})\n\n\n\n\n\n\n\nshiny::req() checks input variable and silently stops execution"
+  },
+  {
+    "objectID": "slides/shiny/index.html#interactive-documents-1",
+    "href": "slides/shiny/index.html#interactive-documents-1",
+    "title": "Interactive web apps with Shiny",
+    "section": "Interactive documents",
+    "text": "Interactive documents\n\nWhole shiny apps can be included directly\n\n```{r}\nshinyApp(\n  ui=fluidPage(),\n  server=function(input,output) {}\n)\n```\n\nHosted shiny apps can be embedded using &lt;iframe&gt;\n\n&lt;iframe src=\"https://user.shinyapps.io/app\"&gt;&lt;/iframe&gt;"
   }
 ]

@@ -409,7 +409,7 @@ Roy Francis
 </div>
 </div>
 
-  <p class="date">29-Apr-2023</p>
+  <p class="date">09-May-2023</p>
 </section>
 
 <section id="contents" class="slide level2">
@@ -436,12 +436,13 @@ Roy Francis
 <img data-src="assets/gallery.png" class="r-stretch quarto-figure-left"></section>
 <section id="what-is-shiny" class="slide level2">
 <h2>What is shiny?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
 <ul>
 <li>Interactive documents &amp; web applications</li>
 <li>Completely created using R</li>
 <li>Needs a live environment</li>
 </ul>
-<div class="fragment">
 <h3 id="usage">Usage</h3>
 <ul>
 <li><a href="http://shiny.rstudio.com/gallery/see-more.html">Standalone web applications</a></li>
@@ -449,7 +450,7 @@ Roy Francis
 <li>Interactive RMarkdown</li>
 <li>Gadgets/RStudio extensions</li>
 </ul>
-<p>. . .</p>
+</div><div class="column" style="width:50%;">
 <h3 id="app-structure">App structure</h3>
 <ul>
 <li>UI Layout</li>
@@ -459,6 +460,7 @@ Roy Francis
 <li>Builder</li>
 <li><a href="https://shiny.rstudio.com/reference/shiny">Function reference</a></li>
 </ul>
+</div>
 </div>
 </section>
 <section id="code-structure" class="slide level2">
@@ -514,37 +516,31 @@ shinyApp(ui=ui,server=server)</code></pre>
 <span id="cb6-12"><a href="#cb6-12"></a>                           <span class="fu">column</span>(<span class="dv">6</span>,</span>
 <span id="cb6-13"><a href="#cb6-13"></a>                                  <span class="fu">helpText</span>(<span class="st">"Col2"</span>),</span>
 <span id="cb6-14"><a href="#cb6-14"></a>                                  <span class="fu">fluidRow</span>(</span>
-<span id="cb6-15"><a href="#cb6-15"></a>                                    <span class="fu">column</span>(<span class="dv">4</span>,<span class="at">style=</span><span class="st">"background-color:#b0c6fb"</span>,</span>
-<span id="cb6-16"><a href="#cb6-16"></a>                                           <span class="fu">helpText</span>(<span class="st">"Col1"</span>)</span>
-<span id="cb6-17"><a href="#cb6-17"></a>                                    ),</span>
-<span id="cb6-18"><a href="#cb6-18"></a>                                    <span class="fu">column</span>(<span class="dv">4</span>,<span class="at">style=</span><span class="st">"background-color:#ffa153"</span>,</span>
-<span id="cb6-19"><a href="#cb6-19"></a>                                           <span class="fu">helpText</span>(<span class="st">"Col2"</span>)</span>
-<span id="cb6-20"><a href="#cb6-20"></a>                                    ),</span>
-<span id="cb6-21"><a href="#cb6-21"></a>                                    <span class="fu">column</span>(<span class="dv">4</span>,<span class="at">style=</span><span class="st">"background-color:#b1f6c6"</span>,</span>
-<span id="cb6-22"><a href="#cb6-22"></a>                                           <span class="fu">helpText</span>(<span class="st">"Col3"</span>)</span>
-<span id="cb6-23"><a href="#cb6-23"></a>                                    )</span>
-<span id="cb6-24"><a href="#cb6-24"></a>                                  )</span>
-<span id="cb6-25"><a href="#cb6-25"></a>                           )</span>
-<span id="cb6-26"><a href="#cb6-26"></a>                         )</span>
-<span id="cb6-27"><a href="#cb6-27"></a>                ),</span>
-<span id="cb6-28"><a href="#cb6-28"></a>                <span class="fu">tabPanel</span>(<span class="st">"tab2"</span>,</span>
-<span id="cb6-29"><a href="#cb6-29"></a>                         <span class="fu">inputPanel</span>(<span class="fu">helpText</span>(<span class="st">"Input Panel"</span>))</span>
-<span id="cb6-30"><a href="#cb6-30"></a>                ),</span>
-<span id="cb6-31"><a href="#cb6-31"></a>                <span class="fu">tabPanel</span>(<span class="st">"tab3"</span>,</span>
-<span id="cb6-32"><a href="#cb6-32"></a>                  <span class="fu">wellPanel</span>(<span class="fu">helpText</span>(<span class="st">"Well Panel"</span>))</span>
-<span id="cb6-33"><a href="#cb6-33"></a>                )</span>
-<span id="cb6-34"><a href="#cb6-34"></a>              )</span>
-<span id="cb6-35"><a href="#cb6-35"></a>    )</span>
-<span id="cb6-36"><a href="#cb6-36"></a>  )</span>
-<span id="cb6-37"><a href="#cb6-37"></a>),</span>
-<span id="cb6-38"><a href="#cb6-38"></a><span class="at">server=</span><span class="cf">function</span>(input,output) {})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-15"><a href="#cb6-15"></a>                                    <span class="fu">column</span>(<span class="dv">4</span>,<span class="at">style=</span><span class="st">"background-color:#b0c6fb"</span>,<span class="fu">helpText</span>(<span class="st">"Col1"</span>)),</span>
+<span id="cb6-16"><a href="#cb6-16"></a>                                    <span class="fu">column</span>(<span class="dv">4</span>,<span class="at">style=</span><span class="st">"background-color:#ffa153"</span>,<span class="fu">helpText</span>(<span class="st">"Col2"</span>)),</span>
+<span id="cb6-17"><a href="#cb6-17"></a>                                    <span class="fu">column</span>(<span class="dv">4</span>,<span class="at">style=</span><span class="st">"background-color:#b1f6c6"</span>,<span class="fu">helpText</span>(<span class="st">"Col3"</span>))</span>
+<span id="cb6-18"><a href="#cb6-18"></a>                                  )</span>
+<span id="cb6-19"><a href="#cb6-19"></a>                           )</span>
+<span id="cb6-20"><a href="#cb6-20"></a>                         )</span>
+<span id="cb6-21"><a href="#cb6-21"></a>                ),</span>
+<span id="cb6-22"><a href="#cb6-22"></a>                <span class="fu">tabPanel</span>(<span class="st">"tab2"</span>,</span>
+<span id="cb6-23"><a href="#cb6-23"></a>                         <span class="fu">inputPanel</span>(<span class="fu">helpText</span>(<span class="st">"Input Panel"</span>))</span>
+<span id="cb6-24"><a href="#cb6-24"></a>                ),</span>
+<span id="cb6-25"><a href="#cb6-25"></a>                <span class="fu">tabPanel</span>(<span class="st">"tab3"</span>,</span>
+<span id="cb6-26"><a href="#cb6-26"></a>                  <span class="fu">wellPanel</span>(<span class="fu">helpText</span>(<span class="st">"Well Panel"</span>))</span>
+<span id="cb6-27"><a href="#cb6-27"></a>                )</span>
+<span id="cb6-28"><a href="#cb6-28"></a>              )</span>
+<span id="cb6-29"><a href="#cb6-29"></a>    )</span>
+<span id="cb6-30"><a href="#cb6-30"></a>  )</span>
+<span id="cb6-31"><a href="#cb6-31"></a>),</span>
+<span id="cb6-32"><a href="#cb6-32"></a><span class="at">server=</span><span class="cf">function</span>(input,output) {})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <img data-src="assets/app-layout.png" width="600" class="r-stretch"></section>
 <section id="ui-widgets-input" class="slide level2">
 <h2>UI • Widgets • Input</h2>
 <div class="columns">
-<div class="column" style="width:60%;">
+<div class="column" style="width:70%;">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">shinyApp</span>(</span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="at">ui=</span><span class="fu">fluidPage</span>(</span>
@@ -569,8 +565,8 @@ shinyApp(ui=ui,server=server)</code></pre>
 <span id="cb7-21"><a href="#cb7-21"></a><span class="at">server=</span><span class="cf">function</span>(input,output) {</span>
 <span id="cb7-22"><a href="#cb7-22"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div><div class="column" style="width:40%;">
-<p><img data-src="assets/app-widgets-input.png">{width=“50%”“}</p>
+</div><div class="column" style="width:30%;">
+<p><img data-src="assets/app-widgets-input.png" style="width:50.0%"></p>
 </div>
 </div>
 <p><span class="smaller"><a href="http://shiny.rstudio.com/gallery/widget-gallery.html">Widgets gallery</a></span></p>
@@ -591,7 +587,7 @@ shinyApp(ui=ui,server=server)</code></pre>
 <section id="ui-widgets-outputs" class="slide level2">
 <h2>UI • Widgets • Outputs</h2>
 <div class="columns">
-<div class="column" style="width:60%;">
+<div class="column" style="width:70%;">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">shinyApp</span>(</span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="at">ui=</span><span class="fu">fluidPage</span>(<span class="fu">fluidRow</span>(<span class="fu">column</span>(<span class="dv">5</span>,</span>
@@ -614,8 +610,8 @@ shinyApp(ui=ui,server=server)</code></pre>
 <span id="cb8-19"><a href="#cb8-19"></a>  })</span>
 <span id="cb8-20"><a href="#cb8-20"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div><div class="column" style="width:40%;">
-<p><img data-src="assets/app-widgets-output.png">{.width=“80%”}</p>
+</div><div class="column" style="width:30%;">
+<p><img data-src="assets/app-widgets-output.png" style="width:70.0%"></p>
 </div>
 </div>
 </section>
@@ -624,25 +620,27 @@ shinyApp(ui=ui,server=server)</code></pre>
 <ul>
 <li>UI elements are created conditionally using <code>uiOutput()</code>/<code>renderUI()</code></li>
 </ul>
-<pre><code>shinyApp(
-ui=fluidPage(
-  selectInput("data",label="Select data",
-              choices=c("mtcars","faithful","iris")),
-  tableOutput("table"),
- uiOutput("ui")
-),
-
-server=function(input, output) {
-  
-  data &lt;- reactive({ get(input$data, 'package:datasets') })
-  
- output$ui &lt;- renderUI({
-  if(input$data=="iris") plotOutput("plot",width="400px")
-  })
-  
-  output$plot &lt;- renderPlot({hist(data()[, 1])})
-  output$table &lt;- renderTable({head(data())})
-})</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9" data-code-line-numbers="6,13-15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">shinyApp</span>(</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="at">ui=</span><span class="fu">fluidPage</span>(</span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">selectInput</span>(<span class="st">"data"</span>,<span class="at">label=</span><span class="st">"Select data"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4"></a>              <span class="at">choices=</span><span class="fu">c</span>(<span class="st">"mtcars"</span>,<span class="st">"faithful"</span>,<span class="st">"iris"</span>)),</span>
+<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">tableOutput</span>(<span class="st">"table"</span>),</span>
+<span id="cb9-6"><a href="#cb9-6"></a> <span class="fu">uiOutput</span>(<span class="st">"ui"</span>)</span>
+<span id="cb9-7"><a href="#cb9-7"></a>),</span>
+<span id="cb9-8"><a href="#cb9-8"></a></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="at">server=</span><span class="cf">function</span>(input, output) {</span>
+<span id="cb9-10"><a href="#cb9-10"></a>  </span>
+<span id="cb9-11"><a href="#cb9-11"></a>  data <span class="ot">&lt;-</span> <span class="fu">reactive</span>({ <span class="fu">get</span>(input<span class="sc">$</span>data, <span class="st">'package:datasets'</span>) })</span>
+<span id="cb9-12"><a href="#cb9-12"></a>  </span>
+<span id="cb9-13"><a href="#cb9-13"></a> output<span class="sc">$</span>ui <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
+<span id="cb9-14"><a href="#cb9-14"></a>  <span class="cf">if</span>(input<span class="sc">$</span>data<span class="sc">==</span><span class="st">"iris"</span>) <span class="fu">plotOutput</span>(<span class="st">"plot"</span>,<span class="at">width=</span><span class="st">"400px"</span>)</span>
+<span id="cb9-15"><a href="#cb9-15"></a>  })</span>
+<span id="cb9-16"><a href="#cb9-16"></a>  </span>
+<span id="cb9-17"><a href="#cb9-17"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({<span class="fu">hist</span>(<span class="fu">data</span>()[, <span class="dv">1</span>])})</span>
+<span id="cb9-18"><a href="#cb9-18"></a>  output<span class="sc">$</span>table <span class="ot">&lt;-</span> <span class="fu">renderTable</span>({<span class="fu">head</span>(<span class="fu">data</span>())})</span>
+<span id="cb9-19"><a href="#cb9-19"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <ul>
 <li>Other options include <code>conditionalPanel()</code>, <code>ìnsertUI()</code> and <code>removeUI()</code></li>
 </ul>
@@ -651,33 +649,27 @@ server=function(input, output) {
 <h2>Code execution</h2>
 <p><strong>App launch</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10" data-code-line-numbers="1-6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb10-2"><a href="#cb10-2"></a> <span class="fu">textInput</span>(<span class="st">"text_input"</span>,<span class="at">label=</span><span class="st">"textInput"</span>),</span>
-<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">textOutput</span>(<span class="st">"text_output"</span>))</span>
-<span id="cb10-4"><a href="#cb10-4"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input,output) {</span>
-<span id="cb10-5"><a href="#cb10-5"></a>  output<span class="sc">$</span>text_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({input<span class="sc">$</span>text_input})</span>
-<span id="cb10-6"><a href="#cb10-6"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(<span class="fu">textInput</span>(<span class="st">"text_input"</span>,<span class="at">label=</span><span class="st">"textInput"</span>), <span class="fu">textOutput</span>(<span class="st">"text_output"</span>))</span>
+<span id="cb10-2"><a href="#cb10-2"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input,output) {</span>
+<span id="cb10-3"><a href="#cb10-3"></a>  output<span class="sc">$</span>text_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({input<span class="sc">$</span>text_input})</span>
+<span id="cb10-4"><a href="#cb10-4"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p><strong>New user</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11" data-code-line-numbers="4-6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">textInput</span>(<span class="st">"text_input"</span>,<span class="at">label=</span><span class="st">"textInput"</span>),</span>
-<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">textOutput</span>(<span class="st">"text_output"</span>))</span>
-<span id="cb11-4"><a href="#cb11-4"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input,output) {</span>
-<span id="cb11-5"><a href="#cb11-5"></a>  output<span class="sc">$</span>text_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({input<span class="sc">$</span>text_input})</span>
-<span id="cb11-6"><a href="#cb11-6"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11" data-code-line-numbers="2-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(<span class="fu">textInput</span>(<span class="st">"text_input"</span>,<span class="at">label=</span><span class="st">"textInput"</span>), <span class="fu">textOutput</span>(<span class="st">"text_output"</span>))</span>
+<span id="cb11-2"><a href="#cb11-2"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input,output) {</span>
+<span id="cb11-3"><a href="#cb11-3"></a>  output<span class="sc">$</span>text_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({input<span class="sc">$</span>text_input})</span>
+<span id="cb11-4"><a href="#cb11-4"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
 <p><strong>Widget update</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">textInput</span>(<span class="st">"text_input"</span>,<span class="at">label=</span><span class="st">"textInput"</span>),</span>
-<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">textOutput</span>(<span class="st">"text_output"</span>))</span>
-<span id="cb12-4"><a href="#cb12-4"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input,output) {</span>
-<span id="cb12-5"><a href="#cb12-5"></a>  output<span class="sc">$</span>text_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({input<span class="sc">$</span>text_input})</span>
-<span id="cb12-6"><a href="#cb12-6"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(<span class="fu">textInput</span>(<span class="st">"text_input"</span>,<span class="at">label=</span><span class="st">"textInput"</span>), <span class="fu">textOutput</span>(<span class="st">"text_output"</span>))</span>
+<span id="cb12-2"><a href="#cb12-2"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input,output) {</span>
+<span id="cb12-3"><a href="#cb12-3"></a>  output<span class="sc">$</span>text_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({input<span class="sc">$</span>text_input})</span>
+<span id="cb12-4"><a href="#cb12-4"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -685,19 +677,15 @@ server=function(input, output) {
 <h2>Reactivity</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">shinyApp</span>(</span>
-<span id="cb13-2"><a href="#cb13-2"></a>  </span>
-<span id="cb13-3"><a href="#cb13-3"></a>  <span class="at">ui=</span><span class="fu">fluidPage</span>(</span>
-<span id="cb13-4"><a href="#cb13-4"></a>    <span class="fu">numericInput</span>(<span class="st">"num_input"</span>,<span class="at">label=</span><span class="st">"Observations"</span>,<span class="at">value=</span><span class="dv">50</span>),</span>
-<span id="cb13-5"><a href="#cb13-5"></a>    <span class="fu">plotOutput</span>(<span class="st">"plot_output"</span>)),</span>
-<span id="cb13-6"><a href="#cb13-6"></a>  </span>
-<span id="cb13-7"><a href="#cb13-7"></a>  <span class="at">server=</span><span class="cf">function</span>(input,output) {</span>
-<span id="cb13-8"><a href="#cb13-8"></a>  </span>
-<span id="cb13-9"><a href="#cb13-9"></a>    output<span class="sc">$</span>plot_output <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
-<span id="cb13-10"><a href="#cb13-10"></a>      <span class="fu">hist</span>(<span class="fu">rnorm</span>(input<span class="sc">$</span>num_input))</span>
-<span id="cb13-11"><a href="#cb13-11"></a>    })</span>
-<span id="cb13-12"><a href="#cb13-12"></a>  </span>
-<span id="cb13-13"><a href="#cb13-13"></a>  }</span>
-<span id="cb13-14"><a href="#cb13-14"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="at">ui=</span><span class="fu">fluidPage</span>(</span>
+<span id="cb13-3"><a href="#cb13-3"></a>    <span class="fu">numericInput</span>(<span class="st">"num_input"</span>,<span class="at">label=</span><span class="st">"Observations"</span>,<span class="at">value=</span><span class="dv">50</span>),</span>
+<span id="cb13-4"><a href="#cb13-4"></a>    <span class="fu">textOutput</span>(<span class="st">"text_output"</span>)),</span>
+<span id="cb13-5"><a href="#cb13-5"></a>  </span>
+<span id="cb13-6"><a href="#cb13-6"></a>  <span class="at">server=</span><span class="cf">function</span>(input,output) {</span>
+<span id="cb13-7"><a href="#cb13-7"></a>    output<span class="sc">$</span>text_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb13-8"><a href="#cb13-8"></a>        <span class="fu">mean</span>(<span class="fu">rnorm</span>(input<span class="sc">$</span>num_input))</span>
+<span id="cb13-9"><a href="#cb13-9"></a>    })</span>
+<span id="cb13-10"><a href="#cb13-10"></a>  })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <img data-src="assets/reactive1.png" class="r-stretch"></section>
@@ -708,21 +696,16 @@ server=function(input, output) {
 <span id="cb14-2"><a href="#cb14-2"></a>  </span>
 <span id="cb14-3"><a href="#cb14-3"></a>  <span class="at">ui=</span><span class="fu">fluidPage</span>(</span>
 <span id="cb14-4"><a href="#cb14-4"></a>    <span class="fu">numericInput</span>(<span class="st">"num_input"</span>,<span class="at">label=</span><span class="st">"Observations"</span>,<span class="at">value=</span><span class="dv">50</span>),</span>
-<span id="cb14-5"><a href="#cb14-5"></a>    <span class="fu">plotOutput</span>(<span class="st">"plot_output"</span>),</span>
-<span id="cb14-6"><a href="#cb14-6"></a>    <span class="fu">textOutput</span>(<span class="st">"text_output"</span>)),</span>
-<span id="cb14-7"><a href="#cb14-7"></a>  </span>
-<span id="cb14-8"><a href="#cb14-8"></a>  <span class="at">server=</span><span class="cf">function</span>(input,output) {</span>
-<span id="cb14-9"><a href="#cb14-9"></a>    </span>
-<span id="cb14-10"><a href="#cb14-10"></a>    output<span class="sc">$</span>plot_output <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
-<span id="cb14-11"><a href="#cb14-11"></a>    <span class="fu">hist</span>(<span class="fu">rnorm</span>(input<span class="sc">$</span>num_input))</span>
-<span id="cb14-12"><a href="#cb14-12"></a>    })</span>
-<span id="cb14-13"><a href="#cb14-13"></a>    </span>
-<span id="cb14-14"><a href="#cb14-14"></a>    output<span class="sc">$</span>text_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
-<span id="cb14-15"><a href="#cb14-15"></a>      <span class="fu">mean</span>(<span class="fu">rnorm</span>(input<span class="sc">$</span>num_input))</span>
-<span id="cb14-16"><a href="#cb14-16"></a>    })</span>
-<span id="cb14-17"><a href="#cb14-17"></a>    </span>
-<span id="cb14-18"><a href="#cb14-18"></a>  }</span>
-<span id="cb14-19"><a href="#cb14-19"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-5"><a href="#cb14-5"></a>    <span class="fu">textOutput</span>(<span class="st">"text_output1"</span>), <span class="fu">textOutput</span>(<span class="st">"text_output2"</span>)</span>
+<span id="cb14-6"><a href="#cb14-6"></a>    ),</span>
+<span id="cb14-7"><a href="#cb14-7"></a>  <span class="at">server=</span><span class="cf">function</span>(input,output) {</span>
+<span id="cb14-8"><a href="#cb14-8"></a>    output<span class="sc">$</span>text_output1 <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb14-9"><a href="#cb14-9"></a>        <span class="fu">mean</span>(<span class="fu">rnorm</span>(input<span class="sc">$</span>num_input))</span>
+<span id="cb14-10"><a href="#cb14-10"></a>    })</span>
+<span id="cb14-11"><a href="#cb14-11"></a>    output<span class="sc">$</span>text_output2 <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb14-12"><a href="#cb14-12"></a>      <span class="fu">mean</span>(<span class="fu">rnorm</span>(input<span class="sc">$</span>num_input))</span>
+<span id="cb14-13"><a href="#cb14-13"></a>    })</span>
+<span id="cb14-14"><a href="#cb14-14"></a>  })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <img data-src="assets/reactive2.png" class="r-stretch"></section>
@@ -733,22 +716,17 @@ server=function(input, output) {
 <span id="cb15-2"><a href="#cb15-2"></a>  </span>
 <span id="cb15-3"><a href="#cb15-3"></a>  <span class="at">ui=</span><span class="fu">fluidPage</span>(</span>
 <span id="cb15-4"><a href="#cb15-4"></a>    <span class="fu">numericInput</span>(<span class="st">"num_input"</span>,<span class="at">label=</span><span class="st">"Observations"</span>,<span class="at">value=</span><span class="dv">50</span>),</span>
-<span id="cb15-5"><a href="#cb15-5"></a>    <span class="fu">plotOutput</span>(<span class="st">"plot_output"</span>),</span>
-<span id="cb15-6"><a href="#cb15-6"></a>    <span class="fu">textOutput</span>(<span class="st">"text_output"</span>)),</span>
-<span id="cb15-7"><a href="#cb15-7"></a>  </span>
-<span id="cb15-8"><a href="#cb15-8"></a>  <span class="at">server=</span><span class="cf">function</span>(input,output) {</span>
-<span id="cb15-9"><a href="#cb15-9"></a>  </span>
-<span id="cb15-10"><a href="#cb15-10"></a>    rand <span class="ot">&lt;-</span> <span class="fu">reactive</span>({ <span class="fu">rnorm</span>(input<span class="sc">$</span>num_input) })</span>
-<span id="cb15-11"><a href="#cb15-11"></a>    </span>
-<span id="cb15-12"><a href="#cb15-12"></a>    output<span class="sc">$</span>plot_output <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
-<span id="cb15-13"><a href="#cb15-13"></a>      <span class="fu">hist</span>(<span class="fu">rand</span>())</span>
+<span id="cb15-5"><a href="#cb15-5"></a>    <span class="fu">textOutput</span>(<span class="st">"text_output1"</span>), <span class="fu">textOutput</span>(<span class="st">"text_output2"</span>)</span>
+<span id="cb15-6"><a href="#cb15-6"></a>    ),</span>
+<span id="cb15-7"><a href="#cb15-7"></a>  <span class="at">server=</span><span class="cf">function</span>(input,output) {</span>
+<span id="cb15-8"><a href="#cb15-8"></a>    rand <span class="ot">&lt;-</span> <span class="fu">reactive</span>({ <span class="fu">rnorm</span>(input<span class="sc">$</span>num_input) })</span>
+<span id="cb15-9"><a href="#cb15-9"></a>    output<span class="sc">$</span>text_output1 <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb15-10"><a href="#cb15-10"></a>      <span class="fu">mean</span>(<span class="fu">rand</span>())</span>
+<span id="cb15-11"><a href="#cb15-11"></a>    })</span>
+<span id="cb15-12"><a href="#cb15-12"></a>    output<span class="sc">$</span>text_output2 <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb15-13"><a href="#cb15-13"></a>      <span class="fu">mean</span>(<span class="fu">rand</span>())</span>
 <span id="cb15-14"><a href="#cb15-14"></a>    })</span>
-<span id="cb15-15"><a href="#cb15-15"></a>    </span>
-<span id="cb15-16"><a href="#cb15-16"></a>    output<span class="sc">$</span>text_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
-<span id="cb15-17"><a href="#cb15-17"></a>      <span class="fu">mean</span>(<span class="fu">rand</span>())</span>
-<span id="cb15-18"><a href="#cb15-18"></a>    })</span>
-<span id="cb15-19"><a href="#cb15-19"></a>  }</span>
-<span id="cb15-20"><a href="#cb15-20"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-15"><a href="#cb15-15"></a>  })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <img data-src="assets/reactive3.png" class="r-stretch"><aside class="notes">
@@ -773,36 +751,32 @@ server=function(input, output) {
 <h2>Updating widgets</h2>
 <ul>
 <li>Widgets can be updated once initialised.</li>
-<li>Add third argument <strong>session</strong> to server function</li>
 </ul>
-<pre><code>server=function(input,output,session) {}</code></pre>
 <div class="fragment">
 <ul>
 <li>Example of a typical UI</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>ui<span class="ot">=</span><span class="fu">fluidPage</span>(</span>
-<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">selectInput</span>(<span class="st">"select-input"</span>,<span class="at">label=</span><span class="st">"selectInput"</span>,<span class="at">choices=</span><span class="fu">c</span>(<span class="st">"A"</span>,<span class="st">"B"</span>,<span class="st">"C"</span>)),</span>
-<span id="cb17-3"><a href="#cb17-3"></a>  <span class="fu">numericInput</span>(<span class="st">"numeric-input"</span>,<span class="at">label=</span><span class="st">"numericInput"</span>,<span class="at">value=</span><span class="dv">5</span>,<span class="at">min=</span><span class="dv">1</span>,<span class="at">max=</span><span class="dv">10</span>),</span>
-<span id="cb17-4"><a href="#cb17-4"></a>  <span class="fu">sliderInput</span>(<span class="st">"slider-input"</span>,<span class="at">label=</span><span class="st">"sliderInput"</span>,<span class="at">value=</span><span class="dv">5</span>,<span class="at">min=</span><span class="dv">1</span>,<span class="at">max=</span><span class="dv">10</span>),</span>
-<span id="cb17-5"><a href="#cb17-5"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>ui<span class="ot">=</span><span class="fu">fluidPage</span>(</span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">selectInput</span>(<span class="st">"select-input"</span>,<span class="at">label=</span><span class="st">"selectInput"</span>,<span class="at">choices=</span><span class="fu">c</span>(<span class="st">"A"</span>,<span class="st">"B"</span>,<span class="st">"C"</span>)),</span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">numericInput</span>(<span class="st">"numeric-input"</span>,<span class="at">label=</span><span class="st">"numericInput"</span>,<span class="at">value=</span><span class="dv">5</span>,<span class="at">min=</span><span class="dv">1</span>,<span class="at">max=</span><span class="dv">10</span>),</span>
+<span id="cb16-4"><a href="#cb16-4"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
 <ul>
+<li>Add third argument <strong>session</strong> to server function</li>
 <li>Update functions can be used to update input widgets</li>
 <li>Reactive observer <code>observe({})</code> monitors for a conditional change</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>server<span class="ot">=</span><span class="cf">function</span>(input,output,session) {</span>
-<span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">observe</span>({</span>
-<span id="cb18-3"><a href="#cb18-3"></a>    <span class="cf">if</span>(something) {</span>
-<span id="cb18-4"><a href="#cb18-4"></a>      <span class="fu">updateSelectInput</span>(session,<span class="st">"select-input"</span>,<span class="at">label=</span><span class="st">"selectInput"</span>,<span class="at">choices=</span><span class="fu">c</span>(<span class="st">"D"</span>,<span class="st">"E"</span>,<span class="st">"F"</span>))</span>
-<span id="cb18-5"><a href="#cb18-5"></a>      <span class="fu">updateNumericInput</span>(session,<span class="st">"numeric-input"</span>,<span class="at">label=</span><span class="st">"numericInput"</span>,<span class="at">value=</span><span class="dv">10</span>,<span class="at">min=</span><span class="dv">1</span>,<span class="at">max=</span><span class="dv">10</span>)</span>
-<span id="cb18-6"><a href="#cb18-6"></a>      <span class="fu">updateSliderInput</span>(session,<span class="st">"slider-input"</span>,<span class="at">label=</span><span class="st">"sliderInput"</span>,<span class="at">value=</span><span class="dv">8</span>,<span class="at">min=</span><span class="dv">1</span>,<span class="at">max=</span><span class="dv">10</span>)</span>
-<span id="cb18-7"><a href="#cb18-7"></a>    }</span>
-<span id="cb18-8"><a href="#cb18-8"></a>  })</span>
-<span id="cb18-9"><a href="#cb18-9"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>server<span class="ot">=</span><span class="cf">function</span>(input,output,session) {</span>
+<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">observe</span>({</span>
+<span id="cb17-3"><a href="#cb17-3"></a>    <span class="cf">if</span>(something) {</span>
+<span id="cb17-4"><a href="#cb17-4"></a>      <span class="fu">updateSelectInput</span>(session,<span class="st">"select-input"</span>,<span class="at">label=</span><span class="st">"selectInput"</span>,<span class="at">choices=</span><span class="fu">c</span>(<span class="st">"D"</span>,<span class="st">"E"</span>,<span class="st">"F"</span>))</span>
+<span id="cb17-5"><a href="#cb17-5"></a>      <span class="fu">updateNumericInput</span>(session,<span class="st">"numeric-input"</span>,<span class="at">label=</span><span class="st">"numericInput"</span>,<span class="at">value=</span><span class="dv">10</span>,<span class="at">min=</span><span class="dv">1</span>,<span class="at">max=</span><span class="dv">10</span>)</span>
+<span id="cb17-6"><a href="#cb17-6"></a>    }</span>
+<span id="cb17-7"><a href="#cb17-7"></a>  })}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -812,25 +786,55 @@ server=function(input, output) {
 <li>Reactivity can be controlled.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">shinyApp</span>(</span>
-<span id="cb19-2"><a href="#cb19-2"></a>  <span class="at">ui=</span><span class="fu">fluidPage</span>(</span>
-<span id="cb19-3"><a href="#cb19-3"></a>    <span class="fu">textInput</span>(<span class="st">"text_input"</span>,<span class="at">label=</span><span class="st">"textInput"</span>),</span>
-<span id="cb19-4"><a href="#cb19-4"></a>    <span class="fu">actionButton</span>(<span class="st">"btn_go"</span>, <span class="st">"Go!"</span>),</span>
-<span id="cb19-5"><a href="#cb19-5"></a>    <span class="fu">textOutput</span>(<span class="st">"text_output"</span>)),</span>
-<span id="cb19-6"><a href="#cb19-6"></a>  </span>
-<span id="cb19-7"><a href="#cb19-7"></a>  <span class="at">server=</span><span class="cf">function</span>(input,output) {</span>
-<span id="cb19-8"><a href="#cb19-8"></a>    output<span class="sc">$</span>text_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
-<span id="cb19-9"><a href="#cb19-9"></a>   input<span class="sc">$</span>btn_go</span>
-<span id="cb19-10"><a href="#cb19-10"></a>   <span class="fu">isolate</span>(input<span class="sc">$</span>text_input)</span>
-<span id="cb19-11"><a href="#cb19-11"></a>      })</span>
-<span id="cb19-12"><a href="#cb19-12"></a>  }</span>
-<span id="cb19-13"><a href="#cb19-13"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">shinyApp</span>(</span>
+<span id="cb18-2"><a href="#cb18-2"></a>  <span class="at">ui=</span><span class="fu">fluidPage</span>(</span>
+<span id="cb18-3"><a href="#cb18-3"></a>    <span class="fu">textInput</span>(<span class="st">"text_input"</span>,<span class="at">label=</span><span class="st">"textInput"</span>),</span>
+<span id="cb18-4"><a href="#cb18-4"></a>    <span class="fu">actionButton</span>(<span class="st">"btn_go"</span>, <span class="st">"Go!"</span>),</span>
+<span id="cb18-5"><a href="#cb18-5"></a>    <span class="fu">textOutput</span>(<span class="st">"text_output"</span>)),</span>
+<span id="cb18-6"><a href="#cb18-6"></a>  </span>
+<span id="cb18-7"><a href="#cb18-7"></a>  <span class="at">server=</span><span class="cf">function</span>(input,output) {</span>
+<span id="cb18-8"><a href="#cb18-8"></a>    output<span class="sc">$</span>text_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb18-9"><a href="#cb18-9"></a>   input<span class="sc">$</span>btn_go</span>
+<span id="cb18-10"><a href="#cb18-10"></a>   <span class="fu">isolate</span>(input<span class="sc">$</span>text_input)</span>
+<span id="cb18-11"><a href="#cb18-11"></a>      })</span>
+<span id="cb18-12"><a href="#cb18-12"></a>  }</span>
+<span id="cb18-13"><a href="#cb18-13"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="error-validation" class="slide level2">
 <h2>Error validation</h2>
 <ul>
 <li>Shiny returns an error with missing or incorrect values</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:70%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">shinyApp</span>(</span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="at">ui=</span><span class="fu">fluidPage</span>(</span>
+<span id="cb19-3"><a href="#cb19-3"></a>  <span class="fu">selectInput</span>(<span class="st">"data_input"</span>,<span class="at">label=</span><span class="st">"Select data"</span>,</span>
+<span id="cb19-4"><a href="#cb19-4"></a>              <span class="at">choices=</span><span class="fu">c</span>(<span class="st">""</span>,<span class="st">"mtcars"</span>,<span class="st">"faithful"</span>,<span class="st">"iris"</span>)),</span>
+<span id="cb19-5"><a href="#cb19-5"></a>  <span class="fu">tableOutput</span>(<span class="st">"table_output"</span>)</span>
+<span id="cb19-6"><a href="#cb19-6"></a>),</span>
+<span id="cb19-7"><a href="#cb19-7"></a></span>
+<span id="cb19-8"><a href="#cb19-8"></a><span class="at">server=</span><span class="cf">function</span>(input, output) {</span>
+<span id="cb19-9"><a href="#cb19-9"></a>  getdata <span class="ot">&lt;-</span> <span class="fu">reactive</span>({ <span class="fu">get</span>(input<span class="sc">$</span>data_input,<span class="st">'package:datasets'</span>) })</span>
+<span id="cb19-10"><a href="#cb19-10"></a>  output<span class="sc">$</span>table_output <span class="ot">&lt;-</span> <span class="fu">renderTable</span>({<span class="fu">head</span>(<span class="fu">getdata</span>())})</span>
+<span id="cb19-11"><a href="#cb19-11"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:30%;">
+<p><img data-src="assets/val1.png"></p>
+</div>
+</div>
+</section>
+<section id="error-validation-1" class="slide level2">
+<h2>Error validation</h2>
+<ul>
+<li>Errors can be handled in a controlled manner</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><code>validate()</code> can be used to check input</li>
+<li><code>validate()</code> using <code>need()</code></li>
 </ul>
 <div class="columns">
 <div class="column" style="width:70%;">
@@ -843,74 +847,46 @@ server=function(input, output) {
 <span id="cb20-6"><a href="#cb20-6"></a>),</span>
 <span id="cb20-7"><a href="#cb20-7"></a></span>
 <span id="cb20-8"><a href="#cb20-8"></a><span class="at">server=</span><span class="cf">function</span>(input, output) {</span>
-<span id="cb20-9"><a href="#cb20-9"></a>  getdata <span class="ot">&lt;-</span> <span class="fu">reactive</span>({ <span class="fu">get</span>(input<span class="sc">$</span>data_input,<span class="st">'package:datasets'</span>) })</span>
-<span id="cb20-10"><a href="#cb20-10"></a>  output<span class="sc">$</span>table_output <span class="ot">&lt;-</span> <span class="fu">renderTable</span>({<span class="fu">head</span>(<span class="fu">getdata</span>())})</span>
-<span id="cb20-11"><a href="#cb20-11"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column" style="width:30%;">
-<p><img data-src="assets/val1.png"></p>
-</div>
-</div>
-<div class="fragment">
-<ul>
-<li>Errors can be handled in a controlled manner</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li><code>validate()</code> can be used to check input</li>
-<li><code>validate()</code> using <code>need()</code></li>
-</ul>
-<div class="columns">
-<div class="column" style="width:70%;">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">shinyApp</span>(</span>
-<span id="cb21-2"><a href="#cb21-2"></a><span class="at">ui=</span><span class="fu">fluidPage</span>(</span>
-<span id="cb21-3"><a href="#cb21-3"></a>  <span class="fu">selectInput</span>(<span class="st">"data_input"</span>,<span class="at">label=</span><span class="st">"Select data"</span>,</span>
-<span id="cb21-4"><a href="#cb21-4"></a>              <span class="at">choices=</span><span class="fu">c</span>(<span class="st">""</span>,<span class="st">"mtcars"</span>,<span class="st">"faithful"</span>,<span class="st">"iris"</span>)),</span>
-<span id="cb21-5"><a href="#cb21-5"></a>  <span class="fu">tableOutput</span>(<span class="st">"table_output"</span>)</span>
-<span id="cb21-6"><a href="#cb21-6"></a>),</span>
-<span id="cb21-7"><a href="#cb21-7"></a></span>
-<span id="cb21-8"><a href="#cb21-8"></a><span class="at">server=</span><span class="cf">function</span>(input, output) {</span>
-<span id="cb21-9"><a href="#cb21-9"></a>  getdata <span class="ot">&lt;-</span> <span class="fu">reactive</span>({ </span>
-<span id="cb21-10"><a href="#cb21-10"></a>  <span class="fu">validate</span>(<span class="fu">need</span>(<span class="fu">try</span>(input<span class="sc">$</span>data_input),<span class="st">"Please select a data set"</span>))</span>
-<span id="cb21-11"><a href="#cb21-11"></a>    <span class="fu">get</span>(input<span class="sc">$</span>data_input,<span class="st">'package:datasets'</span>) </span>
-<span id="cb21-12"><a href="#cb21-12"></a>    })</span>
-<span id="cb21-13"><a href="#cb21-13"></a>  output<span class="sc">$</span>table_output <span class="ot">&lt;-</span> <span class="fu">renderTable</span>({<span class="fu">head</span>(<span class="fu">getdata</span>())})</span>
-<span id="cb21-14"><a href="#cb21-14"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-9"><a href="#cb20-9"></a>  getdata <span class="ot">&lt;-</span> <span class="fu">reactive</span>({ </span>
+<span id="cb20-10"><a href="#cb20-10"></a>  <span class="fu">validate</span>(<span class="fu">need</span>(<span class="fu">try</span>(input<span class="sc">$</span>data_input),<span class="st">"Please select a data set"</span>))</span>
+<span id="cb20-11"><a href="#cb20-11"></a>    <span class="fu">get</span>(input<span class="sc">$</span>data_input,<span class="st">'package:datasets'</span>) </span>
+<span id="cb20-12"><a href="#cb20-12"></a>    })</span>
+<span id="cb20-13"><a href="#cb20-13"></a>  output<span class="sc">$</span>table_output <span class="ot">&lt;-</span> <span class="fu">renderTable</span>({<span class="fu">head</span>(<span class="fu">getdata</span>())})</span>
+<span id="cb20-14"><a href="#cb20-14"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:30%;">
 <p><img data-src="assets/val2.png"></p>
 </div>
 </div>
 </div>
-<div class="fragment">
+</section>
+<section id="error-validation-2" class="slide level2">
+<h2>Error validation</h2>
+<div class="columns">
+<div class="column" style="width:70%;">
 <ul>
 <li><code>validate()</code> using custom function</li>
 </ul>
-<div class="columns">
-<div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>valfn <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="cf">if</span>(<span class="fu">is.null</span>(x) <span class="sc">|</span> <span class="fu">is.na</span>(x) <span class="sc">|</span> x<span class="sc">==</span><span class="st">""</span>) <span class="fu">return</span>(<span class="st">"Input data is incorrect."</span>)</span>
-<span id="cb22-2"><a href="#cb22-2"></a></span>
-<span id="cb22-3"><a href="#cb22-3"></a><span class="fu">shinyApp</span>(</span>
-<span id="cb22-4"><a href="#cb22-4"></a><span class="at">ui=</span><span class="fu">fluidPage</span>(</span>
-<span id="cb22-5"><a href="#cb22-5"></a>  <span class="fu">selectInput</span>(<span class="st">"data_input"</span>,<span class="at">label=</span><span class="st">"Select data"</span>,</span>
-<span id="cb22-6"><a href="#cb22-6"></a>              <span class="at">choices=</span><span class="fu">c</span>(<span class="st">""</span>,<span class="st">"mtcars"</span>,<span class="st">"faithful"</span>,<span class="st">"iris"</span>)),</span>
-<span id="cb22-7"><a href="#cb22-7"></a>  <span class="fu">tableOutput</span>(<span class="st">"table_output"</span>)</span>
-<span id="cb22-8"><a href="#cb22-8"></a>),</span>
-<span id="cb22-9"><a href="#cb22-9"></a></span>
-<span id="cb22-10"><a href="#cb22-10"></a><span class="at">server=</span><span class="cf">function</span>(input,output) {</span>
-<span id="cb22-11"><a href="#cb22-11"></a>  getdata <span class="ot">&lt;-</span> <span class="fu">reactive</span>({ </span>
-<span id="cb22-12"><a href="#cb22-12"></a>  <span class="fu">validate</span>(<span class="fu">valfn</span>(<span class="fu">try</span>(input<span class="sc">$</span>data_input)))</span>
-<span id="cb22-13"><a href="#cb22-13"></a>    <span class="fu">get</span>(input<span class="sc">$</span>data_input,<span class="st">'package:datasets'</span>)</span>
-<span id="cb22-14"><a href="#cb22-14"></a>    })</span>
-<span id="cb22-15"><a href="#cb22-15"></a>  output<span class="sc">$</span>table_output <span class="ot">&lt;-</span> <span class="fu">renderTable</span>({<span class="fu">head</span>(<span class="fu">getdata</span>())})</span>
-<span id="cb22-16"><a href="#cb22-16"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>valfn <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="cf">if</span>(<span class="fu">is.null</span>(x) <span class="sc">|</span> <span class="fu">is.na</span>(x) <span class="sc">|</span> x<span class="sc">==</span><span class="st">""</span>) <span class="fu">return</span>(<span class="st">"Input data is incorrect."</span>)</span>
+<span id="cb21-2"><a href="#cb21-2"></a></span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="fu">shinyApp</span>(</span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="at">ui=</span><span class="fu">fluidPage</span>(</span>
+<span id="cb21-5"><a href="#cb21-5"></a>  <span class="fu">selectInput</span>(<span class="st">"data_input"</span>,<span class="at">label=</span><span class="st">"Select data"</span>,</span>
+<span id="cb21-6"><a href="#cb21-6"></a>              <span class="at">choices=</span><span class="fu">c</span>(<span class="st">""</span>,<span class="st">"mtcars"</span>,<span class="st">"faithful"</span>,<span class="st">"iris"</span>)),</span>
+<span id="cb21-7"><a href="#cb21-7"></a>  <span class="fu">tableOutput</span>(<span class="st">"table_output"</span>)</span>
+<span id="cb21-8"><a href="#cb21-8"></a>),</span>
+<span id="cb21-9"><a href="#cb21-9"></a></span>
+<span id="cb21-10"><a href="#cb21-10"></a><span class="at">server=</span><span class="cf">function</span>(input,output) {</span>
+<span id="cb21-11"><a href="#cb21-11"></a>  getdata <span class="ot">&lt;-</span> <span class="fu">reactive</span>({ </span>
+<span id="cb21-12"><a href="#cb21-12"></a>  <span class="fu">validate</span>(<span class="fu">valfn</span>(<span class="fu">try</span>(input<span class="sc">$</span>data_input)))</span>
+<span id="cb21-13"><a href="#cb21-13"></a>    <span class="fu">get</span>(input<span class="sc">$</span>data_input,<span class="st">'package:datasets'</span>)</span>
+<span id="cb21-14"><a href="#cb21-14"></a>    })</span>
+<span id="cb21-15"><a href="#cb21-15"></a>  output<span class="sc">$</span>table_output <span class="ot">&lt;-</span> <span class="fu">renderTable</span>({<span class="fu">head</span>(<span class="fu">getdata</span>())})</span>
+<span id="cb21-16"><a href="#cb21-16"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:30%;">
 <p><img data-src="assets/val3.png"></p>
-</div>
 </div>
 </div>
 <div class="fragment">
@@ -925,59 +901,55 @@ server=function(input, output) {
 <li>Add button and <code>downloadHandler()</code> function</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">shinyApp</span>(</span>
-<span id="cb23-2"><a href="#cb23-2"></a><span class="at">ui=</span><span class="fu">fluidPage</span>(</span>
-<span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">selectInput</span>(<span class="st">"data_input"</span>,<span class="at">label=</span><span class="st">"Select data"</span>,</span>
-<span id="cb23-4"><a href="#cb23-4"></a>              <span class="at">choices=</span><span class="fu">c</span>(<span class="st">"mtcars"</span>,<span class="st">"faithful"</span>,<span class="st">"iris"</span>)),</span>
-<span id="cb23-5"><a href="#cb23-5"></a>  <span class="fu">textOutput</span>(<span class="st">"text_output"</span>),</span>
-<span id="cb23-6"><a href="#cb23-6"></a>  <span class="fu">downloadButton</span>(<span class="st">"button_download"</span>,<span class="st">"Download"</span>)</span>
-<span id="cb23-7"><a href="#cb23-7"></a>),</span>
-<span id="cb23-8"><a href="#cb23-8"></a></span>
-<span id="cb23-9"><a href="#cb23-9"></a><span class="at">server=</span><span class="cf">function</span>(input, output) {</span>
-<span id="cb23-10"><a href="#cb23-10"></a>  getdata <span class="ot">&lt;-</span> <span class="fu">reactive</span>({ <span class="fu">get</span>(input<span class="sc">$</span>data_input, <span class="st">'package:datasets'</span>) })</span>
-<span id="cb23-11"><a href="#cb23-11"></a>  output<span class="sc">$</span>text_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>(<span class="fu">paste0</span>(<span class="st">"Selected dataset: "</span>,input<span class="sc">$</span>data_input))</span>
-<span id="cb23-12"><a href="#cb23-12"></a>  </span>
-<span id="cb23-13"><a href="#cb23-13"></a>  output<span class="sc">$</span>button_download <span class="ot">&lt;-</span> <span class="fu">downloadHandler</span>(</span>
-<span id="cb23-14"><a href="#cb23-14"></a>  <span class="at">filename =</span> <span class="cf">function</span>() {</span>
-<span id="cb23-15"><a href="#cb23-15"></a>     <span class="fu">paste0</span>(input<span class="sc">$</span>data_input,<span class="st">".csv"</span>)</span>
-<span id="cb23-16"><a href="#cb23-16"></a>   },</span>
-<span id="cb23-17"><a href="#cb23-17"></a>  <span class="at">content =</span> <span class="cf">function</span>(file) {</span>
-<span id="cb23-18"><a href="#cb23-18"></a>     <span class="fu">write.csv</span>(<span class="fu">getdata</span>(),file,<span class="at">row.names=</span><span class="cn">FALSE</span>,<span class="at">quote=</span>F)</span>
-<span id="cb23-19"><a href="#cb23-19"></a>   })</span>
-<span id="cb23-20"><a href="#cb23-20"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">shinyApp</span>(</span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="at">ui=</span><span class="fu">fluidPage</span>(</span>
+<span id="cb22-3"><a href="#cb22-3"></a>  <span class="fu">selectInput</span>(<span class="st">"data_input"</span>,<span class="at">label=</span><span class="st">"Select data"</span>, <span class="at">choices=</span><span class="fu">c</span>(<span class="st">"mtcars"</span>,<span class="st">"faithful"</span>,<span class="st">"iris"</span>)),</span>
+<span id="cb22-4"><a href="#cb22-4"></a>  <span class="fu">textOutput</span>(<span class="st">"text_output"</span>),</span>
+<span id="cb22-5"><a href="#cb22-5"></a>  <span class="fu">downloadButton</span>(<span class="st">"button_download"</span>,<span class="st">"Download"</span>)),</span>
+<span id="cb22-6"><a href="#cb22-6"></a><span class="at">server=</span><span class="cf">function</span>(input, output) {</span>
+<span id="cb22-7"><a href="#cb22-7"></a>  getdata <span class="ot">&lt;-</span> <span class="fu">reactive</span>({ <span class="fu">get</span>(input<span class="sc">$</span>data_input, <span class="st">'package:datasets'</span>) })</span>
+<span id="cb22-8"><a href="#cb22-8"></a>  output<span class="sc">$</span>text_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>(<span class="fu">paste0</span>(<span class="st">"Selected dataset: "</span>,input<span class="sc">$</span>data_input))</span>
+<span id="cb22-9"><a href="#cb22-9"></a>  </span>
+<span id="cb22-10"><a href="#cb22-10"></a>  output<span class="sc">$</span>button_download <span class="ot">&lt;-</span> <span class="fu">downloadHandler</span>(</span>
+<span id="cb22-11"><a href="#cb22-11"></a>  <span class="at">filename =</span> <span class="cf">function</span>() {</span>
+<span id="cb22-12"><a href="#cb22-12"></a>     <span class="fu">paste0</span>(input<span class="sc">$</span>data_input,<span class="st">".csv"</span>)</span>
+<span id="cb22-13"><a href="#cb22-13"></a>   },</span>
+<span id="cb22-14"><a href="#cb22-14"></a>  <span class="at">content =</span> <span class="cf">function</span>(file) {</span>
+<span id="cb22-15"><a href="#cb22-15"></a>     <span class="fu">write.csv</span>(<span class="fu">getdata</span>(),file,<span class="at">row.names=</span><span class="cn">FALSE</span>,<span class="at">quote=</span>F)</span>
+<span id="cb22-16"><a href="#cb22-16"></a>   })</span>
+<span id="cb22-17"><a href="#cb22-17"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Run in system browser if Rstudio browser doesn’t work</li>
-<li>See usage of download buttons</li>
 </ul>
 </section>
 <section id="download-plots" class="slide level2">
 <h2>Download • Plots</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">shinyApp</span>(</span>
-<span id="cb24-2"><a href="#cb24-2"></a><span class="at">ui=</span><span class="fu">fluidPage</span>(</span>
-<span id="cb24-3"><a href="#cb24-3"></a>  <span class="fu">selectInput</span>(<span class="st">"data_input"</span>,<span class="at">label=</span><span class="st">"Select data"</span>,</span>
-<span id="cb24-4"><a href="#cb24-4"></a>              <span class="at">choices=</span><span class="fu">c</span>(<span class="st">"mtcars"</span>,<span class="st">"faithful"</span>,<span class="st">"iris"</span>)),</span>
-<span id="cb24-5"><a href="#cb24-5"></a>  <span class="fu">textOutput</span>(<span class="st">"text_output"</span>),</span>
-<span id="cb24-6"><a href="#cb24-6"></a>  <span class="fu">plotOutput</span>(<span class="st">"plot_output"</span>,<span class="at">width=</span><span class="st">"400px"</span>),</span>
-<span id="cb24-7"><a href="#cb24-7"></a>  <span class="fu">downloadButton</span>(<span class="st">"button_download"</span>, <span class="st">"Download"</span>)</span>
-<span id="cb24-8"><a href="#cb24-8"></a>),</span>
-<span id="cb24-9"><a href="#cb24-9"></a></span>
-<span id="cb24-10"><a href="#cb24-10"></a><span class="at">server=</span><span class="cf">function</span>(input, output) {</span>
-<span id="cb24-11"><a href="#cb24-11"></a>  getdata <span class="ot">&lt;-</span> <span class="fu">reactive</span>({ <span class="fu">get</span>(input<span class="sc">$</span>data_input, <span class="st">'package:datasets'</span>) })</span>
-<span id="cb24-12"><a href="#cb24-12"></a>  output<span class="sc">$</span>text_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>(<span class="fu">paste0</span>(<span class="st">"Selected dataset: "</span>,input<span class="sc">$</span>data_input))</span>
-<span id="cb24-13"><a href="#cb24-13"></a>  output<span class="sc">$</span>plot_output <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({<span class="fu">hist</span>(<span class="fu">getdata</span>()[, <span class="dv">1</span>])})</span>
-<span id="cb24-14"><a href="#cb24-14"></a>  </span>
-<span id="cb24-15"><a href="#cb24-15"></a>output<span class="sc">$</span>button_download <span class="ot">&lt;-</span> <span class="fu">downloadHandler</span>(</span>
-<span id="cb24-16"><a href="#cb24-16"></a>  <span class="at">filename =</span> <span class="cf">function</span>() {</span>
-<span id="cb24-17"><a href="#cb24-17"></a>    <span class="fu">paste0</span>(input<span class="sc">$</span>data_input,<span class="st">".png"</span>)</span>
-<span id="cb24-18"><a href="#cb24-18"></a>  },</span>
-<span id="cb24-19"><a href="#cb24-19"></a>  <span class="at">content =</span> <span class="cf">function</span>(file) {</span>
-<span id="cb24-20"><a href="#cb24-20"></a>    <span class="fu">png</span>(file)</span>
-<span id="cb24-21"><a href="#cb24-21"></a>    <span class="fu">hist</span>(<span class="fu">getdata</span>()[, <span class="dv">1</span>])</span>
-<span id="cb24-22"><a href="#cb24-22"></a>    <span class="fu">dev.off</span>()</span>
-<span id="cb24-23"><a href="#cb24-23"></a>  })</span>
-<span id="cb24-24"><a href="#cb24-24"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">shinyApp</span>(</span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="at">ui=</span><span class="fu">fluidPage</span>(</span>
+<span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">selectInput</span>(<span class="st">"data_input"</span>,<span class="at">label=</span><span class="st">"Select data"</span>,</span>
+<span id="cb23-4"><a href="#cb23-4"></a>              <span class="at">choices=</span><span class="fu">c</span>(<span class="st">"mtcars"</span>,<span class="st">"faithful"</span>,<span class="st">"iris"</span>)),</span>
+<span id="cb23-5"><a href="#cb23-5"></a>  <span class="fu">textOutput</span>(<span class="st">"text_output"</span>),</span>
+<span id="cb23-6"><a href="#cb23-6"></a>  <span class="fu">plotOutput</span>(<span class="st">"plot_output"</span>,<span class="at">width=</span><span class="st">"400px"</span>),</span>
+<span id="cb23-7"><a href="#cb23-7"></a>  <span class="fu">downloadButton</span>(<span class="st">"button_download"</span>, <span class="st">"Download"</span>)</span>
+<span id="cb23-8"><a href="#cb23-8"></a>),</span>
+<span id="cb23-9"><a href="#cb23-9"></a></span>
+<span id="cb23-10"><a href="#cb23-10"></a><span class="at">server=</span><span class="cf">function</span>(input, output) {</span>
+<span id="cb23-11"><a href="#cb23-11"></a>  getdata <span class="ot">&lt;-</span> <span class="fu">reactive</span>({ <span class="fu">get</span>(input<span class="sc">$</span>data_input, <span class="st">'package:datasets'</span>) })</span>
+<span id="cb23-12"><a href="#cb23-12"></a>  output<span class="sc">$</span>text_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>(<span class="fu">paste0</span>(<span class="st">"Selected dataset: "</span>,input<span class="sc">$</span>data_input))</span>
+<span id="cb23-13"><a href="#cb23-13"></a>  output<span class="sc">$</span>plot_output <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({<span class="fu">hist</span>(<span class="fu">getdata</span>()[, <span class="dv">1</span>])})</span>
+<span id="cb23-14"><a href="#cb23-14"></a>  </span>
+<span id="cb23-15"><a href="#cb23-15"></a>output<span class="sc">$</span>button_download <span class="ot">&lt;-</span> <span class="fu">downloadHandler</span>(</span>
+<span id="cb23-16"><a href="#cb23-16"></a>  <span class="at">filename =</span> <span class="cf">function</span>() {</span>
+<span id="cb23-17"><a href="#cb23-17"></a>    <span class="fu">paste0</span>(input<span class="sc">$</span>data_input,<span class="st">".png"</span>)</span>
+<span id="cb23-18"><a href="#cb23-18"></a>  },</span>
+<span id="cb23-19"><a href="#cb23-19"></a>  <span class="at">content =</span> <span class="cf">function</span>(file) {</span>
+<span id="cb23-20"><a href="#cb23-20"></a>    <span class="fu">png</span>(file)</span>
+<span id="cb23-21"><a href="#cb23-21"></a>    <span class="fu">hist</span>(<span class="fu">getdata</span>()[, <span class="dv">1</span>])</span>
+<span id="cb23-22"><a href="#cb23-22"></a>    <span class="fu">dev.off</span>()</span>
+<span id="cb23-23"><a href="#cb23-23"></a>  })</span>
+<span id="cb23-24"><a href="#cb23-24"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Run in system browser if Rstudio browser doesn’t work</li>
@@ -1005,9 +977,9 @@ server=function(input, output) {
 <li>Automatically deploying to shinyapps.io</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">library</span>(rsconnect)</span>
-<span id="cb25-2"><a href="#cb25-2"></a>rsconnect<span class="sc">::</span><span class="fu">setAccountInfo</span>(<span class="at">name=</span><span class="st">"username"</span>, <span class="at">token=</span><span class="st">"HDFGT46YF7TDT6474G47"</span>, <span class="at">secret=</span><span class="st">"hdgTDF5FStgdkpJ"</span>)</span>
-<span id="cb25-3"><a href="#cb25-3"></a><span class="fu">deployApp</span>(<span class="at">appName=</span><span class="st">"name"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">library</span>(rsconnect)</span>
+<span id="cb24-2"><a href="#cb24-2"></a>rsconnect<span class="sc">::</span><span class="fu">setAccountInfo</span>(<span class="at">name=</span><span class="st">"username"</span>, <span class="at">token=</span><span class="st">"HDFGT46YF7TDT6474G47"</span>, <span class="at">secret=</span><span class="st">"hdgTDF5FStgdkpJ"</span>)</span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="fu">deployApp</span>(<span class="at">appName=</span><span class="st">"name"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
@@ -1030,18 +1002,21 @@ runtime: shiny
 <ul>
 <li>Shiny widgets can be included directly</li>
 </ul>
-<div class="sourceCode" id="cb27"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">selectInput</span>(<span class="st">'n_breaks'</span>,<span class="at">label=</span><span class="st">'Number of bins:'</span>,<span class="at">choices=</span><span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">35</span>,<span class="dv">50</span>),<span class="at">selected=</span><span class="dv">20</span>)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">selectInput</span>(<span class="st">'n_breaks'</span>,<span class="at">label=</span><span class="st">'Number of bins:'</span>,<span class="at">choices=</span><span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">35</span>,<span class="dv">50</span>),<span class="at">selected=</span><span class="dv">20</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="interactive-documents-1" class="slide level2">
+<h2>Interactive documents</h2>
 <ul>
 <li>Whole shiny apps can be included directly</li>
 </ul>
-<div class="sourceCode" id="cb28"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">ui=</span><span class="fu">fluidPage</span>(),</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">server=</span><span class="cf">function</span>(input,output) {}</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">ui=</span><span class="fu">fluidPage</span>(),</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">server=</span><span class="cf">function</span>(input,output) {}</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>Hosted shiny apps can be embedded using <code>&lt;iframe&gt;</code></li>
 </ul>
