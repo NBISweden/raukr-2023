@@ -670,13 +670,14 @@ shinyApp(
 
 ## Extensions
 
-- [Naxstats](https://github.com/nanxstats/awesome-shiny-extensions): Repo collection all shiny extensions
-- [shinythemes](https://github.com/rstudio/shinythemes): Bootswatch themes for shiny
+- [Naxstats](https://github.com/nanxstats/awesome-shiny-extensions): Repo collection of shiny extensions
+- [bslib](https://rstudio.github.io/bslib): Bootswatch themes for shiny
 - shinyurl: using URLs to recreate state of an app
 - shinypod: Reusable modules
-- [shinyjs](https://deanattali.com/shinyjs/): custom javascript functionality
+- [shinyjs](https://deanattali.com/shinyjs/): Custom javascript functionality
 - [shinyWidgets](https://github.com/dreamRs/shinyWidgets): Bootstrap 3 custom widgets
 - [shinyBS](https://github.com/ebailey78/shinyBS): Bootstrap 3 widgets
+- [shinymanager](https://datastorm-open.github.io/shinymanager/): Authentication for shiny apps
 
 ## Help
 
