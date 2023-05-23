@@ -528,13 +528,13 @@ Marcin Kierczak
 <p><img data-src="index_files/figure-revealjs/unnamed-chunk-2-1.png" width="384"></p>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>       V1                 V2         
- Min.   :-1.75755   Min.   :-1.2779  
- 1st Qu.:-0.68648   1st Qu.:-0.3696  
- Median :-0.07089   Median : 0.1154  
- Mean   :-0.01499   Mean   : 0.1008  
- 3rd Qu.: 0.48295   3rd Qu.: 0.5137  
- Max.   : 1.79270   Max.   : 1.4011  </code></pre>
+<pre><code>       V1                V2         
+ Min.   :-2.3619   Min.   :-3.0829  
+ 1st Qu.:-0.9189   1st Qu.:-1.1184  
+ Median : 0.1565   Median :-0.3508  
+ Mean   :-0.2460   Mean   :-0.2624  
+ 3rd Qu.: 0.4307   3rd Qu.: 0.4239  
+ Max.   : 1.9173   Max.   : 2.2178  </code></pre>
 </div>
 </div>
 </div>
@@ -562,14 +562,14 @@ Marcin Kierczak
 </section>
 <section id="other-types-of-magrittr-pipes-1" class="slide level2">
 <h2>Other Types of <code>magrittr</code> Pipes — %&lt;&gt;%</h2>
-<p>It exists but can lead to somewhat confusing code! ⚡</p>
+<p>It exists but can lead to somewhat confusing code! ☠️</p>
 <p><code>x %&lt;&gt;% f</code> <span class="math inline">\(\equiv\)</span> <code>x &lt;- f(x)</code></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>M <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">16</span>), <span class="at">nrow=</span><span class="dv">4</span>)</span>
 <span id="cb11-2"><a href="#cb11-2"></a>M <span class="sc">%&lt;&gt;%</span> <span class="fu">colSums</span>()</span>
 <span id="cb11-3"><a href="#cb11-3"></a>M</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  3.3175899  0.1671042 -0.1402784 -3.7552294</code></pre>
+<pre><code>[1] 0.8626513 0.8147449 3.6828117 0.5134010</code></pre>
 </div>
 </div>
 <p>From R &gt;= 4.1.0 we have a native <code>|&gt;</code> pipe that is a bit faster than <code>%&gt;%</code> but currently has no placeholders mechanism.</p>
@@ -601,9 +601,9 @@ Coefficients:
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>M <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">4</span>) <span class="sc">%&gt;%</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> <span class="dv">2</span>)</span>
 <span id="cb17-2"><a href="#cb17-2"></a>M <span class="sc">%&gt;%</span> <span class="st">`</span><span class="at">%*%</span><span class="st">`</span>(., .)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           [,1]        [,2]
-[1,]  1.2082552 -0.08369991
-[2,] -0.4811013  0.29761209</code></pre>
+<pre><code>            [,1]        [,2]
+[1,]  0.27435745 -0.25389542
+[2,] -0.07377071  0.06831386</code></pre>
 </div>
 </div>
 </div>
@@ -665,18 +665,18 @@ Coefficients:
 <span id="cb23-6"><a href="#cb23-6"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 50 × 4
-       x         y     z  outcome
-   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
- 1     1 0.0119     1.00 -0.413  
- 2     1 0.124      1.02 -0.220  
- 3     1 0.451      1.20 -0.603  
- 4     1 0.884      1.78  0.00664
- 5     1 0.603      1.36  1.07   
- 6     1 0.0953     1.01  0.939  
- 7     1 0.176      1.03  0.207  
- 8     1 0.869      1.76 -0.0238 
- 9     1 0.434      1.19  0.137  
-10     1 0.0000386  1.00  1.20   
+       x      y     z outcome
+   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+ 1     1 0.0248  1.00  -1.14 
+ 2     1 0.531   1.28   1.18 
+ 3     1 0.594   1.35   1.52 
+ 4     1 0.215   1.05   0.501
+ 5     1 0.459   1.21  -0.159
+ 6     1 0.296   1.09   0.669
+ 7     1 0.912   1.83  -2.81 
+ 8     1 0.745   1.56  -1.29 
+ 9     1 0.551   1.30   1.89 
+10     1 0.380   1.14   0.153
 # ℹ 40 more rows</code></pre>
 </div>
 </div>
@@ -1467,11 +1467,11 @@ date (1): y
 <pre><code># A tibble: 5 × 3
   cut     `2008` `2009`
   &lt;ord&gt;    &lt;int&gt;  &lt;dbl&gt;
-1 Ideal      326    330
-2 Premium    326    330
-3 Good       327    331
-4 Premium    334    338
-5 Good       335    339</code></pre>
+1 Ideal      326    334
+2 Premium    326    334
+3 Good       327    335
+4 Premium    334    342
+5 Good       335    343</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1483,9 +1483,9 @@ date (1): y
   cut     year  price
   &lt;ord&gt;   &lt;chr&gt; &lt;dbl&gt;
 1 Ideal   2008    326
-2 Ideal   2009    330
+2 Ideal   2009    334
 3 Premium 2008    326
-4 Premium 2009    330
+4 Premium 2009    334
 5 Good    2008    327</code></pre>
 </div>
 </div>
@@ -1598,21 +1598,22 @@ date (1): y
 <div class="cell">
 <div class="sourceCode cell-code" id="cb111"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1"></a>missing_stones <span class="sc">%&gt;%</span> <span class="fu">complete</span>(cut, continent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 12 × 4
+<pre><code># A tibble: 13 × 4
    cut       continent clarity price
    &lt;ord&gt;     &lt;chr&gt;     &lt;ord&gt;   &lt;int&gt;
- 1 Fair      AusOce    &lt;NA&gt;       NA
- 2 Fair      Eur       VS2       337
- 3 Good      AusOce    VS1       327
- 4 Good      Eur       SI2       335
- 5 Very Good AusOce    SI1       337
- 6 Very Good Eur       VVS2      336
- 7 Very Good Eur       VVS1      336
- 8 Very Good Eur       VS1       338
- 9 Premium   AusOce    SI1       326
-10 Premium   Eur       VS2       334
-11 Ideal     AusOce    &lt;NA&gt;       NA
-12 Ideal     Eur       SI2       326</code></pre>
+ 1 Fair      AusOce    VS2       337
+ 2 Fair      Eur       &lt;NA&gt;       NA
+ 3 Good      AusOce    &lt;NA&gt;       NA
+ 4 Good      Eur       VS1       327
+ 5 Good      Eur       SI2       335
+ 6 Very Good AusOce    VS1       338
+ 7 Very Good Eur       VVS2      336
+ 8 Very Good Eur       VVS1      336
+ 9 Very Good Eur       SI1       337
+10 Premium   AusOce    VS2       334
+11 Premium   Eur       SI1       326
+12 Ideal     AusOce    &lt;NA&gt;       NA
+13 Ideal     Eur       SI2       326</code></pre>
 </div>
 </div>
 </section>

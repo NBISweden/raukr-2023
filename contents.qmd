@@ -37,7 +37,7 @@ execute:
 |Web apps with Shiny                    |Roy Francis & Lokesh Manoharan         |[Slides](slides/shiny/index.html), [Lab](labs/shiny/index.html)|
 |[**WEEK 2**]{.highlight style="display:block;"}                                |||
 |[**19-Jun-2023 (Mon)**]{.highlight}    |                                       ||
-|Mathematical statistics and machine learning in R|Nikolay Oskolkov             |[Slides](slides/ml/index.html), [Lab](labs/ml/index.html)|
+|Statistics and machine learning in R   |Nikolay Oskolkov                       |[Slides](slides/ml/index.html), [Lab](labs/ml/index.html)|
 |Tidymodels                             |Max Kuhn, Posit                        ||
 
 **Demo** [Slides](slides/demo/index.html), [Lab](labs/demo/index.html)
