@@ -14,7 +14,7 @@
   <meta name="generator" content="quarto-1.3.340">
 
   <meta name="author" content="Nikolay Oskolkov">
-  <title>Introduction to Machine Learning</title>
+  <title>Mathematical statistics and machine learning in R</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -99,6 +99,7 @@
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link rel="stylesheet" href="assets/styles.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -398,7 +399,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="../../assets/images/cover.jpg" data-background-opacity="1" data-background-size="cover" class="quarto-title-block center">
-  <h1 class="title">Introduction to Machine Learning</h1>
+  <h1 class="title">Mathematical statistics and machine learning in R</h1>
   <p class="subtitle">RaukR 2023 • Advanced R for Bioinformatics</p>
 
 <div class="quarto-title-authors">
@@ -409,98 +410,25 @@ Nikolay Oskolkov
 </div>
 </div>
 
-  <p class="date">01-May-2023</p>
+  <p class="date">21-May-2023</p>
 </section>
 
-<section id="different-types-of-data-analysis" class="slide level2">
-<h2>Different Types of Data Analysis</h2>
-<ul>
-<li>Depends on the amount of data we have</li>
-<li>Balance between the numbers of features and observations
-<ul>
-<li>P is the number of features (genes, proteins, genetic variants etc.)</li>
-<li>N is the number of observations (samples, cells, nucleotides etc.)</li>
-</ul></li>
-</ul>
-
-<img data-src="assets/AmountOfData.jpg" style="width:90.0%" class="r-stretch"></section>
-<section id="the-curse-of-dimensionality" class="slide level2">
-<h2>The Curse of Dimensionality</h2>
-<div class="columns">
-<div class="column" style="width:40%;">
-<p><img data-src="assets/DarkMagic.jpg"></p>
-</div><div class="column" style="width:60%;">
-<p><strong>This is how data looks like in high dimensions:</strong></p>
-<p><img data-src="assets/ndim_ball.jpg"></p>
-<p><span class="math display">\[Y = \alpha + \beta X\]</span> <span class="math display">\[\beta = \left(X^TX\right)^{-1}X^TY\]</span></p>
-<p><span class="math display">\[\left(X^TX\right)^{-1} \sim \frac{1}{\rm{det}\left(X^TX\right)}\dots\,\rightarrow\,\infty\hbox{,}\,\,\,\,\,\,\,\,n\ll p\]</span></p>
-<p><strong>Inverted covariance matrix diverges in high dimensions</strong></p>
-<p><br></p>
-<p><span class="math display">\[E[\hat{\sigma}^2]=\frac{n-p}{n}\sigma^2\]</span></p>
-<p><strong>Maximum Likelihood variance estimator is severely biased in high dimensions</strong></p>
-</div>
-</div>
+<section id="biological-data-are-high-dimensional" class="slide level2">
+<h2>Biological data are high dimensional</h2>
+<p><img data-src="assets/high_dimensional_data.png" style="width:100.0%"> <img align="center" width="100" height="100" src="assets/high_dimensional_data.png"></p>
 </section>
-<section id="equidistant-points-in-high-dimensions" class="slide level2">
-<h2>Equidistant Points in High Dimensions</h2>
-<div class="columns">
-<div class="column" style="width:70%;">
-<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-2_71d827a35842e0b5ef5f2f4675d74f02">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span>;</span>
-<span id="cb1-2"><a href="#cb1-2"></a>pair_dist <span class="ot">&lt;-</span> <span class="fu">list</span>();</span>
-<span id="cb1-3"><a href="#cb1-3"></a>p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">32</span>, <span class="dv">512</span>)</span>
-<span id="cb1-4"><a href="#cb1-4"></a></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(p)) {</span>
-<span id="cb1-6"><a href="#cb1-6"></a>  X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n <span class="sc">*</span> p[i]), n, p[i])</span>
-<span id="cb1-7"><a href="#cb1-7"></a>  pair_dist[[i]] <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">dist</span>(X));</span>
-<span id="cb1-8"><a href="#cb1-8"></a>  pair_dist[[i]] <span class="ot">&lt;-</span> pair_dist[[i]] <span class="sc">/</span> <span class="fu">max</span>(pair_dist[[i]])</span>
-<span id="cb1-9"><a href="#cb1-9"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column" style="width:30%;">
-<div class="cell" data-hash="index_cache/revealjs/Hist_Plot_2c457d68866eecbe924c7ecffec79d21">
-<div class="cell-output-display">
-<p><img data-src="index_files/figure-revealjs/Hist_Plot-1.png" width="384"></p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="neighboring-points-in-high-dimensions" class="slide level2">
-<h2>Neighboring Points in High Dimensions</h2>
-<div class="columns">
-<div class="column" style="width:70%;">
-<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-3_da654db0eaf5179ae1c457e313766ed1">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>first_dist <span class="ot">&lt;-</span> <span class="fu">vector</span>()</span>
-<span id="cb2-3"><a href="#cb2-3"></a>mid_dist <span class="ot">&lt;-</span> <span class="fu">vector</span>()</span>
-<span id="cb2-4"><a href="#cb2-4"></a>last_dist <span class="ot">&lt;-</span> <span class="fu">vector</span>()</span>
-<span id="cb2-5"><a href="#cb2-5"></a>num_dim <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">^</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="at">by=</span><span class="dv">1</span>)</span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="cf">for</span>(p <span class="cf">in</span> num_dim) {</span>
-<span id="cb2-7"><a href="#cb2-7"></a>  X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n<span class="sc">*</span>p), n, p)</span>
-<span id="cb2-8"><a href="#cb2-8"></a>  dist_X <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">as.vector</span>(<span class="fu">dist</span>(X)), <span class="at">decreasing=</span><span class="cn">FALSE</span>)</span>
-<span id="cb2-9"><a href="#cb2-9"></a>  first_dist <span class="ot">&lt;-</span> <span class="fu">append</span>(first_dist, dist_X[<span class="dv">1</span>])</span>
-<span id="cb2-10"><a href="#cb2-10"></a>  mid_dist <span class="ot">&lt;-</span> <span class="fu">append</span>(mid_dist, dist_X[<span class="fu">round</span>(<span class="fu">length</span>(dist_X)<span class="sc">/</span><span class="dv">2</span>, <span class="dv">0</span>)])</span>
-<span id="cb2-11"><a href="#cb2-11"></a>  last_dist <span class="ot">&lt;-</span> <span class="fu">append</span>(last_dist, dist_X[<span class="fu">length</span>(dist_X)])</span>
-<span id="cb2-12"><a href="#cb2-12"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column" style="width:30%;">
-<div class="cell" data-hash="index_cache/revealjs/Neighbors Plot_26274b55c89e7b5fe96df43963c190f8">
-<div class="cell-output-display">
-<p><img data-src="index_files/figure-revealjs/Neighbors Plot-1.png" width="384"></p>
-</div>
-</div>
-</div>
-</div>
+<section id="types-of-data-analysis" class="slide level2">
+<h2>Types of data analysis</h2>
+<p><img data-src="assets/AmountOfData.png" style="width:100.0%"> <img align="center" width="100" height="100" src="assets/AmountOfData.png"></p>
 </section>
 <section id="low-dimensional-space" class="slide level2">
-<h2>Low Dimensional Space</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb3-2"><a href="#cb3-2"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span> <span class="co"># number of samples</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a>p <span class="ot">&lt;-</span> <span class="dv">2</span>  <span class="co"># number of features / dimensions</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a>Y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb3-5"><a href="#cb3-5"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n<span class="sc">*</span>p),n,p)</span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Y<span class="sc">~</span>X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<h2>Low dimensional space</h2>
+<div class="cell my_code_size_smaller">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r my_code_size_smaller number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span> <span class="co"># number of samples</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>p <span class="ot">&lt;-</span> <span class="dv">2</span>  <span class="co"># number of features / dimensions</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>Y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb1-4"><a href="#cb1-4"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n <span class="sc">*</span> p), n, p)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Y <span class="sc">~</span> X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -523,10 +451,13 @@ F-statistic: 0.1916 on 2 and 17 DF,  p-value: 0.8274</code></pre>
 </div>
 </section>
 <section id="going-to-higher-dimensions" class="slide level2">
-<h2>Going to Higher Dimensions</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">set.seed</span>(<span class="dv">123456</span>); n <span class="ot">&lt;-</span> <span class="dv">20</span>; p <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>Y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n); X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n<span class="sc">*</span>p),n,p); <span class="fu">summary</span>(<span class="fu">lm</span>(Y<span class="sc">~</span>X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<h2>Going to higher dimensions</h2>
+<div class="cell my_code_size_smaller">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r my_code_size_smaller number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span> <span class="co"># number of samples</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>p <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="co"># number of features / dimensions</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>Y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb3-4"><a href="#cb3-4"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n <span class="sc">*</span> p), n, p)</span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Y <span class="sc">~</span> X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -559,10 +490,13 @@ F-statistic: 1.741 on 10 and 9 DF,  p-value: 0.2089</code></pre>
 </div>
 </section>
 <section id="even-higher-dimensions" class="slide level2">
-<h2>Even Higher Dimensions</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">set.seed</span>(<span class="dv">123456</span>); n <span class="ot">&lt;-</span> <span class="dv">20</span>; p <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>Y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n); X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n<span class="sc">*</span>p),n,p); <span class="fu">summary</span>(<span class="fu">lm</span>(Y<span class="sc">~</span>X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<h2>Even higher dimensions</h2>
+<div class="cell my_code_size_smaller">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r my_code_size_smaller number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span> <span class="co"># number of samples</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>p <span class="ot">&lt;-</span> <span class="dv">20</span> <span class="co"># number of features / dimensions</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>Y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb5-4"><a href="#cb5-4"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n <span class="sc">*</span> p), n, p)</span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Y <span class="sc">~</span> X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -601,136 +535,311 @@ F-statistic:   NaN on 19 and 0 DF,  p-value: NA</code></pre>
 </div>
 </div>
 </section>
-<section id="high-dimensional-data-in-life-sciences" class="slide level2">
-<h2>High dimensional data in Life Sciences</h2>
+<section id="equidistant-points-in-high-dimensions" class="slide level2">
+<h2>Equidistant points in high dimensions</h2>
+<div class="cell my_code_size_smaller" data-hash="index_cache/revealjs/unnamed-chunk-8_220975fcbd14b0af9c9a29441b8bee42">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r my_code_size_smaller number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span>; p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">32</span>, <span class="dv">512</span>); pair_dist <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(p)) {</span>
+<span id="cb7-3"><a href="#cb7-3"></a>  X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n <span class="sc">*</span> p[i]), n, p[i])</span>
+<span id="cb7-4"><a href="#cb7-4"></a>  pair_dist[[i]] <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">dist</span>(X));</span>
+<span id="cb7-5"><a href="#cb7-5"></a>  pair_dist[[i]] <span class="ot">&lt;-</span> pair_dist[[i]] <span class="sc">/</span> <span class="fu">max</span>(pair_dist[[i]])</span>
+<span id="cb7-6"><a href="#cb7-6"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="columns">
-<div class="column" style="width:40%;">
+<div class="column" style="width:60%;">
+<div class="cell" data-hash="index_cache/revealjs/Hist_Plot_76fed167b07b35e847ff37d51d7eb801">
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/Hist_Plot-1.png" width="960"></p>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="fragment">
+<p><br><br></p>
 <ul>
-<li>Proteomics, metabolomics: 50 - 100</li>
-<li>Metagenomics: 100 - 500</li>
-<li>Transcriptomics: 20 000</li>
-<li>Microscopy imaging: 1 000 000</li>
-<li>Genomics, epigenomics: 30 000 000</li>
+<li><p>Data points in high dimensions: <br><br></p>
+<ul>
+<li><p>move <strong>away</strong> from each other <br><br></p></li>
+<li><p>become <strong>equidistant</strong> and similar <br><br></p></li>
+</ul></li>
+<li><p>Impossible to see differences between cases and controls</p></li>
 </ul>
-</div><div class="column" style="width:60%;">
-<p><img data-src="assets/DataLifeSciences.jpg"></p>
+</div>
 </div>
 </div>
 </section>
-<section id="ways-to-overcome-the-curse-of-dimensionality" class="slide level2">
-<h2>Ways to Overcome The Curse of Dimensionality</h2>
-<ul>
-<li>Increasing sample size - often cannot afford</li>
-<li>Dimensionality reduction - PCA, UMAP etc.</li>
-<li>Regularizations - LASSO, Ridge, Elastic Net, Dropout etc.</li>
-<li>Bayesian statistics - Prior plays a role of Regularization</li>
-</ul>
-
-<img data-src="assets/Overcome_CD.jpg" class="r-stretch"></section>
-<section id="dimensionality-reduction" class="slide level2">
-<h2>Dimensionality Reduction</h2>
-
-<img data-src="assets/PCA_tSNE_MNIST.jpg" style="width:90.0%" class="r-stretch"></section>
-<section id="dimension-reduction-matrix-factorization" class="slide level2">
-<h2>Dimension Reduction: Matrix Factorization</h2>
-
-<img data-src="assets/MatrixFactor.jpg" class="r-stretch"></section>
-<section id="dimension-reduction-neighborhood-graph" class="slide level2">
-<h2>Dimension Reduction: Neighborhood Graph</h2>
-
-<img data-src="assets/tSNE_Scheme.jpg" style="width:68.0%" class="r-stretch"></section>
 <section id="regularizations-lasso" class="slide level2">
 <h2>Regularizations: LASSO</h2>
-<p><span class="math display">\[Y = \beta_1X_1+\beta_2X_2+\epsilon \\
-\textrm{OLS} = (Y-\beta_1X_1-\beta_2X_2)^2 \\
-\textrm{Penalized OLS} = (Y-\beta_1X_1-\beta_2X_2)^2 + \lambda(|\beta_1|+|\beta_2|)\]</span></p>
-
-<img data-src="assets/CV_lambda.jpg" style="width:70.0%" class="r-stretch"></section>
-<section id="regularizations-k-fold-cross-validation" class="slide level2">
-<h2>Regularizations: K-Fold Cross-Validation</h2>
-
-<img data-src="assets/Kfold_CrossVal.jpg" class="r-stretch"></section>
-<section id="priors-in-bayesian-statistics---regularizations" class="slide level2">
-<h2>Priors in Bayesian Statistics - Regularizations</h2>
-<p><span class="math display">\[Y = \beta_1X_1+\beta_2X_2+\epsilon\]</span> * <strong>Maximum Likelihood</strong> principle: maximize probability to observe data given parameters: <span class="math display">\[Y \sim N(\,\beta_1X_1+\beta_2X_2, \sigma^2\,) \\
-\rm{L}\,(\,\rm{Y} \,|\, \beta_1,\beta_2\,) =
-\frac{1}{\sqrt{2\pi\sigma²}} \exp^{-\frac{(Y-\beta_1X_1-\beta_2X_2)^2}{2\sigma²}}\]</span></p>
+<p><span class="math display">\[Y = \beta_1X_1+\beta_2X_2+\epsilon\]</span></p>
+<div class="fragment">
+<p><span class="math display">\[\textrm{OLS} = (Y-\beta_1X_1-\beta_2X_2)^2\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[\textrm{Penalized OLS} = (Y-\beta_1X_1-\beta_2X_2)^2 + \lambda(|\beta_1|+|\beta_2|)\]</span></p>
+</div>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><img data-src="assets/Kfold_CrossVal.jpg" style="width:90.0%"></p>
+</div><div class="column" style="width:40%;">
+<div class="fragment">
+<p><img data-src="assets/CV_lambda.jpg" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="regularizations-are-priors-in-bayesian-statistics" class="slide level2">
+<h2>Regularizations are priors in Bayesian statistics</h2>
+<p><span class="math display">\[\small Y = \beta_1X_1+\beta_2X_2+\epsilon; \,\,\, Y \sim N(\,\beta_1X_1+\beta_2X_2, \sigma^2\,) \equiv \rm{L}\,(\,\rm{Y} \,|\, \beta_1,\beta_2\,)\]</span></p>
+<ul>
+<li><strong>Maximum Likelihood</strong> principle: maximize probability to observe data given parameters: <span class="math display">\[\small \rm{L}\,(\,\rm{Y} \,|\, \beta_1,\beta_2\,) = \frac{1}{\sqrt{2\pi\sigma²}} \exp^{\displaystyle -\frac{(Y-\beta_1X_1-\beta_2X_2)^2}{2\sigma²}}\]</span></li>
+</ul>
 <div class="fragment">
 <ul>
-<li><strong>Bayes theorem</strong>: maximize posterior probability to observe parameters given data: <span class="math display">\[P(\rm{parameters} \,|\, \rm{data})=\frac{L(\rm{data} \,|\, \rm{parameters})*P(\rm{parameters})}{\int{L(\rm{data} \,|\, \rm{parameters})*P(\rm{parameters}) \, d(\rm{parameters})}}\]</span></li>
+<li><strong>Bayes theorem</strong>: maximize posterior probability of observing parameters given data: <span class="math display">\[\small \rm{Posterior}(\rm{params} \,|\, \rm{data})=\frac{L(\rm{data} \,|\, \rm{params})*\rm{Prior}(\rm{params})}{\int{L(\rm{data} \,|\, \rm{params})*\rm{Prior}(\rm{params}) \, d(\rm{params})}}\]</span></li>
 </ul>
 </div>
 <div class="fragment">
-<p><span class="math display">\[P(\, \beta_1,\beta_2 \,|\, \rm{Y}\,) \sim \rm{L}\,(\,\rm{Y} \,|\, \beta_1,\beta_2\,)*P(\beta_1,\beta_2) \sim \exp^{-\frac{(Y-\beta_1X_1-\beta_2X_2)^2}{2\sigma²}}*\exp^{-\lambda(|\beta_1|+|\beta_2|)}\]</span> <span class="math display">\[-\log{P(\, \beta_1,\beta_2 \,|\, \rm{Y}\,)} \sim (Y-\beta_1X_1-\beta_2X_2)^2 + \lambda(|\beta_1|+|\beta_2|)\]</span></p>
+<p><span class="math display">\[\small \rm{Posterior}(\,\beta_1,\beta_2\,|\, \rm{Y}\,) \sim \rm{L}\,(\,\rm{Y} \,|\,\beta_1,\beta_2\,)*\rm{Prior}(\beta_1,\beta_2) \sim \exp^{-\frac{(Y-\beta_1X_1-\beta_2X_2)^2}{2\sigma²}}*\exp^{-\lambda(|\beta_1|+|\beta_2|)} \\
+\small -\log{\left[\rm{Posterior}(\, \beta_1,\beta_2 \,|\, \rm{Y}\,)\right]} \sim (Y-\beta_1X_1-\beta_2X_2)^2 + \lambda(|\beta_1|+|\beta_2|)\]</span></p>
+</div>
+</section>
+<section id="markov-chain-monte-carlo-mcmc-introduction" class="slide level2">
+<h2>Markov Chain Monte Carlo (MCMC): introduction</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="fragment">
+<ul>
+<li>Integration via Monte Carlo sampling <img data-src="assets/MC.png" style="width:100.0%"></li>
+</ul>
+</div>
+<div class="fragment">
+<p><span class="math display">\[\small I = 2\int\limits_2^4{x dx}=2\frac{x^2}{2} \Big|_2^4 = 16 - 4 = 12\]</span></p>
+</div>
+<div class="fragment">
+<div class="cell my_code_size_tiny">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r my_code_size_tiny number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x){<span class="fu">return</span>(<span class="dv">2</span><span class="sc">*</span>x)}; a <span class="ot">&lt;-</span> <span class="dv">2</span>; b <span class="ot">&lt;-</span> <span class="dv">4</span>; N <span class="ot">&lt;-</span> <span class="dv">10000</span>; count <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> a, <span class="at">to =</span> b, <span class="at">by =</span> (b<span class="sc">-</span>a) <span class="sc">/</span> N); y_max <span class="ot">&lt;-</span> <span class="fu">max</span>(<span class="fu">f</span>(x))</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N)</span>
+<span id="cb8-4"><a href="#cb8-4"></a>{</span>
+<span id="cb8-5"><a href="#cb8-5"></a>  x_sample <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>, a, b); y_sample <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, y_max)</span>
+<span id="cb8-6"><a href="#cb8-6"></a>  <span class="cf">if</span>(y_sample <span class="sc">&lt;=</span> <span class="fu">f</span>(x_sample)){count <span class="ot">&lt;-</span> count <span class="sc">+</span> <span class="dv">1</span>}</span>
+<span id="cb8-7"><a href="#cb8-7"></a>}</span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="fu">paste0</span>(<span class="st">"Integral by Monte Carlo: I = "</span>, (count <span class="sc">/</span> N) <span class="sc">*</span> (b <span class="sc">-</span> a) <span class="sc">*</span> y_max)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Integral by Monte Carlo: I = 11.9248"</code></pre>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:50%;">
+<div class="fragment">
+<ul>
+<li>Markov Chain Monte Carlo (MCMC) <img data-src="assets/mcmc.png" style="width:80.0%"></li>
+</ul>
+<div class="fragment">
+<p><span class="math display">\[\small \rm{Hastings \,\, ratio} = \frac{\rm{Posterior}\,(\,\rm{params_{next}} \,|\, \rm{data}\,)}{\rm{Posterior}\,(\,\rm{params_{previous}} \,|\, \rm{data}\,)}\]</span></p>
 </div>
 <div class="fragment">
 <ul>
-<li>LASSO is a form of Bayes theorem with Laplace prior</li>
+<li>If Hastings ratio &gt; <em>u</em> [0, 1], then <strong>accept</strong>, else <strong>reject</strong> <br><br></li>
+<li>Hastings ratio does not contain the intractable integral from Bayes theorem</li>
 </ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="markov-chain-monte-carlo-mcmc-from-scratch-in-r" class="slide level2">
+<h2>Markov Chain Monte Carlo (MCMC) from scratch in R</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>Example from population genetics <img data-src="assets/genotypes.png" style="width:80.0%"></li>
+</ul>
+<div class="fragment">
+<p><span class="math display">\[\small L(n \, | \, f) = \prod_g{\left[ {2\choose g} f^g (1-f)^{2-g}  \right]^{n_g}}\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[\small \frac{\partial \log\left[L(n | f)\right]}{\partial f} = 0 \, \Rightarrow \hat{f}=\frac{n_1+2n_2}{2(n_0+n_1+n_2)}\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[\small \rm{Prior}(f, \alpha, \beta) = \frac{1}{B(\alpha, \beta)} f^{\alpha-1} (1-f)^{\beta-1}\]</span></p>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="fragment">
+<div class="cell my_code_size_tiny">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r my_code_size_tiny number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>N <span class="ot">&lt;-</span> <span class="dv">100</span>; n <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">50</span>, <span class="dv">25</span>) <span class="co"># Observed genotype data for N individuals</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>f_MLE <span class="ot">&lt;-</span> (n[<span class="dv">2</span>] <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>n[<span class="dv">3</span>]) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> <span class="fu">sum</span>(n)) <span class="co"># MLE of allele frequency</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co"># Define log-likelihood function (log-binomial distribution)</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>LL <span class="ot">&lt;-</span> <span class="cf">function</span>(n, f){<span class="fu">return</span>((n[<span class="dv">2</span>] <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>n[<span class="dv">3</span>])<span class="sc">*</span><span class="fu">log</span>(f) <span class="sc">+</span> (n[<span class="dv">2</span>] <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>n[<span class="dv">1</span>])<span class="sc">*</span><span class="fu">log</span>(<span class="dv">1</span><span class="sc">-</span>f))}</span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="co"># Define log-prior function (log-beta distribution)</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>LP <span class="ot">&lt;-</span> <span class="cf">function</span>(f, alpha, beta){<span class="fu">return</span>(<span class="fu">dbeta</span>(f, alpha, beta, <span class="at">log =</span> <span class="cn">TRUE</span>))}</span>
+<span id="cb10-8"><a href="#cb10-8"></a></span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="co"># Run MCMC Metropolis - Hastings sampler</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a>f_poster <span class="ot">&lt;-</span> <span class="fu">vector</span>(); alpha <span class="ot">&lt;-</span> <span class="fl">0.5</span>; beta <span class="ot">&lt;-</span> <span class="fl">0.5</span>; f_cur <span class="ot">&lt;-</span> <span class="fl">0.1</span> <span class="co"># initialization</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>)</span>
+<span id="cb10-12"><a href="#cb10-12"></a>{</span>
+<span id="cb10-13"><a href="#cb10-13"></a>  f_next <span class="ot">&lt;-</span> <span class="fu">abs</span>(<span class="fu">rnorm</span>(<span class="dv">1</span>, f_cur, <span class="fl">0.1</span>)) <span class="co"># make random step for allele frequency</span></span>
+<span id="cb10-14"><a href="#cb10-14"></a>  </span>
+<span id="cb10-15"><a href="#cb10-15"></a>  LL_cur <span class="ot">&lt;-</span> <span class="fu">LL</span>(n, f_cur); LL_next <span class="ot">&lt;-</span> <span class="fu">LL</span>(n, f_next)</span>
+<span id="cb10-16"><a href="#cb10-16"></a>  LP_cur <span class="ot">&lt;-</span> <span class="fu">LP</span>(f_cur, alpha, beta); LP_next <span class="ot">&lt;-</span> <span class="fu">LP</span>(f_next, alpha, beta)</span>
+<span id="cb10-17"><a href="#cb10-17"></a>  hastings_ratio <span class="ot">&lt;-</span> LL_next <span class="sc">+</span> LP_next <span class="sc">-</span> LL_cur <span class="sc">-</span> LP_cur</span>
+<span id="cb10-18"><a href="#cb10-18"></a>  </span>
+<span id="cb10-19"><a href="#cb10-19"></a>  <span class="cf">if</span>(hastings_ratio <span class="sc">&gt;</span> <span class="fu">log</span>(<span class="fu">runif</span>(<span class="dv">1</span>))){f_cur <span class="ot">&lt;-</span> f_next}; f_poster[i] <span class="ot">&lt;-</span> f_cur</span>
+<span id="cb10-20"><a href="#cb10-20"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-11-1.png" width="960"></p>
+</div>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section id="moving-from-statistics-to-machine-learning" class="slide level2">
-<h2>Moving from Statistics to Machine Learning</h2>
-<p>A few peculiarities of data analysis that are typical for Machine Learning:</p>
+<h2>Moving from statistics to machine learning</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
 <ul>
-<li>Very focused on <strong>prediction</strong> instead of biomarker discovery</li>
-<li>Focus on <strong>cross-validation</strong> and regularization</li>
-<li>More <strong>algorithmic</strong> and less “pen-and-paper” derivations</li>
-<li>More <strong>Python</strong> speaking than R speaking community</li>
+<li>Statistics is more <strong>analytical</strong> (pen &amp; paper)</li>
 </ul>
+<div class="fragment">
+<p><span class="math display">\[\rm{L}\,(\,x_i \,|\, \mu,\sigma^2\,) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp^{\displaystyle -\frac{\sum\limits_{i=1}^N (x_i-\mu)^2}{2\sigma^2}}\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[\frac{\partial \rm{L}\,(\,x_i \,|\, \mu,\sigma^2\,)}{\partial\mu} = 0; \,\, \frac{\partial \rm{L}\,(\,x_i \,|\, \mu,\sigma^2\,)}{\partial\sigma^2} = 0\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[\mu = \frac{1}{N}\sum_{i=0}^N x_i \,\,\rm{-}\,\rm{mean \, estimator}\]</span></p>
+<p><span class="math display">\[\sigma^2 = \frac{1}{N}\sum_{i=0}^N (x_i-\mu)^2 \,\,\rm{-}\,\rm{variance \, estimator}\]</span></p>
+</div>
+</div><div class="column" style="width:55%;">
+<div class="fragment">
+<ul>
+<li>Machine Learning is more <strong>algorithmic</strong> (ex. K-means)</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="cell my_code_size_tiny">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r my_code_size_tiny number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>K <span class="ot">=</span> <span class="dv">3</span>; <span class="fu">set.seed</span>(<span class="dv">123</span>); c <span class="ot">=</span> X[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">dim</span>(X)[<span class="dv">1</span>],K),]; <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="at">mai=</span><span class="fu">c</span>(<span class="fl">0.8</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">plot</span>(X, <span class="at">xlab =</span> <span class="st">"X"</span>, <span class="at">ylab =</span> <span class="st">"Y"</span>, <span class="at">pch =</span> <span class="dv">19</span>); <span class="fu">points</span>(c, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">cex =</span> <span class="dv">3</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="cf">for</span>(t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb11-4"><a href="#cb11-4"></a>{</span>
+<span id="cb11-5"><a href="#cb11-5"></a>  l <span class="ot">&lt;-</span> <span class="fu">vector</span>()</span>
+<span id="cb11-6"><a href="#cb11-6"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">dim</span>(X)[<span class="dv">1</span>])</span>
+<span id="cb11-7"><a href="#cb11-7"></a>  {</span>
+<span id="cb11-8"><a href="#cb11-8"></a>    d <span class="ot">&lt;-</span> <span class="fu">vector</span>(); <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>K){d[j] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((X[i,<span class="dv">1</span>]<span class="sc">-</span>c[j,<span class="dv">1</span>])<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> (X[i,<span class="dv">2</span>]<span class="sc">-</span>c[j,<span class="dv">2</span>])<span class="sc">^</span><span class="dv">2</span>)} </span>
+<span id="cb11-9"><a href="#cb11-9"></a>    l[i] <span class="ot">&lt;-</span> <span class="fu">which.min</span>(d)</span>
+<span id="cb11-10"><a href="#cb11-10"></a>  }</span>
+<span id="cb11-11"><a href="#cb11-11"></a>  <span class="fu">plot</span>(X, <span class="at">xlab=</span><span class="st">"X"</span>, <span class="at">ylab=</span><span class="st">"Y"</span>, <span class="at">col=</span>l, <span class="at">pch=</span><span class="dv">19</span>); <span class="fu">points</span>(c, <span class="at">col=</span><span class="st">"blue"</span>, <span class="at">cex=</span><span class="dv">3</span>, <span class="at">pch=</span><span class="dv">19</span>)</span>
+<span id="cb11-12"><a href="#cb11-12"></a>  s <span class="ot">=</span> <span class="fu">list</span>(); <span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">unique</span>(l)){s[[i]] <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(X[l<span class="sc">==</span>i,])}; c <span class="ot">=</span> <span class="fu">Reduce</span>(<span class="st">"rbind"</span>, s)</span>
+<span id="cb11-13"><a href="#cb11-13"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-13-1.png" width="864"></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="statistics-vs.-machine-learning-prediction" class="slide level2">
+<h2>Statistics vs.&nbsp;machine learning: prediction</h2>
+<div class="columns">
+<div class="column" style="width:36%;">
+<div class="fragment">
+<p><img data-src="assets/stats.png"></p>
+</div>
+</div><div class="column" style="width:14%;">
 
-<img data-src="assets/MachineLearning.jpg" style="width:70.0%" class="r-stretch"></section>
-<section id="statistics-vs.-machine-learning" class="slide level2">
-<h2>Statistics vs.&nbsp;Machine Learning</h2>
-
-<img data-src="assets/Stats_vs_ML.jpg" class="r-stretch"></section>
+</div><div class="column" style="width:50%;">
+<div class="fragment">
+<p><img data-src="assets/ml.png"></p>
+</div>
+</div>
+</div>
+</section>
 <section id="how-does-machine-learning-work" class="slide level2">
-<h2>How does Machine Learning work?</h2>
-<p>Machine Learning by default involves five basic steps:</p>
-<ol type="1">
-<li>Split data set into <strong>train</strong>, <strong>validation</strong> and <strong>test</strong> subsets.</li>
-<li>Fit the model on the train subset.</li>
-<li>Validate your model on the validation subset.</li>
-<li>Repeat steps 1-3 a number of times and tune <strong>hyperparameters</strong>.</li>
+<h2>How does machine learning work?</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><img data-src="assets/TrainTestSplit.png" style="width:100.0%"></p>
+</div><div class="column" style="width:40%;">
+<p>Machine Learning typically involves five basic steps: <br><br> 1. Split data set into <strong>train</strong>, <strong>validation</strong> and <strong>test</strong> subsets <br><br></p>
+<div class="fragment">
+<ol start="2" type="1">
+<li>Fit the model on the train subset <br><br></li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="3" type="1">
+<li>Validate your model on the validation subset <br><br></li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="4" type="1">
+<li>Repeat train - validation split many times and tune <strong>hyperparameters</strong> <br><br></li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="5" type="1">
 <li>Test the accuracy of the optimized model on the test subset.</li>
 </ol>
-
-<img data-src="assets/TrainTestSplit.jpg" style="width:60.0%" class="r-stretch"></section>
+</div>
+</div>
+</div>
+</section>
 <section id="toy-example-of-machine-learning" class="slide level2">
-<h2>Toy Example of Machine Learning</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb9-2"><a href="#cb9-2"></a>N<span class="ot">&lt;-</span><span class="dv">100</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a>x<span class="ot">&lt;-</span><span class="fu">rnorm</span>(N)</span>
-<span id="cb9-4"><a href="#cb9-4"></a>y<span class="ot">&lt;-</span><span class="dv">2</span><span class="sc">*</span>x<span class="sc">+</span><span class="fu">rnorm</span>(N)</span>
-<span id="cb9-5"><a href="#cb9-5"></a>df<span class="ot">&lt;-</span><span class="fu">data.frame</span>(x,y)</span>
-<span id="cb9-6"><a href="#cb9-6"></a><span class="fu">plot</span>(y<span class="sc">~</span>x,<span class="at">data=</span>df, <span class="at">col=</span><span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
+<h2>Toy example of machine learning</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell my_code_size_smaller">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r my_code_size_smaller number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>N <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N)</span>
+<span id="cb12-3"><a href="#cb12-3"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(N)</span>
+<span id="cb12-4"><a href="#cb12-4"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x, y)</span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="st">"Data points"</span>, <span class="at">fill =</span> <span class="st">"blue"</span>, <span class="at">bty =</span> <span class="st">"n"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" width="768"></p>
 </div>
-<img data-src="index_files/figure-revealjs/unnamed-chunk-7-1.png" width="576" class="r-stretch"></section>
-<section id="toy-example-train-and-test-subsets" class="slide level2">
-<h2>Toy Example: Train and Test Subsets</h2>
-<p>We randomly assign 70% of the data to training and 30% to test subsets:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb10-2"><a href="#cb10-2"></a>train<span class="ot">&lt;-</span>df[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">dim</span>(df)[<span class="dv">1</span>],<span class="fl">0.7</span><span class="sc">*</span><span class="fu">dim</span>(df)[<span class="dv">1</span>]),]</span>
-<span id="cb10-3"><a href="#cb10-3"></a>test<span class="ot">&lt;-</span>df[<span class="sc">!</span><span class="fu">rownames</span>(df)<span class="sc">%in%</span><span class="fu">rownames</span>(train),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" width="576" class="r-stretch"></section>
-<section id="toy-example-validation-of-model" class="slide level2">
-<h2>Toy Example: Validation of Model</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>test_predicted<span class="ot">&lt;-</span><span class="fu">as.numeric</span>(<span class="fu">predict</span>(<span class="fu">lm</span>(y<span class="sc">~</span>x,<span class="at">data=</span>train),<span class="at">newdata=</span>test))</span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">plot</span>(test<span class="sc">$</span>y<span class="sc">~</span>test_predicted,<span class="at">ylab=</span><span class="st">"True y"</span>,<span class="at">xlab=</span><span class="st">"Pred y"</span>,<span class="at">col=</span><span class="st">"red"</span>)</span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="fu">abline</span>(<span class="fu">lm</span>(test<span class="sc">$</span>y<span class="sc">~</span>test_predicted),<span class="at">col=</span><span class="st">"darkgreen"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
+</div><div class="column" style="width:50%;">
+<div class="fragment">
+<div class="cell my_code_size_smaller">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r my_code_size_smaller number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>train <span class="ot">&lt;-</span> df[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">dim</span>(df)[<span class="dv">1</span>], <span class="fl">0.7</span> <span class="sc">*</span> <span class="fu">dim</span>(df)[<span class="dv">1</span>]), ]</span>
+<span id="cb13-2"><a href="#cb13-2"></a>test <span class="ot">&lt;-</span> df[<span class="sc">!</span><span class="fu">rownames</span>(df) <span class="sc">%in%</span> <span class="fu">rownames</span>(train), ]</span>
+<span id="cb13-3"><a href="#cb13-3"></a>df<span class="sc">$</span>color <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">rownames</span>(df) <span class="sc">%in%</span> <span class="fu">rownames</span>(test),<span class="st">"red"</span>,<span class="st">"blue"</span>)</span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df, <span class="at">col =</span> df<span class="sc">$</span>color)</span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="fu">c</span>(<span class="st">"Train"</span>,<span class="st">"Test"</span>),<span class="at">fill=</span><span class="fu">c</span>(<span class="st">"blue"</span>,<span class="st">"red"</span>),<span class="at">bty=</span><span class="st">"n"</span>)</span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="fu">abline</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> train), <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-17-1.png" width="768"></p>
 </div>
-<img data-src="index_files/figure-revealjs/unnamed-chunk-10-1.png" width="576" class="r-stretch"></section>
-<section id="toy-example-validation-of-model-cont." class="slide level2">
-<h2>Toy Example: Validation of Model (Cont.)</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(test<span class="sc">$</span>y<span class="sc">~</span>test_predicted))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="toy-example-model-validation" class="slide level2">
+<h2>Toy example: model validation</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell my_code_size_smaller">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r my_code_size_smaller number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>test_predicted <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">predict</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> train), <span class="at">newdata =</span> test))</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">plot</span>(test<span class="sc">$</span>y <span class="sc">~</span> test_predicted, <span class="at">ylab =</span> <span class="st">"True y"</span>, <span class="at">xlab =</span> <span class="st">"Pred y"</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="fu">abline</span>(<span class="fu">lm</span>(test<span class="sc">$</span>y <span class="sc">~</span> test_predicted), <span class="at">col =</span> <span class="st">"darkgreen"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-18-1.png" width="768"></p>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="fragment">
+<div class="cell my_code_size_smaller">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r my_code_size_smaller number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(test<span class="sc">$</span>y <span class="sc">~</span> test_predicted))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -752,118 +861,489 @@ Multiple R-squared:  0.7933,    Adjusted R-squared:  0.7859
 F-statistic: 107.4 on 1 and 28 DF,  p-value: 4.329e-11</code></pre>
 </div>
 </div>
-<p>Thus the model explains 79% of variation on the test subset.</p>
-</section>
-<section id="what-is-a-hyperparameter" class="slide level2">
-<h2>What is a Hyperparameter?</h2>
-<ul>
-<li>Hyperparameters are Machine Learning design parameters that are set before the learning process starts</li>
-<li>For the toy model above, a hyperparameter can be e.g.&nbsp;the number of covariates to adjust the main variable x of interest for</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) { df[,<span class="fu">paste0</span>(<span class="st">"PC"</span>,i)]<span class="ot">&lt;-</span><span class="dv">1</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>i<span class="sc">/</span><span class="dv">10</span>)<span class="sc">*</span>y<span class="sc">+</span><span class="fu">rnorm</span>(N) }</span>
-<span id="cb14-3"><a href="#cb14-3"></a><span class="fu">head</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>           x          y color        PC1        PC2        PC3        PC4
-1  0.5855288  1.3949830   red  0.6290309  0.4956198  1.3858900  1.7306635
-2  0.7094660  0.2627087   red  0.4200812  0.2522828  1.8727694 -0.8896729
-3 -0.1093033  0.2038119   red -0.6521979 -0.7478721  1.7292568  2.0936245
-4 -0.4534972 -2.2317496  blue -0.4132938 -1.6273709 -1.8931325 -1.7226819
-5  0.6058875  1.3528592  blue  1.5470811  0.4277027 -1.3382341  2.4658608
-6 -1.8179560 -4.1719599  blue -4.5752323 -1.5702807 -0.4227104 -0.9909633
-         PC5         PC6         PC7        PC8        PC9       PC10
-1  1.7719325  0.63529634  0.07742793 -0.4285716 -0.9474105 -1.5414026
-2  2.0270091 -0.19178516  1.58123715  2.0241138 -1.7998121  0.1943211
-3 -0.5010914 -1.10171748  0.58945128 -0.0492363  1.0156630  0.2644225
-4 -1.5067426 -0.88140715 -0.12733353 -0.4603672 -0.2350367 -1.1187352
-5  0.2602076  1.53274473  0.26918441 -0.8528851 -0.4643425  0.6509530
-6 -2.4616374 -0.07481652 -2.38832183 -2.1785221 -0.5951440 -1.0329002</code></pre>
+<p><br><br> Thus the model explains 79% of variation on the test subset.</p>
+</div>
 </div>
 </div>
 </section>
-<section id="how-does-cross-validation-work" class="slide level2">
-<h2>How does Cross-Validation work?</h2>
+<section id="from-linear-models-to-artificial-neural-networks-anns" class="slide level2">
+<h2>From linear models to artificial neural networks (ANNs)</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
 <ul>
-<li>We should not include all PCs - this can be prone to overfitting</li>
-<li>Cross-Validation is a way to combat overfitting</li>
+<li>ANN: a mathematical function Y = f(X) with a special architecture</li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>train<span class="ot">&lt;-</span>df[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">dim</span>(df)[<span class="dv">1</span>],<span class="fl">0.6</span><span class="sc">*</span><span class="fu">dim</span>(df)[<span class="dv">1</span>]),]</span>
-<span id="cb16-2"><a href="#cb16-2"></a>val_test<span class="ot">&lt;-</span>df[<span class="sc">!</span><span class="fu">rownames</span>(df)<span class="sc">%in%</span><span class="fu">rownames</span>(train),]</span>
-<span id="cb16-3"><a href="#cb16-3"></a>validate<span class="ot">&lt;-</span>val_test[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">dim</span>(val_test)[<span class="dv">1</span>],<span class="fl">0.25</span><span class="sc">*</span><span class="fu">dim</span>(val_test)[<span class="dv">1</span>]),]</span>
-<span id="cb16-4"><a href="#cb16-4"></a>test<span class="ot">&lt;-</span>val_test[<span class="sc">!</span><span class="fu">rownames</span>(val_test)<span class="sc">%in%</span><span class="fu">rownames</span>(validate),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<ul>
+<li>Can be <strong>non-linear</strong> depending on <strong>activation function</strong> <br><br></li>
+</ul>
 </div>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-14-1.png" width="576" class="r-stretch"></section>
-<section id="how-does-cross-validation-work-cont." class="slide level2">
-<h2>How does Cross-Validation work? (Cont.)</h2>
+<div class="fragment">
+<p><img data-src="assets/ANN.jpg" style="width:100.0%"></p>
+</div>
+</div><div class="column" style="width:45%;">
+<div class="fragment">
 <ul>
-<li>Fit linear regression model on training set and assess the error on validation set</li>
-<li>Error: root mean square difference between y predicted by the trained model on the validation set, and the true y from the validation set</li>
-<li>Looks like no dramatic decrease of RMSE after PC2</li>
+<li>Backward propagation (<strong>gradient descent</strong>) for minimizing error</li>
 </ul>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" width="576" class="r-stretch"></section>
-<section id="ultimate-model-evaluation" class="slide level2">
-<h2>Ultimate Model Evaluation</h2>
+</div>
+<div class="fragment">
 <ul>
-<li>Thus optimal model is y~x+PC1+PC2</li>
-<li>Perform final evaluation of the optimized / trained model on the test data set and report the final evaluation metric, adjusted R squared in our case</li>
-<li>The model explains over 90% of variation on the unseen test data set</li>
+<li>Universal Approximation Theorem <br><br></li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(<span class="fu">predict</span>(<span class="fu">lm</span>(y<span class="sc">~</span>x<span class="sc">+</span>PC1<span class="sc">+</span>PC2,<span class="at">data=</span>train),<span class="at">newdata=</span>test)<span class="sc">~</span>test<span class="sc">$</span>y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><img data-src="assets/UAT.png" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="gradient-descent" class="slide level2">
+<h2>Gradient descent</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="assets/GD.png" style="width:100.0%"></p>
+<p><span class="math display">\[y_i = \alpha + \beta x_i + \epsilon, \,\, i = 1 \ldots n\]</span></p>
+<p><span class="math display">\[E(\alpha, \beta) = \frac{1}{n}\sum_{i=1}^n(y_i - \alpha - \beta x_i)^2\]</span></p>
+</div><div class="column" style="width:50%;">
+<div class="fragment">
+<p><span class="math display">\[\hat{\alpha}, \hat{\beta} = \rm{argmin} \,\, E(\alpha, \beta)\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[\frac{\partial E(\alpha, \beta)}{\partial\alpha} = -\frac{2}{n}\sum_{i=1}^n(y_i - \alpha - \beta x_i)\]</span></p>
+<p><span class="math display">\[\frac{\partial E(\alpha, \beta)}{\partial\beta} = -\frac{2}{n}\sum_{i=1}^n x_i(y_i - \alpha - \beta x_i)\]</span></p>
+</div>
+<div class="fragment">
+<p>Numeric implementation of gradient descent:</p>
+<p><span class="math display">\[\alpha_{i+1} = \alpha_i - \eta \left. \frac{\partial E(\alpha, \beta)}{\partial\alpha} \right\vert_{\alpha=\alpha_i,\beta=\beta_i}\]</span></p>
+<p><span class="math display">\[\beta_{i+1} = \beta_i - \eta \left. \frac{\partial E(\alpha, \beta)}{\partial\beta} \right\vert_{\alpha=\alpha_i,\beta=\beta_i}\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="coding-gradient-descent-from-scratch-in-r" class="slide level2">
+<h2>Coding gradient descent from scratch in R</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="cell my_code_size_smaller">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r my_code_size_smaller number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="co"># sample size</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n) <span class="co"># simulated expanatory variable</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a>y <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(n) <span class="co"># simulated response variable</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = predict(lm(y ~ x + PC1 + PC2, data = train), newdata = test) ~ 
-    test$y)
+lm(formula = y ~ x)
 
 Residuals:
-     Min       1Q   Median       3Q      Max 
--1.02409 -0.26361 -0.00061  0.19345  0.95801 
+    Min      1Q  Median      3Q     Max 
+-1.9073 -0.6835 -0.0875  0.5806  3.2904 
 
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  0.22155    0.09485   2.336   0.0269 *  
-test$y       0.93912    0.03994  23.514   &lt;2e-16 ***
+(Intercept)  2.89720    0.09755   29.70   &lt;2e-16 ***
+x            1.94753    0.10688   18.22   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.5002 on 28 degrees of freedom
-Multiple R-squared:  0.9518,    Adjusted R-squared:  0.9501 
-F-statistic: 552.9 on 1 and 28 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 0.9707 on 98 degrees of freedom
+Multiple R-squared:  0.7721,    Adjusted R-squared:  0.7698 
+F-statistic:   332 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p><br><br> Let us now reconstruct the intercept and slope from gradient descent</p>
+</div><div class="column" style="width:55%;">
+<div class="fragment">
+<div class="cell my_code_size_smaller">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r my_code_size_smaller number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>alpha <span class="ot">&lt;-</span> <span class="fu">vector</span>(); beta <span class="ot">&lt;-</span> <span class="fu">vector</span>()</span>
+<span id="cb19-2"><a href="#cb19-2"></a>E <span class="ot">&lt;-</span> <span class="fu">vector</span>(); dEdalpha <span class="ot">&lt;-</span> <span class="fu">vector</span>(); dEdbeta <span class="ot">&lt;-</span> <span class="fu">vector</span>()</span>
+<span id="cb19-3"><a href="#cb19-3"></a>eta <span class="ot">&lt;-</span> <span class="fl">0.01</span>; alpha[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span>; beta[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># initialize alpha and beta</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>)</span>
+<span id="cb19-5"><a href="#cb19-5"></a>{</span>
+<span id="cb19-6"><a href="#cb19-6"></a>  E[i] <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span>n) <span class="sc">*</span> <span class="fu">sum</span>((y <span class="sc">-</span> alpha[i] <span class="sc">-</span> beta[i] <span class="sc">*</span> x)<span class="sc">^</span><span class="dv">2</span>)  </span>
+<span id="cb19-7"><a href="#cb19-7"></a>  dEdalpha[i] <span class="ot">&lt;-</span> <span class="sc">-</span> <span class="fu">sum</span>(<span class="dv">2</span> <span class="sc">*</span> (y <span class="sc">-</span> alpha[i] <span class="sc">-</span> beta[i] <span class="sc">*</span> x)) <span class="sc">/</span> n</span>
+<span id="cb19-8"><a href="#cb19-8"></a>  dEdbeta[i] <span class="ot">&lt;-</span> <span class="sc">-</span> <span class="fu">sum</span>(<span class="dv">2</span> <span class="sc">*</span> x <span class="sc">*</span> (y <span class="sc">-</span> alpha[i] <span class="sc">-</span> beta[i] <span class="sc">*</span> x)) <span class="sc">/</span> n</span>
+<span id="cb19-9"><a href="#cb19-9"></a>  </span>
+<span id="cb19-10"><a href="#cb19-10"></a>  alpha[i<span class="sc">+</span><span class="dv">1</span>] <span class="ot">&lt;-</span> alpha[i] <span class="sc">-</span> eta <span class="sc">*</span> dEdalpha[i]</span>
+<span id="cb19-11"><a href="#cb19-11"></a>  beta[i<span class="sc">+</span><span class="dv">1</span>] <span class="ot">&lt;-</span> beta[i] <span class="sc">-</span> eta <span class="sc">*</span> dEdbeta[i]</span>
+<span id="cb19-12"><a href="#cb19-12"></a>}</span>
+<span id="cb19-13"><a href="#cb19-13"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">"alpha = "</span>, <span class="fu">tail</span>(alpha, <span class="dv">1</span>),<span class="st">", beta = "</span>, <span class="fu">tail</span>(beta, <span class="dv">1</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "alpha = 2.89719694937354, beta = 1.94752837381973"</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-23-1.png" width="960"></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 </section>
-<section id="from-linear-models-to-anns" class="slide level2">
-<h2>From Linear Models to ANNs</h2>
+<section id="ann-from-scratch-in-r-problem-formulation" class="slide level2">
+<h2>ANN from scratch in R: problem formulation</h2>
+<div class="columns">
+<div class="column" style="width:57%;">
+<p><img data-src="assets/Problem.png"></p>
+<div class="cell my_code_size_smaller">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r my_code_size_smaller number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>d <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>)  <span class="co"># true labels</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>x1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>) <span class="co"># input variable x1</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a>x2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># input variable x2</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a></span>
+<span id="cb21-5"><a href="#cb21-5"></a><span class="fu">data.frame</span>(<span class="at">x1 =</span> x1, <span class="at">x2 =</span> x2, <span class="at">d =</span> d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  x1 x2 d
+1  0  0 0
+2  0  1 0
+3  1  0 1
+4  1  1 1</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:43%;">
+<div class="fragment">
+<p><img data-src="assets/ANN_Scheme.png"></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[y(w_1,w_2)=\phi(w_1x_1+w_2x_2)\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[\phi(s)=\frac{1}{1+e^{\displaystyle -s}} \,\,\rm{-}\,\rm{sigmoid}\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[\phi^\prime(s)=\phi(s)\left(1-\phi(s)\right)\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="ann-from-scratch-in-r-implementation-in-code" class="slide level2">
+<h2>ANN from scratch in R: implementation in code</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell my_code_size_smaller">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r my_code_size_smaller number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>phi <span class="ot">&lt;-</span> <span class="cf">function</span>(x){<span class="fu">return</span>(<span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>x)))} <span class="co"># activation function</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a></span>
+<span id="cb23-3"><a href="#cb23-3"></a>mu <span class="ot">&lt;-</span> <span class="fl">0.1</span>; N_epochs <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb23-4"><a href="#cb23-4"></a>w1 <span class="ot">&lt;-</span> <span class="fl">0.1</span>; w2 <span class="ot">&lt;-</span> <span class="fl">0.5</span>; E <span class="ot">&lt;-</span> <span class="fu">vector</span>()</span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="cf">for</span>(epochs <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N_epochs)</span>
+<span id="cb23-6"><a href="#cb23-6"></a>{</span>
+<span id="cb23-7"><a href="#cb23-7"></a>  <span class="co">#Forward propagation</span></span>
+<span id="cb23-8"><a href="#cb23-8"></a>  y <span class="ot">&lt;-</span> <span class="fu">phi</span>(w1 <span class="sc">*</span> x1 <span class="sc">+</span> w2 <span class="sc">*</span> x2 <span class="sc">-</span> <span class="dv">3</span>) <span class="co"># we use a fixed bias -3</span></span>
+<span id="cb23-9"><a href="#cb23-9"></a>  </span>
+<span id="cb23-10"><a href="#cb23-10"></a>  <span class="co">#Backward propagation</span></span>
+<span id="cb23-11"><a href="#cb23-11"></a>  E[epochs] <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> <span class="fu">length</span>(d))) <span class="sc">*</span> <span class="fu">sum</span>((d <span class="sc">-</span> y)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb23-12"><a href="#cb23-12"></a>  dE_dw1 <span class="ot">&lt;-</span> <span class="sc">-</span> (<span class="dv">1</span> <span class="sc">/</span> <span class="fu">length</span>(d)) <span class="sc">*</span> <span class="fu">sum</span>((d <span class="sc">-</span> y) <span class="sc">*</span> y <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> y) <span class="sc">*</span> x1)</span>
+<span id="cb23-13"><a href="#cb23-13"></a>  dE_dw2 <span class="ot">&lt;-</span> <span class="sc">-</span> (<span class="dv">1</span> <span class="sc">/</span> <span class="fu">length</span>(d)) <span class="sc">*</span> <span class="fu">sum</span>((d <span class="sc">-</span> y) <span class="sc">*</span> y <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> y) <span class="sc">*</span> x2)</span>
+<span id="cb23-14"><a href="#cb23-14"></a>  w1 <span class="ot">&lt;-</span> w1 <span class="sc">-</span> mu <span class="sc">*</span> dE_dw1</span>
+<span id="cb23-15"><a href="#cb23-15"></a>  w2 <span class="ot">&lt;-</span> w2 <span class="sc">-</span> mu <span class="sc">*</span> dE_dw2</span>
+<span id="cb23-16"><a href="#cb23-16"></a>}</span>
+<span id="cb23-17"><a href="#cb23-17"></a><span class="fu">plot</span>(E <span class="sc">~</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span>N_epochs), <span class="at">xlab=</span><span class="st">"Epochs"</span>, <span class="at">ylab=</span><span class="st">"Error"</span>, <span class="at">col=</span><span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-25-1.png" width="960"></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="fragment">
+<p><span class="math display">\[E(w_1,w_2)=\frac{1}{2N}\sum_{i=1}^N\left(d_i-y_i(w_1,w_2)\right)^2\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[w_{1,2}=w_{1,2}-\mu\frac{\partial E(w_1,w_2)}{\partial w_{1,2}}\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[\frac{\partial E}{\partial w_1} = -\frac{1}{N}\sum_{i=1}^N (d_i-y_i)*y_i*(1-y_i)*x_{1i}\]</span></p>
+<p><span class="math display">\[\frac{\partial E}{\partial w_2} = -\frac{1}{N}\sum_{i=1}^N (d_i-y_i)*y_i*(1-y_i)*x_{2i}\]</span></p>
+</div>
+<div class="fragment">
+<div class="cell my_code_size_smaller">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r my_code_size_smaller number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.04742587 0.05752359 0.95730271 0.96489475</code></pre>
+</div>
+</div>
+<p>We nearly reconstruct true labels <strong>d = (0, 0, 1, 1)</strong></p>
+</div>
+</div>
+</div>
+</section>
+<section id="decision-tree-from-scratch-in-r-problem-formulation" class="slide level2">
+<h2>Decision tree from scratch in R: problem formulation</h2>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="cell my_code_size_smaller">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r my_code_size_smaller number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>X<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">height=</span><span class="fu">c</span>(<span class="dv">183</span>,<span class="dv">167</span>,<span class="dv">178</span>,<span class="dv">171</span>),<span class="at">weight=</span><span class="fu">c</span>(<span class="dv">78</span>,<span class="dv">73</span>,<span class="dv">85</span>,<span class="dv">67</span>))</span>
+<span id="cb26-2"><a href="#cb26-2"></a>y<span class="ot">&lt;-</span><span class="fu">as.factor</span>(<span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span>))</span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="fu">data.frame</span>(X, <span class="at">sex =</span> y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  height weight    sex
+1    183     78 Female
+2    167     73   Male
+3    178     85   Male
+4    171     67 Female</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell my_code_size_smaller">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r my_code_size_smaller number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">library</span>(<span class="st">"rpart"</span>); <span class="fu">library</span>(<span class="st">"rpart.plot"</span>)</span>
+<span id="cb28-2"><a href="#cb28-2"></a>fit<span class="ot">&lt;-</span><span class="fu">rpart</span>(y<span class="sc">~</span>height<span class="sc">+</span>weight,<span class="at">data=</span>X,<span class="at">method=</span><span class="st">"class"</span>,<span class="at">minsplit=</span><span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="fu">rpart.plot</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-28-1.png" width="960"></p>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:52%;">
+<div class="fragment">
 <ul>
-<li>ANN: Mathematical algorithm / function Y = f(X) with special architecture</li>
-<li>Highly non-linear dues to activation functions</li>
-<li>Backward propagation for minimizing error</li>
+<li>Let us visualize what the classifier has learnt</li>
 </ul>
+</div>
+<div class="fragment">
+<div class="cell my_code_size_smaller">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r my_code_size_smaller number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>color <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>, <span class="st">"blue"</span>, <span class="st">"red"</span>)</span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="fu">plot</span>(height <span class="sc">~</span> weight, <span class="at">data =</span> X, <span class="at">col =</span> color, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="dv">3</span>)</span>
+<span id="cb29-3"><a href="#cb29-3"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>,<span class="fu">c</span>(<span class="st">"Male"</span>,<span class="st">"Female"</span>),<span class="at">fill=</span><span class="fu">c</span>(<span class="st">"blue"</span>,<span class="st">"red"</span>),<span class="at">inset=</span>.<span class="dv">02</span>)</span>
+<span id="cb29-4"><a href="#cb29-4"></a></span>
+<span id="cb29-5"><a href="#cb29-5"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">169</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"darkgreen"</span>, <span class="at">lwd =</span> <span class="fl">1.5</span>)</span>
+<span id="cb29-6"><a href="#cb29-6"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">82</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"darkgreen"</span>, <span class="at">lwd =</span> <span class="fl">1.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-29-1.png" width="960"></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="decision-tree-from-scratch-in-r-gini-index-and-split" class="slide level2">
+<h2>Decision tree from scratch in R: Gini index and split</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><img data-src="assets/Gini.png" style="width:100.0%"></p>
+<div class="fragment">
+<div class="cell my_code_size_tiny">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r my_code_size_tiny number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>gini <span class="ot">&lt;-</span> <span class="cf">function</span>(x)</span>
+<span id="cb30-2"><a href="#cb30-2"></a>{</span>
+<span id="cb30-3"><a href="#cb30-3"></a>  <span class="fu">return</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>((<span class="fu">table</span>(x) <span class="sc">/</span> <span class="fu">length</span>(x))<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb30-4"><a href="#cb30-4"></a>}</span>
+<span id="cb30-5"><a href="#cb30-5"></a><span class="fu">gini</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5</code></pre>
+</div>
+</div>
+<div class="cell my_code_size_tiny">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r my_code_size_tiny number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">gini</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.32</code></pre>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:55%;">
+<div class="fragment">
+<div class="cell my_code_size_tiny">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r my_code_size_tiny number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>get_best_split <span class="ot">&lt;-</span> <span class="cf">function</span>(X, y)</span>
+<span id="cb34-2"><a href="#cb34-2"></a>{</span>
+<span id="cb34-3"><a href="#cb34-3"></a>  mean_gini <span class="ot">&lt;-</span> <span class="fu">vector</span>(); spl_vals <span class="ot">&lt;-</span> <span class="fu">vector</span>(); spl_names <span class="ot">&lt;-</span> <span class="fu">vector</span>()</span>
+<span id="cb34-4"><a href="#cb34-4"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="fu">colnames</span>(X)) <span class="co"># for each variable in X data frame</span></span>
+<span id="cb34-5"><a href="#cb34-5"></a>  {</span>
+<span id="cb34-6"><a href="#cb34-6"></a>    spl <span class="ot">&lt;-</span> <span class="fu">vector</span>() <span class="co"># vector of potential split candidates</span></span>
+<span id="cb34-7"><a href="#cb34-7"></a>    sort_X <span class="ot">&lt;-</span> X[<span class="fu">order</span>(X[, j]), ]; sort_y <span class="ot">&lt;-</span> y[<span class="fu">order</span>(X[, j])] <span class="co"># sort by variable</span></span>
+<span id="cb34-8"><a href="#cb34-8"></a>    <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(<span class="fu">dim</span>(X)[<span class="dv">1</span>]<span class="sc">-</span><span class="dv">1</span>)) <span class="co"># for each observation of variable in X data frame</span></span>
+<span id="cb34-9"><a href="#cb34-9"></a>    {</span>
+<span id="cb34-10"><a href="#cb34-10"></a>      spl[i] <span class="ot">&lt;-</span> (sort_X[i, j] <span class="sc">+</span> sort_X[(i <span class="sc">+</span> <span class="dv">1</span>), j]) <span class="sc">/</span> <span class="dv">2</span> <span class="co"># variable consecutive means</span></span>
+<span id="cb34-11"><a href="#cb34-11"></a>      g1_y <span class="ot">&lt;-</span> sort_y[sort_X[, j] <span class="sc">&gt;</span> spl[i]] <span class="co"># take labels for group above split</span></span>
+<span id="cb34-12"><a href="#cb34-12"></a>      g2_y <span class="ot">&lt;-</span> sort_y[sort_X[, j] <span class="sc">&lt;</span> spl[i]] <span class="co"># take labels for group below split</span></span>
+<span id="cb34-13"><a href="#cb34-13"></a>      mean_gini <span class="ot">&lt;-</span> <span class="fu">append</span>(mean_gini, (<span class="fu">gini</span>(g1_y) <span class="sc">+</span> <span class="fu">gini</span>(g2_y))<span class="sc">/</span><span class="dv">2</span>) <span class="co"># two groups mean Gini</span></span>
+<span id="cb34-14"><a href="#cb34-14"></a>      spl_vals <span class="ot">&lt;-</span> <span class="fu">append</span>(spl_vals, spl[i])</span>
+<span id="cb34-15"><a href="#cb34-15"></a>      spl_names <span class="ot">&lt;-</span> <span class="fu">append</span>(spl_names, j)</span>
+<span id="cb34-16"><a href="#cb34-16"></a>    }</span>
+<span id="cb34-17"><a href="#cb34-17"></a>  }</span>
+<span id="cb34-18"><a href="#cb34-18"></a>  min_spl_val <span class="ot">&lt;-</span> spl_vals[mean_gini <span class="sc">==</span> <span class="fu">min</span>(mean_gini)][<span class="dv">1</span>] <span class="co"># get best split variable</span></span>
+<span id="cb34-19"><a href="#cb34-19"></a>  min_spl_name <span class="ot">&lt;-</span> spl_names[mean_gini <span class="sc">==</span> <span class="fu">min</span>(mean_gini)][<span class="dv">1</span>] <span class="co"># get best split value</span></span>
+<span id="cb34-20"><a href="#cb34-20"></a>  sort_X <span class="ot">&lt;-</span> X[<span class="fu">order</span>(X[, min_spl_name]), ] <span class="co"># sort X by best split variable</span></span>
+<span id="cb34-21"><a href="#cb34-21"></a>  sort_y <span class="ot">&lt;-</span> y[<span class="fu">order</span>(X[, min_spl_name])] <span class="co"># sort y by best split variable</span></span>
+<span id="cb34-22"><a href="#cb34-22"></a>  g1_y <span class="ot">&lt;-</span> sort_y[sort_X[, min_spl_name] <span class="sc">&gt;</span> min_spl_val] <span class="co"># labels above best split</span></span>
+<span id="cb34-23"><a href="#cb34-23"></a>  g2_y <span class="ot">&lt;-</span> sort_y[sort_X[, min_spl_name] <span class="sc">&lt;</span> min_spl_val] <span class="co"># labels below best split</span></span>
+<span id="cb34-24"><a href="#cb34-24"></a>  <span class="cf">if</span>(<span class="fu">gini</span>(g1_y) <span class="sc">==</span> <span class="dv">0</span>){sex <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"Above: "</span>, <span class="fu">as.character</span>(g1_y))}</span>
+<span id="cb34-25"><a href="#cb34-25"></a>  <span class="cf">else</span> <span class="cf">if</span>(<span class="fu">gini</span>(g2_y) <span class="sc">==</span> <span class="dv">0</span>){sex <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"Below: "</span>, <span class="fu">as.character</span>(g2_y))}</span>
+<span id="cb34-26"><a href="#cb34-26"></a>  </span>
+<span id="cb34-27"><a href="#cb34-27"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">spl_name =</span> min_spl_name, <span class="at">spl_value =</span> min_spl_val, <span class="at">sex =</span> sex))</span>
+<span id="cb34-28"><a href="#cb34-28"></a>}</span>
+<span id="cb34-29"><a href="#cb34-29"></a><span class="fu">get_best_split</span>(X, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$spl_name
+[1] "height"
 
-<img data-src="assets/ANN.jpg" style="width:90.0%" class="r-stretch"></section>
-<section id="universal-approximation-theorem" class="slide level2">
-<h2>Universal Approximation Theorem</h2>
+$spl_value
+[1] 169
 
-<img data-src="assets/UAT.jpg" class="r-stretch"></section>
-<section id="single-cells-make-big-data" class="slide level2">
-<h2>Single Cells make Big Data</h2>
+$sex
+[1] "Below: Male"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="decision-tree-from-scratch-in-r-code-implementation" class="slide level2">
+<h2>Decision tree from scratch in R: code implementation</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>After we have found the best split, let us check what group we can split further: <strong>get_new_data</strong> function</li>
+</ul>
+<div class="fragment">
+<div class="cell my_code_size_tiny">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r my_code_size_tiny number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>get_new_data <span class="ot">&lt;-</span> <span class="cf">function</span>(X, y)</span>
+<span id="cb36-2"><a href="#cb36-2"></a>{</span>
+<span id="cb36-3"><a href="#cb36-3"></a>  spl_name <span class="ot">&lt;-</span> <span class="fu">get_best_split</span>(X, y)<span class="sc">$</span>spl_name</span>
+<span id="cb36-4"><a href="#cb36-4"></a>  spl_val <span class="ot">&lt;-</span> <span class="fu">get_best_split</span>(X, y)<span class="sc">$</span>spl_value</span>
+<span id="cb36-5"><a href="#cb36-5"></a>  </span>
+<span id="cb36-6"><a href="#cb36-6"></a>  <span class="co"># Sort X and y by the variable of the best split</span></span>
+<span id="cb36-7"><a href="#cb36-7"></a>  sort_X <span class="ot">&lt;-</span> X[<span class="fu">order</span>(X[, spl_name]), ]; sort_y <span class="ot">&lt;-</span> y[<span class="fu">order</span>(X[, spl_name])]</span>
+<span id="cb36-8"><a href="#cb36-8"></a>  </span>
+<span id="cb36-9"><a href="#cb36-9"></a>  <span class="co"># get X and y for the first group of samples above the best split value</span></span>
+<span id="cb36-10"><a href="#cb36-10"></a>  g1_y <span class="ot">&lt;-</span> sort_y[sort_X[, spl_name] <span class="sc">&gt;</span> spl_val]</span>
+<span id="cb36-11"><a href="#cb36-11"></a>  g1_X <span class="ot">&lt;-</span> sort_X[sort_X[, spl_name] <span class="sc">&gt;</span> spl_val,]</span>
+<span id="cb36-12"><a href="#cb36-12"></a>  </span>
+<span id="cb36-13"><a href="#cb36-13"></a>  <span class="co"># get X and y for the second group of samples below the best split value</span></span>
+<span id="cb36-14"><a href="#cb36-14"></a>  g2_y <span class="ot">&lt;-</span> sort_y[sort_X[, spl_name] <span class="sc">&lt;</span> spl_val]</span>
+<span id="cb36-15"><a href="#cb36-15"></a>  g2_X <span class="ot">&lt;-</span> sort_X[sort_X[, spl_name] <span class="sc">&lt;</span> spl_val,]</span>
+<span id="cb36-16"><a href="#cb36-16"></a>  </span>
+<span id="cb36-17"><a href="#cb36-17"></a>  <span class="co"># return new data (subset of X and y) for a group with Gini index &gt; 0</span></span>
+<span id="cb36-18"><a href="#cb36-18"></a>  <span class="cf">if</span>(<span class="fu">gini</span>(g1_y) <span class="sc">&gt;</span> <span class="dv">0</span>){<span class="fu">return</span>(<span class="fu">list</span>(<span class="at">new_X =</span> g1_X, <span class="at">new_y =</span> g1_y))}</span>
+<span id="cb36-19"><a href="#cb36-19"></a>  <span class="cf">else</span> <span class="cf">if</span>(<span class="fu">gini</span>(g2_y) <span class="sc">&gt;</span> <span class="dv">0</span>){<span class="fu">return</span>(<span class="fu">list</span>(<span class="at">new_X =</span> g2_X, <span class="at">new_y =</span> g2_y))}</span>
+<span id="cb36-20"><a href="#cb36-20"></a>  <span class="cf">else</span>{<span class="fu">return</span>(<span class="dv">0</span>)}</span>
+<span id="cb36-21"><a href="#cb36-21"></a>}</span>
+<span id="cb36-22"><a href="#cb36-22"></a><span class="fu">get_new_data</span>(X, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$new_X
+  height weight
+4    171     67
+3    178     85
+1    183     78
 
-<img data-src="assets/SingleCellBigData.jpg" class="r-stretch"></section>
+$new_y
+[1] Female Male   Female
+Levels: Female Male</code></pre>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="fragment">
+<ul>
+<li>We can train a decision tree of max_depth = 2</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="cell my_code_size_tiny">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r my_code_size_tiny number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>decision_tree <span class="ot">&lt;-</span> <span class="cf">function</span>(X, y, <span class="at">max_depth =</span> <span class="dv">2</span>)</span>
+<span id="cb38-2"><a href="#cb38-2"></a>{</span>
+<span id="cb38-3"><a href="#cb38-3"></a>  new_X <span class="ot">&lt;-</span> X; new_y <span class="ot">&lt;-</span> y</span>
+<span id="cb38-4"><a href="#cb38-4"></a>  df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">5</span>, <span class="at">nrow =</span> max_depth))</span>
+<span id="cb38-5"><a href="#cb38-5"></a>  <span class="fu">colnames</span>(df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"spl_num"</span>, <span class="st">"spl_name"</span>, <span class="st">"sign"</span>, <span class="st">"spl_val"</span>, <span class="st">"label"</span>)</span>
+<span id="cb38-6"><a href="#cb38-6"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>max_depth)</span>
+<span id="cb38-7"><a href="#cb38-7"></a>  {</span>
+<span id="cb38-8"><a href="#cb38-8"></a>    best_split_output <span class="ot">&lt;-</span> <span class="fu">get_best_split</span>(new_X, new_y)</span>
+<span id="cb38-9"><a href="#cb38-9"></a>    sex <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">strsplit</span>(best_split_output<span class="sc">$</span>sex,<span class="st">": "</span>))</span>
+<span id="cb38-10"><a href="#cb38-10"></a>    df[i, <span class="st">"spl_num"</span>] <span class="ot">&lt;-</span> i</span>
+<span id="cb38-11"><a href="#cb38-11"></a>    df[i, <span class="st">"spl_name"</span>] <span class="ot">&lt;-</span> best_split_output<span class="sc">$</span>spl_name</span>
+<span id="cb38-12"><a href="#cb38-12"></a>    df[i, <span class="st">"sign"</span>] <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(sex[<span class="dv">1</span>] <span class="sc">==</span> <span class="st">"Below"</span>, <span class="st">"&lt;"</span>, <span class="st">"&gt;"</span>)</span>
+<span id="cb38-13"><a href="#cb38-13"></a>    df[i, <span class="st">"spl_val"</span>] <span class="ot">&lt;-</span> best_split_output<span class="sc">$</span>spl_value</span>
+<span id="cb38-14"><a href="#cb38-14"></a>    df[i, <span class="st">"label"</span>] <span class="ot">&lt;-</span> sex[<span class="dv">2</span>]</span>
+<span id="cb38-15"><a href="#cb38-15"></a>    </span>
+<span id="cb38-16"><a href="#cb38-16"></a>    new_data_output <span class="ot">&lt;-</span> <span class="fu">get_new_data</span>(new_X, new_y)</span>
+<span id="cb38-17"><a href="#cb38-17"></a>    <span class="cf">if</span>(<span class="fu">length</span>(new_data_output) <span class="sc">!=</span> <span class="dv">1</span>)</span>
+<span id="cb38-18"><a href="#cb38-18"></a>    {</span>
+<span id="cb38-19"><a href="#cb38-19"></a>      new_X <span class="ot">&lt;-</span> new_data_output<span class="sc">$</span>new_X</span>
+<span id="cb38-20"><a href="#cb38-20"></a>      new_y <span class="ot">&lt;-</span> new_data_output<span class="sc">$</span>new_y</span>
+<span id="cb38-21"><a href="#cb38-21"></a>    }</span>
+<span id="cb38-22"><a href="#cb38-22"></a>    <span class="cf">else</span></span>
+<span id="cb38-23"><a href="#cb38-23"></a>    {</span>
+<span id="cb38-24"><a href="#cb38-24"></a>      <span class="fu">print</span>(<span class="st">"All terminal nodes have perfect purity"</span>)</span>
+<span id="cb38-25"><a href="#cb38-25"></a>      <span class="cf">break</span></span>
+<span id="cb38-26"><a href="#cb38-26"></a>    }</span>
+<span id="cb38-27"><a href="#cb38-27"></a>  }</span>
+<span id="cb38-28"><a href="#cb38-28"></a>  <span class="fu">return</span>(df)</span>
+<span id="cb38-29"><a href="#cb38-29"></a>}</span>
+<span id="cb38-30"><a href="#cb38-30"></a><span class="fu">decision_tree</span>(X, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "All terminal nodes have perfect purity"
+  spl_num spl_name sign spl_val label
+1       1   height    &lt;   169.0  Male
+2       2   weight    &gt;    81.5  Male</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="decision-tree-from-scratch-in-r-prediction" class="slide level2">
+<h2>Decision tree from scratch in R: prediction</h2>
+<div class="columns">
+<div class="column" style="width:52%;">
+<ul>
+<li>Finally, after we have trained the decision tree, we can try to make predictions, and check whether we can reconstruct the labels of the data points</li>
+</ul>
+<div class="fragment">
+<div class="cell my_code_size_tiny">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r my_code_size_tiny number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>predict_decision_tree <span class="ot">&lt;-</span> <span class="cf">function</span>(X, y)</span>
+<span id="cb40-2"><a href="#cb40-2"></a>{</span>
+<span id="cb40-3"><a href="#cb40-3"></a>  <span class="co"># Train a decision tree</span></span>
+<span id="cb40-4"><a href="#cb40-4"></a>  t <span class="ot">&lt;-</span> <span class="fu">decision_tree</span>(X, y, <span class="at">max_depth =</span> <span class="dv">2</span>)</span>
+<span id="cb40-5"><a href="#cb40-5"></a>  </span>
+<span id="cb40-6"><a href="#cb40-6"></a>  <span class="co"># Parse the output of decision tree and code it via if, else if and else</span></span>
+<span id="cb40-7"><a href="#cb40-7"></a>  pred_labs <span class="ot">&lt;-</span> <span class="fu">vector</span>()</span>
+<span id="cb40-8"><a href="#cb40-8"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">dim</span>(X)[<span class="dv">1</span>])</span>
+<span id="cb40-9"><a href="#cb40-9"></a>  {</span>
+<span id="cb40-10"><a href="#cb40-10"></a>    <span class="cf">if</span>(<span class="fu">eval</span>(<span class="fu">parse</span>(<span class="at">text=</span><span class="fu">paste0</span>(X[i,t<span class="sc">$</span>spl_name[<span class="dv">1</span>]],t<span class="sc">$</span>sign[<span class="dv">1</span>],t<span class="sc">$</span>spl_val[<span class="dv">1</span>]))))</span>
+<span id="cb40-11"><a href="#cb40-11"></a>    {</span>
+<span id="cb40-12"><a href="#cb40-12"></a>      pred_labs[i] <span class="ot">&lt;-</span> t<span class="sc">$</span>label[<span class="dv">1</span>]</span>
+<span id="cb40-13"><a href="#cb40-13"></a>    }</span>
+<span id="cb40-14"><a href="#cb40-14"></a>    <span class="cf">else</span> <span class="cf">if</span>(<span class="fu">eval</span>(<span class="fu">parse</span>(<span class="at">text=</span><span class="fu">paste0</span>(X[i,t<span class="sc">$</span>spl_name[<span class="dv">2</span>]],t<span class="sc">$</span>sign[<span class="dv">2</span>],t<span class="sc">$</span>spl_val[<span class="dv">2</span>]))))</span>
+<span id="cb40-15"><a href="#cb40-15"></a>    {</span>
+<span id="cb40-16"><a href="#cb40-16"></a>      pred_labs[i] <span class="ot">&lt;-</span> t<span class="sc">$</span>label[<span class="dv">2</span>]</span>
+<span id="cb40-17"><a href="#cb40-17"></a>    }</span>
+<span id="cb40-18"><a href="#cb40-18"></a>    <span class="cf">else</span>{pred_labs[i] <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(t<span class="sc">$</span>label[<span class="dv">2</span>] <span class="sc">==</span> <span class="st">"Male"</span>, <span class="st">"Female"</span>, <span class="st">"Male"</span>)}</span>
+<span id="cb40-19"><a href="#cb40-19"></a>  }</span>
+<span id="cb40-20"><a href="#cb40-20"></a></span>
+<span id="cb40-21"><a href="#cb40-21"></a>  <span class="fu">return</span>(<span class="fu">cbind</span>(<span class="fu">cbind</span>(X, y), pred_labs))</span>
+<span id="cb40-22"><a href="#cb40-22"></a>}</span>
+<span id="cb40-23"><a href="#cb40-23"></a><span class="fu">predict_decision_tree</span>(X, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "All terminal nodes have perfect purity"
+  height weight      y pred_labs
+1    183     78 Female    Female
+2    167     73   Male      Male
+3    178     85   Male      Male
+4    171     67 Female    Female</code></pre>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:48%;">
+<div class="fragment">
+<ul>
+<li><p><strong>Random Forest</strong> has two key differences:</p>
+<ul>
+<li><p>train multiple decision trees (<strong>bagging</strong>)</p></li>
+<li><p>train trees on <strong>fractions</strong> of input features</p></li>
+</ul></li>
+</ul>
+<p><img data-src="assets/Bagging.png" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+</section>
 <section id="section" class="slide level2" data-background-image="../../assets/images/cover.jpg">
 <h2></h2>
 <h3 id="thank-you-questions">Thank you! Questions?</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>         _                     
-platform x86_64-conda-linux-gnu
-os       linux-gnu             
-major    4                     
-minor    2.2                   </code></pre>
+<pre><code>         _                  
+platform x86_64-pc-linux-gnu
+os       linux-gnu          
+major    4                  
+minor    2.3                </code></pre>
 </div>
 </div>
 <p><span class="smaller">2023 • <a href="https://www.scilifelab.se/">SciLifeLab</a> • <a href="https://nbis.se/">NBIS</a> • <a href="https://nbisweden.github.io/workshop-RaukR-2306/">RaukR</a></span></p>

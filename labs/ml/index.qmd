@@ -1,7 +1,7 @@
 ---
 title: "Introduction to Machine Learning"
 author: "Nikolay Oskolkov"
-description: "Binary classification using Keras."
+description: "Coding artificial neural network from scratch in R."
 image: "assets/featured.jpg"
 format: html
 ---
@@ -65,18 +65,17 @@ summary(model)
 Next, we are going to compile and fit the Keras ANN model. Again, for simplicity, we are going to use Mean Squared Error (MSE) loss function, and Stochastic Gradient Descent (SGD) as an optimization algorithm (with a high learning rate 0.1). The training will be for 3000 epochs, it should be enough for MSE to reach zero.
 
 ```{r}
-#| eval: false
+#| eval: true
 model %>% 
   compile(loss = 'mean_squared_error',optimizer = optimizer_sgd(lr = 0.1))
 history <- model %>% fit(X, y, epochs = 3000)
-saveRDS(history,"history.rds")
 ```
 
 ```{r}
 #| fig-width: 10
 #| fig-height: 8
-history <- readRDS("history.rds")
-plot(history$metrics$loss~seq(1:length(history$metrics$loss)),xlab="Epochs",ylab="Loss",col="blue",cex=0.5)
+plot(history$metrics$loss~seq(1:length(history$metrics$loss)),
+xlab="Epochs",ylab="Loss",col="blue",cex=0.5)
 ```
 
 Finally, we will make predictions on the same data set. Overfitting is not a concern here because we want to make sure that the model was capable of linearly separating the two classes of data points.
@@ -103,10 +102,11 @@ $$\phi^\prime(s)=\phi(s)\left(1-\phi(s)\right)$$
 
 Next, the loss MSE function, i.e. the squared difference between the prediction y and the truth d, is given by the following simple equation:
 
-$$E=\frac{1}{2}\sum_{i=1}^N\left(d_i-y_i\right)^2$$
+$$E(w_1,w_2)=\frac{1}{2}\sum_{i=1}^N\left(d_i-y_i(w_1,w_2)\right)^2; \,\,\,\,\, y(w_1,w_2)=\phi(w_1x_1+w_2x_2)$$
+
 Finally, the gradient descent update rule can be written as follows:
 
-$$w_{1,2}=w_{1,2}+\mu\frac{\partial E}{\partial w_{1,2}}$$
+$$w_{1,2}=w_{1,2}-\mu\frac{\partial E}{\partial w_{1,2}}$$
 
 $$\frac{\partial E}{\partial w_{1,2}}=-(d-y)*y*(1-y)*x_{1,2}$$
 
@@ -126,7 +126,7 @@ w <- matrix(c(0.1, 0.5), ncol = 1) #initialization of weights w1 and w2
 for(epochs in 1:N_epochs)
 {
   #Forward propagation
-  y <- phi(X %*% w - 3) #here we use -3 as a fixed bias (not optimized for simplicity)
+  y <- phi(X %*% w - 3) #here for simplicity we use fixed bias = -3
   
   #Backward propagation
   E <- append(E, sum((d-y)^2))
