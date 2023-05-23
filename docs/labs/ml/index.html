@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nikolay Oskolkov">
-<meta name="description" content="Binary classification using Keras.">
+<meta name="description" content="Coding artificial neural network from scratch in R.">
 
-<title>Introduction to Machine Learning</title>
+<title>Mathematical statistics and machine learning in R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -164,11 +164,11 @@ background-size: cover;
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Introduction to Machine Learning</h1>
+      <h1 class="title">Mathematical statistics and machine learning in R</h1>
             <p class="subtitle lead">RaukR 2023 • Advanced R for Bioinformatics</p>
                   <div>
         <div class="description">
-          Binary classification using Keras.
+          Coding artificial neural network from scratch in R.
         </div>
       </div>
                 </div>
@@ -187,7 +187,7 @@ background-size: cover;
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">13-Mar-2023</p>
+        <p class="date">23-May-2023</p>
       </div>
     </div>
     
@@ -312,12 +312,11 @@ ________________________________________________________________________________
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compile</span>(<span class="at">loss =</span> <span class="st">'mean_squared_error'</span>,<span class="at">optimizer =</span> <span class="fu">optimizer_sgd</span>(<span class="at">lr =</span> <span class="fl">0.1</span>))</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>history <span class="ot">&lt;-</span> model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(X, y, <span class="at">epochs =</span> <span class="dv">3000</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(history,<span class="st">"history.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>history <span class="ot">&lt;-</span> model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(X, y, <span class="at">epochs =</span> <span class="dv">3000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>history <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"history.rds"</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(history<span class="sc">$</span>metrics<span class="sc">$</span>loss<span class="sc">~</span><span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(history<span class="sc">$</span>metrics<span class="sc">$</span>loss)),<span class="at">xlab=</span><span class="st">"Epochs"</span>,<span class="at">ylab=</span><span class="st">"Loss"</span>,<span class="at">col=</span><span class="st">"blue"</span>,<span class="at">cex=</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(history<span class="sc">$</span>metrics<span class="sc">$</span>loss<span class="sc">~</span><span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(history<span class="sc">$</span>metrics<span class="sc">$</span>loss)),</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="at">xlab=</span><span class="st">"Epochs"</span>,<span class="at">ylab=</span><span class="st">"Loss"</span>,<span class="at">col=</span><span class="st">"blue"</span>,<span class="at">cex=</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
@@ -331,10 +330,10 @@ ________________________________________________________________________________
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">predict</span>(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          [,1]
-[1,] 0.5000000
-[2,] 0.5022287
-[3,] 0.2131031
-[4,] 0.2146019</code></pre>
+[1,] 0.3733625
+[2,] 0.2805848
+[3,] 0.7924984
+[4,] 0.7142891</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -342,9 +341,9 @@ ________________________________________________________________________________
 <div class="cell-output cell-output-stdout">
 <pre><code>tf.Tensor(
 [[0]
- [1]
  [0]
- [0]], shape=(4, 1), dtype=int32)</code></pre>
+ [1]
+ [1]], shape=(4, 1), dtype=int32)</code></pre>
 </div>
 </div>
 <p>It looks like the Keras model successfully can assign correct labels to the four data points.</p>
@@ -356,11 +355,12 @@ ________________________________________________________________________________
 <p>The beauty of this function is that it has a simple derivative that is expressed through the sigmoid function itself:</p>
 <p><span class="math display">\[\phi^\prime(s)=\phi(s)\left(1-\phi(s)\right)\]</span></p>
 <p>Next, the loss MSE function, i.e.&nbsp;the squared difference between the prediction y and the truth d, is given by the following simple equation:</p>
-<p><span class="math display">\[E=\frac{1}{2}\sum_{i=1}^N\left(d_i-y_i\right)^2\]</span> Finally, the gradient descent update rule can be written as follows:</p>
-<p><span class="math display">\[w_{1,2}=w_{1,2}+\mu\frac{\partial E}{\partial w_{1,2}}\]</span></p>
+<p><span class="math display">\[E(w_1,w_2)=\frac{1}{2}\sum_{i=1}^N\left(d_i-y_i(w_1,w_2)\right)^2; \,\,\,\,\, y(w_1,w_2)=\phi(w_1x_1+w_2x_2)\]</span></p>
+<p>Finally, the gradient descent update rule can be written as follows:</p>
+<p><span class="math display">\[w_{1,2}=w_{1,2}-\mu\frac{\partial E}{\partial w_{1,2}}\]</span></p>
 <p><span class="math display">\[\frac{\partial E}{\partial w_{1,2}}=-(d-y)*y*(1-y)*x_{1,2}\]</span></p>
 <p>where <span class="math inline">\(\mu\)</span> is a learning rate. Let us put it all together in a simple for-loop that updates the fitting parameters <span class="math inline">\(w_1\)</span> and <span class="math inline">\(w_2\)</span> via minimizing the mean squared error:</p>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-9_a04eff2d61c2715c6fec82bd3dfe4697">
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-9_5fad2a4a07fb96a6db73a9971783c6ac">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>phi <span class="ot">&lt;-</span> <span class="cf">function</span>(x){<span class="fu">return</span>(<span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>x)))}</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)), <span class="at">ncol =</span> <span class="dv">2</span>)</span>
@@ -371,7 +371,7 @@ ________________________________________________________________________________
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(epochs <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N_epochs)</span>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Forward propagation</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">phi</span>(X <span class="sc">%*%</span> w <span class="sc">-</span> <span class="dv">3</span>) <span class="co">#here we use -3 as a fixed bias (not optimized for simplicity)</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">phi</span>(X <span class="sc">%*%</span> w <span class="sc">-</span> <span class="dv">3</span>) <span class="co">#here for simplicity we use fixed bias = -3</span></span>
 <span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Backward propagation</span></span>
 <span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  E <span class="ot">&lt;-</span> <span class="fu">append</span>(E, <span class="fu">sum</span>((d<span class="sc">-</span>y)<span class="sc">^</span><span class="dv">2</span>))</span>
@@ -647,7 +647,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-right">Published with <a href="https://quarto.org/">Quarto</a> v1.3.340</div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","selector":".lightbox","closeEffect":"zoom","loop":true,"descPosition":"bottom"});</script>
+<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","closeEffect":"zoom","selector":".lightbox","loop":true,"openEffect":"zoom"});</script>
 
 
 

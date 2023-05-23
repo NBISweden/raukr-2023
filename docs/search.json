@@ -249,35 +249,35 @@
     "href": "labs/index.html",
     "title": "Labs",
     "section": "",
-    "text": "Best Coding Practices\n\n\n\nMarcin Kierczak\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDebugging, Profiling and Optimizing Code\n\n\n\nMarcin Kierczak\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDemo Lab\n\n\n\nRoy Francis\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFunctions & Scripts\n\n\n\nSebastian DiLorenzo, Markus Mayrhofer\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIntroduction to Machine Learning\n\n\n\nNikolay Oskolkov\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMathematical Statistics in R\n\n\n\nNikolay Oskolkov\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nObject-Oriented Programming in R\n\n\n\nMarcin Kierczak\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nParallelization\n\n\n\nSebastian DiLorenzo\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPlotting with ggplot2\n\n\n\nRoy Francis\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPublishing\n\n\n\nRoy Francis\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nR packages\n\n\n\nSebastian DiLorenzo\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nReproducible research\n\n\n\nRoy Francis\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTidy work in Tidyverse\n\n\n\nMarcin Kierczak\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nVectorization\n\n\n\nMarcin Kierczak\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeb apps with Shiny\n\n\n\nRoy Francis\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nreticulate\n\n\n\nNina Norgren\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Best Coding Practices\n\n\n\nMarcin Kierczak\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDebugging, Profiling and Optimizing Code\n\n\n\nMarcin Kierczak\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDemo Lab\n\n\n\nRoy Francis\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFunctions & Scripts\n\n\n\nSebastian DiLorenzo, Markus Mayrhofer\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMathematical statistics and machine learning in R\n\n\n\nNikolay Oskolkov\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nObject-Oriented Programming in R\n\n\n\nMarcin Kierczak\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nParallelization\n\n\n\nSebastian DiLorenzo\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPlotting with ggplot2\n\n\n\nRoy Francis\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPublishing\n\n\n\nRoy Francis\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nR packages\n\n\n\nSebastian DiLorenzo\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nReproducible research\n\n\n\nRoy Francis\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTidy work in Tidyverse\n\n\n\nMarcin Kierczak\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nVectorization\n\n\n\nMarcin Kierczak\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeb apps with Shiny\n\n\n\nRoy Francis\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nreticulate\n\n\n\nNina Norgren\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "labs/ml/index.html",
     "href": "labs/ml/index.html",
-    "title": "Introduction to Machine Learning",
+    "title": "Mathematical statistics and machine learning in R",
     "section": "",
     "text": "Note\n\n\n\nIn this lab we will learn to code an Artificial Neural Network (ANN) in R both from scratch and using Keras / Tensorflow library. For simplicity, we consider a problem of linearly separable two classes of data points.\nLoad the keras library and install keras and tensorflow in the same environment as R.\nlibrary(reticulate)\nlibrary(keras)\n# keras::install_keras()\n# OR\n# keras::install_keras(method=\"conda\", envname=\"keras\")\n# OR\n# reticulate::conda_install(\"keras\",c(\"keras\",\"tensorflow\"))"
   },
   {
     "objectID": "labs/ml/index.html#problem-formulation",
     "href": "labs/ml/index.html#problem-formulation",
-    "title": "Introduction to Machine Learning",
+    "title": "Mathematical statistics and machine learning in R",
     "section": "1 Problem formulation",
     "text": "1 Problem formulation\nLet us consider a simple problem of only two features, i.e. \\(X_1\\) and \\(X_2\\), and only four statistical observations (data points) that belong to two classes: circles and crosses. The four data points are schematically depicted below using \\(X_1\\) vs. \\(X_2\\) coordinate system. Obviously, the circles and crosses are separable with a linear decision boundary, i.e. hyperplane.\n\n\n\n\n\nLet us implement the simplest possible feedforward / dense Artificial Neural Network (ANN) without hidden layers using Keras / Tensorflow library. Later, we will reproduce the results from Keras using from scratch coding ANN in R.\n\n\n\n\n\nThe architecture of the simplest ANN is displayed above, and includes two input nodes (two feature vectors \\(X_1\\) and \\(X_2\\)) and one output node, where the two classes are coded in the following way: circles are codded as 0 and crosses as 1. The weights \\(w_1\\) and \\(w_2\\) of the edges of the ANN graph are the fitting parameters of the model."
   },
   {
     "objectID": "labs/ml/index.html#keras-solution",
     "href": "labs/ml/index.html#keras-solution",
-    "title": "Introduction to Machine Learning",
+    "title": "Mathematical statistics and machine learning in R",
     "section": "2 Keras solution",
-    "text": "2 Keras solution\nLet us first define the X matrix of the feature vectors and the y vector of the class labels:\n\nX &lt;- matrix(c(c(0, 0, 1, 1), c(0, 1, 0, 1)), ncol = 2)\nX\n\n     [,1] [,2]\n[1,]    0    0\n[2,]    0    1\n[3,]    1    0\n[4,]    1    1\n\n\n\ny &lt;- c(0, 0, 1, 1)\ny\n\n[1] 0 0 1 1\n\n\nNow, let us define a sequential Keras model of the ANN corresponding to the scheme above and print the summary of the model. Here, we are going to use Sigmoid activation function on the output node because we have a binary classification problem.\n\nlibrary(keras)\nmodel &lt;- keras_model_sequential() \nmodel &lt;- model %&gt;% \n  layer_dense(units = 1, activation = 'sigmoid', input_shape = c(2))\nsummary(model)\n\nModel: \"sequential\"\n________________________________________________________________________________\n Layer (type)                       Output Shape                    Param #     \n================================================================================\n dense (Dense)                      (None, 1)                       3           \n================================================================================\nTotal params: 3\nTrainable params: 3\nNon-trainable params: 0\n________________________________________________________________________________\n\n\nNext, we are going to compile and fit the Keras ANN model. Again, for simplicity, we are going to use Mean Squared Error (MSE) loss function, and Stochastic Gradient Descent (SGD) as an optimization algorithm (with a high learning rate 0.1). The training will be for 3000 epochs, it should be enough for MSE to reach zero.\n\nmodel %&gt;% \n  compile(loss = 'mean_squared_error',optimizer = optimizer_sgd(lr = 0.1))\nhistory &lt;- model %&gt;% fit(X, y, epochs = 3000)\nsaveRDS(history,\"history.rds\")\n\n\nhistory &lt;- readRDS(\"history.rds\")\nplot(history$metrics$loss~seq(1:length(history$metrics$loss)),xlab=\"Epochs\",ylab=\"Loss\",col=\"blue\",cex=0.5)\n\n\n\n\n\n\n\n\nFinally, we will make predictions on the same data set. Overfitting is not a concern here because we want to make sure that the model was capable of linearly separating the two classes of data points.\n\nmodel %&gt;% predict(X)\n\n          [,1]\n[1,] 0.5000000\n[2,] 0.5022287\n[3,] 0.2131031\n[4,] 0.2146019\n\n\n\nmodel %&gt;% predict(X) %&gt;% `&gt;`(0.5) %&gt;% k_cast(\"int32\")\n\ntf.Tensor(\n[[0]\n [1]\n [0]\n [0]], shape=(4, 1), dtype=int32)\n\n\nIt looks like the Keras model successfully can assign correct labels to the four data points."
+    "text": "2 Keras solution\nLet us first define the X matrix of the feature vectors and the y vector of the class labels:\n\nX &lt;- matrix(c(c(0, 0, 1, 1), c(0, 1, 0, 1)), ncol = 2)\nX\n\n     [,1] [,2]\n[1,]    0    0\n[2,]    0    1\n[3,]    1    0\n[4,]    1    1\n\n\n\ny &lt;- c(0, 0, 1, 1)\ny\n\n[1] 0 0 1 1\n\n\nNow, let us define a sequential Keras model of the ANN corresponding to the scheme above and print the summary of the model. Here, we are going to use Sigmoid activation function on the output node because we have a binary classification problem.\n\nlibrary(keras)\nmodel &lt;- keras_model_sequential() \nmodel &lt;- model %&gt;% \n  layer_dense(units = 1, activation = 'sigmoid', input_shape = c(2))\nsummary(model)\n\nModel: \"sequential\"\n________________________________________________________________________________\n Layer (type)                       Output Shape                    Param #     \n================================================================================\n dense (Dense)                      (None, 1)                       3           \n================================================================================\nTotal params: 3\nTrainable params: 3\nNon-trainable params: 0\n________________________________________________________________________________\n\n\nNext, we are going to compile and fit the Keras ANN model. Again, for simplicity, we are going to use Mean Squared Error (MSE) loss function, and Stochastic Gradient Descent (SGD) as an optimization algorithm (with a high learning rate 0.1). The training will be for 3000 epochs, it should be enough for MSE to reach zero.\n\nmodel %&gt;% \n  compile(loss = 'mean_squared_error',optimizer = optimizer_sgd(lr = 0.1))\nhistory &lt;- model %&gt;% fit(X, y, epochs = 3000)\n\n\nplot(history$metrics$loss~seq(1:length(history$metrics$loss)),\nxlab=\"Epochs\",ylab=\"Loss\",col=\"blue\",cex=0.5)\n\n\n\n\n\n\n\n\nFinally, we will make predictions on the same data set. Overfitting is not a concern here because we want to make sure that the model was capable of linearly separating the two classes of data points.\n\nmodel %&gt;% predict(X)\n\n          [,1]\n[1,] 0.3733625\n[2,] 0.2805848\n[3,] 0.7924984\n[4,] 0.7142891\n\n\n\nmodel %&gt;% predict(X) %&gt;% `&gt;`(0.5) %&gt;% k_cast(\"int32\")\n\ntf.Tensor(\n[[0]\n [0]\n [1]\n [1]], shape=(4, 1), dtype=int32)\n\n\nIt looks like the Keras model successfully can assign correct labels to the four data points."
   },
   {
     "objectID": "labs/ml/index.html#coding-ann-from-scratch-in-r",
     "href": "labs/ml/index.html#coding-ann-from-scratch-in-r",
-    "title": "Introduction to Machine Learning",
+    "title": "Mathematical statistics and machine learning in R",
     "section": "3 Coding ANN from scratch in R",
-    "text": "3 Coding ANN from scratch in R\nNow we are going to implement the same ANN architecture from scratch in R. This will allow us to better understand the concepts like learning rate, gradient descent as well as to get an intuition of forward- and back-propagation. First of all, let us denote the sigmoid activation function on the output node as\n\\[\\phi(s)=\\frac{1}{1+\\exp^{\\displaystyle -s}}\\]\nThe beauty of this function is that it has a simple derivative that is expressed through the sigmoid function itself:\n\\[\\phi^\\prime(s)=\\phi(s)\\left(1-\\phi(s)\\right)\\]\nNext, the loss MSE function, i.e. the squared difference between the prediction y and the truth d, is given by the following simple equation:\n\\[E=\\frac{1}{2}\\sum_{i=1}^N\\left(d_i-y_i\\right)^2\\] Finally, the gradient descent update rule can be written as follows:\n\\[w_{1,2}=w_{1,2}+\\mu\\frac{\\partial E}{\\partial w_{1,2}}\\]\n\\[\\frac{\\partial E}{\\partial w_{1,2}}=-(d-y)*y*(1-y)*x_{1,2}\\]\nwhere \\(\\mu\\) is a learning rate. Let us put it all together in a simple for-loop that updates the fitting parameters \\(w_1\\) and \\(w_2\\) via minimizing the mean squared error:\n\nphi &lt;- function(x){return(1/(1 + exp(-x)))}\n\nX &lt;- matrix(c(c(0, 0, 1, 1), c(0, 1, 0, 1)), ncol = 2)\nd &lt;- matrix(c(0, 0, 1, 1), ncol = 1)\n\nmu &lt;- 0.1; N_epochs &lt;- 10000; E &lt;- vector()\nw &lt;- matrix(c(0.1, 0.5), ncol = 1) #initialization of weights w1 and w2\nfor(epochs in 1:N_epochs)\n{\n  #Forward propagation\n  y &lt;- phi(X %*% w - 3) #here we use -3 as a fixed bias (not optimized for simplicity)\n  \n  #Backward propagation\n  E &lt;- append(E, sum((d-y)^2))\n  dE_dw &lt;- (d-y) * y * (1-y)\n  w &lt;- w + mu * (t(X) %*% dE_dw)\n}\nplot(E ~ seq(1:N_epochs), cex = 0.5, xlab = \"Epochs\", ylab = \"Error\", col=\"red\")\n\n\n\n\n\n\n\n\nThe mean squared error seems to be decreasing and reaching zero. Let us display the final y vector of predicted labels, it should be equal to the d vector of true labels.\n\ny\n\n           [,1]\n[1,] 0.04742587\n[2,] 0.03166204\n[3,] 0.98444378\n[4,] 0.97650411\n\n\nIndeed, the predicted values of labels are very close to the true ones and similar to the ones obtained from Keras solution. Well done, we have successfully implemented an ANN from scratch in R!"
+    "text": "3 Coding ANN from scratch in R\nNow we are going to implement the same ANN architecture from scratch in R. This will allow us to better understand the concepts like learning rate, gradient descent as well as to get an intuition of forward- and back-propagation. First of all, let us denote the sigmoid activation function on the output node as\n\\[\\phi(s)=\\frac{1}{1+\\exp^{\\displaystyle -s}}\\]\nThe beauty of this function is that it has a simple derivative that is expressed through the sigmoid function itself:\n\\[\\phi^\\prime(s)=\\phi(s)\\left(1-\\phi(s)\\right)\\]\nNext, the loss MSE function, i.e. the squared difference between the prediction y and the truth d, is given by the following simple equation:\n\\[E(w_1,w_2)=\\frac{1}{2}\\sum_{i=1}^N\\left(d_i-y_i(w_1,w_2)\\right)^2; \\,\\,\\,\\,\\, y(w_1,w_2)=\\phi(w_1x_1+w_2x_2)\\]\nFinally, the gradient descent update rule can be written as follows:\n\\[w_{1,2}=w_{1,2}-\\mu\\frac{\\partial E}{\\partial w_{1,2}}\\]\n\\[\\frac{\\partial E}{\\partial w_{1,2}}=-(d-y)*y*(1-y)*x_{1,2}\\]\nwhere \\(\\mu\\) is a learning rate. Let us put it all together in a simple for-loop that updates the fitting parameters \\(w_1\\) and \\(w_2\\) via minimizing the mean squared error:\n\nphi &lt;- function(x){return(1/(1 + exp(-x)))}\n\nX &lt;- matrix(c(c(0, 0, 1, 1), c(0, 1, 0, 1)), ncol = 2)\nd &lt;- matrix(c(0, 0, 1, 1), ncol = 1)\n\nmu &lt;- 0.1; N_epochs &lt;- 10000; E &lt;- vector()\nw &lt;- matrix(c(0.1, 0.5), ncol = 1) #initialization of weights w1 and w2\nfor(epochs in 1:N_epochs)\n{\n  #Forward propagation\n  y &lt;- phi(X %*% w - 3) #here for simplicity we use fixed bias = -3\n  \n  #Backward propagation\n  E &lt;- append(E, sum((d-y)^2))\n  dE_dw &lt;- (d-y) * y * (1-y)\n  w &lt;- w + mu * (t(X) %*% dE_dw)\n}\nplot(E ~ seq(1:N_epochs), cex = 0.5, xlab = \"Epochs\", ylab = \"Error\", col=\"red\")\n\n\n\n\n\n\n\n\nThe mean squared error seems to be decreasing and reaching zero. Let us display the final y vector of predicted labels, it should be equal to the d vector of true labels.\n\ny\n\n           [,1]\n[1,] 0.04742587\n[2,] 0.03166204\n[3,] 0.98444378\n[4,] 0.97650411\n\n\nIndeed, the predicted values of labels are very close to the true ones and similar to the ones obtained from Keras solution. Well done, we have successfully implemented an ANN from scratch in R!"
   },
   {
     "objectID": "labs/oop/index.html",
@@ -1754,7 +1754,7 @@
     "href": "slides/index.html",
     "title": "Slides",
     "section": "",
-    "text": "Best Coding Practises\n\n\n\nMarcin Kierczak\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDebugging, Profiling, and Optimization\n\n\n\nMarcin Kierczak\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDemo Slides\n\n\n\nRoy Francis\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFunctions and scripts\n\n\n\nSebastian DiLorenzo\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInteractive web apps with Shiny\n\n\n\nRoy Francis\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIntroduction to Machine Learning\n\n\n\nNikolay Oskolkov\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMathematical Statistics in R\n\n\n\nNikolay Oskolkov\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nObject-Oriented Programming Models in R\n\n\n\nMarcin Kierczak\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nParallelization in R\n\n\n\nSebastian DiLorenzo\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPlotting with ggplot2\n\n\n\nRoy Francis\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPublishing with Quarto\n\n\n\nRoy Francis\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nR packages\n\n\n\nSebastian DiLorenzo\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nReproducible research in R\n\n\n\nRoy Francis\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nReticulate\n\n\n\nNina Norgren\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTidy work in Tidyverse\n\n\n\nMarcin Kierczak\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nVectorization in R\n\n\n\nMarcin Kierczak\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Best Coding Practises\n\n\n\nMarcin Kierczak\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDebugging, Profiling, and Optimization\n\n\n\nMarcin Kierczak\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDemo Slides\n\n\n\nRoy Francis\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFunctions and scripts\n\n\n\nSebastian DiLorenzo\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInteractive web apps with Shiny\n\n\n\nRoy Francis\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMathematical statistics and machine learning in R\n\n\n\nNikolay Oskolkov\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nObject-Oriented Programming Models in R\n\n\n\nMarcin Kierczak\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nParallelization in R\n\n\n\nSebastian DiLorenzo\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPlotting with ggplot2\n\n\n\nRoy Francis\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPublishing with Quarto\n\n\n\nRoy Francis\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nR packages\n\n\n\nSebastian DiLorenzo\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nReproducible research in R\n\n\n\nRoy Francis\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nReticulate\n\n\n\nNina Norgren\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTidy work in Tidyverse\n\n\n\nMarcin Kierczak\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nVectorization in R\n\n\n\nMarcin Kierczak\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "slides/ml/index.html#different-types-of-data-analysis",
@@ -1773,9 +1773,9 @@
   {
     "objectID": "slides/ml/index.html#equidistant-points-in-high-dimensions",
     "href": "slides/ml/index.html#equidistant-points-in-high-dimensions",
-    "title": "Introduction to Machine Learning",
-    "section": "Equidistant Points in High Dimensions",
-    "text": "Equidistant Points in High Dimensions\n\n\n\nn &lt;- 1000;\npair_dist &lt;- list();\np &lt;- c(2, 32, 512)\n\nfor(i in 1:length(p)) {\n  X &lt;- matrix(rnorm(n * p[i]), n, p[i])\n  pair_dist[[i]] &lt;- as.vector(dist(X));\n  pair_dist[[i]] &lt;- pair_dist[[i]] / max(pair_dist[[i]])\n}"
+    "title": "Mathematical statistics and machine learning in R",
+    "section": "Equidistant points in high dimensions",
+    "text": "Equidistant points in high dimensions\n\nn &lt;- 1000; p &lt;- c(2, 32, 512); pair_dist &lt;- list()\nfor(i in 1:length(p)) {\n  X &lt;- matrix(rnorm(n * p[i]), n, p[i])\n  pair_dist[[i]] &lt;- as.vector(dist(X));\n  pair_dist[[i]] &lt;- pair_dist[[i]] / max(pair_dist[[i]])\n}\n\n\n\n\n\n\n\n\n\n\n\n\nData points in high dimensions: \n\nmove away from each other \nbecome equidistant and similar \n\nImpossible to see differences between cases and controls"
   },
   {
     "objectID": "slides/ml/index.html#neighboring-points-in-high-dimensions",
@@ -1787,23 +1787,23 @@
   {
     "objectID": "slides/ml/index.html#low-dimensional-space",
     "href": "slides/ml/index.html#low-dimensional-space",
-    "title": "Introduction to Machine Learning",
-    "section": "Low Dimensional Space",
-    "text": "Low Dimensional Space\n\nset.seed(123)\nn &lt;- 20 # number of samples\np &lt;- 2  # number of features / dimensions\nY &lt;- rnorm(n)\nX &lt;- matrix(rnorm(n*p),n,p)\nsummary(lm(Y~X))\n\n\nCall:\nlm(formula = Y ~ X)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-2.0522 -0.6380  0.1451  0.3911  1.8829 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)\n(Intercept)  0.14950    0.22949   0.651    0.523\nX1          -0.09405    0.28245  -0.333    0.743\nX2          -0.11919    0.24486  -0.487    0.633\n\nResidual standard error: 1.017 on 17 degrees of freedom\nMultiple R-squared:  0.02204,   Adjusted R-squared:  -0.09301 \nF-statistic: 0.1916 on 2 and 17 DF,  p-value: 0.8274"
+    "title": "Mathematical statistics and machine learning in R",
+    "section": "Low dimensional space",
+    "text": "Low dimensional space\n\nn &lt;- 20 # number of samples\np &lt;- 2  # number of features / dimensions\nY &lt;- rnorm(n)\nX &lt;- matrix(rnorm(n * p), n, p)\nsummary(lm(Y ~ X))\n\n\nCall:\nlm(formula = Y ~ X)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-2.0522 -0.6380  0.1451  0.3911  1.8829 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)\n(Intercept)  0.14950    0.22949   0.651    0.523\nX1          -0.09405    0.28245  -0.333    0.743\nX2          -0.11919    0.24486  -0.487    0.633\n\nResidual standard error: 1.017 on 17 degrees of freedom\nMultiple R-squared:  0.02204,   Adjusted R-squared:  -0.09301 \nF-statistic: 0.1916 on 2 and 17 DF,  p-value: 0.8274"
   },
   {
     "objectID": "slides/ml/index.html#going-to-higher-dimensions",
     "href": "slides/ml/index.html#going-to-higher-dimensions",
-    "title": "Introduction to Machine Learning",
-    "section": "Going to Higher Dimensions",
-    "text": "Going to Higher Dimensions\n\nset.seed(123456); n &lt;- 20; p &lt;- 10\nY &lt;- rnorm(n); X &lt;- matrix(rnorm(n*p),n,p); summary(lm(Y~X))\n\n\nCall:\nlm(formula = Y ~ X)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-1.0255 -0.4320  0.1056  0.4493  1.0617 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)  \n(Intercept)  0.54916    0.26472   2.075   0.0679 .\nX1           0.30013    0.21690   1.384   0.1998  \nX2           0.68053    0.27693   2.457   0.0363 *\nX3          -0.10675    0.26010  -0.410   0.6911  \nX4          -0.21367    0.33690  -0.634   0.5417  \nX5          -0.19123    0.31881  -0.600   0.5634  \nX6           0.81074    0.25221   3.214   0.0106 *\nX7           0.09634    0.24143   0.399   0.6992  \nX8          -0.29864    0.19004  -1.571   0.1505  \nX9          -0.78175    0.35408  -2.208   0.0546 .\nX10          0.83736    0.36936   2.267   0.0496 *\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.8692 on 9 degrees of freedom\nMultiple R-squared:  0.6592,    Adjusted R-squared:  0.2805 \nF-statistic: 1.741 on 10 and 9 DF,  p-value: 0.2089"
+    "title": "Mathematical statistics and machine learning in R",
+    "section": "Going to higher dimensions",
+    "text": "Going to higher dimensions\n\nn &lt;- 20 # number of samples\np &lt;- 10 # number of features / dimensions\nY &lt;- rnorm(n)\nX &lt;- matrix(rnorm(n * p), n, p)\nsummary(lm(Y ~ X))\n\n\nCall:\nlm(formula = Y ~ X)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-1.0255 -0.4320  0.1056  0.4493  1.0617 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)  \n(Intercept)  0.54916    0.26472   2.075   0.0679 .\nX1           0.30013    0.21690   1.384   0.1998  \nX2           0.68053    0.27693   2.457   0.0363 *\nX3          -0.10675    0.26010  -0.410   0.6911  \nX4          -0.21367    0.33690  -0.634   0.5417  \nX5          -0.19123    0.31881  -0.600   0.5634  \nX6           0.81074    0.25221   3.214   0.0106 *\nX7           0.09634    0.24143   0.399   0.6992  \nX8          -0.29864    0.19004  -1.571   0.1505  \nX9          -0.78175    0.35408  -2.208   0.0546 .\nX10          0.83736    0.36936   2.267   0.0496 *\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.8692 on 9 degrees of freedom\nMultiple R-squared:  0.6592,    Adjusted R-squared:  0.2805 \nF-statistic: 1.741 on 10 and 9 DF,  p-value: 0.2089"
   },
   {
     "objectID": "slides/ml/index.html#even-higher-dimensions",
     "href": "slides/ml/index.html#even-higher-dimensions",
-    "title": "Introduction to Machine Learning",
-    "section": "Even Higher Dimensions",
-    "text": "Even Higher Dimensions\n\nset.seed(123456); n &lt;- 20; p &lt;- 20\nY &lt;- rnorm(n); X &lt;- matrix(rnorm(n*p),n,p); summary(lm(Y~X))\n\n\nCall:\nlm(formula = Y ~ X)\n\nResiduals:\nALL 20 residuals are 0: no residual degrees of freedom!\n\nCoefficients: (1 not defined because of singularities)\n            Estimate Std. Error t value Pr(&gt;|t|)\n(Intercept)  1.34889        NaN     NaN      NaN\nX1           0.66218        NaN     NaN      NaN\nX2           0.76212        NaN     NaN      NaN\nX3          -1.35033        NaN     NaN      NaN\nX4          -0.57487        NaN     NaN      NaN\nX5           0.02142        NaN     NaN      NaN\nX6           0.40290        NaN     NaN      NaN\nX7           0.03313        NaN     NaN      NaN\nX8          -0.31983        NaN     NaN      NaN\nX9          -0.92833        NaN     NaN      NaN\nX10          0.18091        NaN     NaN      NaN\nX11         -1.37618        NaN     NaN      NaN\nX12          2.11438        NaN     NaN      NaN\nX13         -1.75103        NaN     NaN      NaN\nX14         -1.55073        NaN     NaN      NaN\nX15          0.01112        NaN     NaN      NaN\nX16         -0.50943        NaN     NaN      NaN\nX17         -0.47576        NaN     NaN      NaN\nX18          0.31793        NaN     NaN      NaN\nX19          1.43615        NaN     NaN      NaN\nX20               NA         NA      NA       NA\n\nResidual standard error: NaN on 0 degrees of freedom\nMultiple R-squared:      1, Adjusted R-squared:    NaN \nF-statistic:   NaN on 19 and 0 DF,  p-value: NA"
+    "title": "Mathematical statistics and machine learning in R",
+    "section": "Even higher dimensions",
+    "text": "Even higher dimensions\n\nn &lt;- 20 # number of samples\np &lt;- 20 # number of features / dimensions\nY &lt;- rnorm(n)\nX &lt;- matrix(rnorm(n * p), n, p)\nsummary(lm(Y ~ X))\n\n\nCall:\nlm(formula = Y ~ X)\n\nResiduals:\nALL 20 residuals are 0: no residual degrees of freedom!\n\nCoefficients: (1 not defined because of singularities)\n            Estimate Std. Error t value Pr(&gt;|t|)\n(Intercept)  1.34889        NaN     NaN      NaN\nX1           0.66218        NaN     NaN      NaN\nX2           0.76212        NaN     NaN      NaN\nX3          -1.35033        NaN     NaN      NaN\nX4          -0.57487        NaN     NaN      NaN\nX5           0.02142        NaN     NaN      NaN\nX6           0.40290        NaN     NaN      NaN\nX7           0.03313        NaN     NaN      NaN\nX8          -0.31983        NaN     NaN      NaN\nX9          -0.92833        NaN     NaN      NaN\nX10          0.18091        NaN     NaN      NaN\nX11         -1.37618        NaN     NaN      NaN\nX12          2.11438        NaN     NaN      NaN\nX13         -1.75103        NaN     NaN      NaN\nX14         -1.55073        NaN     NaN      NaN\nX15          0.01112        NaN     NaN      NaN\nX16         -0.50943        NaN     NaN      NaN\nX17         -0.47576        NaN     NaN      NaN\nX18          0.31793        NaN     NaN      NaN\nX19          1.43615        NaN     NaN      NaN\nX20               NA         NA      NA       NA\n\nResidual standard error: NaN on 0 degrees of freedom\nMultiple R-squared:      1, Adjusted R-squared:    NaN \nF-statistic:   NaN on 19 and 0 DF,  p-value: NA"
   },
   {
     "objectID": "slides/ml/index.html#high-dimensional-data-in-life-sciences",
@@ -1843,9 +1843,9 @@
   {
     "objectID": "slides/ml/index.html#regularizations-lasso",
     "href": "slides/ml/index.html#regularizations-lasso",
-    "title": "Introduction to Machine Learning",
+    "title": "Mathematical statistics and machine learning in R",
     "section": "Regularizations: LASSO",
-    "text": "Regularizations: LASSO\n\\[Y = \\beta_1X_1+\\beta_2X_2+\\epsilon \\\\\n\\textrm{OLS} = (Y-\\beta_1X_1-\\beta_2X_2)^2 \\\\\n\\textrm{Penalized OLS} = (Y-\\beta_1X_1-\\beta_2X_2)^2 + \\lambda(|\\beta_1|+|\\beta_2|)\\]"
+    "text": "Regularizations: LASSO\n\\[Y = \\beta_1X_1+\\beta_2X_2+\\epsilon\\]\n\n\\[\\textrm{OLS} = (Y-\\beta_1X_1-\\beta_2X_2)^2\\]\n\n\n\\[\\textrm{Penalized OLS} = (Y-\\beta_1X_1-\\beta_2X_2)^2 + \\lambda(|\\beta_1|+|\\beta_2|)\\]"
   },
   {
     "objectID": "slides/ml/index.html#regularizations-k-fold-cross-validation",
@@ -1864,9 +1864,9 @@
   {
     "objectID": "slides/ml/index.html#moving-from-statistics-to-machine-learning",
     "href": "slides/ml/index.html#moving-from-statistics-to-machine-learning",
-    "title": "Introduction to Machine Learning",
-    "section": "Moving from Statistics to Machine Learning",
-    "text": "Moving from Statistics to Machine Learning\nA few peculiarities of data analysis that are typical for Machine Learning:\n\nVery focused on prediction instead of biomarker discovery\nFocus on cross-validation and regularization\nMore algorithmic and less “pen-and-paper” derivations\nMore Python speaking than R speaking community"
+    "title": "Mathematical statistics and machine learning in R",
+    "section": "Moving from statistics to machine learning",
+    "text": "Moving from statistics to machine learning\n\n\n\nStatistics is more analytical (pen & paper)\n\n\n\\[\\rm{L}\\,(\\,x_i \\,|\\, \\mu,\\sigma^2\\,) = \\frac{1}{\\sqrt{2\\pi\\sigma^2}} \\exp^{\\displaystyle -\\frac{\\sum\\limits_{i=1}^N (x_i-\\mu)^2}{2\\sigma^2}}\\]\n\n\n\\[\\frac{\\partial \\rm{L}\\,(\\,x_i \\,|\\, \\mu,\\sigma^2\\,)}{\\partial\\mu} = 0; \\,\\, \\frac{\\partial \\rm{L}\\,(\\,x_i \\,|\\, \\mu,\\sigma^2\\,)}{\\partial\\sigma^2} = 0\\]\n\n\n\\[\\mu = \\frac{1}{N}\\sum_{i=0}^N x_i \\,\\,\\rm{-}\\,\\rm{mean \\, estimator}\\]\n\\[\\sigma^2 = \\frac{1}{N}\\sum_{i=0}^N (x_i-\\mu)^2 \\,\\,\\rm{-}\\,\\rm{variance \\, estimator}\\]\n\n\n\n\nMachine Learning is more algorithmic (ex. K-means)\n\n\n\n\nK = 3; set.seed(123); c = X[sample(1:dim(X)[1],K),]; par(mfrow=c(2,2),mai=c(0.8,1,0,0))\nplot(X, xlab = \"X\", ylab = \"Y\", pch = 19); points(c, col = \"blue\", cex = 3, pch = 19)\nfor(t in 1:3)\n{\n  l &lt;- vector()\n  for(i in 1:dim(X)[1])\n  {\n    d &lt;- vector(); for(j in 1:K){d[j] &lt;- sqrt((X[i,1]-c[j,1])^2 + (X[i,2]-c[j,2])^2)} \n    l[i] &lt;- which.min(d)\n  }\n  plot(X, xlab=\"X\", ylab=\"Y\", col=l, pch=19); points(c, col=\"blue\", cex=3, pch=19)\n  s = list(); for(i in unique(l)){s[[i]] &lt;- colMeans(X[l==i,])}; c = Reduce(\"rbind\", s)\n}"
   },
   {
     "objectID": "slides/ml/index.html#statistics-vs.-machine-learning",
@@ -1878,16 +1878,16 @@
   {
     "objectID": "slides/ml/index.html#how-does-machine-learning-work",
     "href": "slides/ml/index.html#how-does-machine-learning-work",
-    "title": "Introduction to Machine Learning",
-    "section": "How does Machine Learning work?",
-    "text": "How does Machine Learning work?\nMachine Learning by default involves five basic steps:\n\nSplit data set into train, validation and test subsets.\nFit the model on the train subset.\nValidate your model on the validation subset.\nRepeat steps 1-3 a number of times and tune hyperparameters.\nTest the accuracy of the optimized model on the test subset."
+    "title": "Mathematical statistics and machine learning in R",
+    "section": "How does machine learning work?",
+    "text": "How does machine learning work?\n\n\n\n\nMachine Learning typically involves five basic steps:  1. Split data set into train, validation and test subsets \n\n\nFit the model on the train subset \n\n\n\n\nValidate your model on the validation subset \n\n\n\n\nRepeat train - validation split many times and tune hyperparameters \n\n\n\n\nTest the accuracy of the optimized model on the test subset."
   },
   {
     "objectID": "slides/ml/index.html#toy-example-of-machine-learning",
     "href": "slides/ml/index.html#toy-example-of-machine-learning",
-    "title": "Introduction to Machine Learning",
-    "section": "Toy Example of Machine Learning",
-    "text": "Toy Example of Machine Learning\n\nset.seed(12345)\nN&lt;-100\nx&lt;-rnorm(N)\ny&lt;-2*x+rnorm(N)\ndf&lt;-data.frame(x,y)\nplot(y~x,data=df, col=\"blue\")"
+    "title": "Mathematical statistics and machine learning in R",
+    "section": "Toy example of machine learning",
+    "text": "Toy example of machine learning\n\n\n\nN &lt;- 100\nx &lt;- rnorm(N)\ny &lt;- 2 * x + rnorm(N)\ndf &lt;- data.frame(x, y)\nplot(y ~ x, data = df, col = \"blue\")\nlegend(\"topleft\", \"Data points\", fill = \"blue\", bty = \"n\")\n\n\n\n\n\n\n\ntrain &lt;- df[sample(1:dim(df)[1], 0.7 * dim(df)[1]), ]\ntest &lt;- df[!rownames(df) %in% rownames(train), ]\ndf$color &lt;- ifelse(rownames(df) %in% rownames(test),\"red\",\"blue\")\nplot(y ~ x, data = df, col = df$color)\nlegend(\"topleft\", c(\"Train\",\"Test\"),fill=c(\"blue\",\"red\"),bty=\"n\")\nabline(lm(y ~ x, data = train), col = \"blue\")"
   },
   {
     "objectID": "slides/ml/index.html#toy-example-train-and-test-subsets",
@@ -1962,7 +1962,7 @@
   {
     "objectID": "slides/ml/index.html#section",
     "href": "slides/ml/index.html#section",
-    "title": "Introduction to Machine Learning",
+    "title": "Mathematical statistics and machine learning in R",
     "section": "",
     "text": "Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
   },
@@ -3988,5 +3988,117 @@
     "title": "Interactive web apps with Shiny",
     "section": "Interactive documents",
     "text": "Interactive documents\n\nWhole shiny apps can be included directly\n\n```{r}\nshinyApp(\n  ui=fluidPage(),\n  server=function(input,output) {}\n)\n```\n\nHosted shiny apps can be embedded using &lt;iframe&gt;\n\n&lt;iframe src=\"https://user.shinyapps.io/app\"&gt;&lt;/iframe&gt;"
+  },
+  {
+    "objectID": "slides/ml/index.html#biological-data-are-high-dimensional",
+    "href": "slides/ml/index.html#biological-data-are-high-dimensional",
+    "title": "Mathematical statistics and machine learning in R",
+    "section": "Biological data are high dimensional",
+    "text": "Biological data are high dimensional"
+  },
+  {
+    "objectID": "slides/ml/index.html#types-of-data-analysis",
+    "href": "slides/ml/index.html#types-of-data-analysis",
+    "title": "Mathematical statistics and machine learning in R",
+    "section": "Types of data analysis",
+    "text": "Types of data analysis"
+  },
+  {
+    "objectID": "slides/ml/index.html#regularizations-are-priors-in-bayesian-statistics",
+    "href": "slides/ml/index.html#regularizations-are-priors-in-bayesian-statistics",
+    "title": "Mathematical statistics and machine learning in R",
+    "section": "Regularizations are priors in Bayesian statistics",
+    "text": "Regularizations are priors in Bayesian statistics\n\\[\\small Y = \\beta_1X_1+\\beta_2X_2+\\epsilon; \\,\\,\\, Y \\sim N(\\,\\beta_1X_1+\\beta_2X_2, \\sigma^2\\,) \\equiv \\rm{L}\\,(\\,\\rm{Y} \\,|\\, \\beta_1,\\beta_2\\,)\\]\n\nMaximum Likelihood principle: maximize probability to observe data given parameters: \\[\\small \\rm{L}\\,(\\,\\rm{Y} \\,|\\, \\beta_1,\\beta_2\\,) = \\frac{1}{\\sqrt{2\\pi\\sigma²}} \\exp^{\\displaystyle -\\frac{(Y-\\beta_1X_1-\\beta_2X_2)^2}{2\\sigma²}}\\]\n\n\n\nBayes theorem: maximize posterior probability of observing parameters given data: \\[\\small \\rm{Posterior}(\\rm{params} \\,|\\, \\rm{data})=\\frac{L(\\rm{data} \\,|\\, \\rm{params})*\\rm{Prior}(\\rm{params})}{\\int{L(\\rm{data} \\,|\\, \\rm{params})*\\rm{Prior}(\\rm{params}) \\, d(\\rm{params})}}\\]\n\n\n\n\\[\\small \\rm{Posterior}(\\,\\beta_1,\\beta_2\\,|\\, \\rm{Y}\\,) \\sim \\rm{L}\\,(\\,\\rm{Y} \\,|\\,\\beta_1,\\beta_2\\,)*\\rm{Prior}(\\beta_1,\\beta_2) \\sim \\exp^{-\\frac{(Y-\\beta_1X_1-\\beta_2X_2)^2}{2\\sigma²}}*\\exp^{-\\lambda(|\\beta_1|+|\\beta_2|)} \\\\\n\\small -\\log{\\left[\\rm{Posterior}(\\, \\beta_1,\\beta_2 \\,|\\, \\rm{Y}\\,)\\right]} \\sim (Y-\\beta_1X_1-\\beta_2X_2)^2 + \\lambda(|\\beta_1|+|\\beta_2|)\\]"
+  },
+  {
+    "objectID": "slides/ml/index.html#markov-chain-monte-carlo-mcmc-introduction",
+    "href": "slides/ml/index.html#markov-chain-monte-carlo-mcmc-introduction",
+    "title": "Mathematical statistics and machine learning in R",
+    "section": "Markov Chain Monte Carlo (MCMC): introduction",
+    "text": "Markov Chain Monte Carlo (MCMC): introduction\n\n\n\n\nIntegration via Monte Carlo sampling \n\n\n\n\\[\\small I = 2\\int\\limits_2^4{x dx}=2\\frac{x^2}{2} \\Big|_2^4 = 16 - 4 = 12\\]\n\n\n\nf &lt;- function(x){return(2*x)}; a &lt;- 2; b &lt;- 4; N &lt;- 10000; count &lt;- 0\nx &lt;- seq(from = a, to = b, by = (b-a) / N); y_max &lt;- max(f(x))\nfor(i in 1:N)\n{\n  x_sample &lt;- runif(1, a, b); y_sample &lt;- runif(1, 0, y_max)\n  if(y_sample &lt;= f(x_sample)){count &lt;- count + 1}\n}\npaste0(\"Integral by Monte Carlo: I = \", (count / N) * (b - a) * y_max)\n\n[1] \"Integral by Monte Carlo: I = 11.9248\"\n\n\n\n\n\n\n\n\nMarkov Chain Monte Carlo (MCMC) \n\n\n\\[\\small \\rm{Hastings \\,\\, ratio} = \\frac{\\rm{Posterior}\\,(\\,\\rm{params_{next}} \\,|\\, \\rm{data}\\,)}{\\rm{Posterior}\\,(\\,\\rm{params_{previous}} \\,|\\, \\rm{data}\\,)}\\]\n\n\n\nIf Hastings ratio &gt; u [0, 1], then accept, else reject \nHastings ratio does not contain the intractable integral from Bayes theorem"
+  },
+  {
+    "objectID": "slides/ml/index.html#markov-chain-monte-carlo-mcmc-from-scratch-in-r",
+    "href": "slides/ml/index.html#markov-chain-monte-carlo-mcmc-from-scratch-in-r",
+    "title": "Mathematical statistics and machine learning in R",
+    "section": "Markov Chain Monte Carlo (MCMC) from scratch in R",
+    "text": "Markov Chain Monte Carlo (MCMC) from scratch in R\n\n\n\nExample from population genetics \n\n\n\\[\\small L(n \\, | \\, f) = \\prod_g{\\left[ {2\\choose g} f^g (1-f)^{2-g}  \\right]^{n_g}}\\]\n\n\n\\[\\small \\frac{\\partial \\log\\left[L(n | f)\\right]}{\\partial f} = 0 \\, \\Rightarrow \\hat{f}=\\frac{n_1+2n_2}{2(n_0+n_1+n_2)}\\]\n\n\n\\[\\small \\rm{Prior}(f, \\alpha, \\beta) = \\frac{1}{B(\\alpha, \\beta)} f^{\\alpha-1} (1-f)^{\\beta-1}\\]\n\n\n\n\nN &lt;- 100; n &lt;- c(25, 50, 25) # Observed genotype data for N individuals\nf_MLE &lt;- (n[2] + 2*n[3]) / (2 * sum(n)) # MLE of allele frequency\n\n# Define log-likelihood function (log-binomial distribution)\nLL &lt;- function(n, f){return((n[2] + 2*n[3])*log(f) + (n[2] + 2*n[1])*log(1-f))}\n# Define log-prior function (log-beta distribution)\nLP &lt;- function(f, alpha, beta){return(dbeta(f, alpha, beta, log = TRUE))}\n\n# Run MCMC Metropolis - Hastings sampler\nf_poster &lt;- vector(); alpha &lt;- 0.5; beta &lt;- 0.5; f_cur &lt;- 0.1 # initialization\nfor(i in 1:1000)\n{\n  f_next &lt;- abs(rnorm(1, f_cur, 0.1)) # make random step for allele frequency\n  \n  LL_cur &lt;- LL(n, f_cur); LL_next &lt;- LL(n, f_next)\n  LP_cur &lt;- LP(f_cur, alpha, beta); LP_next &lt;- LP(f_next, alpha, beta)\n  hastings_ratio &lt;- LL_next + LP_next - LL_cur - LP_cur\n  \n  if(hastings_ratio &gt; log(runif(1))){f_cur &lt;- f_next}; f_poster[i] &lt;- f_cur\n}"
+  },
+  {
+    "objectID": "slides/ml/index.html#statistics-vs.-machine-learning-prediction",
+    "href": "slides/ml/index.html#statistics-vs.-machine-learning-prediction",
+    "title": "Mathematical statistics and machine learning in R",
+    "section": "Statistics vs. machine learning: prediction",
+    "text": "Statistics vs. machine learning: prediction"
+  },
+  {
+    "objectID": "slides/ml/index.html#toy-example-model-validation",
+    "href": "slides/ml/index.html#toy-example-model-validation",
+    "title": "Mathematical statistics and machine learning in R",
+    "section": "Toy example: model validation",
+    "text": "Toy example: model validation\n\n\n\ntest_predicted &lt;- as.numeric(predict(lm(y ~ x, data = train), newdata = test))\nplot(test$y ~ test_predicted, ylab = \"True y\", xlab = \"Pred y\", col = \"red\")\nabline(lm(test$y ~ test_predicted), col = \"darkgreen\")\n\n\n\n\n\n\n\nsummary(lm(test$y ~ test_predicted))\n\n\nCall:\nlm(formula = test$y ~ test_predicted)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-1.80597 -0.78005  0.07636  0.52330  2.61924 \n\nCoefficients:\n               Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)     0.02058    0.21588   0.095    0.925    \ntest_predicted  0.89953    0.08678  10.366 4.33e-11 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 1.053 on 28 degrees of freedom\nMultiple R-squared:  0.7933,    Adjusted R-squared:  0.7859 \nF-statistic: 107.4 on 1 and 28 DF,  p-value: 4.329e-11\n\n\n Thus the model explains 79% of variation on the test subset."
+  },
+  {
+    "objectID": "slides/ml/index.html#from-linear-models-to-artificial-neural-networks-anns",
+    "href": "slides/ml/index.html#from-linear-models-to-artificial-neural-networks-anns",
+    "title": "Mathematical statistics and machine learning in R",
+    "section": "From linear models to artificial neural networks (ANNs)",
+    "text": "From linear models to artificial neural networks (ANNs)\n\n\n\nANN: a mathematical function Y = f(X) with a special architecture\n\n\n\nCan be non-linear depending on activation function \n\n\n\n\n\n\n\n\nBackward propagation (gradient descent) for minimizing error\n\n\n\n\nUniversal Approximation Theorem"
+  },
+  {
+    "objectID": "slides/ml/index.html#gradient-descent",
+    "href": "slides/ml/index.html#gradient-descent",
+    "title": "Mathematical statistics and machine learning in R",
+    "section": "Gradient descent",
+    "text": "Gradient descent\n\n\n\n\\[y_i = \\alpha + \\beta x_i + \\epsilon, \\,\\, i = 1 \\ldots n\\]\n\\[E(\\alpha, \\beta) = \\frac{1}{n}\\sum_{i=1}^n(y_i - \\alpha - \\beta x_i)^2\\]\n\n\n\\[\\hat{\\alpha}, \\hat{\\beta} = \\rm{argmin} \\,\\, E(\\alpha, \\beta)\\]\n\n\n\\[\\frac{\\partial E(\\alpha, \\beta)}{\\partial\\alpha} = -\\frac{2}{n}\\sum_{i=1}^n(y_i - \\alpha - \\beta x_i)\\]\n\\[\\frac{\\partial E(\\alpha, \\beta)}{\\partial\\beta} = -\\frac{2}{n}\\sum_{i=1}^n x_i(y_i - \\alpha - \\beta x_i)\\]\n\n\nNumeric implementation of gradient descent:\n\\[\\alpha_{i+1} = \\alpha_i - \\eta \\left. \\frac{\\partial E(\\alpha, \\beta)}{\\partial\\alpha} \\right\\vert_{\\alpha=\\alpha_i,\\beta=\\beta_i}\\]\n\\[\\beta_{i+1} = \\beta_i - \\eta \\left. \\frac{\\partial E(\\alpha, \\beta)}{\\partial\\beta} \\right\\vert_{\\alpha=\\alpha_i,\\beta=\\beta_i}\\]"
+  },
+  {
+    "objectID": "slides/ml/index.html#coding-gradient-descent-from-scratch-in-r",
+    "href": "slides/ml/index.html#coding-gradient-descent-from-scratch-in-r",
+    "title": "Mathematical statistics and machine learning in R",
+    "section": "Coding gradient descent from scratch in R",
+    "text": "Coding gradient descent from scratch in R\n\n\n\nn &lt;- 100 # sample size\nx &lt;- rnorm(n) # simulated expanatory variable\ny &lt;- 3 + 2 * x + rnorm(n) # simulated response variable\nsummary(lm(y ~ x))\n\n\nCall:\nlm(formula = y ~ x)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-1.9073 -0.6835 -0.0875  0.5806  3.2904 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  2.89720    0.09755   29.70   &lt;2e-16 ***\nx            1.94753    0.10688   18.22   &lt;2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.9707 on 98 degrees of freedom\nMultiple R-squared:  0.7721,    Adjusted R-squared:  0.7698 \nF-statistic:   332 on 1 and 98 DF,  p-value: &lt; 2.2e-16\n\n\n Let us now reconstruct the intercept and slope from gradient descent\n\n\n\nalpha &lt;- vector(); beta &lt;- vector()\nE &lt;- vector(); dEdalpha &lt;- vector(); dEdbeta &lt;- vector()\neta &lt;- 0.01; alpha[1] &lt;- 1; beta[1] &lt;- 1 # initialize alpha and beta\nfor(i in 1:1000)\n{\n  E[i] &lt;- (1/n) * sum((y - alpha[i] - beta[i] * x)^2)  \n  dEdalpha[i] &lt;- - sum(2 * (y - alpha[i] - beta[i] * x)) / n\n  dEdbeta[i] &lt;- - sum(2 * x * (y - alpha[i] - beta[i] * x)) / n\n  \n  alpha[i+1] &lt;- alpha[i] - eta * dEdalpha[i]\n  beta[i+1] &lt;- beta[i] - eta * dEdbeta[i]\n}\nprint(paste0(\"alpha = \", tail(alpha, 1),\", beta = \", tail(beta, 1)))\n\n[1] \"alpha = 2.89719694937354, beta = 1.94752837381973\""
+  },
+  {
+    "objectID": "slides/ml/index.html#ann-from-scratch-in-r-problem-formulation",
+    "href": "slides/ml/index.html#ann-from-scratch-in-r-problem-formulation",
+    "title": "Mathematical statistics and machine learning in R",
+    "section": "ANN from scratch in R: problem formulation",
+    "text": "ANN from scratch in R: problem formulation\n\n\n\n\nd &lt;- c(0, 0, 1, 1)  # true labels\nx1 &lt;- c(0, 0, 1, 1) # input variable x1\nx2 &lt;- c(0, 1, 0, 1) # input variable x2\n\ndata.frame(x1 = x1, x2 = x2, d = d)\n\n  x1 x2 d\n1  0  0 0\n2  0  1 0\n3  1  0 1\n4  1  1 1\n\n\n\n\n\n\n\n\\[y(w_1,w_2)=\\phi(w_1x_1+w_2x_2)\\]\n\n\n\\[\\phi(s)=\\frac{1}{1+e^{\\displaystyle -s}} \\,\\,\\rm{-}\\,\\rm{sigmoid}\\]\n\n\n\\[\\phi^\\prime(s)=\\phi(s)\\left(1-\\phi(s)\\right)\\]"
+  },
+  {
+    "objectID": "slides/ml/index.html#ann-from-scratch-in-r-implementation-in-code",
+    "href": "slides/ml/index.html#ann-from-scratch-in-r-implementation-in-code",
+    "title": "Mathematical statistics and machine learning in R",
+    "section": "ANN from scratch in R: implementation in code",
+    "text": "ANN from scratch in R: implementation in code\n\n\n\nphi &lt;- function(x){return(1/(1 + exp(-x)))} # activation function\n\nmu &lt;- 0.1; N_epochs &lt;- 10000\nw1 &lt;- 0.1; w2 &lt;- 0.5; E &lt;- vector()\nfor(epochs in 1:N_epochs)\n{\n  #Forward propagation\n  y &lt;- phi(w1 * x1 + w2 * x2 - 3) # we use a fixed bias -3\n  \n  #Backward propagation\n  E[epochs] &lt;- (1 / (2 * length(d))) * sum((d - y)^2)\n  dE_dw1 &lt;- - (1 / length(d)) * sum((d - y) * y * (1 - y) * x1)\n  dE_dw2 &lt;- - (1 / length(d)) * sum((d - y) * y * (1 - y) * x2)\n  w1 &lt;- w1 - mu * dE_dw1\n  w2 &lt;- w2 - mu * dE_dw2\n}\nplot(E ~ seq(1:N_epochs), xlab=\"Epochs\", ylab=\"Error\", col=\"red\")\n\n\n\n\n\n\n\\[E(w_1,w_2)=\\frac{1}{2N}\\sum_{i=1}^N\\left(d_i-y_i(w_1,w_2)\\right)^2\\]\n\n\n\\[w_{1,2}=w_{1,2}-\\mu\\frac{\\partial E(w_1,w_2)}{\\partial w_{1,2}}\\]\n\n\n\\[\\frac{\\partial E}{\\partial w_1} = -\\frac{1}{N}\\sum_{i=1}^N (d_i-y_i)*y_i*(1-y_i)*x_{1i}\\]\n\\[\\frac{\\partial E}{\\partial w_2} = -\\frac{1}{N}\\sum_{i=1}^N (d_i-y_i)*y_i*(1-y_i)*x_{2i}\\]\n\n\n\ny\n\n[1] 0.04742587 0.05752359 0.95730271 0.96489475\n\n\nWe nearly reconstruct true labels d = (0, 0, 1, 1)"
+  },
+  {
+    "objectID": "slides/ml/index.html#decision-tree-from-scratch-in-r-problem-formulation",
+    "href": "slides/ml/index.html#decision-tree-from-scratch-in-r-problem-formulation",
+    "title": "Mathematical statistics and machine learning in R",
+    "section": "Decision tree from scratch in R: problem formulation",
+    "text": "Decision tree from scratch in R: problem formulation\n\n\n\nX&lt;-data.frame(height=c(183,167,178,171),weight=c(78,73,85,67))\ny&lt;-as.factor(c(\"Female\", \"Male\", \"Male\", \"Female\"))\ndata.frame(X, sex = y)\n\n  height weight    sex\n1    183     78 Female\n2    167     73   Male\n3    178     85   Male\n4    171     67 Female\n\n\n\n\nlibrary(\"rpart\"); library(\"rpart.plot\")\nfit&lt;-rpart(y~height+weight,data=X,method=\"class\",minsplit=-1)\nrpart.plot(fit)\n\n\n\n\n\n\n\n\nLet us visualize what the classifier has learnt\n\n\n\n\ncolor &lt;- c(\"red\", \"blue\", \"blue\", \"red\")\nplot(height ~ weight, data = X, col = color, pch = 19, cex = 3)\nlegend(\"topleft\",c(\"Male\",\"Female\"),fill=c(\"blue\",\"red\"),inset=.02)\n\nabline(h = 169, lty = 2, col = \"darkgreen\", lwd = 1.5)\nabline(v = 82, lty = 2, col = \"darkgreen\", lwd = 1.5)"
+  },
+  {
+    "objectID": "slides/ml/index.html#decision-tree-from-scratch-in-r-gini-index-and-split",
+    "href": "slides/ml/index.html#decision-tree-from-scratch-in-r-gini-index-and-split",
+    "title": "Mathematical statistics and machine learning in R",
+    "section": "Decision tree from scratch in R: Gini index and split",
+    "text": "Decision tree from scratch in R: Gini index and split\n\n\n\n\n\ngini &lt;- function(x)\n{\n  return(1 - sum((table(x) / length(x))^2))\n}\ngini(c(1, 0, 1, 0))\n\n[1] 0.5\n\n\n\ngini(c(1, 1, 0, 1, 1))\n\n[1] 0.32\n\n\n\n\n\n\nget_best_split &lt;- function(X, y)\n{\n  mean_gini &lt;- vector(); spl_vals &lt;- vector(); spl_names &lt;- vector()\n  for(j in colnames(X)) # for each variable in X data frame\n  {\n    spl &lt;- vector() # vector of potential split candidates\n    sort_X &lt;- X[order(X[, j]), ]; sort_y &lt;- y[order(X[, j])] # sort by variable\n    for(i in 1:(dim(X)[1]-1)) # for each observation of variable in X data frame\n    {\n      spl[i] &lt;- (sort_X[i, j] + sort_X[(i + 1), j]) / 2 # variable consecutive means\n      g1_y &lt;- sort_y[sort_X[, j] &gt; spl[i]] # take labels for group above split\n      g2_y &lt;- sort_y[sort_X[, j] &lt; spl[i]] # take labels for group below split\n      mean_gini &lt;- append(mean_gini, (gini(g1_y) + gini(g2_y))/2) # two groups mean Gini\n      spl_vals &lt;- append(spl_vals, spl[i])\n      spl_names &lt;- append(spl_names, j)\n    }\n  }\n  min_spl_val &lt;- spl_vals[mean_gini == min(mean_gini)][1] # get best split variable\n  min_spl_name &lt;- spl_names[mean_gini == min(mean_gini)][1] # get best split value\n  sort_X &lt;- X[order(X[, min_spl_name]), ] # sort X by best split variable\n  sort_y &lt;- y[order(X[, min_spl_name])] # sort y by best split variable\n  g1_y &lt;- sort_y[sort_X[, min_spl_name] &gt; min_spl_val] # labels above best split\n  g2_y &lt;- sort_y[sort_X[, min_spl_name] &lt; min_spl_val] # labels below best split\n  if(gini(g1_y) == 0){sex &lt;- paste0(\"Above: \", as.character(g1_y))}\n  else if(gini(g2_y) == 0){sex &lt;- paste0(\"Below: \", as.character(g2_y))}\n  \n  return(list(spl_name = min_spl_name, spl_value = min_spl_val, sex = sex))\n}\nget_best_split(X, y)\n\n$spl_name\n[1] \"height\"\n\n$spl_value\n[1] 169\n\n$sex\n[1] \"Below: Male\""
+  },
+  {
+    "objectID": "slides/ml/index.html#decision-tree-from-scratch-in-r-code-implementation",
+    "href": "slides/ml/index.html#decision-tree-from-scratch-in-r-code-implementation",
+    "title": "Mathematical statistics and machine learning in R",
+    "section": "Decision tree from scratch in R: code implementation",
+    "text": "Decision tree from scratch in R: code implementation\n\n\n\nAfter we have found the best split, let us check what group we can split further: get_new_data function\n\n\n\nget_new_data &lt;- function(X, y)\n{\n  spl_name &lt;- get_best_split(X, y)$spl_name\n  spl_val &lt;- get_best_split(X, y)$spl_value\n  \n  # Sort X and y by the variable of the best split\n  sort_X &lt;- X[order(X[, spl_name]), ]; sort_y &lt;- y[order(X[, spl_name])]\n  \n  # get X and y for the first group of samples above the best split value\n  g1_y &lt;- sort_y[sort_X[, spl_name] &gt; spl_val]\n  g1_X &lt;- sort_X[sort_X[, spl_name] &gt; spl_val,]\n  \n  # get X and y for the second group of samples below the best split value\n  g2_y &lt;- sort_y[sort_X[, spl_name] &lt; spl_val]\n  g2_X &lt;- sort_X[sort_X[, spl_name] &lt; spl_val,]\n  \n  # return new data (subset of X and y) for a group with Gini index &gt; 0\n  if(gini(g1_y) &gt; 0){return(list(new_X = g1_X, new_y = g1_y))}\n  else if(gini(g2_y) &gt; 0){return(list(new_X = g2_X, new_y = g2_y))}\n  else{return(0)}\n}\nget_new_data(X, y)\n\n$new_X\n  height weight\n4    171     67\n3    178     85\n1    183     78\n\n$new_y\n[1] Female Male   Female\nLevels: Female Male\n\n\n\n\n\n\nWe can train a decision tree of max_depth = 2\n\n\n\n\ndecision_tree &lt;- function(X, y, max_depth = 2)\n{\n  new_X &lt;- X; new_y &lt;- y\n  df &lt;- data.frame(matrix(ncol = 5, nrow = max_depth))\n  colnames(df) &lt;- c(\"spl_num\", \"spl_name\", \"sign\", \"spl_val\", \"label\")\n  for(i in 1:max_depth)\n  {\n    best_split_output &lt;- get_best_split(new_X, new_y)\n    sex &lt;- unlist(strsplit(best_split_output$sex,\": \"))\n    df[i, \"spl_num\"] &lt;- i\n    df[i, \"spl_name\"] &lt;- best_split_output$spl_name\n    df[i, \"sign\"] &lt;- ifelse(sex[1] == \"Below\", \"&lt;\", \"&gt;\")\n    df[i, \"spl_val\"] &lt;- best_split_output$spl_value\n    df[i, \"label\"] &lt;- sex[2]\n    \n    new_data_output &lt;- get_new_data(new_X, new_y)\n    if(length(new_data_output) != 1)\n    {\n      new_X &lt;- new_data_output$new_X\n      new_y &lt;- new_data_output$new_y\n    }\n    else\n    {\n      print(\"All terminal nodes have perfect purity\")\n      break\n    }\n  }\n  return(df)\n}\ndecision_tree(X, y)\n\n[1] \"All terminal nodes have perfect purity\"\n  spl_num spl_name sign spl_val label\n1       1   height    &lt;   169.0  Male\n2       2   weight    &gt;    81.5  Male"
+  },
+  {
+    "objectID": "slides/ml/index.html#decision-tree-from-scratch-in-r-prediction",
+    "href": "slides/ml/index.html#decision-tree-from-scratch-in-r-prediction",
+    "title": "Mathematical statistics and machine learning in R",
+    "section": "Decision tree from scratch in R: prediction",
+    "text": "Decision tree from scratch in R: prediction\n\n\n\nFinally, after we have trained the decision tree, we can try to make predictions, and check whether we can reconstruct the labels of the data points\n\n\n\npredict_decision_tree &lt;- function(X, y)\n{\n  # Train a decision tree\n  t &lt;- decision_tree(X, y, max_depth = 2)\n  \n  # Parse the output of decision tree and code it via if, else if and else\n  pred_labs &lt;- vector()\n  for(i in 1:dim(X)[1])\n  {\n    if(eval(parse(text=paste0(X[i,t$spl_name[1]],t$sign[1],t$spl_val[1]))))\n    {\n      pred_labs[i] &lt;- t$label[1]\n    }\n    else if(eval(parse(text=paste0(X[i,t$spl_name[2]],t$sign[2],t$spl_val[2]))))\n    {\n      pred_labs[i] &lt;- t$label[2]\n    }\n    else{pred_labs[i] &lt;- ifelse(t$label[2] == \"Male\", \"Female\", \"Male\")}\n  }\n\n  return(cbind(cbind(X, y), pred_labs))\n}\npredict_decision_tree(X, y)\n\n[1] \"All terminal nodes have perfect purity\"\n  height weight      y pred_labs\n1    183     78 Female    Female\n2    167     73   Male      Male\n3    178     85   Male      Male\n4    171     67 Female    Female\n\n\n\n\n\n\nRandom Forest has two key differences:\n\ntrain multiple decision trees (bagging)\ntrain trees on fractions of input features"
   }
 ]
