@@ -1,5 +1,5 @@
 ---
-title: "Introduction to Machine Learning"
+title: "Mathematical statistics and machine learning in R"
 author: "Nikolay Oskolkov"
 description: "Coding artificial neural network from scratch in R."
 image: "assets/featured.jpg"
