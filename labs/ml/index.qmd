@@ -68,7 +68,7 @@ Next, we are going to compile and fit the Keras ANN model. Again, for simplicity
 #| eval: true
 model %>% 
   compile(loss = 'mean_squared_error',optimizer = optimizer_sgd(lr = 0.1))
-history <- model %>% fit(X, y, epochs = 3000)
+history <- model %>% fit(X, y, epochs = 10000)
 ```
 
 ```{r}

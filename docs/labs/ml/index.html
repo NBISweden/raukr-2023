@@ -187,7 +187,7 @@ background-size: cover;
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">23-May-2023</p>
+        <p class="date">24-May-2023</p>
       </div>
     </div>
     
@@ -312,7 +312,7 @@ ________________________________________________________________________________
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compile</span>(<span class="at">loss =</span> <span class="st">'mean_squared_error'</span>,<span class="at">optimizer =</span> <span class="fu">optimizer_sgd</span>(<span class="at">lr =</span> <span class="fl">0.1</span>))</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>history <span class="ot">&lt;-</span> model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(X, y, <span class="at">epochs =</span> <span class="dv">3000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>history <span class="ot">&lt;-</span> model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(X, y, <span class="at">epochs =</span> <span class="dv">10000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(history<span class="sc">$</span>metrics<span class="sc">$</span>loss<span class="sc">~</span><span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(history<span class="sc">$</span>metrics<span class="sc">$</span>loss)),</span>
@@ -330,10 +330,10 @@ ________________________________________________________________________________
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">predict</span>(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          [,1]
-[1,] 0.2900703
-[2,] 0.3152707
-[3,] 0.7419862
-[4,] 0.7641861</code></pre>
+[1,] 0.1765798
+[2,] 0.1417594
+[3,] 0.8874896
+[4,] 0.8586705</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -647,7 +647,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-right">Published with <a href="https://quarto.org/">Quarto</a> v1.3.340</div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","loop":true,"descPosition":"bottom","selector":".lightbox","closeEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","openEffect":"zoom","selector":".lightbox","closeEffect":"zoom","loop":true});</script>
 
 
 
