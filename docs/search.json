@@ -39,7 +39,7 @@
     "href": "index.html#raukr-summer-school-2023",
     "title": "",
     "section": "RaukR • Summer School 2023",
-    "text": "RaukR • Summer School 2023\n\nAdvanced R for Bioinformatics\n\n11-22 June 2023, Visby, Gotland, Sweden.\n\nIn Life Sciences and Bioinformatics, R programming language is increasingly being used to transform and analyse data, perform statistical analysis and produce publication-ready visualisations. This workshop aims to take the participants beyond the basics of R to a deeper and comprehensive understanding of the R ecosystem.\nThis workshop aims to take the participants beyond the basics of R to a deeper and comprehensive understanding of the R ecosystem.\n   \n\n\nUpdated: 23-05-2023 at 14:40:01."
+    "text": "RaukR • Summer School 2023\n\nAdvanced R for Bioinformatics\n\n11-22 June 2023, Visby, Gotland, Sweden.\n\nIn Life Sciences and Bioinformatics, R programming language is increasingly being used to transform and analyse data, perform statistical analysis and produce publication-ready visualisations. This workshop aims to take the participants beyond the basics of R to a deeper and comprehensive understanding of the R ecosystem.\nThis workshop aims to take the participants beyond the basics of R to a deeper and comprehensive understanding of the R ecosystem.\n   \n\n\nUpdated: 25-05-2023 at 12:34:45."
   },
   {
     "objectID": "labs/coding/index.html",
@@ -1348,7 +1348,7 @@
     "href": "slides/ggplot/index.html#graphs",
     "title": "Plotting with ggplot2",
     "section": "Graphs",
-    "text": "Graphs\nGraphing is an essential part of data analyses. Data with same summary statistics can look very different when plotted out.\n\n\n\n\n\n\n\n\n\n\n\nAnscombe’s quartet, Datasaurus"
+    "text": "Graphs\nGraphing is an essential part of data analyses. Data with same summary statistics can look very different when plotted out.\n\n\n\n\n\n\n\n\n\n\nSummary statistics do not always reflect how the data looks like.\n\nAnscombe’s quartet comprises four data sets that have nearly identical simple descriptive statistics, yet have very different distributions and appear very different when graphed.\n\nA more modern example dataset is datasaurus dozen. A set of 13 xy datasets that have nearly identical summary statistics but look very different when plotted out. One of the plots is in fact a dinosaur.\n\n\n\nAnscombe’s quartet, Datasaurus"
   },
   {
     "objectID": "slides/ggplot/index.html#graph-quality",
@@ -1362,7 +1362,7 @@
     "href": "slides/ggplot/index.html#r-graphics",
     "title": "Plotting with ggplot2",
     "section": "R graphics",
-    "text": "R graphics"
+    "text": "R graphics\n\n\n\n\n\n\n\n\nTypical R plots with default settings in base R and ggplot2."
   },
   {
     "objectID": "slides/ggplot/index.html#r-graphics-1",
@@ -1376,7 +1376,7 @@
     "href": "slides/ggplot/index.html#ggplot2-vs-base-graphics",
     "title": "Plotting with ggplot2",
     "section": "ggplot2 vs Base Graphics",
-    "text": "ggplot2 vs Base Graphics\n\n\n\nhist(iris$Sepal.Length)\n\n\n\n\n\n\nlibrary(ggplot2)\nggplot(iris,aes(x=Sepal.Length))+\n  geom_histogram(bins=8)\n\n\n\n\n\n\n\nFor simple graphs, the base plot seem to take minimal coding effort compared to a ggplot graph."
+    "text": "ggplot2 vs Base Graphics\n\n\n\nhist(iris$Sepal.Length)\n\n\n\n\n\n\nlibrary(ggplot2)\nggplot(iris,aes(x=Sepal.Length))+\n  geom_histogram()\n\n\n\n\n\n\n\nFor simple graphs, the base plot seems to take minimal coding effort compared to a ggplot graph."
   },
   {
     "objectID": "slides/ggplot/index.html#ggplot2-vs-base-graphics-1",
@@ -1390,14 +1390,14 @@
     "href": "slides/ggplot/index.html#why-ggplot2",
     "title": "Plotting with ggplot2",
     "section": "Why ggplot2?",
-    "text": "Why ggplot2?\n\nConsistent code for any type of plot (almost!)\nFlexible and modular (Add/remove components)\nAutomatic legends, colors etc\nSave plot objects\nThemes for reusing styles\nNumerous add-ons/extensions\nNearly complete structured graphing solution\nAdapted to other programming languages\n\nGadfly in Julia\ngramm in MatLab\nGGPlot in Perl\nVega in Javascript\nPlotNine , ggpy, lets-plot in Python\n\n\n\nWhy can’t we just do everything is base plot? Of course, we could, but it’s easier, consistent and more structured using ggplot2. There is bit of a learning curve, but once the code syntax and graphic building logic is clear, it becomes easy to plot a large variety of graphs."
+    "text": "Why ggplot2?\n\nConsistent code for any type of plot (almost!)\nFlexible and modular (Add/remove components)\nAutomatic legends, colors etc\nSave plot objects\nThemes for reusing styles\nNumerous add-ons/extensions\nNearly complete structured graphing solution\nAdapted to other programming languages\n\nGadfly in Julia\ngramm in MatLab\nGGPlot in Perl\nVega in Javascript\nPlotNine , ggpy, lets-plot in Python\n\n\n\nggplot2 has a consistent logic and more structured code for plotting. There is bit of a learning curve, but once the code syntax and the logic is clear, it becomes easy to plot a huge variety of graphs."
   },
   {
     "objectID": "slides/ggplot/index.html#grammar-of-graphics",
     "href": "slides/ggplot/index.html#grammar-of-graphics",
     "title": "Plotting with ggplot2",
     "section": "Grammar Of Graphics",
-    "text": "Grammar Of Graphics\n\n\n\n\n\n\nCreated by Hadley Wickham in 2005\nData: Input data\nGeom: A geometry representing data. Points, Lines etc\nAesthetic: Visual characteristics of the geometry. Size, Color, Shape etc\nScale: How visual characteristics are converted to display values\nStatistics: Statistical transformations. Counts, Means etc\nCoordinates: Numeric system to determine position of geometry. Cartesian, Polar etc\nFacets: Split data into subsets\n\n\n\n\nggplot was created by Hadley Wickham in 2005 as an implementation of Leland Wilkinson’s book Grammar of Graphics.\nDifferent graphs have always been considered as independent entities and also labelled differently such as barplots, scatterplots, boxplots etc. Each graph has it’s own function and plotting strategy.\nGrammar of graphics (GOG) tries to unify all graphs under a common umbrella. GOG brings the idea that graphs are made up of discrete components which can be mixed and matched to create any plot. This creates a consistent underlying framework to graphing."
+    "text": "Grammar Of Graphics\n\n\n\n\n\n\nCreated by Hadley Wickham in 2005\nData: Input data\nGeom: A geometry representing data. Points, Lines etc\nAesthetic: Visual characteristics of the geometry. Size, Color, Shape etc\nScale: How visual characteristics are converted to display values\nStatistics: Statistical transformations. Counts, Means etc\nCoordinates: Numeric system to determine position of geometry. Cartesian, Polar etc\nFacets: Split data into subsets\n\n\n\n\nTraditional graphing tools generally have independent set of rules for different kinds of graphs and also labelled differently such as barplots, scatterplots, boxplots etc. Each graph has it’s own function and plotting strategy.\nLeland Wilkinson’s The Grammar of Graphics introduces this idea that any kind of graph can be created by following a set of rules and put forward a framework that enables this.\nGrammar of graphics (GOG) tries to unify all graphs under a common umbrella. GOG brings the idea that graphs are made up of discrete elements (data, aesthetics, geometry, statistics, coordinates, facets, themes etc) which can be mixed and matched to create any plot. This creates a consistent underlying framework to graphing.\nggplot (Grammar of graphics) was built in R by Hadley Wickham in 2005 as an implementation of Leland Wilkinson’s book Grammar of Graphics."
   },
   {
     "objectID": "slides/ggplot/index.html#building-a-graph-syntax",
@@ -1446,7 +1446,7 @@
     "href": "slides/ggplot/index.html#data-diamonds",
     "title": "Plotting with ggplot2",
     "section": "Data • diamonds",
-    "text": "Data • diamonds\n\n\n\n\n\n\ncarat\ncut\ncolor\nclarity\ndepth\ntable\nprice\nx\ny\nz\n\n\n\n\n0.23\nIdeal\nE\nSI2\n61.5\n55\n326\n3.95\n3.98\n2.43\n\n\n0.21\nPremium\nE\nSI1\n59.8\n61\n326\n3.89\n3.84\n2.31\n\n\n0.23\nGood\nE\nVS1\n56.9\n65\n327\n4.05\n4.07\n2.31\n\n\n0.29\nPremium\nI\nVS2\n62.4\n58\n334\n4.20\n4.23\n2.63\n\n\n0.31\nGood\nJ\nSI2\n63.3\n58\n335\n4.34\n4.35\n2.75\n\n\n0.24\nVery Good\nJ\nVVS2\n62.8\n57\n336\n3.94\n3.96\n2.48\n\n\n\n\n\n\n\n\n\nstr(diamonds)\n\ntibble [53,940 × 10] (S3: tbl_df/tbl/data.frame)\n $ carat  : num [1:53940] 0.23 0.21 0.23 0.29 0.31 0.24 0.24 0.26 0.22 0.23 ...\n $ cut    : Ord.factor w/ 5 levels \"Fair\"&lt;\"Good\"&lt;..: 5 4 2 4 2 3 3 3 1 3 ...\n $ color  : Ord.factor w/ 7 levels \"D\"&lt;\"E\"&lt;\"F\"&lt;\"G\"&lt;..: 2 2 2 6 7 7 6 5 2 5 ...\n $ clarity: Ord.factor w/ 8 levels \"I1\"&lt;\"SI2\"&lt;\"SI1\"&lt;..: 2 3 5 4 2 6 7 3 4 5 ...\n $ depth  : num [1:53940] 61.5 59.8 56.9 62.4 63.3 62.8 62.3 61.9 65.1 59.4 ...\n $ table  : num [1:53940] 55 61 65 58 58 57 57 55 61 61 ...\n $ price  : int [1:53940] 326 326 327 334 335 336 336 337 337 338 ...\n $ x      : num [1:53940] 3.95 3.89 4.05 4.2 4.34 3.94 3.95 4.07 3.87 4 ...\n $ y      : num [1:53940] 3.98 3.84 4.07 4.23 4.35 3.96 3.98 4.11 3.78 4.05 ...\n $ z      : num [1:53940] 2.43 2.31 2.31 2.63 2.75 2.48 2.47 2.53 2.49 2.39 ...\n\n\n\nR data.frame is a tabular format with rows and columns just like a spreadsheet. All items in a row or a column must be available or missing values filled in as NAs."
+    "text": "Data • diamonds\n\n\n\n\n\n\ncarat\ncut\ncolor\nclarity\ndepth\ntable\nprice\nx\ny\nz\n\n\n\n\n0.23\nIdeal\nE\nSI2\n61.5\n55\n326\n3.95\n3.98\n2.43\n\n\n0.21\nPremium\nE\nSI1\n59.8\n61\n326\n3.89\n3.84\n2.31\n\n\n0.23\nGood\nE\nVS1\n56.9\n65\n327\n4.05\n4.07\n2.31\n\n\n0.29\nPremium\nI\nVS2\n62.4\n58\n334\n4.20\n4.23\n2.63\n\n\n0.31\nGood\nJ\nSI2\n63.3\n58\n335\n4.34\n4.35\n2.75\n\n\n0.24\nVery Good\nJ\nVVS2\n62.8\n57\n336\n3.94\n3.96\n2.48\n\n\n\n\n\n\n\n\n\nstr(diamonds)\n\ntibble [53,940 × 10] (S3: tbl_df/tbl/data.frame)\n $ carat  : num [1:53940] 0.23 0.21 0.23 0.29 0.31 0.24 0.24 0.26 0.22 0.23 ...\n $ cut    : Ord.factor w/ 5 levels \"Fair\"&lt;\"Good\"&lt;..: 5 4 2 4 2 3 3 3 1 3 ...\n $ color  : Ord.factor w/ 7 levels \"D\"&lt;\"E\"&lt;\"F\"&lt;\"G\"&lt;..: 2 2 2 6 7 7 6 5 2 5 ...\n $ clarity: Ord.factor w/ 8 levels \"I1\"&lt;\"SI2\"&lt;\"SI1\"&lt;..: 2 3 5 4 2 6 7 3 4 5 ...\n $ depth  : num [1:53940] 61.5 59.8 56.9 62.4 63.3 62.8 62.3 61.9 65.1 59.4 ...\n $ table  : num [1:53940] 55 61 65 58 58 57 57 55 61 61 ...\n $ price  : int [1:53940] 326 326 327 334 335 336 336 337 337 338 ...\n $ x      : num [1:53940] 3.95 3.89 4.05 4.2 4.34 3.94 3.95 4.07 3.87 4 ...\n $ y      : num [1:53940] 3.98 3.84 4.07 4.23 4.35 3.96 3.98 4.11 3.78 4.05 ...\n $ z      : num [1:53940] 2.43 2.31 2.31 2.63 2.75 2.48 2.47 2.53 2.49 2.39 ...\n\n\n\nR data.frame is a tabular format with rows and columns just like a spreadsheet."
   },
   {
     "objectID": "slides/ggplot/index.html#data-format",
@@ -1509,7 +1509,7 @@
     "href": "slides/ggplot/index.html#section-1",
     "title": "Plotting with ggplot2",
     "section": "",
-    "text": "Just because you can doesn’t mean you should!"
+    "text": "Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
   },
   {
     "objectID": "slides/ggplot/index.html#scales",
@@ -1586,7 +1586,7 @@
     "href": "slides/ggplot/index.html#theming",
     "title": "Plotting with ggplot2",
     "section": "Theming",
-    "text": "Theming"
+    "text": "Theming\n\n\n\nModify non-data plot elements/appearance\nAxis labels, panel colors, legend appearance etc\n\n\nggplot(iris, aes(Petal.Length)) +\n    geom_histogram() +\n    facet_wrap(~Species, nrow = 2) +\n    theme_grey()\n\n\n\n\n\n\nSave a particular appearance for reuse\n?theme\n\n\nggplot(iris, aes(Petal.Length)) +\n    geom_histogram() +\n    facet_wrap(~Species, nrow = 2) +\n    theme_bw()\n\n\n\n\n\n\n\nThemes allow to modify all non-data related components of the plot. This is the visual appearance of the plot. Examples include the axes line thickness, the background color or font family."
   },
   {
     "objectID": "slides/ggplot/index.html#theming-1",
@@ -1663,7 +1663,7 @@
     "href": "slides/ggplot/index.html#help",
     "title": "Plotting with ggplot2",
     "section": "Help",
-    "text": "Help\n\nggplot2 book\n\nggplot2 official reference\n\nThe R cookbook\n\nRStudio Cheatsheet\n\nr-statistics Cheatsheet\n\nStackOverflow\n\nBlogs, for example; R-Bloggers, Cedric Scherer etc."
+    "text": "Help\n\n\n\nggplot2 book\n\n\nThe R cookbook\n\n\n\n\nggplot2 official reference\n\nRStudio cheatsheet\n\nr-statistics ggplot2 cheatsheet\n\nStackOverflow\n\nBlogs, R-Bloggers, Cedric Scherer etc."
   },
   {
     "objectID": "slides/ggplot/index.html#section-3",
@@ -3484,5 +3484,19 @@
     "title": "Vectorization in R",
     "section": "",
     "text": "Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
+  },
+  {
+    "objectID": "slides/ggplot/index.html#section",
+    "href": "slides/ggplot/index.html#section",
+    "title": "Plotting with ggplot2",
+    "section": "",
+    "text": "Just because you can doesn’t mean you should!"
+  },
+  {
+    "objectID": "slides/ggplot/index.html#professional-themes",
+    "href": "slides/ggplot/index.html#professional-themes",
+    "title": "Plotting with ggplot2",
+    "section": "Professional themes",
+    "text": "Professional themes\n\n\nHow BBC works with R graphics"
   }
 ]

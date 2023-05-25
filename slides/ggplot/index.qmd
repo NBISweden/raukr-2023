@@ -45,25 +45,15 @@ Graphing is an essential part of data analyses. Data with same summary statistic
 ::::
 
 ::: {.aside}
-[Anscombe's quartet](https://en.wikipedia.org/wiki/Anscombe%27s_quartet), [Datasaurus](https://www.autodesk.com/research/publications/same-stats-different-graphs)
+[Anscombe's quartet](https://en.wikipedia.org/wiki/Anscombe%27s_quartet), [Datasaurus](https://cran.r-project.org/web/packages/datasauRus/vignettes/Datasaurus.html)
 :::
 
-## Graph quality
+::: {.notes}
+Summary statistics do not always reflect how the data looks like.
 
-:::: {.columns}
+> Anscombe's quartet comprises four data sets that have nearly identical simple descriptive statistics, yet have very different distributions and appear very different when graphed.
 
-::: {.column width="60%"}
-![](assets/scientific_paper_graph_quality.jpg)
-:::
-
-::: {.column width="40%"}
-![](assets/excel.png){width="100%"}
-:::
-
-::::
-
-::: {.smaller}
-Source: [xkcd](https://xkcd.com/1945/)
+A more modern example dataset is datasaurus dozen. A set of 13 xy datasets that have nearly identical summary statistics but look very different when plotted out. One of the plots is in fact a dinosaur.
 :::
 
 ## R graphics
@@ -80,12 +70,8 @@ Source: [xkcd](https://xkcd.com/1945/)
 
 ::::
 
-## R graphics
-
-![](assets/bbc.png){width="95%"}
-
-::: {.smaller}
-[How BBC works with R graphics](https://medium.com/bbc-visual-and-data-journalism/how-the-bbc-visual-and-data-journalism-team-works-with-graphics-in-r-ed0b35693535)
+::: {.notes}
+Typical R plots with default settings in base R and ggplot2.
 :::
 
 ## ggplot2 vs Base Graphics
@@ -106,18 +92,14 @@ hist(iris$Sepal.Length)
 
 library(ggplot2)
 ggplot(iris,aes(x=Sepal.Length))+
-  geom_histogram(bins=8)
+  geom_histogram()
 ```
 :::
 ::::
 
 ::: {.notes}
-For simple graphs, the base plot seem to take minimal coding effort compared to a ggplot graph.
+For simple graphs, the base plot seems to take minimal coding effort compared to a ggplot graph.
 :::
-
-## 
-
-![](assets/meme-confused.jpg)
 
 ## ggplot2 vs Base Graphics
 
@@ -148,7 +130,6 @@ ggplot(iris,aes(Petal.Length,Sepal.Length,color=Species))+
 ::::
 
 ::: {.notes}
-
 For anything beyond extremely basic plots, base plotting quickly become complex. More importantly, base plots do not have consistency in it's functions or plotting strategy.
 :::
 
@@ -169,16 +150,15 @@ For anything beyond extremely basic plots, base plotting quickly become complex.
   - [PlotNine](https://plotnine.readthedocs.io/en/stable/) , [ggpy](https://github.com/yhat/ggpy), [lets-plot](https://lets-plot.org/) in Python
 
 ::: {.notes}
-
-Why can't we just do everything is base plot? Of course, we could, but it's easier, consistent and more structured using `ggplot2`. There is bit of a learning curve, but once the code syntax and graphic building logic is clear, it becomes easy to plot a large variety of graphs.
+`ggplot2` has a consistent logic and more structured code for plotting. There is bit of a learning curve, but once the code syntax and the logic is clear, it becomes easy to plot a huge variety of graphs.
 :::
 
 ## Grammar Of Graphics
 
 :::: {.columns}
 ::: {.column width="30%"}
+![](assets/gog.png)  
 ![](assets/gog.jpg)  
-![](assets/gog.png)
 :::
 
 ::: {.column width="70%"}
@@ -194,12 +174,13 @@ Why can't we just do everything is base plot? Of course, we could, but it's easi
 ::::
 
 ::: {.notes}
+Traditional graphing tools generally have independent set of rules for different kinds of graphs and also labelled differently such as barplots, scatterplots, boxplots etc. Each graph has it's own function and plotting strategy.
 
-`ggplot` was created by Hadley Wickham in 2005 as an implementation of Leland Wilkinson's book Grammar of Graphics.
+Leland Wilkinson's **The Grammar of Graphics** introduces this idea that any kind of graph can be created by following a set of rules and put forward a framework that enables this.
 
-Different graphs have always been considered as independent entities and also labelled differently such as barplots, scatterplots, boxplots etc. Each graph has it's own function and plotting strategy.
+Grammar of graphics (GOG) tries to unify all graphs under a common umbrella. GOG brings the idea that graphs are made up of discrete elements (data, aesthetics, geometry, statistics, coordinates, facets, themes etc) which can be mixed and matched to create any plot. This creates a consistent underlying framework to graphing.
 
-Grammar of graphics (GOG) tries to unify all graphs under a common umbrella. GOG brings the idea that graphs are made up of discrete components which can be mixed and matched to create any plot. This creates a consistent underlying framework to graphing.
+`ggplot` (Grammar of graphics) was built in R by Hadley Wickham in 2005 as an implementation of Leland Wilkinson's book Grammar of Graphics.
 :::
 
 ## Building A Graph: Syntax
@@ -207,7 +188,7 @@ Grammar of graphics (GOG) tries to unify all graphs under a common umbrella. GOG
 :::: {.columns}
 ::: {.column width="60%"}
 
-![](assets/syntax.png)
+![](assets/syntax.png){width="100%"}
 
 :::
 ::::
@@ -334,7 +315,7 @@ str(diamonds)
 
 ::: {.notes}
 
-R `data.frame` is a tabular format with rows and columns just like a spreadsheet. All items in a row or a column must be available or missing values filled in as NAs.
+R `data.frame` is a tabular format with rows and columns just like a spreadsheet.
 
 :::
 
@@ -584,10 +565,6 @@ Just because you can doesn't mean you should!
 
 ![](assets/complicated-graphs.jpg)
 
-## Scales
-
-![](assets/meme-scales.jpg)
-
 ## Scales • Discrete Colors
 
 - scales: position, color, fill, size, shape, alpha, linetype
@@ -737,10 +714,6 @@ When setting limits using `scale_`, the data outside the limits are dropped. Lim
 
 :::
 
-## Facets
-
-![](assets/meme-facets.jpg)
-
 ## Facets • `facet_wrap`
 
 - Split to subplots based on variable(s), Faceting in one dimension
@@ -818,10 +791,6 @@ p + facet_grid(cut~clarity)
 
 :::
 
-## Coordinates
-
-![](assets/meme-coordinates.jpg)
-
 ## Coordinate Systems
 
 :::: {.columns}
@@ -859,10 +828,6 @@ p + coord_polar("y", start = 0)
 The coordinate system defines the surface used to represent numbers. Most plots use the cartesian coordinate sytem. Pie charts for example, is a polar coordinate projection of a cartesian barplot. Maps for example can have numerous coordinate systems called map projections. For example; UTM coordinates.
 
 :::
-
-## Theming
-
-![](assets/meme-theme.jpg)
 
 ## Theming
 
@@ -1084,6 +1049,14 @@ p + newtheme
 :::
 ::::
 
+## Professional themes
+
+![](assets/bbc.png){width="95%"}
+
+::: {.smaller}
+[How BBC works with R graphics](https://medium.com/bbc-visual-and-data-journalism/how-the-bbc-visual-and-data-journalism-team-works-with-graphics-in-r-ed0b35693535)
+:::
+
 ## Position
 
 ```{r}
@@ -1242,17 +1215,25 @@ Curated list of ggplot2 links: [https://github.com/erikgahner/awesome-ggplot2](h
 
 ## Help
 
-- [**ggplot2 book**](https://ggplot2-book.org/introduction.html)  
+:::: {.columns}
+::: {.column width="30%"}
+
+- [**ggplot2 book**](https://ggplot2-book.org/)  
+![](https://ggplot2-book.org/cover.jpg){height="200px"}  
+- [**The R cookbook**](https://r-graphics.org/)  
+![](https://r-graphics.org/cover.jpg){height="200px"}
+
+:::
+::: {.column width="70%"}
+
 - [**ggplot2 official reference**](http://ggplot2.tidyverse.org/reference/)  
-- [**The R cookbook**](http://www.cookbook-r.com/Graphs/)  
-- [**RStudio Cheatsheet**](https://www.rstudio.com/resources/cheatsheets/)  
-- [**r-statistics Cheatsheet**](http://r-statistics.co/ggplot2-cheatsheet.html)  
+- [**RStudio cheatsheet**](https://www.rstudio.com/resources/cheatsheets/)  
+- [**r-statistics ggplot2 cheatsheet**](http://r-statistics.co/ggplot2-cheatsheet.html)  
 - [**StackOverflow**](https://stackoverflow.com/)  
-- Blogs, for example; [R-Bloggers](https://www.r-bloggers.com/), [Cedric Scherer](https://www.cedricscherer.com/tags/ggplot2/) etc.  
+- Blogs, [R-Bloggers](https://www.r-bloggers.com/), [Cedric Scherer](https://www.cedricscherer.com/tags/ggplot2/) etc.  
 
-## 
-
-![](assets/meme-end-of-pres.jpg)
+:::
+::::
 
 ## {background-image="../../assets/images/cover.jpg"}
 
