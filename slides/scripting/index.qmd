@@ -119,18 +119,11 @@ Usually when you are **analyzing data** you will use the **interactive view** an
 And like the quote it should do **one** thing and do it well. Because of the **power** in that an **R script** can contain **multiple functions**, or "programs", this one thing can be quite **simple**, or quite **advanced**. And like the textstream mentioned here Rscripts often take input, something we will look more at now.
 
 In this case it might be **efficient** to use an **Rscript**.
+
+So USUALLY an rscript is something that is executable, can take some inputs and arguments, and returns something.
+
+Now lets look at those pieces starting with how an rscript can be executed.
 :::
-
-. . .
-
-```{mermaid}
-%%| echo : FALSE
-
-flowchart LR
-  A(Tool 1) --> B{Your R script}
-  B --> C(Tool 2)
-  C --> D(Output)
-```
 
 ## Executing an R script
 
@@ -221,9 +214,9 @@ A part of the **flexibility** of this is that you can give the flags in **any or
 And you can also *mix* the *long/short flag order and styles*. It is the coding in the script that determines how it handles this input.
 :::
 
-## Parsing arguments
-(panel tabs?)
-Case: `./myscript.R -i inputfile.vcf -o outputfile.vcf`
+## Parsing arguments - Positional {.small}
+
+Example: `./myscript.R inputfile.vcf outputfile.vcf`
 
 
 - `commandArgs()`
@@ -250,12 +243,11 @@ commandArgs()
 commandArgs(trailingOnly = TRUE)
 ```
 
-## Parsing arguments
+## Parsing arguments - Flags {.small}
 
-The flexible way: short and long flags
+Example: `./myscript.R --input inputfile.vcf --output outputfile.vcf`
 
 ::: {.notes}
-
 So how do we do it with **flags**?
 :::
 
@@ -265,8 +257,7 @@ So how do we do it with **flags**?
 
 . . .
 
-- Define set of possible arguments at start of script:
-
+Define set of possible arguments at start of script:
 ```{r}
 library(optparse)
 my_options = list(
@@ -275,12 +266,13 @@ my_options = list(
 )
 ```
 
+::: {.notes}
 If we use **optparse** as an example you **create** your options using the **make_option** command, and can set default values. We see also that you can give both long and short form here.
+:::
 
 . . .
 
-- Parse arguments using your definition:
-
+Parse arguments using your definition:
 ```{r}
 parse_args(OptionParser(option_list=my_options))
 ```
@@ -319,37 +311,27 @@ oneline=readLines(input_con, n = 1)
 close(input_con)
 ```
 
-::: {.notes}
-What we do is **open** a connection from **standard input** and then read this **text stream** for **n** number of lines at a time. It is also good to close this connection afterwards.
-:::
-
-. . .
-
 - Tidyverse can read a `tibble` from text stream: `read_csv(file("stdin"))`
 
 ::: {.notes}
+What we do is **open** a connection from **standard input** and then read this **text stream** for **n** number of lines at a time. It is also good to close this connection afterwards.
+
 Alternatively you can read a text stream into a **tibble** from tidyverse by using **read_csv**, note that it isnt **read.csv** the generic R command, which can take our **input connection** and create the tibble in R.
 :::
 
 ## Text streams
 
-### Writing
+#### Writing
 
 - Any `stdout` produced by the code (`print()`, `cat()`, etc) can be piped to a new process: `...myRscript.R | myNewScript`
 
-::: {.notes}
-What about **piping from** your R script to something else? Continuing the stream? So just writing these commands. print, cat etc, can be piped to a new process.
-:::
-
-. . .
-
 - or written to a file: `...myRscript.R > output.csv`
-
-. . .
 
 - To write a `tibble` as a text stream: `cat(format_csv(my_tibble))`
 
 ::: {.notes}
+What about **piping from** your R script to something else? Continuing the stream? So just writing these commands. print, cat etc, can be piped to a new process.
+
 If you already have a tibble, you can stream it out of R using this command.
 :::
 

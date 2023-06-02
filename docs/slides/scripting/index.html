@@ -392,9 +392,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&amp;family=Nunito:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap" rel="stylesheet">
-  <script src="../../site_libs/quarto-diagram/mermaid.min.js"></script>
-  <script src="../../site_libs/quarto-diagram/mermaid-init.js"></script>
-  <link href="../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -566,6 +563,8 @@ With a function
 <p>Usually when you are <strong>analyzing data</strong> you will use the <strong>interactive view</strong> and try different things going forward. But say that you have figured out something that you want to <strong>do</strong> for <strong>multiple numbers</strong> of datasets?</p>
 <p>And like the quote it should do <strong>one</strong> thing and do it well. Because of the <strong>power</strong> in that an <strong>R script</strong> can contain <strong>multiple functions</strong>, or “programs”, this one thing can be quite <strong>simple</strong>, or quite <strong>advanced</strong>. And like the textstream mentioned here Rscripts often take input, something we will look more at now.</p>
 <p>In this case it might be <strong>efficient</strong> to use an <strong>Rscript</strong>.</p>
+<p>So USUALLY an rscript is something that is executable, can take some inputs and arguments, and returns something.</p>
+<p>Now lets look at those pieces starting with how an rscript can be executed.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -577,21 +576,6 @@ With a function
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</div>
-<div class="fragment">
-<div class="cell" data-reveal="true">
-<div class="cell-output-display">
-<div>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  A(Tool 1) --&gt; B{Your R script}
-  B --&gt; C(Tool 2)
-  C --&gt; D(Output)
-</pre>
-</div>
-</div>
-</div>
-</div>
 </div>
 </section>
 <section id="executing-an-r-script" class="slide level2">
@@ -756,9 +740,9 @@ With a function
       }</style></aside>
 </div>
 </section>
-<section id="parsing-arguments" class="slide level2">
-<h2>Parsing arguments</h2>
-<p>(panel tabs?) Case: <code>./myscript.R -i inputfile.vcf -o outputfile.vcf</code></p>
+<section id="parsing-arguments---positional" class="slide level2 small">
+<h2>Parsing arguments - Positional</h2>
+<p>Example: <code>./myscript.R inputfile.vcf outputfile.vcf</code></p>
 <ul>
 <li><code>commandArgs()</code></li>
 </ul>
@@ -786,10 +770,10 @@ With a function
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">commandArgs</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "/usr/local/Cellar/r/4.3.0_1/lib/R/bin/exec/R"
-[2] "--no-echo"                                   
-[3] "--no-restore"                                
-[4] "--file=/Applications/quarto/share/rmd/rmd.R" </code></pre>
+<pre><code>[1] "/Library/Frameworks/R.framework/Resources/bin/exec/R"
+[2] "--no-echo"                                           
+[3] "--no-restore"                                        
+[4] "--file=/Applications/quarto/share/rmd/rmd.R"         </code></pre>
 </div>
 </div>
 <div class="cell">
@@ -800,9 +784,9 @@ With a function
 </div>
 </div>
 </section>
-<section id="parsing-arguments-1" class="slide level2">
-<h2>Parsing arguments</h2>
-<p>The flexible way: short and long flags</p>
+<section id="parsing-arguments---flags" class="slide level2 small">
+<h2>Parsing arguments - Flags</h2>
+<p>Example: <code>./myscript.R --input inputfile.vcf --output outputfile.vcf</code></p>
 <aside class="notes">
 <p>So how do we do it with <strong>flags</strong>?</p>
 <style type="text/css">
@@ -822,9 +806,7 @@ With a function
 </ul>
 </div>
 <div class="fragment">
-<ul>
-<li>Define set of possible arguments at start of script:</li>
-</ul>
+<p>Define set of possible arguments at start of script:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">library</span>(optparse)</span>
 <span id="cb12-2"><a href="#cb12-2"></a>my_options <span class="ot">=</span> <span class="fu">list</span>(</span>
@@ -832,12 +814,22 @@ With a function
 <span id="cb12-4"><a href="#cb12-4"></a>  <span class="fu">make_option</span>(<span class="fu">c</span>(<span class="st">"-o"</span>, <span class="st">"--outputfile"</span>), <span class="at">default=</span><span class="st">'variants_filtered.vcf'</span>)</span>
 <span id="cb12-5"><a href="#cb12-5"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<aside class="notes">
 <p>If we use <strong>optparse</strong> as an example you <strong>create</strong> your options using the <strong>make_option</strong> command, and can set default values. We see also that you can give both long and short form here.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </div>
 <div class="fragment">
-<ul>
-<li>Parse arguments using your definition:</li>
-</ul>
+<p>Parse arguments using your definition:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">parse_args</span>(<span class="fu">OptionParser</span>(<span class="at">option_list=</span>my_options))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -911,24 +903,11 @@ $help
 <span id="cb15-3"><a href="#cb15-3"></a>oneline<span class="ot">=</span><span class="fu">readLines</span>(input_con, <span class="at">n =</span> <span class="dv">1</span>)</span>
 <span id="cb15-4"><a href="#cb15-4"></a><span class="fu">close</span>(input_con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<aside class="notes">
-<p>What we do is <strong>open</strong> a connection from <strong>standard input</strong> and then read this <strong>text stream</strong> for <strong>n</strong> number of lines at a time. It is also good to close this connection afterwards.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-<p>. . .</p>
 <ul>
 <li>Tidyverse can read a <code>tibble</code> from text stream: <code>read_csv(file("stdin"))</code></li>
 </ul>
 <aside class="notes">
+<p>What we do is <strong>open</strong> a connection from <strong>standard input</strong> and then read this <strong>text stream</strong> for <strong>n</strong> number of lines at a time. It is also good to close this connection afterwards.</p>
 <p>Alternatively you can read a text stream into a <strong>tibble</strong> from tidyverse by using <strong>read_csv</strong>, note that it isnt <strong>read.csv</strong> the generic R command, which can take our <strong>input connection</strong> and create the tibble in R.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -945,32 +924,14 @@ $help
 </section>
 <section id="text-streams-1" class="slide level2">
 <h2>Text streams</h2>
-<h3 id="writing">Writing</h3>
+<h4 id="writing">Writing</h4>
 <ul>
-<li>Any <code>stdout</code> produced by the code (<code>print()</code>, <code>cat()</code>, etc) can be piped to a new process: <code>...myRscript.R | myNewScript</code></li>
+<li><p>Any <code>stdout</code> produced by the code (<code>print()</code>, <code>cat()</code>, etc) can be piped to a new process: <code>...myRscript.R | myNewScript</code></p></li>
+<li><p>or written to a file: <code>...myRscript.R &gt; output.csv</code></p></li>
+<li><p>To write a <code>tibble</code> as a text stream: <code>cat(format_csv(my_tibble))</code></p></li>
 </ul>
 <aside class="notes">
 <p>What about <strong>piping from</strong> your R script to something else? Continuing the stream? So just writing these commands. print, cat etc, can be piped to a new process.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-<p>. . .</p>
-<ul>
-<li>or written to a file: <code>...myRscript.R &gt; output.csv</code></li>
-</ul>
-<p>. . .</p>
-<ul>
-<li>To write a <code>tibble</code> as a text stream: <code>cat(format_csv(my_tibble))</code></li>
-</ul>
-<aside class="notes">
 <p>If you already have a tibble, you can stream it out of R using this command.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1011,11 +972,11 @@ $help
 <h3 id="thank-you-questions">Thank you! Questions?</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>         _                        
-platform x86_64-apple-darwin22.4.0
-os       darwin22.4.0             
-major    4                        
-minor    3.0                      </code></pre>
+<pre><code>         _                     
+platform aarch64-apple-darwin20
+os       darwin20              
+major    4                     
+minor    2.2                   </code></pre>
 </div>
 </div>
 <p><span class="smaller">2023 • <a href="https://www.scilifelab.se/">SciLifeLab</a> • <a href="https://nbis.se/">NBIS</a> • <a href="https://nbisweden.github.io/workshop-RaukR-2306/">RaukR</a></span></p>

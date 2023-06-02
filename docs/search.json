@@ -2825,7 +2825,7 @@
     "href": "slides/scripting/index.html#r-scripts-as-standalone-tools",
     "title": "Functions and scripts",
     "section": "R scripts as standalone tools",
-    "text": "R scripts as standalone tools\n\n\nIn many ways this quote about the UNIX philosophy relates to the philosophy you should have for an R script.\nMcIlroy is best known for having originally proposed Unix pipelines and developed several Unix tools, such as spell, diff, sort, join, graph, speak, and tr.\n\n\n\nData analysis with R is usually performed interactively using e.g. RStudio\nTasks can be executed from the terminal using R scripts\nR scripts can form powerful standalone tools\n\n\nUsually when you are analyzing data you will use the interactive view and try different things going forward. But say that you have figured out something that you want to do for multiple numbers of datasets?\nAnd like the quote it should do one thing and do it well. Because of the power in that an R script can contain multiple functions, or “programs”, this one thing can be quite simple, or quite advanced. And like the textstream mentioned here Rscripts often take input, something we will look more at now.\nIn this case it might be efficient to use an Rscript.\n\n\n\n\n\n\n\nflowchart LR\n  A(Tool 1) --&gt; B{Your R script}\n  B --&gt; C(Tool 2)\n  C --&gt; D(Output)"
+    "text": "R scripts as standalone tools\n\n\nIn many ways this quote about the UNIX philosophy relates to the philosophy you should have for an R script.\nMcIlroy is best known for having originally proposed Unix pipelines and developed several Unix tools, such as spell, diff, sort, join, graph, speak, and tr.\n\n\n\nData analysis with R is usually performed interactively using e.g. RStudio\nTasks can be executed from the terminal using R scripts\nR scripts can form powerful standalone tools\n\n\nUsually when you are analyzing data you will use the interactive view and try different things going forward. But say that you have figured out something that you want to do for multiple numbers of datasets?\nAnd like the quote it should do one thing and do it well. Because of the power in that an R script can contain multiple functions, or “programs”, this one thing can be quite simple, or quite advanced. And like the textstream mentioned here Rscripts often take input, something we will look more at now.\nIn this case it might be efficient to use an Rscript.\nSo USUALLY an rscript is something that is executable, can take some inputs and arguments, and returns something.\nNow lets look at those pieces starting with how an rscript can be executed."
   },
   {
     "objectID": "slides/scripting/index.html#executing-an-r-script",
@@ -2846,7 +2846,7 @@
     "href": "slides/scripting/index.html#parsing-arguments",
     "title": "Functions and scripts",
     "section": "Parsing arguments",
-    "text": "Parsing arguments\n(panel tabs?) Case: ./myscript.R -i inputfile.vcf -o outputfile.vcf\n\ncommandArgs()\n\nUse commandArgs() to capture whatever was passed into R as it was executed. To be clear; this is a command that is within the Rscript file.\n\n\ntrailingOnly = TRUE\n\nAdd trailingOnly = TRUE to suppress the first few items and get the arguments you passed to the script.\n\nA standard arg, but not default, that you can use when invoking commandArgs() is trailingOnly = TRUE, which basically tells it to start counting the input from after the Rscript arguments. As you can see here when we invoke it without this parameter it returns the script itself, in this case R studio. But with it the invocation is clear, there were no trailing command line arguments.\n\n\n\n\ncommandArgs()\n\n[1] \"/usr/local/Cellar/r/4.3.0_1/lib/R/bin/exec/R\"\n[2] \"--no-echo\"                                   \n[3] \"--no-restore\"                                \n[4] \"--file=/Applications/quarto/share/rmd/rmd.R\" \n\n\n\ncommandArgs(trailingOnly = TRUE)\n\ncharacter(0)"
+    "text": "Parsing arguments\nCase: ./myscript.R -i inputfile.vcf -o outputfile.vcf\n\ncommandArgs()\n\nUse commandArgs() to capture whatever was passed into R as it was executed. To be clear; this is a command that is within the Rscript file.\n\n\ntrailingOnly = TRUE\n\nAdd trailingOnly = TRUE to suppress the first few items and get the arguments you passed to the script.\n\nA standard arg, but not default, that you can use when invoking commandArgs() is trailingOnly = TRUE, which basically tells it to start counting the input from after the Rscript arguments. As you can see here when we invoke it without this parameter it returns the script itself, in this case R studio. But with it the invocation is clear, there were no trailing command line arguments.\n\n\n\n\ncommandArgs()\n\n[1] \"/Library/Frameworks/R.framework/Resources/bin/exec/R\"\n[2] \"--no-echo\"                                           \n[3] \"--no-restore\"                                        \n[4] \"--file=/Applications/quarto/share/rmd/rmd.R\"         \n\n\n\ncommandArgs(trailingOnly = TRUE)\n\ncharacter(0)"
   },
   {
     "objectID": "slides/scripting/index.html#parsing-arguments-1",
@@ -2860,14 +2860,14 @@
     "href": "slides/scripting/index.html#text-streams",
     "title": "Functions and scripts",
     "section": "Text streams",
-    "text": "Text streams\n\nText streams allow for piping of data through a set of applications without writing intermediate files.\n\n\nWhat I am sure most of you will think of when you read this is the bash pipe sign.\n\n\nsamtools mpileup -uf ref.fa aln.bam | bcftools call -mv | myPythonscript.py | myRscript.R &gt; variants.vcf\n\nSo how does R handle taking input piped to it. And the answer is that we have to write some special code if this is the use case.\n\n\n\nReading\n\nTo define and open a connection, read one line, and close it:\n\n\ninput_con  &lt;- file(\"stdin\")\nopen(input_con)\noneline=readLines(input_con, n = 1)\nclose(input_con)\n\n\nWhat we do is open a connection from standard input and then read this text stream for n number of lines at a time. It is also good to close this connection afterwards.\n\n. . .\n\nTidyverse can read a tibble from text stream: read_csv(file(\"stdin\"))\n\n\nAlternatively you can read a text stream into a tibble from tidyverse by using read_csv, note that it isnt read.csv the generic R command, which can take our input connection and create the tibble in R."
+    "text": "Text streams\n\nText streams allow for piping of data through a set of applications without writing intermediate files.\n\n\nWhat I am sure most of you will think of when you read this is the bash pipe sign.\n\n\nsamtools mpileup -uf ref.fa aln.bam | bcftools call -mv | myPythonscript.py | myRscript.R &gt; variants.vcf\n\nSo how does R handle taking input piped to it. And the answer is that we have to write some special code if this is the use case.\n\n\n\nReading\n\nTo define and open a connection, read one line, and close it:\n\n\ninput_con  &lt;- file(\"stdin\")\nopen(input_con)\noneline=readLines(input_con, n = 1)\nclose(input_con)\n\n\nTidyverse can read a tibble from text stream: read_csv(file(\"stdin\"))\n\n\nWhat we do is open a connection from standard input and then read this text stream for n number of lines at a time. It is also good to close this connection afterwards.\nAlternatively you can read a text stream into a tibble from tidyverse by using read_csv, note that it isnt read.csv the generic R command, which can take our input connection and create the tibble in R."
   },
   {
     "objectID": "slides/scripting/index.html#text-streams-1",
     "href": "slides/scripting/index.html#text-streams-1",
     "title": "Functions and scripts",
     "section": "Text streams",
-    "text": "Text streams\nWriting\n\nAny stdout produced by the code (print(), cat(), etc) can be piped to a new process: ...myRscript.R | myNewScript\n\n\nWhat about piping from your R script to something else? Continuing the stream? So just writing these commands. print, cat etc, can be piped to a new process.\n\n. . .\n\nor written to a file: ...myRscript.R &gt; output.csv\n\n. . .\n\nTo write a tibble as a text stream: cat(format_csv(my_tibble))\n\n\nIf you already have a tibble, you can stream it out of R using this command."
+    "text": "Text streams\nWriting\n\nAny stdout produced by the code (print(), cat(), etc) can be piped to a new process: ...myRscript.R | myNewScript\nor written to a file: ...myRscript.R &gt; output.csv\nTo write a tibble as a text stream: cat(format_csv(my_tibble))\n\n\nWhat about piping from your R script to something else? Continuing the stream? So just writing these commands. print, cat etc, can be piped to a new process.\nIf you already have a tibble, you can stream it out of R using this command."
   },
   {
     "objectID": "slides/scripting/index.html#summary",
@@ -2881,7 +2881,7 @@
     "href": "slides/scripting/index.html#section-1",
     "title": "Functions and scripts",
     "section": "",
-    "text": "Thank you! Questions?\n\n\n         _                        \nplatform x86_64-apple-darwin22.4.0\nos       darwin22.4.0             \nmajor    4                        \nminor    3.0                      \n\n\n2023 • SciLifeLab • NBIS • RaukR"
+    "text": "Thank you! Questions?\n\n\n         _                     \nplatform aarch64-apple-darwin20\nos       darwin20              \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
   },
   {
     "objectID": "slides/shiny/index.html#contents",
@@ -3498,5 +3498,26 @@
     "title": "Plotting with ggplot2",
     "section": "Professional themes",
     "text": "Professional themes\n\n\nHow BBC works with R graphics"
+  },
+  {
+    "objectID": "slides/scripting/index.html#parsing-arguments---positional",
+    "href": "slides/scripting/index.html#parsing-arguments---positional",
+    "title": "Functions and scripts",
+    "section": "Parsing arguments - Positional",
+    "text": "Parsing arguments - Positional\nExample: ./myscript.R inputfile.vcf outputfile.vcf\n\ncommandArgs()\n\nUse commandArgs() to capture whatever was passed into R as it was executed. To be clear; this is a command that is within the Rscript file.\n\n\ntrailingOnly = TRUE\n\nAdd trailingOnly = TRUE to suppress the first few items and get the arguments you passed to the script.\n\nA standard arg, but not default, that you can use when invoking commandArgs() is trailingOnly = TRUE, which basically tells it to start counting the input from after the Rscript arguments. As you can see here when we invoke it without this parameter it returns the script itself, in this case R studio. But with it the invocation is clear, there were no trailing command line arguments.\n\n\n\n\ncommandArgs()\n\n[1] \"/Library/Frameworks/R.framework/Resources/bin/exec/R\"\n[2] \"--no-echo\"                                           \n[3] \"--no-restore\"                                        \n[4] \"--file=/Applications/quarto/share/rmd/rmd.R\"         \n\n\n\ncommandArgs(trailingOnly = TRUE)\n\ncharacter(0)"
+  },
+  {
+    "objectID": "slides/scripting/index.html#parsing-arguments---flags",
+    "href": "slides/scripting/index.html#parsing-arguments---flags",
+    "title": "Functions and scripts",
+    "section": "Parsing arguments - Flags",
+    "text": "Parsing arguments - Flags\nExample: ./myscript.R --input inputfile.vcf --output outputfile.vcf\n\nSo how do we do it with flags?\n\n\n\nSeveral packages are available: getopt, optparse, argparser, …\n\n\n\nDefine set of possible arguments at start of script:\n\nlibrary(optparse)\nmy_options = list(\n  make_option(c(\"-i\", \"--inputfile\"), default='variants.vcf'),\n  make_option(c(\"-o\", \"--outputfile\"), default='variants_filtered.vcf')\n)\n\n\nIf we use optparse as an example you create your options using the make_option command, and can set default values. We see also that you can give both long and short form here.\n\n\n\nParse arguments using your definition:\n\nparse_args(OptionParser(option_list=my_options))\n\n$inputfile\n[1] \"variants.vcf\"\n\n$outputfile\n[1] \"variants_filtered.vcf\"\n\n$help\n[1] FALSE\n\n\n\nAnd then you use the my_options object we defined together with parse_args and OptionParser to check our input for those flags We also see an option, help, that we did not make, this is a standard flag that optparse always looks for and can generate what arguments it is looking for."
+  },
+  {
+    "objectID": "slides/scripting/index.html#reading",
+    "href": "slides/scripting/index.html#reading",
+    "title": "Functions and scripts",
+    "section": "Reading",
+    "text": "Reading\n\nTo define and open a connection, read one line, and close it:\n\n\ninput_con  &lt;- file(\"stdin\")\nopen(input_con)\noneline=readLines(input_con, n = 1)\nclose(input_con)\n\n\nWhat we do is open a connection from standard input and then read this text stream for n number of lines at a time. It is also good to close this connection afterwards.\n\n\n\nTidyverse can read a tibble from text stream: read_csv(file(\"stdin\"))\n\n\nAlternatively you can read a text stream into a tibble from tidyverse by using read_csv, note that it isnt read.csv the generic R command, which can take our input connection and create the tibble in R."
   }
 ]
