@@ -323,9 +323,9 @@ Alternatively you can read a text stream into a **tibble** from tidyverse by usi
 
 #### Writing
 
-- Any `stdout` produced by the code (`print()`, `cat()`, etc) can be piped to a new process: `...myRscript.R | myNewScript`
+- Any `stdout` produced by the code (`print()`, `cat()`, etc) can be piped to a new process: `./myRscript.R | myNewScript`
 
-- or written to a file: `...myRscript.R > output.csv`
+- or written to a file: `./myRscript.R > output.csv`
 
 - To write a `tibble` as a text stream: `cat(format_csv(my_tibble))`
 
