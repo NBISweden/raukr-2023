@@ -149,4 +149,4 @@ Using futures on HPC clusters with [future.batchtools](https://github.com/Henrik
 
 Using futures for your `lapply` statements with [future.apply](https://github.com/HenrikBengtsson/future.apply).
 
-The recently published paper on [future](https://journal.r-project.org/archive/2021/RJ-2021-048/RJ-2021-048.pdf).
+The published paper on [future](https://journal.r-project.org/archive/2021/RJ-2021-048/RJ-2021-048.pdf).

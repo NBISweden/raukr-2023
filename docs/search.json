@@ -417,7 +417,7 @@
     "href": "labs/parallelization/index.html#recommended-further-reading",
     "title": "Parallelization",
     "section": "4 Recommended further reading",
-    "text": "4 Recommended further reading\nCheck out futures demo visualization of sequential vs multicore/session.\nUsing futures on HPC clusters with future.batchtools.\nUsing futures for your lapply statements with future.apply.\nThe recently published paper on future."
+    "text": "4 Recommended further reading\nCheck out futures demo visualization of sequential vs multicore/session.\nUsing futures on HPC clusters with future.batchtools.\nUsing futures for your lapply statements with future.apply.\nThe published paper on future."
   },
   {
     "objectID": "labs/publishing/index.html",
