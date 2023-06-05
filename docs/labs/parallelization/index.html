@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.340">
+<meta name="generator" content="quarto-1.3.361">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -92,7 +92,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
@@ -182,7 +183,7 @@ background-size: cover;
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">13-Mar-2023</p>
+        <p class="date">05-Jun-2023</p>
       </div>
     </div>
     
@@ -239,7 +240,7 @@ Note
 </section>
 <section id="exercises" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="exercises"><span class="header-section-number">2</span> Exercises</h2>
-<p>The basic construct for a future looks like this:</p>
+<p>The basic construct for a future is this:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">%&lt;-%</span> { <span class="fu">expression</span>(s) }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -256,9 +257,13 @@ Note
 <section id="sequential-and-multi-" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="sequential-and-multi-"><span class="header-section-number">2.1</span> Sequential and Multi-</h3>
 <ul>
-<li><p>Use the future package with <code>plan(sequential)</code>,which is the default, and run the supplied <code>sample()</code> inside a future.</p></li>
-<li><p>Due to a recent change in future, there is a warning message when generating random numbers without seed. We can ignore this by changing our options: <code>options(future.rng.onMisuse="ignore")</code>.</p></li>
-<li><p>Add an approach from yesterdays lecture on benchmarking or some other way that you are comfortable with to calculate the time it takes to complete the operation of simply assigning the future. Do not evaluate the future yet by asking for the outcome value.</p></li>
+<li>Use the future package with <code>plan(sequential)</code>,which is the default, and run the supplied <code>sample()</code> inside a future.</li>
+</ul>
+<!--
+- Due to a recent change in future, there is a warning message when generating random numbers without seed. We can ignore this by changing our options: `options(future.rng.onMisuse="ignore")`.
+-->
+<ul>
+<li>Add an approach from yesterdays lecture on benchmarking or some other way that you are comfortable with to calculate the time it takes to complete the operation of simply assigning the future. Do not evaluate the future yet by asking for the outcome value.</li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -273,8 +278,8 @@ Note
 <p>You should not attempt to calculate times taken within the future, always wrap this around futures.</p>
 </div>
 </div>
-<p><strong>Question 1:</strong> Split your sampling into multiple futures and compute the time again. Did it complete faster?</p>
-<p><strong>Question 2:</strong> Change to <code>plan(multisession)</code> or <code>plan(multicore)</code> according to your setup (operating system type, RStudio or just console). Compute the time again for your multiple futures. Did it complete faster? Think about what the time it takes to compute implies.</p>
+<p><strong>Question 1:</strong> Split your sampling into multiple futures and compute the time again. Did it complete faster? <!-- No, because we are on plan sequential --></p>
+<p><strong>Question 2:</strong> Change to <code>plan(multisession)</code> or <code>plan(multicore)</code> according to your setup (operating system type, RStudio or just console). Compute the time again for your multiple futures. Did it complete faster? Think about what the time it takes to compute implies. <!-- No. Because we are just sending out the futures. Not resolving them. --></p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -285,10 +290,10 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>I was having some issues with plan(multisession) in Rstudio. If this happens, you might want to just start R console from a terminal window.</p>
+<p>Sometimes there are issues running <code>plan(multicore)</code> and even <code>plan(multisession)</code> in Rstudio. If this happens, you might want to just start R console from a terminal window.</p>
 </div>
 </div>
-<p><strong>Question 3:</strong> Ask for the outcome of your futures after their definitions, thus evaluating them. How does this influence the time it takes to perform the operations?</p>
+<p><strong>Question 3:</strong> Ask for the outcome of your futures after their definitions, thus evaluating them. How does this influence the time it takes to perform the operations? <!-- It increases the time because of the unblocked R process. In this case it is actually measuring the time until resolved while in the previous question it is just measuring the time to send out the futures.--></p>
 <p>At this stage your code should, in <strong>pseudocode</strong>, look something like this:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(multisession)</span>
@@ -300,16 +305,14 @@ Note
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  a <span class="sc">+</span> b</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>Question 4:</strong> If you have more than two <code>availableCores()</code>, split the <code>sample()</code> expression to even more futures . Does this influence time to complete in the manner you thought?</p>
+<p><strong>Question 4:</strong> If you have more than two <code>availableCores()</code>, split the <code>sample()</code> expression to even more futures . Does this influence time to complete in the manner you thought? <!-- This should slightly lower compute time, but probably not quite as much as some would think. Bigger influence for larger processes as here other surrounding operations use a bit of the time. --></p>
 </section>
 <section id="errors" class="level3" data-number="2.2">
 <h3 data-number="2.2" class="anchored" data-anchor-id="errors"><span class="header-section-number">2.2</span> Errors</h3>
 <ul>
 <li>Introduce an error in one of your future expressions.</li>
 </ul>
-<p><strong>Question 5:</strong> Does the error output when the future is defined and unresolved, or when it is resolved?</p>
-<p><strong>Question 6:</strong> What happens when you try to use that future later in your code?</p>
-<p><strong>Question 7:</strong> Can you perform other operations between defining your future and evaluating your future?</p>
+<p><strong>Question 5:</strong> Does the error output when the future is defined and unresolved, or when it is resolved? <!-- This depends on the type of error, but usually it shows when it is resolved--></p>
 <p><a href="https://github.com/HenrikBengtsson/future#failed-futures">Further reading about errors and debugging for futures.</a></p>
 </section>
 <section id="for-loops" class="level3" data-number="2.3">
@@ -593,7 +596,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-center">
       &nbsp;
     </div>
-    <div class="nav-footer-right">Published with <a href="https://quarto.org/">Quarto</a> v1.3.340</div>
+    <div class="nav-footer-right">Published with <a href="https://quarto.org/">Quarto</a> v1.3.361</div>
   </div>
 </footer>
 
