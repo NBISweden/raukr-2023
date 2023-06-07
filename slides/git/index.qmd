@@ -1,0 +1,90 @@
+---
+title: "git and R"
+author: "Sebastian DiLorenzo"
+image: "assets/featured.jpg"
+format: revealjs
+---
+
+## Overview
+
+<!-- 
+Outline:
+What is git and what is it good for?
+Set-up (do together or leave for lab? Many people probably already have git setup on their machines...)
+Using git for yourself
+Using git with Rstudio
+Using git with others
+Using github actions
+-->
+
+:::: {.columns}
+::: {.column width="60%"}
+- git basics
+- git and Rstudio
+- git for yourself
+- git with github and others people
+- github actions
+:::
+
+::: {.column width="40%"}
+![](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png){width="300px"}
+:::
+::::
+
+::: notes
+:::
+
+
+## Overview
+
+:::: {.columns}
+::: {.column width="60%"}
+- git basics
+- git and Rstudio
+- git for yourself
+- git with github and others people
+- github actions
+:::
+
+::: {.column width="40%"}
+![](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png){width="300px"}
+![](https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png){width="300px"}
+:::
+::::
+
+## Git
+
+```{r}
+
+```
+
+::: notes
+Git is version control. What does that mean? It means it tracks changes for all files in a repository, which you can think of as a collection of files.
+This is not the only way to get version control of your files.
+:::
+
+## Project setup
+
+::: notes
+1. Create a folder.
+2. Make it a Rstudio project.
+3. Make it a git repository
+:::
+
+## Github
+
+::: notes
+Github is the hosting service that allows for syncing your work with other people, in private work groups or in open access collaboration.
+The nice thing about having work on github is also that if something really breaks in your local git repo you can always delete it and download a fresh copy off github.
+:::
+
+##  {background-image="../../assets/images/cover.jpg"}
+
+### Thank you! Questions?
+
+```{r}
+#| echo: false
+R.version[c("platform","os","major","minor")]
+```
+
+[2023 • [SciLifeLab](https://www.scilifelab.se/) • [NBIS](https://nbis.se/) • [RaukR](https://nbisweden.github.io/workshop-RaukR-2306/)]{.smaller}

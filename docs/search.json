@@ -3519,5 +3519,40 @@
     "title": "Functions and scripts",
     "section": "Reading",
     "text": "Reading\n\nTo define and open a connection, read one line, and close it:\n\n\ninput_con  &lt;- file(\"stdin\")\nopen(input_con)\noneline=readLines(input_con, n = 1)\nclose(input_con)\n\n\nWhat we do is open a connection from standard input and then read this text stream for n number of lines at a time. It is also good to close this connection afterwards.\n\n\n\nTidyverse can read a tibble from text stream: read_csv(file(\"stdin\"))\n\n\nAlternatively you can read a text stream into a tibble from tidyverse by using read_csv, note that it isnt read.csv the generic R command, which can take our input connection and create the tibble in R."
+  },
+  {
+    "objectID": "slides/git/index.html#overview",
+    "href": "slides/git/index.html#overview",
+    "title": "git and R",
+    "section": "Overview",
+    "text": "Overview\n\n\n\n\ngit basics\ngit and Rstudio\ngit for yourself\ngit with github and others people\ngithub actions"
+  },
+  {
+    "objectID": "slides/git/index.html#title",
+    "href": "slides/git/index.html#title",
+    "title": "git and R",
+    "section": "Title",
+    "text": "Title"
+  },
+  {
+    "objectID": "slides/git/index.html#section-1",
+    "href": "slides/git/index.html#section-1",
+    "title": "git and R",
+    "section": "",
+    "text": "Thank you! Questions?\n\n\n         _                        \nplatform x86_64-apple-darwin22.4.0\nos       darwin22.4.0             \nmajor    4                        \nminor    3.0                      \n\n\n2023 • SciLifeLab • NBIS • RaukR"
+  },
+  {
+    "objectID": "slides/git/index.html#section",
+    "href": "slides/git/index.html#section",
+    "title": "git and R",
+    "section": "",
+    "text": "Thank you! Questions?\n\n\n         _                        \nplatform x86_64-apple-darwin22.4.0\nos       darwin22.4.0             \nmajor    4                        \nminor    3.0                      \n\n\n2023 • SciLifeLab • NBIS • RaukR"
+  },
+  {
+    "objectID": "slides/git/index.html#overview-1",
+    "href": "slides/git/index.html#overview-1",
+    "title": "git and R",
+    "section": "Overview",
+    "text": "Overview\n\n\n\ngit basics\ngit and Rstudio\ngit for yourself\ngit with github and others people\ngithub actions"
   }
 ]

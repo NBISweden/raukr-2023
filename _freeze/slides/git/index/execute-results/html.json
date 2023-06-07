@@ -1,0 +1,18 @@
+{
+  "hash": "b77c218d0d4c0fa0f96093b41133cdd1",
+  "result": {
+    "markdown": "---\ntitle: \"git and R\"\nauthor: \"Sebastian DiLorenzo\"\nimage: \"assets/featured.jpg\"\nformat: revealjs\n---\n\n\n## Overview\n\n<!-- \nOutline:\nWhat is git and what is it good for?\nSet-up (do together or leave for lab? Many people probably already have git setup on their machines...)\nUsing git for yourself\nUsing git with Rstudio\nUsing git with others\nUsing github actions\n-->\n\n:::: {.columns}\n::: {.column width=\"60%\"}\n- git basics\n- git and Rstudio\n- git for yourself\n- git with github and others people\n- github actions\n:::\n\n::: {.column width=\"40%\"}\n![](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png){width=\"300px\"}\n:::\n::::\n\n::: notes\n:::\n\n\n## Overview\n\n:::: {.columns}\n::: {.column width=\"60%\"}\n- git basics\n- git and Rstudio\n- git for yourself\n- git with github and others people\n- github actions\n:::\n\n::: {.column width=\"40%\"}\n![](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png){width=\"300px\"}\n![](https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png){width=\"300px\"}\n:::\n::::\n\n## Title\n\n\n::: {.cell}\n\n:::\n\n\n::: notes\n:::\n\n##  {background-image=\"../../assets/images/cover.jpg\"}\n\n### Thank you! Questions?\n\n\n::: {.cell}\n::: {.cell-output .cell-output-stdout}\n```\n         _                        \nplatform x86_64-apple-darwin22.4.0\nos       darwin22.4.0             \nmajor    4                        \nminor    3.0                      \n```\n:::\n:::\n\n\n[2023 • [SciLifeLab](https://www.scilifelab.se/) • [NBIS](https://nbis.se/) • [RaukR](https://nbisweden.github.io/workshop-RaukR-2306/)]{.smaller}",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {
+      "include-after-body": [
+        "\n<script>\n  // htmlwidgets need to know to resize themselves when slides are shown/hidden.\n  // Fire the \"slideenter\" event (handled by htmlwidgets.js) when the current\n  // slide changes (different for each slide format).\n  (function () {\n    // dispatch for htmlwidgets\n    function fireSlideEnter() {\n      const event = window.document.createEvent(\"Event\");\n      event.initEvent(\"slideenter\", true, true);\n      window.document.dispatchEvent(event);\n    }\n\n    function fireSlideChanged(previousSlide, currentSlide) {\n      fireSlideEnter();\n\n      // dispatch for shiny\n      if (window.jQuery) {\n        if (previousSlide) {\n          window.jQuery(previousSlide).trigger(\"hidden\");\n        }\n        if (currentSlide) {\n          window.jQuery(currentSlide).trigger(\"shown\");\n        }\n      }\n    }\n\n    // hookup for slidy\n    if (window.w3c_slidy) {\n      window.w3c_slidy.add_observer(function (slide_num) {\n        // slide_num starts at position 1\n        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);\n      });\n    }\n\n  })();\n</script>\n\n"
+      ]
+    },
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
