@@ -39,7 +39,7 @@
     "href": "index.html#raukr-summer-school-2023",
     "title": "",
     "section": "RaukR • Summer School 2023",
-    "text": "RaukR • Summer School 2023\n\nAdvanced R for Bioinformatics\n\n11-22 June 2023, Visby, Gotland, Sweden.\n\nIn Life Sciences and Bioinformatics, R programming language is increasingly being used to transform and analyse data, perform statistical analysis and produce publication-ready visualisations. This workshop aims to take the participants beyond the basics of R to a deeper and comprehensive understanding of the R ecosystem.\nThis workshop aims to take the participants beyond the basics of R to a deeper and comprehensive understanding of the R ecosystem.\n   \n\n\nUpdated: 08-06-2023 at 10:20:22."
+    "text": "RaukR • Summer School 2023\n\nAdvanced R for Bioinformatics\n\n11-22 June 2023, Visby, Gotland, Sweden.\n\nIn Life Sciences and Bioinformatics, R programming language is increasingly being used to transform and analyse data, perform statistical analysis and produce publication-ready visualisations. This workshop aims to take the participants beyond the basics of R to a deeper and comprehensive understanding of the R ecosystem.\nThis workshop aims to take the participants beyond the basics of R to a deeper and comprehensive understanding of the R ecosystem.\n   \n\n\nUpdated: 08-06-2023 at 10:57:12."
   },
   {
     "objectID": "labs/coding/index.html",
@@ -1351,25 +1351,11 @@
     "text": "Graphs\nGraphing is an essential part of data analyses. Data with same summary statistics can look very different when plotted out.\n\n\n\n\n\n\n\n\n\n\nSummary statistics do not always reflect how the data looks like.\n\nAnscombe’s quartet comprises four data sets that have nearly identical simple descriptive statistics, yet have very different distributions and appear very different when graphed.\n\nA more modern example dataset is datasaurus dozen. A set of 13 xy datasets that have nearly identical summary statistics but look very different when plotted out. One of the plots is in fact a dinosaur.\n\n\n\nAnscombe’s quartet, Datasaurus"
   },
   {
-    "objectID": "slides/ggplot/index.html#graph-quality",
-    "href": "slides/ggplot/index.html#graph-quality",
-    "title": "Plotting with ggplot2",
-    "section": "3 Graph quality",
-    "text": "3 Graph quality\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSource: xkcd"
-  },
-  {
     "objectID": "slides/ggplot/index.html#r-graphics",
     "href": "slides/ggplot/index.html#r-graphics",
     "title": "Plotting with ggplot2",
     "section": "R graphics",
     "text": "R graphics\n\n\n\n\n\n\n\n\nTypical R plots with default settings in base R and ggplot2."
-  },
-  {
-    "objectID": "slides/ggplot/index.html#r-graphics-1",
-    "href": "slides/ggplot/index.html#r-graphics-1",
-    "title": "Plotting with ggplot2",
-    "section": "5 R graphics",
-    "text": "5 R graphics\n\n\n\n\n\n\nHow BBC works with R graphics"
   },
   {
     "objectID": "slides/ggplot/index.html#ggplot2-vs-base-graphics",
@@ -1505,18 +1491,11 @@
     "text": "Multiple Geoms\n\nggplot(iris,aes(x=Sepal.Length,y=Sepal.Width))+\n      geom_point()+\n      geom_line()+\n      geom_smooth()+\n      geom_rug()+\n      geom_step()+\n      geom_text(data=subset(iris,iris$Species==\"setosa\"),aes(label=Species))\n\n\n\nMultiple geoms can be plotted one after the other. The order in which items are specified in the command dictates the plotting order on the actual plot.\nIn this case, the points appear over the lines.\nggplot(iris,aes(x=Sepal.Length,y=Sepal.Width))+\n      geom_point()+\n      geom_line()+\nwhile here the lines appear above the points.\nggplot(iris,aes(x=Sepal.Length,y=Sepal.Width))+\n      geom_line()+\n      geom_point()+\nEach geom takes input from ggplot() inputs. If extra input is required to a geom, it can be specified additionally inside aes().\ndata can be changed if needed for specific geoms."
   },
   {
-    "objectID": "slides/ggplot/index.html#section-1",
-    "href": "slides/ggplot/index.html#section-1",
+    "objectID": "slides/ggplot/index.html#section",
+    "href": "slides/ggplot/index.html#section",
     "title": "Plotting with ggplot2",
     "section": "",
-    "text": "Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
-  },
-  {
-    "objectID": "slides/ggplot/index.html#scales",
-    "href": "slides/ggplot/index.html#scales",
-    "title": "Plotting with ggplot2",
-    "section": "27 Scales",
-    "text": "27 Scales"
+    "text": "Just because you can doesn’t mean you should!"
   },
   {
     "objectID": "slides/ggplot/index.html#scales-discrete-colors",
@@ -1547,13 +1526,6 @@
     "text": "Scales • Axes\n\nscales: x, y\nsyntax: scale_&lt;axis&gt;_&lt;type&gt;\narguments: name, limits, breaks, labels\n\n\n\n\n\np &lt;- ggplot(iris)+geom_point(\n  aes(x=Sepal.Length,y=Sepal.Width))\np\n\n\n\n\n\n\np + scale_x_continuous(name=\"Sepal Length\",\n        breaks=seq(1,8),limits=c(3,5))\n\n\n\n\n\n\n\nThe x and y axes are also controlled by scales. The axis break points, the break point text and limits are controlled through scales.\nWhen setting limits using scale_, the data outside the limits are dropped. Limits can also be set using lims(x=c(3,5)) or xlim(c(3,5)). When mapping, coord_map() or coord_cartesian() is recommended for setting limits."
   },
   {
-    "objectID": "slides/ggplot/index.html#facets",
-    "href": "slides/ggplot/index.html#facets",
-    "title": "Plotting with ggplot2",
-    "section": "32 Facets",
-    "text": "32 Facets"
-  },
-  {
     "objectID": "slides/ggplot/index.html#facets-facet_wrap",
     "href": "slides/ggplot/index.html#facets-facet_wrap",
     "title": "Plotting with ggplot2",
@@ -1568,13 +1540,6 @@
     "text": "Facets • facet_grid\n\n\n\nFaceting in two dimensions\n\n\np &lt;- diamonds %&gt;%\n     ggplot(aes(carat,price))+\n     geom_point()\np + facet_grid(~cut+clarity)\n\n\n\n\n\n\np + facet_grid(cut~clarity)\n\n\n\n\n\n\n\nfacet_grid is also used to split a plot into subplots based on the categories in one or more variables. facet_grid can be used to create a matrix-like grid of two variables."
   },
   {
-    "objectID": "slides/ggplot/index.html#coordinates",
-    "href": "slides/ggplot/index.html#coordinates",
-    "title": "Plotting with ggplot2",
-    "section": "35 Coordinates",
-    "text": "35 Coordinates"
-  },
-  {
     "objectID": "slides/ggplot/index.html#coordinate-systems",
     "href": "slides/ggplot/index.html#coordinate-systems",
     "title": "Plotting with ggplot2",
@@ -1587,13 +1552,6 @@
     "title": "Plotting with ggplot2",
     "section": "Theming",
     "text": "Theming\n\n\n\nModify non-data plot elements/appearance\nAxis labels, panel colors, legend appearance etc\n\n\nggplot(iris, aes(Petal.Length)) +\n    geom_histogram() +\n    facet_wrap(~Species, nrow = 2) +\n    theme_grey()\n\n\n\n\n\n\nSave a particular appearance for reuse\n?theme\n\n\nggplot(iris, aes(Petal.Length)) +\n    geom_histogram() +\n    facet_wrap(~Species, nrow = 2) +\n    theme_bw()\n\n\n\n\n\n\n\nThemes allow to modify all non-data related components of the plot. This is the visual appearance of the plot. Examples include the axes line thickness, the background color or font family."
-  },
-  {
-    "objectID": "slides/ggplot/index.html#theming-1",
-    "href": "slides/ggplot/index.html#theming-1",
-    "title": "Plotting with ggplot2",
-    "section": "38 Theming",
-    "text": "38 Theming\n\n\n\nModify non-data plot elements/appearance\nAxis labels, panel colors, legend appearance etc\n\n\nggplot(iris, aes(Petal.Length)) +\n    geom_histogram() +\n    facet_wrap(~Species, nrow = 2) +\n    theme_grey()\n\n\n\n\n\n\n\n\n\n\nSave a particular appearance for reuse\n?theme\n\n\nggplot(iris, aes(Petal.Length)) +\n    geom_histogram() +\n    facet_wrap(~Species, nrow = 2) +\n    theme_bw()\n\n\n\n\n\n\n\n\n\n\n\nThemes allow to modify all non-data related components of the plot. This is the visual appearance of the plot. Examples include the axes line thickness, the background color or font family."
   },
   {
     "objectID": "slides/ggplot/index.html#theme-legend",
@@ -1622,6 +1580,13 @@
     "title": "Plotting with ggplot2",
     "section": "Theme • Reuse",
     "text": "Theme • Reuse\n\nnewtheme &lt;- theme_bw() + theme(\n  axis.ticks=element_blank(), panel.background=element_rect(fill=\"white\"),\n  panel.grid.minor=element_blank(), panel.grid.major.x=element_blank(),\n  panel.grid.major.y=element_line(size=0.3,color=\"grey90\"), panel.border=element_blank(),\n  legend.position=\"top\", legend.justification=\"right\"\n)\n\n\n\n\np\n\n\n\n\n\n\np + newtheme"
+  },
+  {
+    "objectID": "slides/ggplot/index.html#professional-themes",
+    "href": "slides/ggplot/index.html#professional-themes",
+    "title": "Plotting with ggplot2",
+    "section": "Professional themes",
+    "text": "Professional themes\n\n\nHow BBC works with R graphics"
   },
   {
     "objectID": "slides/ggplot/index.html#position",
@@ -1666,11 +1631,11 @@
     "text": "Help\n\n\n\nggplot2 book\n\n\nThe R cookbook\n\n\n\n\nggplot2 official reference\n\nRStudio cheatsheet\n\nr-statistics ggplot2 cheatsheet\n\nStackOverflow\n\nBlogs, R-Bloggers, Cedric Scherer etc."
   },
   {
-    "objectID": "slides/ggplot/index.html#section-3",
-    "href": "slides/ggplot/index.html#section-3",
+    "objectID": "slides/ggplot/index.html#section-1",
+    "href": "slides/ggplot/index.html#section-1",
     "title": "Plotting with ggplot2",
-    "section": "50 ",
-    "text": "50 \n\n50.1 Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
+    "section": "",
+    "text": "Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
   },
   {
     "objectID": "slides/index.html",
@@ -3484,26 +3449,5 @@
     "title": "Vectorization in R",
     "section": "",
     "text": "Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
-  },
-  {
-    "objectID": "slides/ggplot/index.html#section",
-    "href": "slides/ggplot/index.html#section",
-    "title": "Plotting with ggplot2",
-    "section": "",
-    "text": "Just because you can doesn’t mean you should!"
-  },
-  {
-    "objectID": "slides/ggplot/index.html#section-2",
-    "href": "slides/ggplot/index.html#section-2",
-    "title": "Plotting with ggplot2",
-    "section": "49 ",
-    "text": "49"
-  },
-  {
-    "objectID": "slides/ggplot/index.html#professional-themes",
-    "href": "slides/ggplot/index.html#professional-themes",
-    "title": "Plotting with ggplot2",
-    "section": "Professional themes",
-    "text": "Professional themes\n\n\nHow BBC works with R graphics"
   }
 ]
