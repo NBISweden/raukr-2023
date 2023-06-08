@@ -103,8 +103,7 @@ str(r_vec)
 . . .
 
 ```{r}
-builtins$len(r_vec)
-builtins$max(r_vec)
+builtins$len(r_vec); builtins$max(r_vec)
 ```
 
 Python built-in functions still working on R objects

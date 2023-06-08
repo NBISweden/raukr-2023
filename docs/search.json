@@ -39,7 +39,7 @@
     "href": "index.html#raukr-summer-school-2023",
     "title": "",
     "section": "RaukR • Summer School 2023",
-    "text": "RaukR • Summer School 2023\n\nAdvanced R for Bioinformatics\n\n11-22 June 2023, Visby, Gotland, Sweden.\n\nIn Life Sciences and Bioinformatics, R programming language is increasingly being used to transform and analyse data, perform statistical analysis and produce publication-ready visualisations. This workshop aims to take the participants beyond the basics of R to a deeper and comprehensive understanding of the R ecosystem.\nThis workshop aims to take the participants beyond the basics of R to a deeper and comprehensive understanding of the R ecosystem.\n   \n\n\nUpdated: 23-05-2023 at 14:40:01."
+    "text": "RaukR • Summer School 2023\n\nAdvanced R for Bioinformatics\n\n11-22 June 2023, Visby, Gotland, Sweden.\n\nIn Life Sciences and Bioinformatics, R programming language is increasingly being used to transform and analyse data, perform statistical analysis and produce publication-ready visualisations. This workshop aims to take the participants beyond the basics of R to a deeper and comprehensive understanding of the R ecosystem.\nThis workshop aims to take the participants beyond the basics of R to a deeper and comprehensive understanding of the R ecosystem.\n   \n\n\nUpdated: 08-06-2023 at 10:20:22."
   },
   {
     "objectID": "labs/coding/index.html",
@@ -459,28 +459,28 @@
     "href": "labs/reticulate/index.html",
     "title": "reticulate",
     "section": "",
-    "text": "Note\n\n\n\nThese are exercises for practicing to use the reticulate package in R. Try to do the exercises yourself before looking at the answers. Some sections have more pure Python code than others, if you feel that your Python skills are rusty, feel free to look at the answers and try your best to follow along. We will be writing some Python code chunks, so use R Markdown for this exercise."
+    "text": "Note\n\n\n\nThese are exercises for practicing to use the reticulate package in R. Try to do the exercises yourself before looking at the answers. Some sections have more pure Python code than others, if you feel that your Python skills are rusty, feel free to look at the answers and try your best to follow along. We will be writing some Python code chunks, so use R Markdown for this exercise.\nPlease download the following file and unzip the contents before the lab. Note that this link will be inactive in 30 days.\n raukr-reticulate.zip"
   },
   {
     "objectID": "labs/reticulate/index.html#setup",
     "href": "labs/reticulate/index.html#setup",
     "title": "reticulate",
     "section": "1 Setup",
-    "text": "1 Setup\nLoad the following libraries else install them from CRAN.\n\nlibrary(reticulate)\nlibrary(ggplot2)\nlibrary(purrr)\nlibrary(stringr)\n\nInstall Conda if you have not already. Create and activate an environment using Conda.\n\nreticulate::install_miniconda()\nconda_create(\"raukr\", python_version = \"3.9\", packages = c(\"pandas\",\"sqlalchemy<=2.0\"))\n\n\n# activate environment\nuse_condaenv(\"raukr\", required = TRUE)\n\nTo make sure you will use the correct Python version (and the libraries associated with it), use the keyword required when starting your conda environment. The reticulate package will figure out which Python version to use, using a specified order. For more information, read the documentation for Python versions and package installation."
+    "text": "1 Setup\nLoad the following libraries else install them from CRAN.\n\nlibrary(reticulate)\nlibrary(ggplot2)\nlibrary(purrr)\nlibrary(stringr)\n\nInstall Conda if you have not already. Create and activate an environment using Conda.\n\nreticulate::install_miniconda()\nconda_create(\"raukr\", python_version = \"3.9\", packages = c(\"pandas\",\"sqlalchemy&lt;=2.0\"))\n\n\n# activate environment\nuse_condaenv(\"raukr\", required = TRUE)\n\nTo make sure you will use the correct Python version (and the libraries associated with it), use the keyword required when starting your conda environment. The reticulate package will figure out which Python version to use, using a specified order. For more information, read the documentation for Python versions and package installation."
   },
   {
     "objectID": "labs/reticulate/index.html#imdb",
     "href": "labs/reticulate/index.html#imdb",
     "title": "reticulate",
     "section": "2 IMdB",
-    "text": "2 IMdB\n\n2.1 Preparations\nThe International Movie Database is a large database containing all information about movies, TV series, actors, producers, etc, and the ratings they received. If you are not aware of it, check out their website imdb.com for more information.\nYou will be working on a smaller subset of some of the data listed, which consists of movies, ratings, and the principal actors playing in the movies. You will receive a file with python functions used to query this small database from R, where you will further process the data to answer questions related to different movies and actors. The underlying Python code uses the sqlalchemy library for querying the sqlite database.\nIn preparation for using the Python code in R, make sure that the following files are all located in your working directory:\n\nimdb.db\nmodel.py\nimdb_functions.py\n\nStart by loading all the python functions into R.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\nsource_python(\"imdb_functions.py\")\n\n\n\n\nFirst, inspect which functions got imported when you sourced your python file. You can find them in the Environment table in RStudio. Some of the functions listed are part of the SQLAlchemy package used, but one example to look at is the function get_actors().\nAs you can see, R creates a wrapper function in R, for calling the underlying Python function. This specific function takes a movie title as input, and returns the principal actors of the movie. You can further study what the function does by looking at the code in the imdb_functions.py file. You can see that it queries the database for a specific movie, and returns the principal actors in it.\n\n\n2.2 Get to know the data\nLet’s try out the get_actors() function. Get the principal actors for the movie Gattaca, and inspect the output type.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\nactors <- get_actors('Gattaca')\nstr(actors)\n\nList of 1\n $ Gattaca: chr [1:4] \"Ethan Hawke (Vincent,Jerome)\" \"Uma Thurman (Irene)\" \"Jude Law (Jerome,Eugene)\" \"Gore Vidal (Director Josef)\"\n\n\n\n\n\nNext let’s do the same with the function get_movies(). List movies that Brent Spiner has been in.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\nmovies <- get_movies('Brent Spiner')\nstr(movies)\n\nList of 1\n $ Brent Spiner: chr [1:3] \"Star Trek: First Contact\" \"Star Trek: Insurrection\" \"Star Trek: Nemesis\"\n\n\n\n\n\nFor printing some basic information about a movie, without saving anything to an R object, use the print_movie_info function. Here, find out information about the Avengers movies.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\nprint_movie_info('Avengers')\n\n\n\n\nCapture the output from the previous function and save it as a variable.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\noutput <- py_capture_output(print_movie_info('Avengers'))\ncat(output)\n\nTitle:  The Avengers\nYear:  1998\nRuntime (min):  89\nGenres:  Action,Adventure,Sci-Fi\nAverage rating:  3.8\nNumber of votes:  41414 \n\nTitle:  The Avengers\nYear:  2012\nRuntime (min):  143\nGenres:  Action,Adventure,Sci-Fi\nAverage rating:  8.0\nNumber of votes:  1283281 \n\nTitle:  Avengers: Age of Ultron\nYear:  2015\nRuntime (min):  141\nGenres:  Action,Adventure,Sci-Fi\nAverage rating:  7.3\nNumber of votes:  769172 \n\nTitle:  Avengers: Infinity War\nYear:  2018\nRuntime (min):  149\nGenres:  Action,Adventure,Sci-Fi\nAverage rating:  8.4\nNumber of votes:  881191 \n\nTitle:  Avengers: Endgame\nYear:  2019\nRuntime (min):  181\nGenres:  Action,Adventure,Drama\nAverage rating:  8.4\nNumber of votes:  880234 \n\n\n\n\n\nInspect the types of the variables actors and movies. What type are they? What type where they converted from in Python?\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\nstr(actors)\nstr(movies)\n\n# Both are of the R type `named list`, which is the type a Python `dictionary` gets converted to/from.\n\nList of 1\n $ Gattaca: chr [1:4] \"Ethan Hawke (Vincent,Jerome)\" \"Uma Thurman (Irene)\" \"Jude Law (Jerome,Eugene)\" \"Gore Vidal (Director Josef)\"\nList of 1\n $ Brent Spiner: chr [1:3] \"Star Trek: First Contact\" \"Star Trek: Insurrection\" \"Star Trek: Nemesis\"\n\n\n\n\n\nSource the python file again, but set convert=FALSE. What are the types now?\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\nsource_python(\"imdb_functions.py\", convert = FALSE)\n\nactors <- get_actors('Gattaca')\nclass(actors)\n\nmovies <- get_movies('Brent Spiner')\nclass(movies)\n\n# Now actors and movies are both of the python type dictionary\n\n[1] \"python.builtin.dict\"   \"python.builtin.object\"\n[1] \"python.builtin.dict\"   \"python.builtin.object\"\n\n\n\n\n\nConvert the types manually back to R types.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\nactors.r <- py_to_r(actors)\nstr(actors.r)\n\nmovies.r <- py_to_r(movies)\nstr(movies.r)\n\nList of 1\n $ Gattaca: chr [1:4] \"Ethan Hawke (Vincent,Jerome)\" \"Uma Thurman (Irene)\" \"Jude Law (Jerome,Eugene)\" \"Gore Vidal (Director Josef)\"\nList of 1\n $ Brent Spiner: chr [1:3] \"Star Trek: First Contact\" \"Star Trek: Insurrection\" \"Star Trek: Nemesis\"\n\n\n\n\n\n\n\n2.3 Working with Dataframes\nIn the following sections we will be working with pandas dataframes in R. The answers we show will mostly be using the Python pandas library from R, but there are of course pure R ways of doing the following exercises once we have converted the output from the python functions. You are free to choose how you solve the following exercises, either only python in R, a mix, or pure R. But we encourage you to mix, as you will then practice the type conversions and usages of the reticulate library, especially for those of you that are more fluent in Python.\n\n2.3.1 The highest ranked movie\nThe function get_all_movies() from the file imdb_functions.py can be used to retrieve all movies, either within a specified time period, or all of the movies in the database. If the imported function has a docstring, you can view the help documentation with:\n\npy_help(get_all_movies)\n\nStart by importing all movies into a pandas dataframe, by sourcing the python functions into R. Do not convert the result into an R dataframe.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\nsource_python(\"imdb_functions.py\", convert = FALSE)\nmovies_py <- get_all_movies()\nclass(movies_py)\n\n[1] \"pandas.core.frame.DataFrame\"        \"pandas.core.generic.NDFrame\"       \n[3] \"pandas.core.base.PandasObject\"      \"pandas.core.accessor.DirNamesMixin\"\n[5] \"pandas.core.indexing.IndexingMixin\" \"pandas.core.arraylike.OpsMixin\"    \n[7] \"python.builtin.object\"             \n\n\n\n\n\nInspecting the movies_py variable we can see that it is of the type pandas.dataframe.\nNow we are ready to answer our first question:\n\nWhich movie/movies are the highest ranked of all times?\n\nWe will try to answer this with a pandas method directly in a Python chunk. To do this we first have to make our movies_py variable visible to Python. Even though it is a Python object, since it was created within a R code chunk, Python code chunks cannot directly access them. To make R variables accessible in Python code chunks we use the r object. Remember that to access a Python variable from R, we used py$, to do the opposite we use r.. The $ and the . denotes the different ways in which Python and R represents methods.\nUse the method .max() from the pandas module to find and filter out the top movie/movies.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\n# the code below is python code written in a python code chunk\nmovies = r.movies_py\n\n# inspect what columns are present\nmovies.columns\n\n# find movies that has the highest averageRating\ntop_movies = movies[movies.averageRating == movies.averageRating.max()]\n\ntop_movies['primaryTitle']\n\nIndex(['id', 'tconst', 'titleType', 'primaryTitle', 'originalTitle',\n       'startYear', 'endYear', 'runtimeMinutes', 'genres', 'averageRating',\n       'numVotes'],\n      dtype='object')\n3822    The Shawshank Redemption\n5450             The Chaos Class\nName: primaryTitle, dtype: object\n\n\n\n\n\nAbove we are using pure pandas code directly in our RMarkdown document.\nAfter dipping our toes in Python territory, we now go back to using normal R chunks:\nSave top_movies as an R object, and find out from what years these movies are, and how many votes they got.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\nmovies_r <- py$top_movies\ndf <- data.frame(movies_r$primaryTitle, movies_r$startYear, movies_r$numVotes)\ndf\n\n\n\n\n\nmovies_r.primaryTitle\nmovies_r.startYear\nmovies_r.numVotes\n\n\n\n\nThe Shawshank Redemption\n1994\n2399394\n\n\nThe Chaos Class\n1975\n38290\n\n\n\n\n\n\nSo the answer to which are the highest ranked movies of all times is The Shawshank Redemption and The Chaos Class. Although, The Chaos Class did not get as many votes as The Shawshank Redemption.\n\n\n\n\n\n2.3.2 Average ratings over time\nNext we want to explore how the average ratings for movies has changed over time. This one we will solve in normal R chunks, by importing the required python functions from the file imdb_functions.py, and also load pandas into R. As we will be using pandas in R, import the Python file without converting it.\nGet all movies and save into a pandas dataframe.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\nsource_python(\"imdb_functions.py\", convert = FALSE)\nmovies_py <- get_all_movies()\nclass(movies_py)\n\n\n\n\nImport pandas into R\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\npandas <- import(\"pandas\")\n\n\n\n\nUse pandas to group the data by startYear, and calculate the average ratings. Next, convert the result back into an R dataframe.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\n# use pandas to group columns by startYear\nmovies_grouped <- movies_py$groupby('startYear')['averageRating']$mean()\n\n# convert the pandas dataframe to r dataframe\nmovies_grouped_r <- py_to_r(movies_grouped)\nmovies_grouped_r <- as.data.frame(movies_grouped_r)\nstr(movies_grouped_r)\n\n'data.frame':   105 obs. of  1 variable:\n $ movies_grouped_r: num  6.3 7.7 7.3 7.42 8 ...\n\n\n\n\n\nIn this case the conversion seems to have done something to our columns. To fix this, add startYear column back into the dataframe, using R.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\n# add Year column back to dataframe, and rename columns\nmovies_grouped_r <- cbind(rownames(movies_grouped_r), movies_grouped_r)\ncolnames(movies_grouped_r) <- c(\"startYear\",\"averageRating\")\nmovies_grouped_r[1:4,]\n\n\n\n\n\n\nstartYear\naverageRating\n\n\n\n\n1915\n1915\n6.300\n\n\n1916\n1916\n7.700\n\n\n1919\n1919\n7.300\n\n\n1920\n1920\n7.425\n\n\n\n\n\n\n\n\n\nMake sure to inspect that the dataframe looks like it is supposed to, and that the values make sense. Once we are sure we have managed to transform the data, we can proceed.\nPlot the average ratings for each year.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\nggplot(movies_grouped_r, aes(x=startYear, y=averageRating)) + \n                              geom_point() + \n                              theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +\n                              ggtitle('Average ratings over years')"
+    "text": "2 IMdB\n\n2.1 Preparations\nThe International Movie Database is a large database containing all information about movies, TV series, actors, producers, etc, and the ratings they received. If you are not aware of it, check out their website imdb.com for more information.\nYou will be working on a smaller subset of some of the data listed, which consists of movies, ratings, and the principal actors playing in the movies. You will receive a file with python functions used to query this small database from R, where you will further process the data to answer questions related to different movies and actors. The underlying Python code uses the sqlalchemy library for querying the sqlite database.\nIn preparation for using the Python code in R, make sure that the following files are all located in your working directory:\n\nimdb.db\nmodel.py\nimdb_functions.py\n\nStart by loading all the python functions into R.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\nsource_python(\"imdb_functions.py\")\n\n\n\n\nFirst, inspect which functions got imported when you sourced your python file. You can find them in the Environment table in RStudio. Some of the functions listed are part of the SQLAlchemy package used, but one example to look at is the function get_actors().\nAs you can see, R creates a wrapper function in R, for calling the underlying Python function. This specific function takes a movie title as input, and returns the principal actors of the movie. You can further study what the function does by looking at the code in the imdb_functions.py file. You can see that it queries the database for a specific movie, and returns the principal actors in it.\n\n\n2.2 Get to know the data\nLet’s try out the get_actors() function. Get the principal actors for the movie Gattaca, and inspect the output type.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\nactors &lt;- get_actors('Gattaca')\nstr(actors)\n\nList of 1\n $ Gattaca: chr [1:4] \"Ethan Hawke (Vincent,Jerome)\" \"Uma Thurman (Irene)\" \"Jude Law (Jerome,Eugene)\" \"Gore Vidal (Director Josef)\"\n\n\n\n\n\nNext let’s do the same with the function get_movies(). List movies that Brent Spiner has been in.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\nmovies &lt;- get_movies('Brent Spiner')\nstr(movies)\n\nList of 1\n $ Brent Spiner: chr [1:3] \"Star Trek: First Contact\" \"Star Trek: Insurrection\" \"Star Trek: Nemesis\"\n\n\n\n\n\nFor printing some basic information about a movie, without saving anything to an R object, use the print_movie_info function. Here, find out information about the Avengers movies.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\nprint_movie_info('Avengers')\n\n\n\n\nCapture the output from the previous function and save it as a variable.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\noutput &lt;- py_capture_output(print_movie_info('Avengers'))\ncat(output)\n\nTitle:  The Avengers\nYear:  1998\nRuntime (min):  89\nGenres:  Action,Adventure,Sci-Fi\nAverage rating:  3.8\nNumber of votes:  41414 \n\nTitle:  The Avengers\nYear:  2012\nRuntime (min):  143\nGenres:  Action,Adventure,Sci-Fi\nAverage rating:  8.0\nNumber of votes:  1283281 \n\nTitle:  Avengers: Age of Ultron\nYear:  2015\nRuntime (min):  141\nGenres:  Action,Adventure,Sci-Fi\nAverage rating:  7.3\nNumber of votes:  769172 \n\nTitle:  Avengers: Infinity War\nYear:  2018\nRuntime (min):  149\nGenres:  Action,Adventure,Sci-Fi\nAverage rating:  8.4\nNumber of votes:  881191 \n\nTitle:  Avengers: Endgame\nYear:  2019\nRuntime (min):  181\nGenres:  Action,Adventure,Drama\nAverage rating:  8.4\nNumber of votes:  880234 \n\n\n\n\n\nInspect the types of the variables actors and movies. What type are they? What type where they converted from in Python?\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\nstr(actors)\nstr(movies)\n\n# Both are of the R type `named list`, which is the type a Python `dictionary` gets converted to/from.\n\nList of 1\n $ Gattaca: chr [1:4] \"Ethan Hawke (Vincent,Jerome)\" \"Uma Thurman (Irene)\" \"Jude Law (Jerome,Eugene)\" \"Gore Vidal (Director Josef)\"\nList of 1\n $ Brent Spiner: chr [1:3] \"Star Trek: First Contact\" \"Star Trek: Insurrection\" \"Star Trek: Nemesis\"\n\n\n\n\n\nSource the python file again, but set convert=FALSE. What are the types now?\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\nsource_python(\"imdb_functions.py\", convert = FALSE)\n\nactors &lt;- get_actors('Gattaca')\nclass(actors)\n\nmovies &lt;- get_movies('Brent Spiner')\nclass(movies)\n\n# Now actors and movies are both of the python type dictionary\n\n[1] \"python.builtin.dict\"   \"python.builtin.object\"\n[1] \"python.builtin.dict\"   \"python.builtin.object\"\n\n\n\n\n\nConvert the types manually back to R types.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\nactors.r &lt;- py_to_r(actors)\nstr(actors.r)\n\nmovies.r &lt;- py_to_r(movies)\nstr(movies.r)\n\nList of 1\n $ Gattaca: chr [1:4] \"Ethan Hawke (Vincent,Jerome)\" \"Uma Thurman (Irene)\" \"Jude Law (Jerome,Eugene)\" \"Gore Vidal (Director Josef)\"\nList of 1\n $ Brent Spiner: chr [1:3] \"Star Trek: First Contact\" \"Star Trek: Insurrection\" \"Star Trek: Nemesis\"\n\n\n\n\n\n\n\n2.3 Working with Dataframes\nIn the following sections we will be working with pandas dataframes in R. The answers we show will mostly be using the Python pandas library from R, but there are of course pure R ways of doing the following exercises once we have converted the output from the python functions. You are free to choose how you solve the following exercises, either only python in R, a mix, or pure R. But we encourage you to mix, as you will then practice the type conversions and usages of the reticulate library, especially for those of you that are more fluent in Python.\n\n2.3.1 The highest ranked movie\nThe function get_all_movies() from the file imdb_functions.py can be used to retrieve all movies, either within a specified time period, or all of the movies in the database. If the imported function has a docstring, you can view the help documentation with:\n\npy_help(get_all_movies)\n\nStart by importing all movies into a pandas dataframe, by sourcing the python functions into R. Do not convert the result into an R dataframe.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\nsource_python(\"imdb_functions.py\", convert = FALSE)\nmovies_py &lt;- get_all_movies()\nclass(movies_py)\n\n[1] \"pandas.core.frame.DataFrame\"        \"pandas.core.generic.NDFrame\"       \n[3] \"pandas.core.base.PandasObject\"      \"pandas.core.accessor.DirNamesMixin\"\n[5] \"pandas.core.indexing.IndexingMixin\" \"pandas.core.arraylike.OpsMixin\"    \n[7] \"python.builtin.object\"             \n\n\n\n\n\nInspecting the movies_py variable we can see that it is of the type pandas.dataframe.\nNow we are ready to answer our first question:\n\nWhich movie/movies are the highest ranked of all times?\n\nWe will try to answer this with a pandas method directly in a Python chunk. To do this we first have to make our movies_py variable visible to Python. Even though it is a Python object, since it was created within a R code chunk, Python code chunks cannot directly access them. To make R variables accessible in Python code chunks we use the r object. Remember that to access a Python variable from R, we used py$, to do the opposite we use r.. The $ and the . denotes the different ways in which Python and R represents methods.\nUse the method .max() from the pandas module to find and filter out the top movie/movies.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\n# the code below is python code written in a python code chunk\nmovies = r.movies_py\n\n# inspect what columns are present\nmovies.columns\n\n# find movies that has the highest averageRating\ntop_movies = movies[movies.averageRating == movies.averageRating.max()]\n\ntop_movies['primaryTitle']\n\nIndex(['id', 'tconst', 'titleType', 'primaryTitle', 'originalTitle',\n       'startYear', 'endYear', 'runtimeMinutes', 'genres', 'averageRating',\n       'numVotes'],\n      dtype='object')\n3822    The Shawshank Redemption\n5450             The Chaos Class\nName: primaryTitle, dtype: object\n\n\n\n\n\nAbove we are using pure pandas code directly in our RMarkdown document.\nAfter dipping our toes in Python territory, we now go back to using normal R chunks:\nSave top_movies as an R object, and find out from what years these movies are, and how many votes they got.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\nmovies_r &lt;- py$top_movies\ndf &lt;- data.frame(movies_r$primaryTitle, movies_r$startYear, movies_r$numVotes)\ndf\n\n\n\n\n\nmovies_r.primaryTitle\nmovies_r.startYear\nmovies_r.numVotes\n\n\n\n\nThe Shawshank Redemption\n1994\n2399394\n\n\nThe Chaos Class\n1975\n38290\n\n\n\n\n\n\nSo the answer to which are the highest ranked movies of all times is The Shawshank Redemption and The Chaos Class. Although, The Chaos Class did not get as many votes as The Shawshank Redemption.\n\n\n\n\n\n2.3.2 Average ratings over time\nNext we want to explore how the average ratings for movies has changed over time. This one we will solve in normal R chunks, by importing the required python functions from the file imdb_functions.py, and also load pandas into R. As we will be using pandas in R, import the Python file without converting it.\nGet all movies and save into a pandas dataframe.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\nsource_python(\"imdb_functions.py\", convert = FALSE)\nmovies_py &lt;- get_all_movies()\nclass(movies_py)\n\n[1] \"pandas.core.frame.DataFrame\"        \"pandas.core.generic.NDFrame\"       \n[3] \"pandas.core.base.PandasObject\"      \"pandas.core.accessor.DirNamesMixin\"\n[5] \"pandas.core.indexing.IndexingMixin\" \"pandas.core.arraylike.OpsMixin\"    \n[7] \"python.builtin.object\"             \n\n\n\n\n\nImport pandas into R\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\npandas &lt;- import(\"pandas\")\n\n\n\n\nUse pandas to group the data by startYear, and calculate the average ratings. Next, convert the result back into an R dataframe.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\n# use pandas to group columns by startYear\nmovies_grouped &lt;- movies_py$groupby('startYear')['averageRating']$mean()\n\n# convert the pandas dataframe to r dataframe\nmovies_grouped_r &lt;- py_to_r(movies_grouped)\nmovies_grouped_r &lt;- as.data.frame(movies_grouped_r)\nstr(movies_grouped_r)\n\n'data.frame':   105 obs. of  1 variable:\n $ movies_grouped_r: num  6.3 7.7 7.3 7.42 8 ...\n\n\n\n\n\nIn this case the conversion seems to have done something to our columns. To fix this, add startYear column back into the dataframe, using R.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\n# add Year column back to dataframe, and rename columns\nmovies_grouped_r &lt;- cbind(rownames(movies_grouped_r), movies_grouped_r)\ncolnames(movies_grouped_r) &lt;- c(\"startYear\",\"averageRating\")\nmovies_grouped_r[1:4,]\n\n\n\n\n\n\nstartYear\naverageRating\n\n\n\n\n1915\n1915\n6.300\n\n\n1916\n1916\n7.700\n\n\n1919\n1919\n7.300\n\n\n1920\n1920\n7.425\n\n\n\n\n\n\n\n\n\nMake sure to inspect that the dataframe looks like it is supposed to, and that the values make sense. Once we are sure we have managed to transform the data, we can proceed.\nPlot the average ratings for each year.\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\nggplot(movies_grouped_r, aes(x=startYear, y=averageRating)) + \n                              geom_point() + \n                              theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +\n                              ggtitle('Average ratings over years')"
   },
   {
     "objectID": "labs/reticulate/index.html#bonus-exercise",
     "href": "labs/reticulate/index.html#bonus-exercise",
     "title": "reticulate",
     "section": "3 Bonus exercise",
-    "text": "3 Bonus exercise\nThis is a bonus exercise if you have time left in the end of the exercise. This one is more tricky!\nWhich actors have played together with both Ian McKellen and Patrick Stewart, but when they were in separate movies? Or rephrased, which actor has played with Ian McKellen Lee in one movie, and Patrick Stewart in another movie?\nFor example:\n\nActor 1 has played with IM in movie a, and with PS in movie b. PS was not in movie a, and IM was not in movie b\nActor 2 has played with IM in movie c, and with PS in movie c. \n\nScenario 1 would count, while scenario 2 would not, as IM and PS was in this movie both together.\nTo solve this one you need to think in several steps. There are of course several solutions, and you are free to approach this exercise however you want. We will give you a suggestion to one approach that could be used below:\n\n\n\n\n\n\nTip\n\n\n\n\n\n\nGet a list of movies where Ian McKellen has played\nGet a list of movies where Patrick Stewart has played\nRemove intersections\nGet all actors for all movies that Ian McKellen was in\nGet all actors for all movies that Patrick Stewart was in\nRemove duplicates\nGet intersection of actors\n\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nRemember that this database only has the PRINCIPAL actor of movies, meaning you might have results where an actor has a minor role and is not listed here. If you are unsure if your results are correct, we provide you with a Python function to check your results.\n\n\nTo find out if your answer is correct, your can import and use the function check_results from the imdb_functions.py file. Replace 'Actor Name' with the name of the actor that you think is the answer to the question above.\n\nsource_python(\"imdb_functions.py\")\nres_actor <- 'Actor Name'\ncheck_results(res_actor, 'Ian McKellen', 'Patrick Stewart')\n\n And if you want to see one suggested solution to this problem:\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\nsource_python(\"imdb_functions.py\", convert = FALSE)\nact1 <- 'Ian McKellen'\nact2 <- 'Patrick Stewart'\n\n# get movies for Patrick Stewart\nact1_movies <- get_movies(act1)\nact1_movies\nmovies1_lst <- py_to_r(act1_movies[act1])\n\n# get movies for Ian McKellen\nact2_movies <- get_movies(act2)\nact2_movies\nmovies2_lst <- py_to_r(act2_movies[act2])\n\n# get movies both has played in\noverlap <- intersect(movies1_lst, movies2_lst)\n\n# remove overlap from each movielist\nnew_movies1_lst <- setdiff(movies1_lst, overlap)\nnew_movies2_lst <- setdiff(movies2_lst, overlap)\n\n# get all actors that has played in those movies\n# below we do things the functional way for the first \n# movie list\nactors_lst <- purrr::map(new_movies1_lst, \n             ~ .x %>% \n             get_actors() %>% \n             py_to_r() %>% \n             .[[.x]] %>% \n             unlist() %>% \n             str_remove(' \\\\(.*\\\\)')) %>% \n  unlist() \n\n# remove all duplicates\nactors_lst_uniq <- actors_lst %>% unique()\n\n\n# and now, the same for the second movie list, but the \n# non-functional way, using Python-inspired syntax. \n\nactors_lst2 <- character()\n\nfor (movie in new_movies2_lst) {\n  actors <- get_actors(movie)\n  actors_r <- py_to_r(actors[movie])\n  for (actor in actors_r) {\n    a <- strsplit(as.character(actor), '\\\\s*[()]')[[1]]\n    actors_lst2 <- append(actors_lst2, a[1])\n  }\n}\n\nactors_lst2_uniq <- unique(actors_lst2)\n\n# finally, intersect the two lists with actors to\n# find the ones that played with both actors\nintersect(actors_lst_uniq, actors_lst2_uniq)\n## {'Ian McKellen': ['The Keep', 'Six Degrees of Separation', 'Richard III', 'Apt Pupil', 'Gods and Monsters', 'The Lord of the Rings: The Fellowship of the Ring', 'X-Men', 'The Lord of the Rings: The Return of the King', 'The Lord of the Rings: The Two Towers', 'X2: X-Men United', 'The Da Vinci Code', 'Neverwas', 'Flushed Away', 'Stardust', 'The Hobbit: An Unexpected Journey', 'The Hobbit: The Desolation of Smaug', 'X-Men: Days of Future Past', 'The Hobbit: The Battle of the Five Armies', 'Mr. Holmes', 'The Good Liar']}\n## {'Patrick Stewart': ['Star Trek: Generations', 'Star Trek: First Contact', 'Conspiracy Theory', 'Star Trek: Insurrection', 'X-Men', 'Star Trek: Nemesis', 'X2: X-Men United', 'Steamboy', 'X-Men: The Last Stand', 'Earth', 'TMNT', 'African Cats', 'X-Men: Days of Future Past', 'Logan', 'Green Room']}\n## [1] \"Hugh Jackman\"\n\n\n\n\nTry some other actors and see what you find. For example, try actors that have played with Johnny Depp and Helena Bonham Carter."
+    "text": "3 Bonus exercise\nThis is a bonus exercise if you have time left in the end of the exercise. This one is more tricky!\nWhich actors have played together with both Ian McKellen and Patrick Stewart, but when they were in separate movies? Or rephrased, which actor has played with Ian McKellen Lee in one movie, and Patrick Stewart in another movie?\nFor example:\n\nActor 1 has played with IM in movie a, and with PS in movie b. PS was not in movie a, and IM was not in movie b\nActor 2 has played with IM in movie c, and with PS in movie c. \n\nScenario 1 would count, while scenario 2 would not, as IM and PS was in this movie both together.\nTo solve this one you need to think in several steps. There are of course several solutions, and you are free to approach this exercise however you want. We will give you a suggestion to one approach that could be used below:\n\n\n\n\n\n\nTip\n\n\n\n\n\n\nGet a list of movies where Ian McKellen has played\nGet a list of movies where Patrick Stewart has played\nRemove intersections\nGet all actors for all movies that Ian McKellen was in\nGet all actors for all movies that Patrick Stewart was in\nRemove duplicates\nGet intersection of actors\n\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nRemember that this database only has the PRINCIPAL actor of movies, meaning you might have results where an actor has a minor role and is not listed here. If you are unsure if your results are correct, we provide you with a Python function to check your results.\n\n\nTo find out if your answer is correct, your can import and use the function check_results from the imdb_functions.py file. Replace 'Actor Name' with the name of the actor that you think is the answer to the question above.\n\nsource_python(\"imdb_functions.py\")\nres_actor &lt;- 'Actor Name'\ncheck_results(res_actor, 'Ian McKellen', 'Patrick Stewart')\n\n And if you want to see one suggested solution to this problem:\n\n\n\n\n\n\nShow code\n\n\n\n\n\n\nsource_python(\"imdb_functions.py\", convert = FALSE)\nact1 &lt;- 'Ian McKellen'\nact2 &lt;- 'Patrick Stewart'\n\n# get movies for Patrick Stewart\nact1_movies &lt;- get_movies(act1)\nact1_movies\nmovies1_lst &lt;- py_to_r(act1_movies[act1])\n\n# get movies for Ian McKellen\nact2_movies &lt;- get_movies(act2)\nact2_movies\nmovies2_lst &lt;- py_to_r(act2_movies[act2])\n\n# get movies both has played in\noverlap &lt;- intersect(movies1_lst, movies2_lst)\n\n# remove overlap from each movielist\nnew_movies1_lst &lt;- setdiff(movies1_lst, overlap)\nnew_movies2_lst &lt;- setdiff(movies2_lst, overlap)\n\n# get all actors that has played in those movies\n# below we do things the functional way for the first \n# movie list\nactors_lst &lt;- purrr::map(new_movies1_lst, \n             ~ .x %&gt;% \n             get_actors() %&gt;% \n             py_to_r() %&gt;% \n             .[[.x]] %&gt;% \n             unlist() %&gt;% \n             str_remove(' \\\\(.*\\\\)')) %&gt;% \n  unlist() \n\n# remove all duplicates\nactors_lst_uniq &lt;- actors_lst %&gt;% unique()\n\n\n# and now, the same for the second movie list, but the \n# non-functional way, using Python-inspired syntax. \n\nactors_lst2 &lt;- character()\n\nfor (movie in new_movies2_lst) {\n  actors &lt;- get_actors(movie)\n  actors_r &lt;- py_to_r(actors[movie])\n  for (actor in actors_r) {\n    a &lt;- strsplit(as.character(actor), '\\\\s*[()]')[[1]]\n    actors_lst2 &lt;- append(actors_lst2, a[1])\n  }\n}\n\nactors_lst2_uniq &lt;- unique(actors_lst2)\n\n# finally, intersect the two lists with actors to\n# find the ones that played with both actors\nintersect(actors_lst_uniq, actors_lst2_uniq)\n## {'Ian McKellen': ['The Keep', 'Six Degrees of Separation', 'Richard III', 'Apt Pupil', 'Gods and Monsters', 'The Lord of the Rings: The Fellowship of the Ring', 'X-Men', 'The Lord of the Rings: The Return of the King', 'The Lord of the Rings: The Two Towers', 'X2: X-Men United', 'The Da Vinci Code', 'Neverwas', 'Flushed Away', 'Stardust', 'The Hobbit: An Unexpected Journey', 'The Hobbit: The Desolation of Smaug', 'X-Men: Days of Future Past', 'The Hobbit: The Battle of the Five Armies', 'Mr. Holmes', 'The Good Liar']}\n## {'Patrick Stewart': ['Star Trek: Generations', 'Star Trek: First Contact', 'Conspiracy Theory', 'Star Trek: Insurrection', 'X-Men', 'Star Trek: Nemesis', 'X2: X-Men United', 'Steamboy', 'X-Men: The Last Stand', 'Earth', 'TMNT', 'African Cats', 'X-Men: Days of Future Past', 'Logan', 'Green Room']}\n## [1] \"Hugh Jackman\"\n\n\n\n\nTry some other actors and see what you find. For example, try actors that have played with Johnny Depp and Helena Bonham Carter."
   },
   {
     "objectID": "labs/rr/index.html",
@@ -1347,330 +1347,330 @@
     "objectID": "slides/ggplot/index.html#graphs",
     "href": "slides/ggplot/index.html#graphs",
     "title": "Plotting with ggplot2",
-    "section": "Graphs",
-    "text": "Graphs\nGraphing is an essential part of data analyses. Data with same summary statistics can look very different when plotted out.\n\n\n\n\n\n\n\n\n\n\n\nAnscombe’s quartet, Datasaurus"
+    "section": "2 Graphs",
+    "text": "2 Graphs\nGraphing is an essential part of data analyses. Data with same summary statistics can look very different when plotted out.\n. . .\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAnscombe’s quartet, Datasaurus"
   },
   {
     "objectID": "slides/ggplot/index.html#graph-quality",
     "href": "slides/ggplot/index.html#graph-quality",
     "title": "Plotting with ggplot2",
-    "section": "Graph quality",
-    "text": "Graph quality\n\n\n\n\n\n\n\n\nSource: xkcd"
+    "section": "3 Graph quality",
+    "text": "3 Graph quality\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSource: xkcd"
   },
   {
     "objectID": "slides/ggplot/index.html#r-graphics",
     "href": "slides/ggplot/index.html#r-graphics",
     "title": "Plotting with ggplot2",
-    "section": "R graphics",
-    "text": "R graphics"
+    "section": "4 R graphics",
+    "text": "4 R graphics"
   },
   {
     "objectID": "slides/ggplot/index.html#r-graphics-1",
     "href": "slides/ggplot/index.html#r-graphics-1",
     "title": "Plotting with ggplot2",
-    "section": "R graphics",
-    "text": "R graphics\n\n\nHow BBC works with R graphics"
+    "section": "5 R graphics",
+    "text": "5 R graphics\n\n\n\n\n\n\nHow BBC works with R graphics"
   },
   {
     "objectID": "slides/ggplot/index.html#ggplot2-vs-base-graphics",
     "href": "slides/ggplot/index.html#ggplot2-vs-base-graphics",
     "title": "Plotting with ggplot2",
-    "section": "ggplot2 vs Base Graphics",
-    "text": "ggplot2 vs Base Graphics\n\n\n\nhist(iris$Sepal.Length)\n\n\n\n\n\n\nlibrary(ggplot2)\nggplot(iris,aes(x=Sepal.Length))+\n  geom_histogram(bins=8)\n\n\n\n\n\n\n\nFor simple graphs, the base plot seem to take minimal coding effort compared to a ggplot graph."
+    "section": "6 ggplot2 vs Base Graphics",
+    "text": "6 ggplot2 vs Base Graphics\n\n\n\nhist(iris$Sepal.Length)\n\n\n\n\n\n\n\n\n\n\nlibrary(ggplot2)\nggplot(iris,aes(x=Sepal.Length))+\n  geom_histogram(bins=8)\n\n\n\n\n\n\n\n\n\n\n\nFor simple graphs, the base plot seem to take minimal coding effort compared to a ggplot graph."
   },
   {
     "objectID": "slides/ggplot/index.html#ggplot2-vs-base-graphics-1",
     "href": "slides/ggplot/index.html#ggplot2-vs-base-graphics-1",
     "title": "Plotting with ggplot2",
-    "section": "ggplot2 vs Base Graphics",
-    "text": "ggplot2 vs Base Graphics\n\n\n\nplot(iris$Petal.Length,iris$Petal.Width,\n     col=c(\"red\",\"green\",\"blue\")[iris$Species],\n     pch=c(0,1,2)[iris$Species])\nlegend(x=1,y=2.5,\n       legend=c(\"setosa\",\"versicolor\",\"virginica\"),\n       pch=c(0,1,2),col=c(\"red\",\"green\",\"blue\"))\n\n\n\n\n\n\nggplot(iris,aes(Petal.Length,Sepal.Length,color=Species))+\n  geom_point()\n\n\n\n\n\n\n\nFor anything beyond extremely basic plots, base plotting quickly become complex. More importantly, base plots do not have consistency in it’s functions or plotting strategy."
+    "section": "8 ggplot2 vs Base Graphics",
+    "text": "8 ggplot2 vs Base Graphics\n\n\n\nplot(iris$Petal.Length,iris$Petal.Width,\n     col=c(\"red\",\"green\",\"blue\")[iris$Species],\n     pch=c(0,1,2)[iris$Species])\nlegend(x=1,y=2.5,\n       legend=c(\"setosa\",\"versicolor\",\"virginica\"),\n       pch=c(0,1,2),col=c(\"red\",\"green\",\"blue\"))\n\n\n\n\n\n\n\n\n\n\nggplot(iris,aes(Petal.Length,Sepal.Length,color=Species))+\n  geom_point()\n\n\n\n\n\n\n\n\n\n\n\nFor anything beyond extremely basic plots, base plotting quickly become complex. More importantly, base plots do not have consistency in it’s functions or plotting strategy."
   },
   {
     "objectID": "slides/ggplot/index.html#why-ggplot2",
     "href": "slides/ggplot/index.html#why-ggplot2",
     "title": "Plotting with ggplot2",
-    "section": "Why ggplot2?",
-    "text": "Why ggplot2?\n\nConsistent code for any type of plot (almost!)\nFlexible and modular (Add/remove components)\nAutomatic legends, colors etc\nSave plot objects\nThemes for reusing styles\nNumerous add-ons/extensions\nNearly complete structured graphing solution\nAdapted to other programming languages\n\nGadfly in Julia\ngramm in MatLab\nGGPlot in Perl\nVega in Javascript\nPlotNine , ggpy, lets-plot in Python\n\n\n\nWhy can’t we just do everything is base plot? Of course, we could, but it’s easier, consistent and more structured using ggplot2. There is bit of a learning curve, but once the code syntax and graphic building logic is clear, it becomes easy to plot a large variety of graphs."
+    "section": "9 Why ggplot2?",
+    "text": "9 Why ggplot2?\n\nConsistent code for any type of plot (almost!)\nFlexible and modular (Add/remove components)\nAutomatic legends, colors etc\nSave plot objects\nThemes for reusing styles\nNumerous add-ons/extensions\nNearly complete structured graphing solution\nAdapted to other programming languages\n\nGadfly in Julia\ngramm in MatLab\nGGPlot in Perl\nVega in Javascript\nPlotNine , ggpy, lets-plot in Python\n\n\n\nWhy can’t we just do everything is base plot? Of course, we could, but it’s easier, consistent and more structured using ggplot2. There is bit of a learning curve, but once the code syntax and graphic building logic is clear, it becomes easy to plot a large variety of graphs."
   },
   {
     "objectID": "slides/ggplot/index.html#grammar-of-graphics",
     "href": "slides/ggplot/index.html#grammar-of-graphics",
     "title": "Plotting with ggplot2",
-    "section": "Grammar Of Graphics",
-    "text": "Grammar Of Graphics\n\n\n\n\n\n\nCreated by Hadley Wickham in 2005\nData: Input data\nGeom: A geometry representing data. Points, Lines etc\nAesthetic: Visual characteristics of the geometry. Size, Color, Shape etc\nScale: How visual characteristics are converted to display values\nStatistics: Statistical transformations. Counts, Means etc\nCoordinates: Numeric system to determine position of geometry. Cartesian, Polar etc\nFacets: Split data into subsets\n\n\n\n\nggplot was created by Hadley Wickham in 2005 as an implementation of Leland Wilkinson’s book Grammar of Graphics.\nDifferent graphs have always been considered as independent entities and also labelled differently such as barplots, scatterplots, boxplots etc. Each graph has it’s own function and plotting strategy.\nGrammar of graphics (GOG) tries to unify all graphs under a common umbrella. GOG brings the idea that graphs are made up of discrete components which can be mixed and matched to create any plot. This creates a consistent underlying framework to graphing."
+    "section": "10 Grammar Of Graphics",
+    "text": "10 Grammar Of Graphics\n\n\n\n\n\n\nCreated by Hadley Wickham in 2005\nData: Input data\nGeom: A geometry representing data. Points, Lines etc\nAesthetic: Visual characteristics of the geometry. Size, Color, Shape etc\nScale: How visual characteristics are converted to display values\nStatistics: Statistical transformations. Counts, Means etc\nCoordinates: Numeric system to determine position of geometry. Cartesian, Polar etc\nFacets: Split data into subsets\n\n\n\n\nggplot was created by Hadley Wickham in 2005 as an implementation of Leland Wilkinson’s book Grammar of Graphics.\nDifferent graphs have always been considered as independent entities and also labelled differently such as barplots, scatterplots, boxplots etc. Each graph has it’s own function and plotting strategy.\nGrammar of graphics (GOG) tries to unify all graphs under a common umbrella. GOG brings the idea that graphs are made up of discrete components which can be mixed and matched to create any plot. This creates a consistent underlying framework to graphing."
   },
   {
     "objectID": "slides/ggplot/index.html#building-a-graph-syntax",
     "href": "slides/ggplot/index.html#building-a-graph-syntax",
     "title": "Plotting with ggplot2",
-    "section": "Building A Graph: Syntax",
-    "text": "Building A Graph: Syntax"
+    "section": "11 Building A Graph: Syntax",
+    "text": "11 Building A Graph: Syntax"
   },
   {
     "objectID": "slides/ggplot/index.html#building-a-graph",
     "href": "slides/ggplot/index.html#building-a-graph",
     "title": "Plotting with ggplot2",
-    "section": "Building A Graph",
-    "text": "Building A Graph\n\n\n\ndata(iris)\nggplot(iris)"
+    "section": "12 Building A Graph",
+    "text": "12 Building A Graph\n\n\n\ndata(iris)\nggplot(iris)"
   },
   {
     "objectID": "slides/ggplot/index.html#building-a-graph-1",
     "href": "slides/ggplot/index.html#building-a-graph-1",
     "title": "Plotting with ggplot2",
-    "section": "Building A Graph",
-    "text": "Building A Graph\n\n\n\nggplot(iris,aes(x=Sepal.Length,\n                y=Sepal.Width))"
+    "section": "13 Building A Graph",
+    "text": "13 Building A Graph\n\n\n\nggplot(iris,aes(x=Sepal.Length,\n                y=Sepal.Width))"
   },
   {
     "objectID": "slides/ggplot/index.html#building-a-graph-2",
     "href": "slides/ggplot/index.html#building-a-graph-2",
     "title": "Plotting with ggplot2",
-    "section": "Building A Graph",
-    "text": "Building A Graph\n\n\n\nggplot(iris,aes(x=Sepal.Length,\n                y=Sepal.Width))+\n  geom_point()"
+    "section": "14 Building A Graph",
+    "text": "14 Building A Graph\n\n\n\nggplot(iris,aes(x=Sepal.Length,\n                y=Sepal.Width))+\n  geom_point()"
   },
   {
     "objectID": "slides/ggplot/index.html#building-a-graph-3",
     "href": "slides/ggplot/index.html#building-a-graph-3",
     "title": "Plotting with ggplot2",
-    "section": "Building A Graph",
-    "text": "Building A Graph\n\n\n\nggplot(iris,aes(x=Sepal.Length,\n                y=Sepal.Width,\n                colour=Species))+\n  geom_point()"
+    "section": "15 Building A Graph",
+    "text": "15 Building A Graph\n\n\n\nggplot(iris,aes(x=Sepal.Length,\n                y=Sepal.Width,\n                colour=Species))+\n  geom_point()"
   },
   {
     "objectID": "slides/ggplot/index.html#data-iris",
     "href": "slides/ggplot/index.html#data-iris",
     "title": "Plotting with ggplot2",
-    "section": "Data • iris",
-    "text": "Data • iris\n\nInput data is always an R data.frame object\n\n\n\n\n\n\n\nSepal.Length\nSepal.Width\nPetal.Length\nPetal.Width\nSpecies\n\n\n\n\n5.1\n3.5\n1.4\n0.2\nsetosa\n\n\n4.9\n3.0\n1.4\n0.2\nsetosa\n\n\n4.7\n3.2\n1.3\n0.2\nsetosa\n\n\n4.6\n3.1\n1.5\n0.2\nsetosa\n\n\n5.0\n3.6\n1.4\n0.2\nsetosa\n\n\n5.4\n3.9\n1.7\n0.4\nsetosa\n\n\n\n\n\n\n\n\n\nstr(iris)\n\n'data.frame':   150 obs. of  5 variables:\n $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...\n $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...\n $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...\n $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...\n $ Species     : Factor w/ 3 levels \"setosa\",\"versicolor\",..: 1 1 1 1 1 1 1 1 1 1 ...\n\n\n\nIt’s a good idea to use str() to check the input dataframe to make sure that numbers are actually numbers and not characters, for example. Verify that factors are correctly assigned."
+    "section": "16 Data • iris",
+    "text": "16 Data • iris\n\nInput data is always an R data.frame object\n\n\n\n\n\n\n\nSepal.Length\nSepal.Width\nPetal.Length\nPetal.Width\nSpecies\n\n\n\n\n5.1\n3.5\n1.4\n0.2\nsetosa\n\n\n4.9\n3.0\n1.4\n0.2\nsetosa\n\n\n4.7\n3.2\n1.3\n0.2\nsetosa\n\n\n4.6\n3.1\n1.5\n0.2\nsetosa\n\n\n5.0\n3.6\n1.4\n0.2\nsetosa\n\n\n5.4\n3.9\n1.7\n0.4\nsetosa\n\n\n\n\n\n\n\n\n\nstr(iris)\n\n'data.frame':   150 obs. of  5 variables:\n $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...\n $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...\n $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...\n $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...\n $ Species     : Factor w/ 3 levels \"setosa\",\"versicolor\",..: 1 1 1 1 1 1 1 1 1 1 ...\n\n\n\nIt’s a good idea to use str() to check the input dataframe to make sure that numbers are actually numbers and not characters, for example. Verify that factors are correctly assigned."
   },
   {
     "objectID": "slides/ggplot/index.html#data-diamonds",
     "href": "slides/ggplot/index.html#data-diamonds",
     "title": "Plotting with ggplot2",
-    "section": "Data • diamonds",
-    "text": "Data • diamonds\n\n\n\n\n\n\ncarat\ncut\ncolor\nclarity\ndepth\ntable\nprice\nx\ny\nz\n\n\n\n\n0.23\nIdeal\nE\nSI2\n61.5\n55\n326\n3.95\n3.98\n2.43\n\n\n0.21\nPremium\nE\nSI1\n59.8\n61\n326\n3.89\n3.84\n2.31\n\n\n0.23\nGood\nE\nVS1\n56.9\n65\n327\n4.05\n4.07\n2.31\n\n\n0.29\nPremium\nI\nVS2\n62.4\n58\n334\n4.20\n4.23\n2.63\n\n\n0.31\nGood\nJ\nSI2\n63.3\n58\n335\n4.34\n4.35\n2.75\n\n\n0.24\nVery Good\nJ\nVVS2\n62.8\n57\n336\n3.94\n3.96\n2.48\n\n\n\n\n\n\n\n\n\nstr(diamonds)\n\ntibble [53,940 × 10] (S3: tbl_df/tbl/data.frame)\n $ carat  : num [1:53940] 0.23 0.21 0.23 0.29 0.31 0.24 0.24 0.26 0.22 0.23 ...\n $ cut    : Ord.factor w/ 5 levels \"Fair\"&lt;\"Good\"&lt;..: 5 4 2 4 2 3 3 3 1 3 ...\n $ color  : Ord.factor w/ 7 levels \"D\"&lt;\"E\"&lt;\"F\"&lt;\"G\"&lt;..: 2 2 2 6 7 7 6 5 2 5 ...\n $ clarity: Ord.factor w/ 8 levels \"I1\"&lt;\"SI2\"&lt;\"SI1\"&lt;..: 2 3 5 4 2 6 7 3 4 5 ...\n $ depth  : num [1:53940] 61.5 59.8 56.9 62.4 63.3 62.8 62.3 61.9 65.1 59.4 ...\n $ table  : num [1:53940] 55 61 65 58 58 57 57 55 61 61 ...\n $ price  : int [1:53940] 326 326 327 334 335 336 336 337 337 338 ...\n $ x      : num [1:53940] 3.95 3.89 4.05 4.2 4.34 3.94 3.95 4.07 3.87 4 ...\n $ y      : num [1:53940] 3.98 3.84 4.07 4.23 4.35 3.96 3.98 4.11 3.78 4.05 ...\n $ z      : num [1:53940] 2.43 2.31 2.31 2.63 2.75 2.48 2.47 2.53 2.49 2.39 ...\n\n\n\nR data.frame is a tabular format with rows and columns just like a spreadsheet. All items in a row or a column must be available or missing values filled in as NAs."
+    "section": "17 Data • diamonds",
+    "text": "17 Data • diamonds\n\n\n\n\n\n\ncarat\ncut\ncolor\nclarity\ndepth\ntable\nprice\nx\ny\nz\n\n\n\n\n0.23\nIdeal\nE\nSI2\n61.5\n55\n326\n3.95\n3.98\n2.43\n\n\n0.21\nPremium\nE\nSI1\n59.8\n61\n326\n3.89\n3.84\n2.31\n\n\n0.23\nGood\nE\nVS1\n56.9\n65\n327\n4.05\n4.07\n2.31\n\n\n0.29\nPremium\nI\nVS2\n62.4\n58\n334\n4.20\n4.23\n2.63\n\n\n0.31\nGood\nJ\nSI2\n63.3\n58\n335\n4.34\n4.35\n2.75\n\n\n0.24\nVery Good\nJ\nVVS2\n62.8\n57\n336\n3.94\n3.96\n2.48\n\n\n\n\n\n\n\n\n\nstr(diamonds)\n\ntibble [53,940 × 10] (S3: tbl_df/tbl/data.frame)\n $ carat  : num [1:53940] 0.23 0.21 0.23 0.29 0.31 0.24 0.24 0.26 0.22 0.23 ...\n $ cut    : Ord.factor w/ 5 levels \"Fair\"&lt;\"Good\"&lt;..: 5 4 2 4 2 3 3 3 1 3 ...\n $ color  : Ord.factor w/ 7 levels \"D\"&lt;\"E\"&lt;\"F\"&lt;\"G\"&lt;..: 2 2 2 6 7 7 6 5 2 5 ...\n $ clarity: Ord.factor w/ 8 levels \"I1\"&lt;\"SI2\"&lt;\"SI1\"&lt;..: 2 3 5 4 2 6 7 3 4 5 ...\n $ depth  : num [1:53940] 61.5 59.8 56.9 62.4 63.3 62.8 62.3 61.9 65.1 59.4 ...\n $ table  : num [1:53940] 55 61 65 58 58 57 57 55 61 61 ...\n $ price  : int [1:53940] 326 326 327 334 335 336 336 337 337 338 ...\n $ x      : num [1:53940] 3.95 3.89 4.05 4.2 4.34 3.94 3.95 4.07 3.87 4 ...\n $ y      : num [1:53940] 3.98 3.84 4.07 4.23 4.35 3.96 3.98 4.11 3.78 4.05 ...\n $ z      : num [1:53940] 2.43 2.31 2.31 2.63 2.75 2.48 2.47 2.53 2.49 2.39 ...\n\n\n\nR data.frame is a tabular format with rows and columns just like a spreadsheet. All items in a row or a column must be available or missing values filled in as NAs."
   },
   {
     "objectID": "slides/ggplot/index.html#data-format",
     "href": "slides/ggplot/index.html#data-format",
     "title": "Plotting with ggplot2",
-    "section": "Data • Format",
-    "text": "Data • Format\n\nWide\n\n\n\n\n\n\nSepal.Length\nSepal.Width\nPetal.Length\nPetal.Width\nSpecies\n\n\n\n\n5.1\n3.5\n1.4\n0.2\nsetosa\n\n\n4.9\n3.0\n1.4\n0.2\nsetosa\n\n\n4.7\n3.2\n1.3\n0.2\nsetosa\n\n\n\n\n\n\n\n\nLong\n\n\n\n\n\n\nSpecies\nvariable\nvalue\n\n\n\n\nsetosa\nSepal.Length\n5.1\n\n\nsetosa\nSepal.Length\n4.9\n\n\nsetosa\nSepal.Length\n4.7\n\n\n\n\n\n\n\n\n\nThe data must be cleaned up and prepared for plotting. The data must be ‘tidy’. Columns must be variables and rows must be observations. The data can then be in wide or long format depending on the variables to be plotted."
+    "section": "18 Data • Format",
+    "text": "18 Data • Format\n\n\n\n\n\nWide\n\n\n\n\n\n\nSepal.Length\nSepal.Width\nPetal.Length\nPetal.Width\nSpecies\n\n\n\n\n5.1\n3.5\n1.4\n0.2\nsetosa\n\n\n4.9\n3.0\n1.4\n0.2\nsetosa\n\n\n4.7\n3.2\n1.3\n0.2\nsetosa\n\n\n\n\n\n\n\n\nLong\n\n\n\n\n\n\nSpecies\nvariable\nvalue\n\n\n\n\nsetosa\nSepal.Length\n5.1\n\n\nsetosa\nSepal.Length\n4.9\n\n\nsetosa\nSepal.Length\n4.7\n\n\n\n\n\n\n\n\n\nThe data must be cleaned up and prepared for plotting. The data must be ‘tidy’. Columns must be variables and rows must be observations. The data can then be in wide or long format depending on the variables to be plotted."
   },
   {
     "objectID": "slides/ggplot/index.html#geoms",
     "href": "slides/ggplot/index.html#geoms",
     "title": "Plotting with ggplot2",
-    "section": "Geoms",
-    "text": "Geoms\n\ngeoms\n\np &lt;- ggplot(iris)\n# scatterplot\np+geom_point(aes(x=Sepal.Length,y=Sepal.Width))\n# barplot\np+geom_bar(aes(x=Sepal.Length))\n# boxplot\np+geom_boxplot(aes(x=Species,y=Sepal.Width))\n# search\nhelp.search(\"^geom_\",package=\"ggplot2\")\n\n\nGeoms are the geometric components of a graph such as points, lines etc used to represent data. The same data can be visually represented in different geoms. For example, points or bars. Mandatory input requirements change depending on geoms."
+    "section": "19 Geoms",
+    "text": "19 Geoms\n\n\n\ngeoms\n\n\n. . .\n\np &lt;- ggplot(iris)\n# scatterplot\np+geom_point(aes(x=Sepal.Length,y=Sepal.Width))\n# barplot\np+geom_bar(aes(x=Sepal.Length))\n# boxplot\np+geom_boxplot(aes(x=Species,y=Sepal.Width))\n# search\nhelp.search(\"^geom_\",package=\"ggplot2\")\n\n\nGeoms are the geometric components of a graph such as points, lines etc used to represent data. The same data can be visually represented in different geoms. For example, points or bars. Mandatory input requirements change depending on geoms."
   },
   {
     "objectID": "slides/ggplot/index.html#stats",
     "href": "slides/ggplot/index.html#stats",
     "title": "Plotting with ggplot2",
-    "section": "Stats",
-    "text": "Stats\n\nStats compute new variables from input data.\n\n\n\nGeoms have default stats.\n\n\nx &lt;- ggplot(iris) + geom_bar(aes(x=Sepal.Length),stat=\"bin\")\ny &lt;- ggplot(iris) + geom_bar(aes(x=Species),stat=\"count\")\nz &lt;- ggplot(iris) + geom_bar(aes(x=Species,y=Sepal.Length),stat=\"identity\")\nwrap_plots(x,y,z,nrow=1)"
+    "section": "20 Stats",
+    "text": "20 Stats\n\nStats compute new variables from input data.\n\n. . .\n\nGeoms have default stats.\n\n\nx &lt;- ggplot(iris) + geom_bar(aes(x=Sepal.Length),stat=\"bin\")\ny &lt;- ggplot(iris) + geom_bar(aes(x=Species),stat=\"count\")\nz &lt;- ggplot(iris) + geom_bar(aes(x=Species,y=Sepal.Length),stat=\"identity\")\nwrap_plots(x,y,z,nrow=1)"
   },
   {
     "objectID": "slides/ggplot/index.html#stats-1",
     "href": "slides/ggplot/index.html#stats-1",
     "title": "Plotting with ggplot2",
-    "section": "Stats",
-    "text": "Stats\n\nPlots can be built with stats.\n\n\nx &lt;- ggplot(iris) + stat_bin(aes(x=Sepal.Length),geom=\"bar\")\ny &lt;- ggplot(iris) + stat_count(aes(x=Species),geom=\"bar\")\nz &lt;- ggplot(iris) + stat_identity(aes(x=Species,y=Sepal.Length),geom=\"bar\")\nwrap_plots(x,y,z,nrow=1)\n\n\n\n\nNormally the data is plotted directly from input as it is.\nSome plots require the data to be computed or transformed. Eg. boxplot, histograms, smoothing, predictions, regression etc."
+    "section": "21 Stats",
+    "text": "21 Stats\n\nPlots can be built with stats.\n\n\nx &lt;- ggplot(iris) + stat_bin(aes(x=Sepal.Length),geom=\"bar\")\ny &lt;- ggplot(iris) + stat_count(aes(x=Species),geom=\"bar\")\nz &lt;- ggplot(iris) + stat_identity(aes(x=Species,y=Sepal.Length),geom=\"bar\")\nwrap_plots(x,y,z,nrow=1)\n\n\n\n\n\n\n\n\n\n\nNormally the data is plotted directly from input as it is.\nSome plots require the data to be computed or transformed. Eg. boxplot, histograms, smoothing, predictions, regression etc."
   },
   {
     "objectID": "slides/ggplot/index.html#stats-2",
     "href": "slides/ggplot/index.html#stats-2",
     "title": "Plotting with ggplot2",
-    "section": "Stats",
-    "text": "Stats\n\nStats have default geoms.\n\n\n\n\n\n\n\nplot\nstat\ngeom\n\n\n\n\nhistogram\nbin\nbar\n\n\nsmooth\nsmooth\nline\n\n\nboxplot\nboxplot\nboxplot\n\n\ndensity\ndensity\nline\n\n\nfreqpoly\nfreqpoly\nline\n\n\n\n\n\n\n\n\nUse args(geom_bar) to check arguments."
+    "section": "22 Stats",
+    "text": "22 Stats\n\nStats have default geoms.\n\n\n\n\n\n\n\nplot\nstat\ngeom\n\n\n\n\nhistogram\nbin\nbar\n\n\nsmooth\nsmooth\nline\n\n\nboxplot\nboxplot\nboxplot\n\n\ndensity\ndensity\nline\n\n\nfreqpoly\nfreqpoly\nline\n\n\n\n\n\n\n\n\nUse args(geom_bar) to check arguments."
   },
   {
     "objectID": "slides/ggplot/index.html#aesthetics",
     "href": "slides/ggplot/index.html#aesthetics",
     "title": "Plotting with ggplot2",
-    "section": "Aesthetics",
-    "text": "Aesthetics\n\n\n\nAesthetic mapping\n\n\nggplot(iris)+\n  geom_point(aes(x=Sepal.Length,\n                 y=Sepal.Width,\n                 size=Petal.Length,\n                 alpha=Petal.Width,\n                 shape=Species,\n                 color=Species))\n\n\n\n\n\n\nAesthetic parameter\n\n\nggplot(iris)+\n  geom_point(aes(x=Sepal.Length,\n                 y=Sepal.Width),\n                 size=2,\n                 alpha=0.8,\n                 shape=15,\n                 color=\"steelblue\")\n\n\n\n\n\n\n\nAesthetics are used to assign values to geometries. For example, a set of points can be a fixed size or can be different colors or sizes denoting a variable.\nThis would be an incorrect way to do it.\nggplot(iris)+\ngeom_point(aes(x=Sepal.Length,y=Sepal.Width,size=2)"
+    "section": "23 Aesthetics",
+    "text": "23 Aesthetics\n\n\n\nAesthetic mapping\n\n\nggplot(iris)+\n  geom_point(aes(x=Sepal.Length,\n                 y=Sepal.Width,\n                 size=Petal.Length,\n                 alpha=Petal.Width,\n                 shape=Species,\n                 color=Species))\n\n\n\n\n\n\n\n\n\n\nAesthetic parameter\n\n\nggplot(iris)+\n  geom_point(aes(x=Sepal.Length,\n                 y=Sepal.Width),\n                 size=2,\n                 alpha=0.8,\n                 shape=15,\n                 color=\"steelblue\")\n\n\n\n\n\n\n\n\n\n\n\nAesthetics are used to assign values to geometries. For example, a set of points can be a fixed size or can be different colors or sizes denoting a variable.\nThis would be an incorrect way to do it.\nggplot(iris)+\ngeom_point(aes(x=Sepal.Length,y=Sepal.Width,size=2)"
   },
   {
     "objectID": "slides/ggplot/index.html#aesthetics-1",
     "href": "slides/ggplot/index.html#aesthetics-1",
     "title": "Plotting with ggplot2",
-    "section": "Aesthetics",
-    "text": "Aesthetics\n\nx1 &lt;- ggplot(iris) +\n  geom_point(aes(x=Sepal.Length,y=Sepal.Width))+\n  stat_smooth(aes(x=Sepal.Length,y=Sepal.Width))\n\nx2 &lt;- ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width))+\n                      geom_point() + geom_smooth()\n\nwrap_plots(x1,x2,nrow=1,ncol=2)\n\n\n\nIf the same aesthetics are used in multiple geoms, they can be moved to ggplot()."
+    "section": "24 Aesthetics",
+    "text": "24 Aesthetics\n\nx1 &lt;- ggplot(iris) +\n  geom_point(aes(x=Sepal.Length,y=Sepal.Width))+\n  stat_smooth(aes(x=Sepal.Length,y=Sepal.Width))\n\nx2 &lt;- ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width))+\n                      geom_point() + geom_smooth()\n\nwrap_plots(x1,x2,nrow=1,ncol=2)\n\n\n\n\n\n\n\n\n\nIf the same aesthetics are used in multiple geoms, they can be moved to ggplot()."
   },
   {
     "objectID": "slides/ggplot/index.html#multiple-geoms",
     "href": "slides/ggplot/index.html#multiple-geoms",
     "title": "Plotting with ggplot2",
-    "section": "Multiple Geoms",
-    "text": "Multiple Geoms\n\nggplot(iris,aes(x=Sepal.Length,y=Sepal.Width))+\n      geom_point()+\n      geom_line()+\n      geom_smooth()+\n      geom_rug()+\n      geom_step()+\n      geom_text(data=subset(iris,iris$Species==\"setosa\"),aes(label=Species))\n\n\n\nMultiple geoms can be plotted one after the other. The order in which items are specified in the command dictates the plotting order on the actual plot.\nIn this case, the points appear over the lines.\nggplot(iris,aes(x=Sepal.Length,y=Sepal.Width))+\n      geom_point()+\n      geom_line()+\nwhile here the lines appear above the points.\nggplot(iris,aes(x=Sepal.Length,y=Sepal.Width))+\n      geom_line()+\n      geom_point()+\nEach geom takes input from ggplot() inputs. If extra input is required to a geom, it can be specified additionally inside aes().\ndata can be changed if needed for specific geoms."
+    "section": "25 Multiple Geoms",
+    "text": "25 Multiple Geoms\n\nggplot(iris,aes(x=Sepal.Length,y=Sepal.Width))+\n      geom_point()+\n      geom_line()+\n      geom_smooth()+\n      geom_rug()+\n      geom_step()+\n      geom_text(data=subset(iris,iris$Species==\"setosa\"),aes(label=Species))\n\n\n\n\n\n\n\n\n\nMultiple geoms can be plotted one after the other. The order in which items are specified in the command dictates the plotting order on the actual plot.\nIn this case, the points appear over the lines.\nggplot(iris,aes(x=Sepal.Length,y=Sepal.Width))+\n      geom_point()+\n      geom_line()+\nwhile here the lines appear above the points.\nggplot(iris,aes(x=Sepal.Length,y=Sepal.Width))+\n      geom_line()+\n      geom_point()+\nEach geom takes input from ggplot() inputs. If extra input is required to a geom, it can be specified additionally inside aes().\ndata can be changed if needed for specific geoms."
   },
   {
     "objectID": "slides/ggplot/index.html#section-1",
     "href": "slides/ggplot/index.html#section-1",
     "title": "Plotting with ggplot2",
-    "section": "",
-    "text": "Just because you can doesn’t mean you should!"
+    "section": "26 ",
+    "text": "26 \nJust because you can doesn’t mean you should!"
   },
   {
     "objectID": "slides/ggplot/index.html#scales",
     "href": "slides/ggplot/index.html#scales",
     "title": "Plotting with ggplot2",
-    "section": "Scales",
-    "text": "Scales"
+    "section": "27 Scales",
+    "text": "27 Scales"
   },
   {
     "objectID": "slides/ggplot/index.html#scales-discrete-colors",
     "href": "slides/ggplot/index.html#scales-discrete-colors",
     "title": "Plotting with ggplot2",
-    "section": "Scales • Discrete Colors",
-    "text": "Scales • Discrete Colors\n\nscales: position, color, fill, size, shape, alpha, linetype\nsyntax: scale_&lt;aesthetic&gt;_&lt;type&gt;\n\n\n\n\np &lt;- ggplot(iris)+geom_point(aes(x=Sepal.Length,\n                     y=Sepal.Width,color=Species))\np\n\n\n\n\n\n\np + scale_color_manual(\n     name=\"Manual\",\n     values=c(\"#5BC0EB\",\"#FDE74C\",\"#9BC53D\"))\n\n\n\n\n\n\n\nScales are used to control the aesthetics. For example the aesthetic color is mapped to a variable x. The palette of colors used, the mapping of which color to which value, the upper and lower limit of the data and colors etc is controlled by scales."
+    "section": "28 Scales • Discrete Colors",
+    "text": "28 Scales • Discrete Colors\n\nscales: position, color, fill, size, shape, alpha, linetype\nsyntax: scale_&lt;aesthetic&gt;_&lt;type&gt;\n\n\n\n\np &lt;- ggplot(iris)+geom_point(aes(x=Sepal.Length,\n                     y=Sepal.Width,color=Species))\np\n\n\n\n\n\n\n\n\n\n\np + scale_color_manual(\n     name=\"Manual\",\n     values=c(\"#5BC0EB\",\"#FDE74C\",\"#9BC53D\"))\n\n\n\n\n\n\n\n\n\n\n\nScales are used to control the aesthetics. For example the aesthetic color is mapped to a variable x. The palette of colors used, the mapping of which color to which value, the upper and lower limit of the data and colors etc is controlled by scales."
   },
   {
     "objectID": "slides/ggplot/index.html#scales-continuous-colors",
     "href": "slides/ggplot/index.html#scales-continuous-colors",
     "title": "Plotting with ggplot2",
-    "section": "Scales • Continuous Colors",
-    "text": "Scales • Continuous Colors\n\nIn RStudio, type scale_, then press TAB\n\n\n\n\n\np &lt;- ggplot(iris)+\n      geom_point(aes(x=Sepal.Length,\n                     y=Sepal.Width,\n      shape=Species,color=Petal.Length))\np\n\n\n\n\n\n\np +\nscale_color_gradient(name=\"Pet Len\",\n  breaks=range(iris$Petal.Length),\n  labels=c(\"Min\",\"Max\"),\n  low=\"black\",high=\"red\")\n\n\n\n\n\n\n\nContinuous colours can be changed using scale_color_gradient() for two colour gradient. Any number of breaks and colours can be specified using scale_color_gradientn()."
+    "section": "29 Scales • Continuous Colors",
+    "text": "29 Scales • Continuous Colors\n\nIn RStudio, type scale_, then press TAB\n\n. . .\n\n\n\np &lt;- ggplot(iris)+\n      geom_point(aes(x=Sepal.Length,\n                     y=Sepal.Width,\n      shape=Species,color=Petal.Length))\np\n\n\n\n\n\n\n\n\n\n\np +\nscale_color_gradient(name=\"Pet Len\",\n  breaks=range(iris$Petal.Length),\n  labels=c(\"Min\",\"Max\"),\n  low=\"black\",high=\"red\")\n\n\n\n\n\n\n\n\n\n\n\nContinuous colours can be changed using scale_color_gradient() for two colour gradient. Any number of breaks and colours can be specified using scale_color_gradientn()."
   },
   {
     "objectID": "slides/ggplot/index.html#scales-shape",
     "href": "slides/ggplot/index.html#scales-shape",
     "title": "Plotting with ggplot2",
-    "section": "Scales • Shape",
-    "text": "Scales • Shape\n\n\n\np &lt;- ggplot(iris)+\n      geom_point(aes(x=Sepal.Length,\n                     y=Sepal.Width,\n      shape=Species,color=Species))\np\n\n\n\n\n\n\np +\nscale_color_manual(name=\"New\",\n   values=c(\"blue\",\"green\",\"red\"))+\nscale_shape_manual(name=\"Bla\",values=c(0,1,2))\n\n\n\n\n\n\n\nShape scale can be adjusted using scale_shape_manual(). Multiple mappings for the same variable groups legends."
+    "section": "30 Scales • Shape",
+    "text": "30 Scales • Shape\n\n\n\np &lt;- ggplot(iris)+\n      geom_point(aes(x=Sepal.Length,\n                     y=Sepal.Width,\n      shape=Species,color=Species))\np\n\n\n\n\n\n\n\n\n\n\np +\nscale_color_manual(name=\"New\",\n   values=c(\"blue\",\"green\",\"red\"))+\nscale_shape_manual(name=\"Bla\",values=c(0,1,2))\n\n\n\n\n\n\n\n\n\n\n\nShape scale can be adjusted using scale_shape_manual(). Multiple mappings for the same variable groups legends."
   },
   {
     "objectID": "slides/ggplot/index.html#scales-axes",
     "href": "slides/ggplot/index.html#scales-axes",
     "title": "Plotting with ggplot2",
-    "section": "Scales • Axes",
-    "text": "Scales • Axes\n\nscales: x, y\nsyntax: scale_&lt;axis&gt;_&lt;type&gt;\narguments: name, limits, breaks, labels\n\n\n\n\n\np &lt;- ggplot(iris)+geom_point(\n  aes(x=Sepal.Length,y=Sepal.Width))\np\n\n\n\n\n\n\np + scale_x_continuous(name=\"Sepal Length\",\n        breaks=seq(1,8),limits=c(3,5))\n\n\n\n\n\n\n\nThe x and y axes are also controlled by scales. The axis break points, the break point text and limits are controlled through scales.\nWhen setting limits using scale_, the data outside the limits are dropped. Limits can also be set using lims(x=c(3,5)) or xlim(c(3,5)). When mapping, coord_map() or coord_cartesian() is recommended for setting limits."
+    "section": "31 Scales • Axes",
+    "text": "31 Scales • Axes\n\nscales: x, y\nsyntax: scale_&lt;axis&gt;_&lt;type&gt;\narguments: name, limits, breaks, labels\n\n. . .\n\n\n\np &lt;- ggplot(iris)+geom_point(\n  aes(x=Sepal.Length,y=Sepal.Width))\np\n\n\n\n\n\n\n\n\n\n\np + scale_x_continuous(name=\"Sepal Length\",\n        breaks=seq(1,8),limits=c(3,5))\n\n\n\n\n\n\n\n\n\n\n\nThe x and y axes are also controlled by scales. The axis break points, the break point text and limits are controlled through scales.\nWhen setting limits using scale_, the data outside the limits are dropped. Limits can also be set using lims(x=c(3,5)) or xlim(c(3,5)). When mapping, coord_map() or coord_cartesian() is recommended for setting limits."
   },
   {
     "objectID": "slides/ggplot/index.html#facets",
     "href": "slides/ggplot/index.html#facets",
     "title": "Plotting with ggplot2",
-    "section": "Facets",
-    "text": "Facets"
+    "section": "32 Facets",
+    "text": "32 Facets"
   },
   {
     "objectID": "slides/ggplot/index.html#facets-facet_wrap",
     "href": "slides/ggplot/index.html#facets-facet_wrap",
     "title": "Plotting with ggplot2",
-    "section": "Facets • facet_wrap",
-    "text": "Facets • facet_wrap\n\nSplit to subplots based on variable(s), Faceting in one dimension\n\n\n\n\np &lt;- ggplot(iris)+\n      geom_point(aes(x=Sepal.Length,\n                     y=Sepal.Width,\n                     color=Species))\np\n\n\n\n\n\n\np + facet_wrap(~Species)\n\n\n\n\n\np + facet_wrap(~Species,nrow=3)\n\n\n\n\n\n\n\nfacet_wrap is used to split a plot into subplots based on the categories in one or more variables."
+    "section": "33 Facets • facet_wrap",
+    "text": "33 Facets • facet_wrap\n\nSplit to subplots based on variable(s), Faceting in one dimension\n\n\n\n\np &lt;- ggplot(iris)+\n      geom_point(aes(x=Sepal.Length,\n                     y=Sepal.Width,\n                     color=Species))\np\n\n\n\n\n\n\n\n\n\n\np + facet_wrap(~Species)\n\n\n\n\n\n\n\n\n\np + facet_wrap(~Species,nrow=3)\n\n\n\n\n\n\n\n\n\n\n\nfacet_wrap is used to split a plot into subplots based on the categories in one or more variables."
   },
   {
     "objectID": "slides/ggplot/index.html#facets-facet_grid",
     "href": "slides/ggplot/index.html#facets-facet_grid",
     "title": "Plotting with ggplot2",
-    "section": "Facets • facet_grid",
-    "text": "Facets • facet_grid\n\n\n\nFaceting in two dimensions\n\n\np &lt;- diamonds %&gt;%\n     ggplot(aes(carat,price))+\n     geom_point()\np + facet_grid(~cut+clarity)\n\n\n\n\n\n\np + facet_grid(cut~clarity)\n\n\n\n\n\n\n\nfacet_grid is also used to split a plot into subplots based on the categories in one or more variables. facet_grid can be used to create a matrix-like grid of two variables."
+    "section": "34 Facets • facet_grid",
+    "text": "34 Facets • facet_grid\n\n\n\nFaceting in two dimensions\n\n\np &lt;- diamonds %&gt;%\n     ggplot(aes(carat,price))+\n     geom_point()\np + facet_grid(~cut+clarity)\n\n\n\n\n\n\n\n\n\n\np + facet_grid(cut~clarity)\n\n\n\n\n\n\n\n\n\n\n\nfacet_grid is also used to split a plot into subplots based on the categories in one or more variables. facet_grid can be used to create a matrix-like grid of two variables."
   },
   {
     "objectID": "slides/ggplot/index.html#coordinates",
     "href": "slides/ggplot/index.html#coordinates",
     "title": "Plotting with ggplot2",
-    "section": "Coordinates",
-    "text": "Coordinates"
+    "section": "35 Coordinates",
+    "text": "35 Coordinates"
   },
   {
     "objectID": "slides/ggplot/index.html#coordinate-systems",
     "href": "slides/ggplot/index.html#coordinate-systems",
     "title": "Plotting with ggplot2",
-    "section": "Coordinate Systems",
-    "text": "Coordinate Systems\n\n\n\ncoord_cartesian(xlim=c(2,8)) for zooming in\ncoord_map for controlling limits on maps\ncoord_polar for polar ccordinates\n\n\np &lt;- ggplot(iris,aes(x=\"\",y=Petal.Length,fill=Species))+\n  geom_bar(stat=\"identity\")\np\n\n\n\n\n\n\n\np + coord_polar(\"y\", start = 0)\n\n\n\n\n\n\n\nThe coordinate system defines the surface used to represent numbers. Most plots use the cartesian coordinate sytem. Pie charts for example, is a polar coordinate projection of a cartesian barplot. Maps for example can have numerous coordinate systems called map projections. For example; UTM coordinates."
+    "section": "36 Coordinate Systems",
+    "text": "36 Coordinate Systems\n\n\n\ncoord_cartesian(xlim=c(2,8)) for zooming in\ncoord_map for controlling limits on maps\ncoord_polar for polar ccordinates\n\n\np &lt;- ggplot(iris,aes(x=\"\",y=Petal.Length,fill=Species))+\n  geom_bar(stat=\"identity\")\np\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\np + coord_polar(\"y\", start = 0)\n\n\n\n\n\n\n\n\n\n\n\nThe coordinate system defines the surface used to represent numbers. Most plots use the cartesian coordinate sytem. Pie charts for example, is a polar coordinate projection of a cartesian barplot. Maps for example can have numerous coordinate systems called map projections. For example; UTM coordinates."
   },
   {
     "objectID": "slides/ggplot/index.html#theming",
     "href": "slides/ggplot/index.html#theming",
     "title": "Plotting with ggplot2",
-    "section": "Theming",
-    "text": "Theming"
+    "section": "37 Theming",
+    "text": "37 Theming"
   },
   {
     "objectID": "slides/ggplot/index.html#theming-1",
     "href": "slides/ggplot/index.html#theming-1",
     "title": "Plotting with ggplot2",
-    "section": "Theming",
-    "text": "Theming\n\n\n\nModify non-data plot elements/appearance\nAxis labels, panel colors, legend appearance etc\n\n\nggplot(iris, aes(Petal.Length)) +\n    geom_histogram() +\n    facet_wrap(~Species, nrow = 2) +\n    theme_grey()\n\n\n\n\n\n\nSave a particular appearance for reuse\n?theme\n\n\nggplot(iris, aes(Petal.Length)) +\n    geom_histogram() +\n    facet_wrap(~Species, nrow = 2) +\n    theme_bw()\n\n\n\n\n\n\n\nThemes allow to modify all non-data related components of the plot. This is the visual appearance of the plot. Examples include the axes line thickness, the background color or font family."
+    "section": "38 Theming",
+    "text": "38 Theming\n\n\n\nModify non-data plot elements/appearance\nAxis labels, panel colors, legend appearance etc\n\n\nggplot(iris, aes(Petal.Length)) +\n    geom_histogram() +\n    facet_wrap(~Species, nrow = 2) +\n    theme_grey()\n\n\n\n\n\n\n\n\n\n\nSave a particular appearance for reuse\n?theme\n\n\nggplot(iris, aes(Petal.Length)) +\n    geom_histogram() +\n    facet_wrap(~Species, nrow = 2) +\n    theme_bw()\n\n\n\n\n\n\n\n\n\n\n\nThemes allow to modify all non-data related components of the plot. This is the visual appearance of the plot. Examples include the axes line thickness, the background color or font family."
   },
   {
     "objectID": "slides/ggplot/index.html#theme-legend",
     "href": "slides/ggplot/index.html#theme-legend",
     "title": "Plotting with ggplot2",
-    "section": "Theme • Legend",
-    "text": "Theme • Legend\n\np &lt;- ggplot(iris)+\n      geom_point(aes(x=Sepal.Length,\n                     y=Sepal.Width,\n                     color=Species))\n\n\n\n\np + theme(legend.position=\"top\")\n\n\n\n\n\n\np + theme(legend.position=\"bottom\")"
+    "section": "39 Theme • Legend",
+    "text": "39 Theme • Legend\n\np &lt;- ggplot(iris)+\n      geom_point(aes(x=Sepal.Length,\n                     y=Sepal.Width,\n                     color=Species))\n\n\n\n\np + theme(legend.position=\"top\")\n\n\n\n\n\n\n\n\n\n\np + theme(legend.position=\"bottom\")"
   },
   {
     "objectID": "slides/ggplot/index.html#theme-text",
     "href": "slides/ggplot/index.html#theme-text",
     "title": "Plotting with ggplot2",
-    "section": "Theme • Text",
-    "text": "Theme • Text\n\nelement_text(family=NULL,face=NULL,color=NULL,size=NULL,hjust=NULL,\n             vjust=NULL, angle=NULL,lineheight=NULL,margin = NULL)\n\n\np &lt;- p + theme(\n    axis.title=element_text(color=\"#e41a1c\"),\n    axis.text=element_text(color=\"#377eb8\"),\n    plot.title=element_text(color=\"#4daf4a\"),\n    plot.subtitle=element_text(color=\"#984ea3\"),\n    legend.text=element_text(color=\"#ff7f00\"),\n    legend.title=element_text(color=\"#ffff33\"),\n    strip.text=element_text(color=\"#a65628\")\n)"
+    "section": "40 Theme • Text",
+    "text": "40 Theme • Text\n\nelement_text(family=NULL,face=NULL,color=NULL,size=NULL,hjust=NULL,\n             vjust=NULL, angle=NULL,lineheight=NULL,margin = NULL)\n\n\np &lt;- p + theme(\n    axis.title=element_text(color=\"#e41a1c\"),\n    axis.text=element_text(color=\"#377eb8\"),\n    plot.title=element_text(color=\"#4daf4a\"),\n    plot.subtitle=element_text(color=\"#984ea3\"),\n    legend.text=element_text(color=\"#ff7f00\"),\n    legend.title=element_text(color=\"#ffff33\"),\n    strip.text=element_text(color=\"#a65628\")\n)"
   },
   {
     "objectID": "slides/ggplot/index.html#theme-rect",
     "href": "slides/ggplot/index.html#theme-rect",
     "title": "Plotting with ggplot2",
-    "section": "Theme • Rect",
-    "text": "Theme • Rect\n\nelement_rect(fill=NULL,color=NULL,size=NULL,linetype=NULL)\n\n\np &lt;- p + theme(\n    plot.background=element_rect(fill=\"#b3e2cd\"),\n    panel.background=element_rect(fill=\"#fdcdac\"),\n    panel.border=element_rect(fill=NA,color=\"#cbd5e8\",size=3),\n    legend.background=element_rect(fill=\"#f4cae4\"),\n    legend.box.background=element_rect(fill=\"#e6f5c9\"),\n    strip.background=element_rect(fill=\"#fff2ae\")\n)"
+    "section": "41 Theme • Rect",
+    "text": "41 Theme • Rect\n\nelement_rect(fill=NULL,color=NULL,size=NULL,linetype=NULL)\n\n\np &lt;- p + theme(\n    plot.background=element_rect(fill=\"#b3e2cd\"),\n    panel.background=element_rect(fill=\"#fdcdac\"),\n    panel.border=element_rect(fill=NA,color=\"#cbd5e8\",size=3),\n    legend.background=element_rect(fill=\"#f4cae4\"),\n    legend.box.background=element_rect(fill=\"#e6f5c9\"),\n    strip.background=element_rect(fill=\"#fff2ae\")\n)"
   },
   {
     "objectID": "slides/ggplot/index.html#theme-reuse",
     "href": "slides/ggplot/index.html#theme-reuse",
     "title": "Plotting with ggplot2",
-    "section": "Theme • Reuse",
-    "text": "Theme • Reuse\n\nnewtheme &lt;- theme_bw() + theme(\n  axis.ticks=element_blank(), panel.background=element_rect(fill=\"white\"),\n  panel.grid.minor=element_blank(), panel.grid.major.x=element_blank(),\n  panel.grid.major.y=element_line(size=0.3,color=\"grey90\"), panel.border=element_blank(),\n  legend.position=\"top\", legend.justification=\"right\"\n)\n\n\n\n\np\n\n\n\n\n\n\np + newtheme"
+    "section": "42 Theme • Reuse",
+    "text": "42 Theme • Reuse\n\nnewtheme &lt;- theme_bw() + theme(\n  axis.ticks=element_blank(), panel.background=element_rect(fill=\"white\"),\n  panel.grid.minor=element_blank(), panel.grid.major.x=element_blank(),\n  panel.grid.major.y=element_line(size=0.3,color=\"grey90\"), panel.border=element_blank(),\n  legend.position=\"top\", legend.justification=\"right\"\n)\n\n\n\n\np\n\n\n\n\n\n\n\n\n\n\np + newtheme"
   },
   {
     "objectID": "slides/ggplot/index.html#position",
     "href": "slides/ggplot/index.html#position",
     "title": "Plotting with ggplot2",
-    "section": "Position",
-    "text": "Position\n\nus &lt;- USArrests %&gt;% mutate(state=rownames(.)) %&gt;% slice(1:4) %&gt;%\n                    gather(key=type,value=value,-state)\np &lt;- ggplot(us,aes(x=state,y=value,fill=type))\n\n\n\n\np + geom_bar(stat=\"identity\",position=\"stack\")\n\n\n\n\n\n\np + geom_bar(stat=\"identity\",position=\"dodge\")"
+    "section": "43 Position",
+    "text": "43 Position\n\nus &lt;- USArrests %&gt;% mutate(state=rownames(.)) %&gt;% slice(1:4) %&gt;%\n                    gather(key=type,value=value,-state)\np &lt;- ggplot(us,aes(x=state,y=value,fill=type))\n\n\n\n\np + geom_bar(stat=\"identity\",position=\"stack\")\n\n\n\n\n\n\n\n\n\n\np + geom_bar(stat=\"identity\",position=\"dodge\")"
   },
   {
     "objectID": "slides/ggplot/index.html#saving-plots",
     "href": "slides/ggplot/index.html#saving-plots",
     "title": "Plotting with ggplot2",
-    "section": "Saving plots",
-    "text": "Saving plots\n\np &lt;- ggplot(iris,aes(Petal.Length,Sepal.Length,color=Species))+\n  geom_point()\n\n\nggplot2 plots can be saved just like base plots\n\n\npng(\"plot.png\",height=5,width=7,units=\"cm\",res=200)\nprint(p)\ndev.off()\n\n\nggplot2 package offers a convenient function\n\n\nggsave(\"plot.png\",p,height=5,width=7,units=\"cm\",dpi=200,type=\"cairo\")\n\n\nUse type=\"cairo\" for nicer anti-aliasing\n\nNote that default units in png is pixels while in ggsave it’s inches"
+    "section": "44 Saving plots",
+    "text": "44 Saving plots\n\np &lt;- ggplot(iris,aes(Petal.Length,Sepal.Length,color=Species))+\n  geom_point()\n\n\nggplot2 plots can be saved just like base plots\n\n\npng(\"plot.png\",height=5,width=7,units=\"cm\",res=200)\nprint(p)\ndev.off()\n\n\nggplot2 package offers a convenient function\n\n\nggsave(\"plot.png\",p,height=5,width=7,units=\"cm\",dpi=200,type=\"cairo\")\n\n\nUse type=\"cairo\" for nicer anti-aliasing\n\nNote that default units in png is pixels while in ggsave it’s inches"
   },
   {
     "objectID": "slides/ggplot/index.html#combining-plots",
     "href": "slides/ggplot/index.html#combining-plots",
     "title": "Plotting with ggplot2",
-    "section": "Combining Plots",
-    "text": "Combining Plots\n\np &lt;- ggplot(us,aes(x=state,y=value,color=type))+geom_point()\nq &lt;- ggplot(us,aes(x=state,y=value,fill=type))+geom_bar(stat=\"identity\")\n\n\npatchwork::wrap_plots(p,q)\n\n\nRefer to patchwork documentation.\n\nCombining two or more ggplot2 plots is often required and several packages exist to help with this situation. Some functions allow plots to be placed adjacently, also allowing varying heights or widths of each plot. Some functions allow one plot to be plotted on another plot like a subset plot. Here are alternative options.\n\ngridExtra::grid.arrange(p,q,ncol=2)\nggpubr::ggarrange(p,q,ncol=2,widths=c(1.5,1),common.legend=T)\ncowplot::plot_grid()"
+    "section": "45 Combining Plots",
+    "text": "45 Combining Plots\n\np &lt;- ggplot(us,aes(x=state,y=value,color=type))+geom_point()\nq &lt;- ggplot(us,aes(x=state,y=value,fill=type))+geom_bar(stat=\"identity\")\n\n\npatchwork::wrap_plots(p,q)\n\n\n\n\n\n\n\n\nRefer to patchwork documentation.\n\nCombining two or more ggplot2 plots is often required and several packages exist to help with this situation. Some functions allow plots to be placed adjacently, also allowing varying heights or widths of each plot. Some functions allow one plot to be plotted on another plot like a subset plot. Here are alternative options.\n\ngridExtra::grid.arrange(p,q,ncol=2)\nggpubr::ggarrange(p,q,ncol=2,widths=c(1.5,1),common.legend=T)\ncowplot::plot_grid()"
   },
   {
     "objectID": "slides/ggplot/index.html#interactive",
     "href": "slides/ggplot/index.html#interactive",
     "title": "Plotting with ggplot2",
-    "section": "Interactive",
-    "text": "Interactive\n\nConvert ggplot2 object to interactive HTML\n\n\np &lt;- ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width,col=Species))\n\n\n\n\np1 &lt;- p+geom_point()\nplotly::ggplotly(p1,width=500,height=400)\n\n\n\n\n\n\n\np2 &lt;- p+ggiraph::geom_point_interactive(\n  aes(tooltip=paste0(\"&lt;b&gt;Species: &lt;/b&gt;\",Species)))+\n  theme_bw(base_size=12)\nggiraph::ggiraph(code=print(p2))\n\n\n\n\n\n\n\n\nMost interactive plotting libraries are not as complete as ggplot2. Therefore, some packages explore ways of converting ggplot2 objects into interactive graphics"
+    "section": "46 Interactive",
+    "text": "46 Interactive\n\nConvert ggplot2 object to interactive HTML\n\n\np &lt;- ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width,col=Species))\n\n\n\n\np1 &lt;- p+geom_point()\nplotly::ggplotly(p1,width=500,height=400)\n\n\n\n\n\n\n\np2 &lt;- p+ggiraph::geom_point_interactive(\n  aes(tooltip=paste0(\"&lt;b&gt;Species: &lt;/b&gt;\",Species)))+\n  theme_bw(base_size=12)\nggiraph::ggiraph(code=print(p2))\n\n\n\n\n\n\n\n\nMost interactive plotting libraries are not as complete as ggplot2. Therefore, some packages explore ways of converting ggplot2 objects into interactive graphics"
   },
   {
     "objectID": "slides/ggplot/index.html#extensions",
     "href": "slides/ggplot/index.html#extensions",
     "title": "Plotting with ggplot2",
-    "section": "Extensions",
-    "text": "Extensions\n\npatchwork: Combining plots\nggrepel: Text labels including overlap control\nggforce: Circles, splines, hulls, voronoi etc\nggpmisc: Miscellaneaous features\nggthemes: Set of extra themes\n\nggthemr: More themes\n\nggsci: Color palettes for scales\n\nggmap: Dedicated to mapping\n\nggraph: Network graphs\n\nggiraph: Converting ggplot2 to interactive graphics\n\nA collection of ggplot extension packages: https://exts.ggplot2.tidyverse.org/.\nCurated list of ggplot2 links: https://github.com/erikgahner/awesome-ggplot2."
+    "section": "47 Extensions",
+    "text": "47 Extensions\n\npatchwork: Combining plots\nggrepel: Text labels including overlap control\nggforce: Circles, splines, hulls, voronoi etc\nggpmisc: Miscellaneaous features\nggthemes: Set of extra themes\n\nggthemr: More themes\n\nggsci: Color palettes for scales\n\nggmap: Dedicated to mapping\n\nggraph: Network graphs\n\nggiraph: Converting ggplot2 to interactive graphics\n\nA collection of ggplot extension packages: https://exts.ggplot2.tidyverse.org/.\nCurated list of ggplot2 links: https://github.com/erikgahner/awesome-ggplot2."
   },
   {
     "objectID": "slides/ggplot/index.html#help",
     "href": "slides/ggplot/index.html#help",
     "title": "Plotting with ggplot2",
-    "section": "Help",
-    "text": "Help\n\nggplot2 book\n\nggplot2 official reference\n\nThe R cookbook\n\nRStudio Cheatsheet\n\nr-statistics Cheatsheet\n\nStackOverflow\n\nBlogs, for example; R-Bloggers, Cedric Scherer etc."
+    "section": "48 Help",
+    "text": "48 Help\n\nggplot2 book\n\nggplot2 official reference\n\nThe R cookbook\n\nRStudio Cheatsheet\n\nr-statistics Cheatsheet\n\nStackOverflow\n\nBlogs, for example; R-Bloggers, Cedric Scherer etc."
   },
   {
     "objectID": "slides/ggplot/index.html#section-3",
     "href": "slides/ggplot/index.html#section-3",
     "title": "Plotting with ggplot2",
-    "section": "",
-    "text": "Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
+    "section": "50 ",
+    "text": "50 \n\n50.1 Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
   },
   {
     "objectID": "slides/index.html",
@@ -2545,28 +2545,28 @@
     "href": "slides/reticulate/index.html#importing-python-modules",
     "title": "Reticulate",
     "section": "Importing Python modules",
-    "text": "Importing Python modules\n\ndatetime <- import(\"datetime\")\ntodays_r_date <- datetime$datetime$now()\n\n\n\ntodays_r_date\nclass(todays_r_date)\n\n[1] \"2023-06-07 13:37:21 CEST\"\n[1] \"POSIXct\" \"POSIXt\" \n\n\n\n\nObjects are automatically converted to R types, unless otherwise specified\n\n\n\ndatetime <- import(\"datetime\", convert = FALSE)\ntodays_py_date <- datetime$datetime$now()\n\n\n\n\ntodays_py_date\nclass(todays_py_date)\n\ndatetime.datetime(2023, 6, 7, 13, 37, 21, 173532)\n[1] \"datetime.datetime\"     \"datetime.date\"         \"python.builtin.object\""
+    "text": "Importing Python modules\n\ndatetime &lt;- import(\"datetime\")\ntodays_r_date &lt;- datetime$datetime$now()\n\n\n\ntodays_r_date\nclass(todays_r_date)\n\n[1] \"2023-06-08 10:20:12 CEST\"\n[1] \"POSIXct\" \"POSIXt\" \n\n\n\n\nObjects are automatically converted to R types, unless otherwise specified\n\n\n\ndatetime &lt;- import(\"datetime\", convert = FALSE)\ntodays_py_date &lt;- datetime$datetime$now()\n\n\n\n\ntodays_py_date\nclass(todays_py_date)\n\ndatetime.datetime(2023, 6, 8, 10, 20, 12, 742662)\n[1] \"datetime.datetime\"     \"datetime.date\"         \"python.builtin.object\""
   },
   {
     "objectID": "slides/reticulate/index.html#importing-built-in-python-functions",
     "href": "slides/reticulate/index.html#importing-built-in-python-functions",
     "title": "Reticulate",
     "section": "Importing built-in Python functions",
-    "text": "Importing built-in Python functions\nAccess Python’s built-in functions directly in R\n\nbuiltins <- import_builtins()\nr_vec <- c(1, 5, 3, 4, 2, 2, 3, 2)\nstr(r_vec)\n\n num [1:8] 1 5 3 4 2 2 3 2\n\n\nr_vec is an R object.\n\n\nbuiltins$len(r_vec)\nbuiltins$max(r_vec)\n\n[1] 8\n[1] 5\n\n\nPython built-in functions still working on R objects\n\n\n\nmax(r_vec)\n\n[1] 5\n\n\nNormal R way"
+    "text": "Importing built-in Python functions\nAccess Python’s built-in functions directly in R\n\nbuiltins &lt;- import_builtins()\nr_vec &lt;- c(1, 5, 3, 4, 2, 2, 3, 2)\nstr(r_vec)\n\n num [1:8] 1 5 3 4 2 2 3 2\n\n\nr_vec is an R object.\n\n\nbuiltins$len(r_vec); builtins$max(r_vec)\n\n[1] 8\n[1] 5\n\n\nPython built-in functions still working on R objects\n\n\n\nmax(r_vec)\n\n[1] 5\n\n\nNormal R way"
   },
   {
     "objectID": "slides/reticulate/index.html#sourcing-scripts",
     "href": "slides/reticulate/index.html#sourcing-scripts",
     "title": "Reticulate",
     "section": "Sourcing scripts",
-    "text": "Sourcing scripts\nImport your own python functions for use in R. File python_functions.py:\n\ndef add(x, y):\n  return x + y\n\n\nR code:\n\nsource_python(\"python_functions.py\")\nclass(4)\nres <- add(4,5)\nres\nclass(res)\n\n[1] \"numeric\"\n[1] 9\n[1] \"numeric\"\n\n\n\n\nType numeric in and type numeric out. But what happens in between?"
+    "text": "Sourcing scripts\nImport your own python functions for use in R. File python_functions.py:\n\ndef add(x, y):\n  return x + y\n\n\nR code:\n\nsource_python(\"python_functions.py\")\nclass(4)\nres &lt;- add(4,5)\nres\nclass(res)\n\n[1] \"numeric\"\n[1] 9\n[1] \"numeric\"\n\n\n\n\nType numeric in and type numeric out. But what happens in between?"
   },
   {
     "objectID": "slides/reticulate/index.html#sourcing-scripts-1",
     "href": "slides/reticulate/index.html#sourcing-scripts-1",
     "title": "Reticulate",
     "section": "Sourcing scripts",
-    "text": "Sourcing scripts\nBut what happens in between?\nFile python_functions.py:\n\ndef add_with_print(x, y):\n  print(x, 'is of the python type ', type(x))\n  return x + y\n\n\nres2 <- add_with_print(4,5)\npy_capture_output(add_with_print(4,5))\nstr(res2)\n\n[1] \"4.0 is of the python type  <class 'float'>\\n\\n\"\n num 9"
+    "text": "Sourcing scripts\nBut what happens in between?\nFile python_functions.py:\n\ndef add_with_print(x, y):\n  print(x, 'is of the python type ', type(x))\n  return x + y\n\n\nres2 &lt;- add_with_print(4,5)\npy_capture_output(add_with_print(4,5))\nstr(res2)\n\n[1] \"4.0 is of the python type  &lt;class 'float'&gt;\\n\\n\"\n num 9"
   },
   {
     "objectID": "slides/reticulate/index.html#execute-python-code",
@@ -2587,21 +2587,21 @@
     "href": "slides/reticulate/index.html#python-in-r-markdown",
     "title": "Reticulate",
     "section": "Python in R Markdown",
-    "text": "Python in R Markdown\nIn R Markdown, it is possible to mix in Python chunks:\n```{python}\nimport pandas as pd\n\nmovies = get_all_movies()\nprint(type(movies))\n```\n\n\n<class 'pandas.core.frame.DataFrame'>"
+    "text": "Python in R Markdown\nIn R Markdown, it is possible to mix in Python chunks:\n```{python}\nimport pandas as pd\n\nmovies = get_all_movies()\nprint(type(movies))\n```\n\n\n&lt;class 'pandas.core.frame.DataFrame'&gt;"
   },
   {
     "objectID": "slides/reticulate/index.html#python-in-r-markdown-1",
     "href": "slides/reticulate/index.html#python-in-r-markdown-1",
     "title": "Reticulate",
     "section": "Python in R Markdown",
-    "text": "Python in R Markdown\nAccess the movie object using the py object, which will convert movies to an R object:\n\nmovies_r <- py$movies\nmovies_r <- as_tibble(movies_r)\nsubset <- movies_r %>% select(5:6, 8:10)"
+    "text": "Python in R Markdown\nAccess the movie object using the py object, which will convert movies to an R object:\n\nmovies_r &lt;- py$movies\nmovies_r &lt;- as_tibble(movies_r)\nsubset &lt;- movies_r %&gt;% select(5:6, 8:10)"
   },
   {
     "objectID": "slides/reticulate/index.html#python-in-r-markdown-2",
     "href": "slides/reticulate/index.html#python-in-r-markdown-2",
     "title": "Reticulate",
     "section": "Python in R Markdown",
-    "text": "Python in R Markdown\nAccess the movie object using the py object, which will convert movies to an R object:\n\nmovies_r <- py$movies\nmovies_r <- as_tibble(movies_r)\nsubset <- movies_r %>% select(5:6, 8:10)\nknitr::kable(subset[1:7,],'html')\n\n\n\n \n  \n    originalTitle \n    startYear \n    runtimeMinutes \n    genres \n    averageRating \n  \n \n\n  \n    Kate & Leopold \n    2001 \n    118 \n    Comedy,Fantasy,Romance \n    6.4 \n  \n  \n    The Brain That Wouldn't Die \n    1962 \n    82 \n    Horror,Sci-Fi \n    4.4 \n  \n  \n    The Fugitive Kind \n    1960 \n    119 \n    Drama,Romance \n    7.1 \n  \n  \n    Les yeux sans visage \n    1960 \n    90 \n    Drama,Horror \n    7.7 \n  \n  \n    À bout de souffle \n    1960 \n    90 \n    Crime,Drama \n    7.8 \n  \n  \n    13 Ghosts \n    1960 \n    85 \n    Horror,Mystery \n    6.1 \n  \n  \n    The Alamo \n    1960 \n    162 \n    Adventure,Drama,History \n    6.8"
+    "text": "Python in R Markdown\nAccess the movie object using the py object, which will convert movies to an R object:\n\nmovies_r &lt;- py$movies\nmovies_r &lt;- as_tibble(movies_r)\nsubset &lt;- movies_r %&gt;% select(5:6, 8:10)\nknitr::kable(subset[1:7,],'html')\n\n\n\n\noriginalTitle\nstartYear\nruntimeMinutes\ngenres\naverageRating\n\n\n\n\nKate & Leopold\n2001\n118\nComedy,Fantasy,Romance\n6.4\n\n\nThe Brain That Wouldn't Die\n1962\n82\nHorror,Sci-Fi\n4.4\n\n\nThe Fugitive Kind\n1960\n119\nDrama,Romance\n7.1\n\n\nLes yeux sans visage\n1960\n90\nDrama,Horror\n7.7\n\n\nÀ bout de souffle\n1960\n90\nCrime,Drama\n7.8\n\n\n13 Ghosts\n1960\n85\nHorror,Mystery\n6.1\n\n\nThe Alamo\n1960\n162\nAdventure,Drama,History\n6.8"
   },
   {
     "objectID": "slides/reticulate/index.html#python-in-r-markdown-3",
@@ -2622,35 +2622,35 @@
     "href": "slides/reticulate/index.html#type-conversions",
     "title": "Reticulate",
     "section": "Type conversions",
-    "text": "Type conversions\nWhen calling python code from R, R data types are converted to Python types, and vice versa, when values are returned from Python to R they are converted back to R types.\nConversion table\n\n\n\n\n\n\n\n \n  \n    R \n    Python \n    Examples \n  \n \n\n  \n    Single-element vector \n    Scalar \n    1   , 1L  , TRUE, foo \n  \n  \n    Multi-element vector \n    List \n    c(1.0, 2.0, 3.0), c(1L, 2L, 3L) \n  \n  \n    List of multiple types \n    Tuple \n    list(1L, TRUE, \"foo\") \n  \n  \n    Named list \n    Dict \n    list(a = 1L, b = 2.0), dict(x = x_data) \n  \n  \n    Matrix/Array \n    NumPy ndarray \n    matrix(c(1,2,3,4), nrow=2, ncol=2) \n  \n  \n    Data Frame \n    Pandas DataFrame \n    data.frame(x = c(1,2,3), y = c(\"a\",\"b\",\"c\")) \n  \n  \n    Function \n    Python function \n    function(x) x +1 \n  \n  \n    Raw \n    Python bytearray \n    as.raw(c(1:10)) \n  \n  \n    NULL, TRUE, FALSE \n    None, True, False \n    NULL, TRUE, FALSE"
+    "text": "Type conversions\nWhen calling python code from R, R data types are converted to Python types, and vice versa, when values are returned from Python to R they are converted back to R types.\nConversion table\n\n\n\n\n\nR\nPython\nExamples\n\n\n\n\nSingle-element vector\nScalar\n1 , 1L , TRUE, foo\n\n\nMulti-element vector\nList\nc(1.0, 2.0, 3.0), c(1L, 2L, 3L)\n\n\nList of multiple types\nTuple\nlist(1L, TRUE, \"foo\")\n\n\nNamed list\nDict\nlist(a = 1L, b = 2.0), dict(x = x_data)\n\n\nMatrix/Array\nNumPy ndarray\nmatrix(c(1,2,3,4), nrow=2, ncol=2)\n\n\nData Frame\nPandas DataFrame\ndata.frame(x = c(1,2,3), y = c(\"a\",\"b\",\"c\"))\n\n\nFunction\nPython function\nfunction(x) x +1\n\n\nRaw\nPython bytearray\nas.raw(c(1:10))\n\n\nNULL, TRUE, FALSE\nNone, True, False\nNULL, TRUE, FALSE"
   },
   {
     "objectID": "slides/reticulate/index.html#type-conversions-1",
     "href": "slides/reticulate/index.html#type-conversions-1",
     "title": "Reticulate",
     "section": "Type conversions",
-    "text": "Type conversions\npython_functions.py:\n\ndef check_python_type(x):\n  print(type(x))\n  return x\n\n\n\nsource_python(\"python_functions.py\")\n\nr_var <- matrix(c(1,2,3,4),nrow=2, ncol=2)\nclass(r_var)\npy_capture_output(check_python_type(r_var))\nr_var2 <- check_python_type(r_var)\nclass(r_var2)\n\n[1] \"matrix\" \"array\" \n[1] \"<class 'numpy.ndarray'>\\n\\n\"\n[1] \"matrix\" \"array\""
+    "text": "Type conversions\npython_functions.py:\n\ndef check_python_type(x):\n  print(type(x))\n  return x\n\n\n\nsource_python(\"python_functions.py\")\n\nr_var &lt;- matrix(c(1,2,3,4),nrow=2, ncol=2)\nclass(r_var)\npy_capture_output(check_python_type(r_var))\nr_var2 &lt;- check_python_type(r_var)\nclass(r_var2)\n\n[1] \"matrix\" \"array\" \n[1] \"&lt;class 'numpy.ndarray'&gt;\\n\\n\"\n[1] \"matrix\" \"array\""
   },
   {
     "objectID": "slides/reticulate/index.html#type-conversions-2",
     "href": "slides/reticulate/index.html#type-conversions-2",
     "title": "Reticulate",
     "section": "Type conversions",
-    "text": "Type conversions\n\nsource_python(\"python_functions.py\", convert=FALSE)\n\nr_var <- matrix(c(1,2,3,4),nrow=2, ncol=2)\nclass(r_var)\npy_capture_output(check_python_type(r_var))\nr_var2 <- check_python_type(r_var)\nclass(r_var2)\nr_var3 <- py_to_r(r_var2)\nclass(r_var3)\n\n[1] \"matrix\" \"array\" \n[1] \"<class 'numpy.ndarray'>\\n\\n\"\n[1] \"numpy.ndarray\"         \"python.builtin.object\"\n[1] \"matrix\" \"array\""
+    "text": "Type conversions\n\nsource_python(\"python_functions.py\", convert=FALSE)\n\nr_var &lt;- matrix(c(1,2,3,4),nrow=2, ncol=2)\nclass(r_var)\npy_capture_output(check_python_type(r_var))\nr_var2 &lt;- check_python_type(r_var)\nclass(r_var2)\nr_var3 &lt;- py_to_r(r_var2)\nclass(r_var3)\n\n[1] \"matrix\" \"array\" \n[1] \"&lt;class 'numpy.ndarray'&gt;\\n\\n\"\n[1] \"numpy.ndarray\"         \"python.builtin.object\"\n[1] \"matrix\" \"array\""
   },
   {
     "objectID": "slides/reticulate/index.html#type-conversions-3",
     "href": "slides/reticulate/index.html#type-conversions-3",
     "title": "Reticulate",
     "section": "Type conversions",
-    "text": "Type conversions\n\n42 in R is a floating point number. In Python it is an integer\n\n\nstr(42)\ncheck_python_type(42)\npy_capture_output(check_python_type(42))\n\n num 42\n42.0\n[1] \"<class 'float'>\\n\\n\"\n\n\n\n\nstr(42L)\ncheck_python_type(42L)\npy_capture_output(check_python_type(42L))\n\n int 42\n42\n[1] \"<class 'int'>\\n\\n\""
+    "text": "Type conversions\n\n42 in R is a floating point number. In Python it is an integer\n\n\nstr(42)\ncheck_python_type(42)\npy_capture_output(check_python_type(42))\n\n num 42\n42.0\n[1] \"&lt;class 'float'&gt;\\n\\n\"\n\n\n\n\nstr(42L)\ncheck_python_type(42L)\npy_capture_output(check_python_type(42L))\n\n int 42\n42\n[1] \"&lt;class 'int'&gt;\\n\\n\""
   },
   {
     "objectID": "slides/reticulate/index.html#type-conversions-4",
     "href": "slides/reticulate/index.html#type-conversions-4",
     "title": "Reticulate",
     "section": "Type conversions",
-    "text": "Type conversions\n\nList conversions of single element vectors, automatically translated to Python scalar\n\n\nstr(c(24))\ncheck_python_type(c(24))\npy_capture_output(check_python_type(c(24)))\n\n num 24\n24.0\n[1] \"<class 'float'>\\n\\n\"\n\n\n\n\nstr(list(24))\ncheck_python_type(list(24))\npy_capture_output(check_python_type(list(24)))\n\nList of 1\n $ : num 24\n[24.0]\n[1] \"<class 'list'>\\n\\n\""
+    "text": "Type conversions\n\nList conversions of single element vectors, automatically translated to Python scalar\n\n\nstr(c(24))\ncheck_python_type(c(24))\npy_capture_output(check_python_type(c(24)))\n\n num 24\n24.0\n[1] \"&lt;class 'float'&gt;\\n\\n\"\n\n\n\n\nstr(list(24))\ncheck_python_type(list(24))\npy_capture_output(check_python_type(list(24)))\n\nList of 1\n $ : num 24\n[24.0]\n[1] \"&lt;class 'list'&gt;\\n\\n\""
   },
   {
     "objectID": "slides/reticulate/index.html#section",
@@ -3484,5 +3484,19 @@
     "title": "Vectorization in R",
     "section": "",
     "text": "Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
+  },
+  {
+    "objectID": "slides/ggplot/index.html#section",
+    "href": "slides/ggplot/index.html#section",
+    "title": "Plotting with ggplot2",
+    "section": "7 ",
+    "text": "7"
+  },
+  {
+    "objectID": "slides/ggplot/index.html#section-2",
+    "href": "slides/ggplot/index.html#section-2",
+    "title": "Plotting with ggplot2",
+    "section": "49 ",
+    "text": "49"
   }
 ]
