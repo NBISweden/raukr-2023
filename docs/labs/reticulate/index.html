@@ -79,6 +79,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -185,7 +187,7 @@ background-size: cover;
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">13-Mar-2023</p>
+        <p class="date">08-Jun-2023</p>
       </div>
     </div>
     
@@ -233,6 +235,8 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <p>These are exercises for practicing to use the <code>reticulate</code> package in R. Try to do the exercises yourself before looking at the answers. Some sections have more pure Python code than others, if you feel that your Python skills are rusty, feel free to look at the answers and try your best to follow along. We will be writing some Python code chunks, so use R Markdown for this exercise.</p>
+<p>Please download the following file and unzip the contents before the lab. Note that this link will be inactive in 30 days.</p>
+<p><a class="btn btn-secondary btn-sm" href="https://xferticket.nbis.se/tickets/StROhz341wvxa6RZIADXtC9vR_xw_RVFIoAF-7yddUc/raukr-reticulate.zip/download" role="button"><i class="fa-solid fa-download" aria-label="download"></i> raukr-reticulate.zip</a></p>
 </div>
 </div>
 <section id="setup" class="level2" data-number="1">
@@ -241,16 +245,13 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reticulate)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Create and activate an environment using Conda</p>
+<p>Install Conda if you have not already. Create and activate an environment using Conda.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## INSTALL CONDA!!!! otherwise this won't work</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">## reticulate::install_miniconda()</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">conda_create</span>(<span class="st">"raukr"</span>, <span class="at">python_version =</span> <span class="st">"3.9"</span>, <span class="at">packages =</span> <span class="fu">c</span>(<span class="st">"pandas"</span>,<span class="st">"sqlalchemy&lt;=2.0"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>reticulate<span class="sc">::</span><span class="fu">install_miniconda</span>()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">conda_create</span>(<span class="st">"raukr"</span>, <span class="at">python_version =</span> <span class="st">"3.9"</span>, <span class="at">packages =</span> <span class="fu">c</span>(<span class="st">"pandas"</span>,<span class="st">"sqlalchemy&lt;=2.0"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># activate environment</span></span>
@@ -270,18 +271,43 @@ Note
 <li><code>model.py</code></li>
 <li><code>imdb_functions.py</code></li>
 </ol>
-<p>Start by loading all the python functions into R</p>
+<p>Start by loading all the python functions into R.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show code
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source_python</span>(<span class="st">"imdb_functions.py"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>First, inspecting which functions got imported when you sourced your python file. You can find them in the <strong>Environment</strong> table in RStudio. Some of the functions listed are part of the SQLAlchemy package used, but one example to look at is the function <code>get_actors()</code>.</p>
+</div>
+</div>
+</div>
+<p>First, inspect which functions got imported when you sourced your python file. You can find them in the <strong>Environment</strong> table in RStudio. Some of the functions listed are part of the SQLAlchemy package used, but one example to look at is the function <code>get_actors()</code>.</p>
 <p>As you can see, R creates a wrapper function in R, for calling the underlying Python function. This specific function takes a movie title as input, and returns the principal actors of the movie. You can further study what the function does by looking at the code in the <code>imdb_functions.py</code> file. You can see that it queries the database for a specific movie, and returns the principal actors in it.</p>
 </section>
 <section id="get-to-know-the-data" class="level3" data-number="2.2">
 <h3 data-number="2.2" class="anchored" data-anchor-id="get-to-know-the-data"><span class="header-section-number">2.2</span> Get to know the data</h3>
-<ul>
-<li>Let’s try out the <code>get_actors()</code> function. Get the principal actors for the movie <strong>Gattaca</strong>, and inspect the output type</li>
-</ul>
+<p>Let’s try out the <code>get_actors()</code> function. Get the principal actors for the movie <strong>Gattaca</strong>, and inspect the output type.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show code
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>actors <span class="ot">&lt;-</span> <span class="fu">get_actors</span>(<span class="st">'Gattaca'</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(actors)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -290,9 +316,22 @@ Note
  $ Gattaca: chr [1:4] "Ethan Hawke (Vincent,Jerome)" "Uma Thurman (Irene)" "Jude Law (Jerome,Eugene)" "Gore Vidal (Director Josef)"</code></pre>
 </div>
 </div>
-<ul>
-<li>Next let’s do the same with the function <code>get_movies()</code>. List movies that <strong>Brent Spiner</strong> has been in</li>
-</ul>
+</div>
+</div>
+</div>
+<p>Next let’s do the same with the function <code>get_movies()</code>. List movies that <strong>Brent Spiner</strong> has been in.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show code
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>movies <span class="ot">&lt;-</span> <span class="fu">get_movies</span>(<span class="st">'Brent Spiner'</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(movies)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -301,15 +340,41 @@ Note
  $ Brent Spiner: chr [1:3] "Star Trek: First Contact" "Star Trek: Insurrection" "Star Trek: Nemesis"</code></pre>
 </div>
 </div>
-<ul>
-<li>For printing some basic information about a movie, without saving anything to an R object, use the <code>print_movie_info</code> function. Here, find out information about the <strong>Avengers</strong> movies</li>
-</ul>
+</div>
+</div>
+</div>
+<p>For printing some basic information about a movie, without saving anything to an R object, use the <code>print_movie_info</code> function. Here, find out information about the <strong>Avengers</strong> movies.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show code
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print_movie_info</span>(<span class="st">'Avengers'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ul>
-<li>Capture the output from the previous function and save it as a variable</li>
-</ul>
+</div>
+</div>
+</div>
+<p>Capture the output from the previous function and save it as a variable.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show code
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">py_capture_output</span>(<span class="fu">print_movie_info</span>(<span class="st">'Avengers'</span>))</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -350,9 +415,22 @@ Average rating:  8.4
 Number of votes:  880234 </code></pre>
 </div>
 </div>
-<ul>
-<li>Inspect the types of the variables <code>actors</code> and <code>movies</code>. What type are they? What type where they converted from in Python?</li>
-</ul>
+</div>
+</div>
+</div>
+<p>Inspect the types of the variables <code>actors</code> and <code>movies</code>. What type are they? What type where they converted from in Python?</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show code
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(actors)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(movies)</span>
@@ -365,9 +443,22 @@ List of 1
  $ Brent Spiner: chr [1:3] "Star Trek: First Contact" "Star Trek: Insurrection" "Star Trek: Nemesis"</code></pre>
 </div>
 </div>
-<ul>
-<li>Source the python file again, but set <code>convert=FALSE</code>. What are the types now?</li>
-</ul>
+</div>
+</div>
+</div>
+<p>Source the python file again, but set <code>convert=FALSE</code>. What are the types now?</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show code
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source_python</span>(<span class="st">"imdb_functions.py"</span>, <span class="at">convert =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -383,9 +474,22 @@ List of 1
 [1] "python.builtin.dict"   "python.builtin.object"</code></pre>
 </div>
 </div>
-<ul>
-<li>Convert the types manually back to R types</li>
-</ul>
+</div>
+</div>
+</div>
+<p>Convert the types manually back to R types.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show code
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>actors.r <span class="ot">&lt;-</span> <span class="fu">py_to_r</span>(actors)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(actors.r)</span>
@@ -399,6 +503,9 @@ List of 1
  $ Brent Spiner: chr [1:3] "Star Trek: First Contact" "Star Trek: Insurrection" "Star Trek: Nemesis"</code></pre>
 </div>
 </div>
+</div>
+</div>
+</div>
 </section>
 <section id="working-with-dataframes" class="level3" data-number="2.3">
 <h3 data-number="2.3" class="anchored" data-anchor-id="working-with-dataframes"><span class="header-section-number">2.3</span> Working with Dataframes</h3>
@@ -409,9 +516,19 @@ List of 1
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">py_help</span>(get_all_movies)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ul>
-<li>Start by importing all movies into a pandas dataframe, by sourcing the python functions into R. Do <em>not</em> convert the result into an R dataframe:</li>
-</ul>
+<p>Start by importing all movies into a pandas dataframe, by sourcing the python functions into R. Do <em>not</em> convert the result into an R dataframe.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show code
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source_python</span>(<span class="st">"imdb_functions.py"</span>, <span class="at">convert =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>movies_py <span class="ot">&lt;-</span> <span class="fu">get_all_movies</span>()</span>
@@ -423,13 +540,28 @@ List of 1
 [7] "python.builtin.object"             </code></pre>
 </div>
 </div>
+</div>
+</div>
+</div>
 <p>Inspecting the <code>movies_py</code> variable we can see that it is of the type <code>pandas.dataframe</code>.</p>
 <p>Now we are ready to answer our first question:</p>
 <h4 class="anchored">
 <strong>Which movie/movies are the highest ranked of all times?</strong>
 </h4>
 <p>We will try to answer this with a pandas method <em>directly</em> in a Python chunk. To do this we first have to make our <code>movies_py</code> variable visible to Python. Even though it is a Python object, since it was created within a R code chunk, Python code chunks cannot directly access them. To make R variables accessible in Python code chunks we use the <code>r</code> object. Remember that to access a Python variable from R, we used <code>py$</code>, to do the opposite we use <code>r.</code>. The $ and the . denotes the different ways in which Python and R represents methods.</p>
-<p>Use the method <code>.max()</code> from the <code>pandas</code> module to find and filter out the top movie/movies</p>
+<p>Use the method <code>.max()</code> from the <code>pandas</code> module to find and filter out the top movie/movies.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show code
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the code below is python code written in a python code chunk</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>movies <span class="op">=</span> r.movies_py</span>
@@ -451,12 +583,26 @@ List of 1
 Name: primaryTitle, dtype: object</code></pre>
 </div>
 </div>
+</div>
+</div>
+</div>
 <p>Above we are using pure pandas code directly in our RMarkdown document.</p>
-<ul>
-<li>Save <code>top_movies</code> as an R object, and find out from what years these movies are, and how many votes they got</li>
-</ul>
+<p>After dipping our toes in Python territory, we now go back to using normal R chunks:</p>
+<p>Save <code>top_movies</code> as an R object, and find out from what years these movies are, and how many votes they got.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show code
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>movies_r <span class="ot">&lt;-</span> py<span class="sc">$</span>top_movies</span>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-overflow-scroll code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>movies_r <span class="ot">&lt;-</span> py<span class="sc">$</span>top_movies</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(movies_r<span class="sc">$</span>primaryTitle, movies_r<span class="sc">$</span>startYear, movies_r<span class="sc">$</span>numVotes)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -486,56 +632,106 @@ Name: primaryTitle, dtype: object</code></pre>
 </div>
 </div>
 <p>So the answer to which are the highest ranked movies of all times is <strong>The Shawshank Redemption</strong> and <strong>The Chaos Class</strong>. Although, The Chaos Class did not get as many votes as The Shawshank Redemption.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="average-ratings-over-time" class="level4" data-number="2.3.2">
 <h4 data-number="2.3.2" class="anchored" data-anchor-id="average-ratings-over-time"><span class="header-section-number">2.3.2</span> Average ratings over time</h4>
-<p>Next we want to explore how the average ratings for movies has changed over time. This one we will solve in normal R chunks, by importing the required python functions from the file <code>imdb_functions.py</code>, and also load <code>pandas</code> into R. As we will be using pandas in R, import the Python file without converting it</p>
-<ul>
-<li>Get all movies and save into a pandas dataframe</li>
-</ul>
+<p>Next we want to explore how the average ratings for movies has changed over time. This one we will solve in normal R chunks, by importing the required python functions from the file <code>imdb_functions.py</code>, and also load <code>pandas</code> into R. As we will be using pandas in R, import the Python file without converting it.</p>
+<p>Get all movies and save into a pandas dataframe.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show code
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source_python</span>(<span class="st">"imdb_functions.py"</span>, <span class="at">convert =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>movies_py <span class="ot">&lt;-</span> <span class="fu">get_all_movies</span>()</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(movies_py)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ul>
-<li>Import pandas into R</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>pandas <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"pandas"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ul>
-<li>Use pandas to group the data by startYear, and calculate the average ratings. Next, convert the result back into an R dataframe</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use pandas to group columns by startYear</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>movies_grouped <span class="ot">&lt;-</span> movies_py<span class="sc">$</span><span class="fu">groupby</span>(<span class="st">'startYear'</span>)<span class="sc">$</span><span class="fu">mean</span>()</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># convert the pandas dataframe to r dataframe</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>movies_grouped_r <span class="ot">&lt;-</span> <span class="fu">py_to_r</span>(movies_grouped)</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(movies_grouped_r)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   105 obs. of  4 variables:
- $ id            : num  1 2 3 5.5 9 ...
- $ runtimeMinutes: num  195 163 90 91.5 90.7 ...
- $ averageRating : num  6.3 7.7 7.3 7.42 8 ...
- $ numVotes      : num  23130 14472 9597 18906 44311 ...
- - attr(*, "pandas.index")=Index(['1915', '1916', '1919', '1920', '1921', '1922', '1923', '1924', '1925',
-       '1926',
-       ...
-       '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020',
-       '2021'],
-      dtype='object', name='startYear', length=105)</code></pre>
+<pre><code>[1] "pandas.core.frame.DataFrame"        "pandas.core.generic.NDFrame"       
+[3] "pandas.core.base.PandasObject"      "pandas.core.accessor.DirNamesMixin"
+[5] "pandas.core.indexing.IndexingMixin" "pandas.core.arraylike.OpsMixin"    
+[7] "python.builtin.object"             </code></pre>
 </div>
 </div>
-<ul>
-<li>In this case the conversion seems to have done something to our startYear column. To fix this, add startYear column back into the dataframe, using R</li>
-</ul>
+</div>
+</div>
+</div>
+<p>Import pandas into R</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show code
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add Year column back to dataframe, and rename columns</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>movies_grouped_r <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">rownames</span>(movies_grouped_r), movies_grouped_r)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(movies_grouped_r) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"startYear"</span>,<span class="st">"id"</span>,<span class="st">"runtimeMinutes"</span>, <span class="st">"averageRating"</span>, <span class="st">"numVotes"</span>)</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>movies_grouped_r[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>pandas <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"pandas"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>Use pandas to group the data by startYear, and calculate the average ratings. Next, convert the result back into an R dataframe.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show code
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use pandas to group columns by startYear</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>movies_grouped <span class="ot">&lt;-</span> movies_py<span class="sc">$</span><span class="fu">groupby</span>(<span class="st">'startYear'</span>)[<span class="st">'averageRating'</span>]<span class="sc">$</span><span class="fu">mean</span>()</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># convert the pandas dataframe to r dataframe</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>movies_grouped_r <span class="ot">&lt;-</span> <span class="fu">py_to_r</span>(movies_grouped)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>movies_grouped_r <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(movies_grouped_r)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(movies_grouped_r)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   105 obs. of  1 variable:
+ $ movies_grouped_r: num  6.3 7.7 7.3 7.42 8 ...</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>In this case the conversion seems to have done something to our columns. To fix this, add startYear column back into the dataframe, using R.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show code
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add Year column back to dataframe, and rename columns</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>movies_grouped_r <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">rownames</span>(movies_grouped_r), movies_grouped_r)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(movies_grouped_r) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"startYear"</span>,<span class="st">"averageRating"</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>movies_grouped_r[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -543,8 +739,6 @@ Name: primaryTitle, dtype: object</code></pre>
 <tr class="header">
 <th style="text-align: left;"></th>
 <th style="text-align: left;">startYear</th>
-<th style="text-align: right;">id</th>
-<th style="text-align: right;">runtimeMinutes</th>
 <th style="text-align: right;">averageRating</th>
 </tr>
 </thead>
@@ -552,57 +746,58 @@ Name: primaryTitle, dtype: object</code></pre>
 <tr class="odd">
 <td style="text-align: left;">1915</td>
 <td style="text-align: left;">1915</td>
-<td style="text-align: right;">1.0</td>
-<td style="text-align: right;">195.00000</td>
 <td style="text-align: right;">6.300</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">1916</td>
 <td style="text-align: left;">1916</td>
-<td style="text-align: right;">2.0</td>
-<td style="text-align: right;">163.00000</td>
 <td style="text-align: right;">7.700</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">1919</td>
 <td style="text-align: left;">1919</td>
-<td style="text-align: right;">3.0</td>
-<td style="text-align: right;">90.00000</td>
 <td style="text-align: right;">7.300</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">1920</td>
 <td style="text-align: left;">1920</td>
-<td style="text-align: right;">5.5</td>
-<td style="text-align: right;">91.50000</td>
 <td style="text-align: right;">7.425</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">1921</td>
-<td style="text-align: left;">1921</td>
-<td style="text-align: right;">9.0</td>
-<td style="text-align: right;">90.66667</td>
-<td style="text-align: right;">8.000</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
 <p>Make sure to inspect that the dataframe looks like it is supposed to, and that the values make sense. Once we are sure we have managed to transform the data, we can proceed.</p>
-<ul>
-<li>Plot the average ratings for each year</li>
-</ul>
+<p>Plot the average ratings for each year.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show code
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(movies_grouped_r, <span class="fu">aes</span>(<span class="at">x=</span>startYear, <span class="at">y=</span>averageRating)) <span class="sc">+</span> </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">ggtitle</span>(<span class="st">'Average ratings over years'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(movies_grouped_r, <span class="fu">aes</span>(<span class="at">x=</span>startYear, <span class="at">y=</span>averageRating)) <span class="sc">+</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">ggtitle</span>(<span class="st">'Average ratings over years'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
 <p><a href="index_files/figure-html/unnamed-chunk-21-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="index_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="1344"></a></p>
 </figure>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -612,9 +807,7 @@ Name: primaryTitle, dtype: object</code></pre>
 <section id="bonus-exercise" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="bonus-exercise"><span class="header-section-number">3</span> Bonus exercise</h2>
 <p>This is a bonus exercise if you have time left in the end of the exercise. This one is more tricky!</p>
-<ul>
-<li>Which actors have played together with both Ian McKellen and Patrick Stewart, but when they were in separate movies? Or rephrased, which actor has played with Ian McKellen Lee in one movie, and Patrick Stewart in another movie?</li>
-</ul>
+<p>Which actors have played together with both Ian McKellen and Patrick Stewart, but when they were in separate movies? Or rephrased, which actor has played with Ian McKellen Lee in one movie, and Patrick Stewart in another movie?</p>
 <p>For example:</p>
 <ol type="1">
 <li>Actor 1 has played with IM in movie a, and with PS in movie b. PS was not in movie a, and IM was not in movie b</li>
@@ -623,7 +816,7 @@ Name: primaryTitle, dtype: object</code></pre>
 <p>Scenario 1 would count, while scenario 2 would not, as IM and PS was in this movie both together.</p>
 <p>To solve this one you need to think in several steps. There are of course several solutions, and you are free to approach this exercise however you want. We will give you a suggestion to one approach that could be used below:</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -632,7 +825,7 @@ Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li>Get a list of movies where Ian McKellen has played</li>
@@ -661,71 +854,86 @@ Tip
 </div>
 <p>To find out if your answer is correct, your can import and use the function <code>check_results</code> from the <code>imdb_functions.py</code> file. Replace <code>'Actor Name'</code> with the name of the actor that you think is the answer to the question above.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source_python</span>(<span class="st">"imdb_functions.py"</span>)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>res_actor <span class="ot">&lt;-</span> <span class="st">'Actor Name'</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">check_results</span>(res_actor, <span class="st">'Ian McKellen'</span>, <span class="st">'Patrick Stewart'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source_python</span>(<span class="st">"imdb_functions.py"</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>res_actor <span class="ot">&lt;-</span> <span class="st">'Actor Name'</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">check_results</span>(res_actor, <span class="st">'Ian McKellen'</span>, <span class="st">'Patrick Stewart'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br> And if you want to see one suggested solution to this problem:</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show code
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source_python</span>(<span class="st">"imdb_functions.py"</span>, <span class="at">convert =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>act1 <span class="ot">&lt;-</span> <span class="st">'Ian McKellen'</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>act2 <span class="ot">&lt;-</span> <span class="st">'Patrick Stewart'</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co"># get movies for Patrick Stewart</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>act1_movies <span class="ot">&lt;-</span> <span class="fu">get_movies</span>(act1)</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>act1_movies</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>movies1_lst <span class="ot">&lt;-</span> <span class="fu">py_to_r</span>(act1_movies[act1])</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co"># get movies for Ian McKellen</span></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>act2_movies <span class="ot">&lt;-</span> <span class="fu">get_movies</span>(act2)</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>act2_movies</span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>movies2_lst <span class="ot">&lt;-</span> <span class="fu">py_to_r</span>(act2_movies[act2])</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="co"># get movies both has played in</span></span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>overlap <span class="ot">&lt;-</span> <span class="fu">intersect</span>(movies1_lst, movies2_lst)</span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a><span class="co"># remove overlap from each movielist</span></span>
-<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>new_movies1_lst <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(movies1_lst, overlap)</span>
-<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>new_movies2_lst <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(movies2_lst, overlap)</span>
-<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a><span class="co"># get all actors that has played in those movies</span></span>
-<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a><span class="co"># below we do things the functional way for the first </span></span>
-<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a><span class="co"># movie list</span></span>
-<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>actors_lst <span class="ot">&lt;-</span> purrr<span class="sc">::</span><span class="fu">map</span>(new_movies1_lst, </span>
-<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>             <span class="sc">~</span> .x <span class="sc">%&gt;%</span> </span>
-<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>             <span class="fu">get_actors</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>             <span class="fu">py_to_r</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>             .[[.x]] <span class="sc">%&gt;%</span> </span>
-<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a>             <span class="fu">unlist</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a>             <span class="fu">str_remove</span>(<span class="st">' </span><span class="sc">\\</span><span class="st">(.*</span><span class="sc">\\</span><span class="st">)'</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unlist</span>() </span>
-<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a><span class="co"># remove all duplicates</span></span>
-<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a>actors_lst_uniq <span class="ot">&lt;-</span> actors_lst <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
-<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a><span class="co"># and now, the same for the second movie list, but the </span></span>
-<span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a><span class="co"># non-functional way, using Python-inspired syntax. </span></span>
-<span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a>actors_lst2 <span class="ot">&lt;-</span> <span class="fu">character</span>()</span>
-<span id="cb31-42"><a href="#cb31-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-43"><a href="#cb31-43" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (movie <span class="cf">in</span> new_movies2_lst) {</span>
-<span id="cb31-44"><a href="#cb31-44" aria-hidden="true" tabindex="-1"></a>  actors <span class="ot">&lt;-</span> <span class="fu">get_actors</span>(movie)</span>
-<span id="cb31-45"><a href="#cb31-45" aria-hidden="true" tabindex="-1"></a>  actors_r <span class="ot">&lt;-</span> <span class="fu">py_to_r</span>(actors[movie])</span>
-<span id="cb31-46"><a href="#cb31-46" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (actor <span class="cf">in</span> actors_r) {</span>
-<span id="cb31-47"><a href="#cb31-47" aria-hidden="true" tabindex="-1"></a>    a <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(<span class="fu">as.character</span>(actor), <span class="st">'</span><span class="sc">\\</span><span class="st">s*[()]'</span>)[[<span class="dv">1</span>]]</span>
-<span id="cb31-48"><a href="#cb31-48" aria-hidden="true" tabindex="-1"></a>    actors_lst2 <span class="ot">&lt;-</span> <span class="fu">append</span>(actors_lst2, a[<span class="dv">1</span>])</span>
-<span id="cb31-49"><a href="#cb31-49" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb31-50"><a href="#cb31-50" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb31-51"><a href="#cb31-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-52"><a href="#cb31-52" aria-hidden="true" tabindex="-1"></a>actors_lst2_uniq <span class="ot">&lt;-</span> <span class="fu">unique</span>(actors_lst2)</span>
-<span id="cb31-53"><a href="#cb31-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-54"><a href="#cb31-54" aria-hidden="true" tabindex="-1"></a><span class="co"># finally, intersect the two lists with actors to</span></span>
-<span id="cb31-55"><a href="#cb31-55" aria-hidden="true" tabindex="-1"></a><span class="co"># find the ones that played with both actors</span></span>
-<span id="cb31-56"><a href="#cb31-56" aria-hidden="true" tabindex="-1"></a><span class="fu">intersect</span>(actors_lst_uniq, actors_lst2_uniq)</span>
-<span id="cb31-57"><a href="#cb31-57" aria-hidden="true" tabindex="-1"></a><span class="do">## {'Ian McKellen': ['The Keep', 'Six Degrees of Separation', 'Richard III', 'Apt Pupil', 'Gods and Monsters', 'The Lord of the Rings: The Fellowship of the Ring', 'X-Men', 'The Lord of the Rings: The Return of the King', 'The Lord of the Rings: The Two Towers', 'X2: X-Men United', 'The Da Vinci Code', 'Neverwas', 'Flushed Away', 'Stardust', 'The Hobbit: An Unexpected Journey', 'The Hobbit: The Desolation of Smaug', 'X-Men: Days of Future Past', 'The Hobbit: The Battle of the Five Armies', 'Mr. Holmes', 'The Good Liar']}</span></span>
-<span id="cb31-58"><a href="#cb31-58" aria-hidden="true" tabindex="-1"></a><span class="do">## {'Patrick Stewart': ['Star Trek: Generations', 'Star Trek: First Contact', 'Conspiracy Theory', 'Star Trek: Insurrection', 'X-Men', 'Star Trek: Nemesis', 'X2: X-Men United', 'Steamboy', 'X-Men: The Last Stand', 'Earth', 'TMNT', 'African Cats', 'X-Men: Days of Future Past', 'Logan', 'Green Room']}</span></span>
-<span id="cb31-59"><a href="#cb31-59" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Hugh Jackman"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source_python</span>(<span class="st">"imdb_functions.py"</span>, <span class="at">convert =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>act1 <span class="ot">&lt;-</span> <span class="st">'Ian McKellen'</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>act2 <span class="ot">&lt;-</span> <span class="st">'Patrick Stewart'</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co"># get movies for Patrick Stewart</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>act1_movies <span class="ot">&lt;-</span> <span class="fu">get_movies</span>(act1)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>act1_movies</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>movies1_lst <span class="ot">&lt;-</span> <span class="fu">py_to_r</span>(act1_movies[act1])</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="co"># get movies for Ian McKellen</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>act2_movies <span class="ot">&lt;-</span> <span class="fu">get_movies</span>(act2)</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>act2_movies</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>movies2_lst <span class="ot">&lt;-</span> <span class="fu">py_to_r</span>(act2_movies[act2])</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="co"># get movies both has played in</span></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>overlap <span class="ot">&lt;-</span> <span class="fu">intersect</span>(movies1_lst, movies2_lst)</span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a><span class="co"># remove overlap from each movielist</span></span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>new_movies1_lst <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(movies1_lst, overlap)</span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>new_movies2_lst <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(movies2_lst, overlap)</span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a><span class="co"># get all actors that has played in those movies</span></span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a><span class="co"># below we do things the functional way for the first </span></span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a><span class="co"># movie list</span></span>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>actors_lst <span class="ot">&lt;-</span> purrr<span class="sc">::</span><span class="fu">map</span>(new_movies1_lst, </span>
+<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a>             <span class="sc">~</span> .x <span class="sc">%&gt;%</span> </span>
+<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>             <span class="fu">get_actors</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a>             <span class="fu">py_to_r</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a>             .[[.x]] <span class="sc">%&gt;%</span> </span>
+<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a>             <span class="fu">unlist</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a>             <span class="fu">str_remove</span>(<span class="st">' </span><span class="sc">\\</span><span class="st">(.*</span><span class="sc">\\</span><span class="st">)'</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unlist</span>() </span>
+<span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-34"><a href="#cb32-34" aria-hidden="true" tabindex="-1"></a><span class="co"># remove all duplicates</span></span>
+<span id="cb32-35"><a href="#cb32-35" aria-hidden="true" tabindex="-1"></a>actors_lst_uniq <span class="ot">&lt;-</span> actors_lst <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
+<span id="cb32-36"><a href="#cb32-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-37"><a href="#cb32-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-38"><a href="#cb32-38" aria-hidden="true" tabindex="-1"></a><span class="co"># and now, the same for the second movie list, but the </span></span>
+<span id="cb32-39"><a href="#cb32-39" aria-hidden="true" tabindex="-1"></a><span class="co"># non-functional way, using Python-inspired syntax. </span></span>
+<span id="cb32-40"><a href="#cb32-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-41"><a href="#cb32-41" aria-hidden="true" tabindex="-1"></a>actors_lst2 <span class="ot">&lt;-</span> <span class="fu">character</span>()</span>
+<span id="cb32-42"><a href="#cb32-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-43"><a href="#cb32-43" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (movie <span class="cf">in</span> new_movies2_lst) {</span>
+<span id="cb32-44"><a href="#cb32-44" aria-hidden="true" tabindex="-1"></a>  actors <span class="ot">&lt;-</span> <span class="fu">get_actors</span>(movie)</span>
+<span id="cb32-45"><a href="#cb32-45" aria-hidden="true" tabindex="-1"></a>  actors_r <span class="ot">&lt;-</span> <span class="fu">py_to_r</span>(actors[movie])</span>
+<span id="cb32-46"><a href="#cb32-46" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (actor <span class="cf">in</span> actors_r) {</span>
+<span id="cb32-47"><a href="#cb32-47" aria-hidden="true" tabindex="-1"></a>    a <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(<span class="fu">as.character</span>(actor), <span class="st">'</span><span class="sc">\\</span><span class="st">s*[()]'</span>)[[<span class="dv">1</span>]]</span>
+<span id="cb32-48"><a href="#cb32-48" aria-hidden="true" tabindex="-1"></a>    actors_lst2 <span class="ot">&lt;-</span> <span class="fu">append</span>(actors_lst2, a[<span class="dv">1</span>])</span>
+<span id="cb32-49"><a href="#cb32-49" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb32-50"><a href="#cb32-50" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb32-51"><a href="#cb32-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-52"><a href="#cb32-52" aria-hidden="true" tabindex="-1"></a>actors_lst2_uniq <span class="ot">&lt;-</span> <span class="fu">unique</span>(actors_lst2)</span>
+<span id="cb32-53"><a href="#cb32-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-54"><a href="#cb32-54" aria-hidden="true" tabindex="-1"></a><span class="co"># finally, intersect the two lists with actors to</span></span>
+<span id="cb32-55"><a href="#cb32-55" aria-hidden="true" tabindex="-1"></a><span class="co"># find the ones that played with both actors</span></span>
+<span id="cb32-56"><a href="#cb32-56" aria-hidden="true" tabindex="-1"></a><span class="fu">intersect</span>(actors_lst_uniq, actors_lst2_uniq)</span>
+<span id="cb32-57"><a href="#cb32-57" aria-hidden="true" tabindex="-1"></a><span class="do">## {'Ian McKellen': ['The Keep', 'Six Degrees of Separation', 'Richard III', 'Apt Pupil', 'Gods and Monsters', 'The Lord of the Rings: The Fellowship of the Ring', 'X-Men', 'The Lord of the Rings: The Return of the King', 'The Lord of the Rings: The Two Towers', 'X2: X-Men United', 'The Da Vinci Code', 'Neverwas', 'Flushed Away', 'Stardust', 'The Hobbit: An Unexpected Journey', 'The Hobbit: The Desolation of Smaug', 'X-Men: Days of Future Past', 'The Hobbit: The Battle of the Five Armies', 'Mr. Holmes', 'The Good Liar']}</span></span>
+<span id="cb32-58"><a href="#cb32-58" aria-hidden="true" tabindex="-1"></a><span class="do">## {'Patrick Stewart': ['Star Trek: Generations', 'Star Trek: First Contact', 'Conspiracy Theory', 'Star Trek: Insurrection', 'X-Men', 'Star Trek: Nemesis', 'X2: X-Men United', 'Steamboy', 'X-Men: The Last Stand', 'Earth', 'TMNT', 'African Cats', 'X-Men: Days of Future Past', 'Logan', 'Green Room']}</span></span>
+<span id="cb32-59"><a href="#cb32-59" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Hugh Jackman"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
 </div>
 <p>Try some other actors and see what you find. For example, try actors that have played with <em>Johnny Depp</em> and <em>Helena Bonham Carter</em>.</p>
 
@@ -976,7 +1184,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-right">Published with <a href="https://quarto.org/">Quarto</a> v1.3.340</div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","selector":".lightbox","loop":true,"openEffect":"zoom","closeEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","loop":true,"openEffect":"zoom","closeEffect":"zoom","descPosition":"bottom"});</script>
 
 
 

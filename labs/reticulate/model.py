@@ -66,7 +66,7 @@ class Actor(Base):
     birthYear         = Column(Integer)
     deathYear         = Column(Integer)
     primaryProfession = Column(String(255))
-    principals         = relationship('Principal', secondary = principal_actor, back_populates = 'actors')
+    principals        = relationship('Principal', secondary = principal_actor, back_populates = 'actors')
 
     def __init__(self, nconst, primaryName, birthYear, deathYear, primaryProfession):
         self.nconst            = nconst
