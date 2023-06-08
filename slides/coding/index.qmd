@@ -19,25 +19,25 @@ library(emo)
 
 After this module:
 
-- You will be aware of different coding styles
+- You will be aware of different coding styles.
 
 . . .
 
-- You will know what styles are good `r emo::ji('good')` and bad `r emo::ji('bad')` and why `r emo::ji('question')`
+- You will know what styles are good `r emo::ji('good')` and bad `r emo::ji('bad')` and why `r emo::ji('question')`.
 
 . . .
 
-- You will know how to decompose a problem before you even start coding
+- You will know how to decompose a problem before you even start coding.
 
 . . .
 
-- You will understand when there is time for writing a function
+- You will understand when there is time for writing a function.
 
 . . .
 
-- Your code will reach new level of awesomeness! `r emo::ji('cool')`
+- Your code will reach new level of awesomeness! `r emo::ji('cool')`.
 
-## Topics of This Presentation
+## Topics of This Block
 
 <br>
 
@@ -198,10 +198,6 @@ It is also important to maintain code readability by having your variable names:
 
 - Not too long, e.g. `weight` vs. `phenotype.weight.measured`
 
-. . .
-
-- In the period notation and the snake notation avoid `my.var.2` or `my_var_2`, use `my.var2` and `my_var2` instead
-
 ## Special Variable Names
 
 Few more things to consider:
@@ -244,12 +240,20 @@ Decompose the problem `r emo::ji('puzzle')` `r emo::ji('puzzle')`!
 
 - *divide et impera* / top-down approach &mdash; split your BIG problem into a number of small sub-problems recursively and, **at some level**, encapsulate your code in functional blocks (functions)
 
+. . .
+
 - a function should be performing a small task, it should be a logical program unit
+
+. . . 
 
 **when should I write a function `r emo::ji('question')`**
 
+. . .
+
 - one screen `r emo::ji('screen')` rule (resolution...),
 - re-use twice rule of `r emo::ji('thumbs_up')`.
+
+. . .
 
 consider creating an S4 or even an R6 class &mdash; data-type safety!
 
@@ -257,7 +261,7 @@ consider creating an S4 or even an R6 class &mdash; data-type safety!
 
 - avoid accessing and modifying globals
   - avoid `r emo::ji('no')` `a <<- 42`
-  - and `r emo::ji('yes')` use a closure instead
+  - and `r emo::ji('yes')` use a **closure** instead
 
 . . .
 
@@ -296,19 +300,28 @@ counter2()
 
 - remember that global defaults can be changed by `options`
 
-. . .
+## Wrapper function
 
-- if you are re-using functions written by someone else &mdash; write a wrapper function around them
+If you are re-using functions written by someone else &mdash; write a wrapper function around them
 
-```{r wrapper-fn}
+:::{.columns}
+:::{.column width="50%"}
+```{r wrapper-fn1}
+my_awesome_plot <- function(x, ...) {
+  plot(x, col='red', pch=19, cex.axis=.7, ...)
+}
+```
+:::
+:::{.column width="50%"}
+```{r wrapper-fn-plot}
 #| fig-height: 3
 #| fig-width: 4
-my_awesome_plot <- function(...) {
-  plot(..., col='red', pch=19, cex.axis=.7, las=1)
-}
-my_awesome_plot(1:5)
+#| error: true
+my_awesome_plot(1:5, col = 'blue')
+my_awesome_plot(1:5, las = 1)
 ```
-
+:::
+:::
 ## How to write functions
 
 - showing progress and messages is good, but let the others turn this functionality off

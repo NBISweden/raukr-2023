@@ -12,7 +12,7 @@ library(bsplus)
 ```
 
 ::: {.callout-note}
-The objective of this lab is to improve your coding skills by focusing on code debugging, benchmarking and optimization. Below, you will find a number of tasks connected to the topics covered in the *Debugging, profiling and optimization* lecture. Some tasks extend lectures content and require you to find some more information online. Please, note that while we are providing example solutions to many tasks, these are only **examples**. If you solve a task in a different way it does not matter your solution is wrong. In fact, it may be better than our solution. If in doubt, ask PI for help. We are here for you!
+The objective of this lab is to improve your coding skills by focusing on code debugging, benchmarking and optimization. Below, you will find a number of tasks connected to the topics covered in the *Debugging, profiling and optimization* lecture. Some tasks extend lectures content and require you to find some more information online. Please, note that while we are providing example solutions to many tasks, these are only **examples**. If you solve a task in a different way it does not matter your solution is wrong. In fact, it may be better than our solution. If in doubt, ask TA for help. We are here for you!
 :::
 
 ## Debugging
@@ -23,7 +23,8 @@ Which of the following chunks of code are correct and which contain errors? Iden
 
 #### Chunk 1
 
-```         
+```{r}
+#| eval: false
 input <- sample(1:1000, size = 1000, replace = T)
 currmin <- NULL
 for (i in input) {
@@ -36,7 +37,8 @@ for (i in input) {
 
 #### Chunk 2
 
-```         
+```{r}
+#| eval: false
 input <- sample(1:1000, size = 1000, replac = T)
 currmin <- NULL
 for (i in input) {
@@ -49,7 +51,8 @@ for (i in input) {
 
 #### Chunk 3
 
-```         
+```{r}
+#| eval: false
 for (cnt in 1:100) {
   if (cnt > 12) {
     print("12+")
@@ -61,7 +64,8 @@ for (cnt in 1:100) {
 
 #### Chunk 4
 
-```         
+```{r}
+#| eval: false
 result <- logical(10)
 input <- sample(1:10, size = 10, replace = T)
 for (i in 0:length(input)) {
@@ -85,11 +89,14 @@ Think in terms of system-specific representation $\epsilon$.
 
 Put the value of your double $\epsilon$ into [this spreadsheet](https://docs.google.com/spreadsheets/d/1_2tDeEkDVS06RkB437yBI1XEB5SUebtHWyxAf_aRJu4/edit?usp=sharing) (Best Coding Practises Lab sheet).
 
-```         
+```{r}
+#| eval: false
 vec <- seq(0.1, 0.9, by=0.1)
 vec == 0.7
 ```
 
+::: {.callout-tip collapse="true"}
+## Example Solution
 ```{r}
 #| eval: false
 # One way is to use epsilon
@@ -114,6 +121,7 @@ is_equal(0.7, 0.8 - 0.1)
 
 # Now you can use the is_equal to fix the code!
 ```
+:::
 
 ## Profiling
 
@@ -141,14 +149,17 @@ t2 <- proc.time()
 
 ### Task: Timing Reliability.
 
-In the lecture slides, you have seen how to time sampling from Gaussian distribution:
+In the lecture slides, you have seen how to time sampling from Normal Gaussian distribution:
 
-```         
+```{r}
+#| eval: false
 system.time(rnorm(n = 10e6))
 ```
 
 Is such single measurement reliable? Run the code 100 times, plot and record the mean and the variance of the `elapsed` time. Put these values (elapsed.time mean and variance) into [this spreadsheet](https://docs.google.com/spreadsheets/d/1_2tDeEkDVS06RkB437yBI1XEB5SUebtHWyxAf_aRJu4/edit?usp=sharing) (Best Coding Practises Lab sheet).
 
+::: {.callout-tip collapse="true"}
+## Example Solution
 ```{r}
 #| eval: false
 #| cache: true
@@ -161,14 +172,19 @@ boxplot(timing)
 mean(timing)
 var(timing)
 ```
+:::
 
+**Optional**
 An alternative approach or, more exactly, an alternative notation that achieves the same as the previous chunk of code but in a more compact way makes use of the `replicate`, a wrapper function around `sapply` that simplifies repeated evaluation of expressions. The drawback is you do not get the vector of the actual timing values but the results of calling `system.time` are already averaged for you. Try to read about the `replicate` and use it to re-write the code above. Put the `elapsed.time` into [this spreadsheet](https://docs.google.com/spreadsheets/d/1_2tDeEkDVS06RkB437yBI1XEB5SUebtHWyxAf_aRJu4/edit?usp=sharing) (Best Coding Practises Lab sheet). How does this value compare to calling `system.time` within a loop in the previous chunk of code? Are the values similar?
 
+::: {.callout-tip collapse="true"}
+## Example Solution
 ```{r}
 #| eval: false
 #| cache: false
 st2 <- system.time(replicate(n = 100, rnorm(n = 10e6)))
 ```
+:::
 
 ### Task: Microbenchmarking.
 
@@ -190,7 +206,8 @@ microbenchmark::get_nanotime()
 
 Modify the code below so that it uses the current value of platform's timer:
 
-```         
+```{r}
+#| eval: false
 timing <- double(100)
 for (i in 1:100) {
   st <- system.time(rnorm(n = 10e6))
@@ -201,6 +218,8 @@ boxplot(timing)
 
 Put the mean and the variance into [this spreadsheet](https://docs.google.com/spreadsheets/d/1_2tDeEkDVS06RkB437yBI1XEB5SUebtHWyxAf_aRJu4/edit?usp=sharing) (Best Coding Practises Lab sheet, Microbenchmark -- loop)
 
+::: {.callout-tip collapse="true"}
+## Example Solution
 ```{r}
 #| eval: false
 library(microbenchmark)
@@ -215,6 +234,7 @@ mean(timing)
 var(timing)
 boxplot(timing)
 ```
+:::
 
 #### Microtiming Precision.
 
@@ -223,15 +243,20 @@ There is an experimental function in the `microbenchmark` package that helps the
 <br>
 Run the `microtiming_precision` function and put the mean and the variance of the resulting vector into [this spreadsheet](https://docs.google.com/spreadsheets/d/1_2tDeEkDVS06RkB437yBI1XEB5SUebtHWyxAf_aRJu4/edit?usp=sharing) (Best Coding Practises Lab sheet, Microbenchmark -- precision)
 
+::: {.callout-tip collapse="true"}
+## Example Solution
 ```{r}
 #| eval: false
 precision <- microbenchmark::microtiming_precision()
 mean(precision)
 var(precision)
 ```
+:::
 
 Run the function one time without assigning its value to a variable and consult the documentation. Compare the output of running the function without assigning the value to a variable, the values stored in the variable by the function upon assignment and the value specified in the documentation.
 
+::: {.callout-tip collapse="true"}
+## Example Solution
 ```{r}
 #| eval: false
 # In version 1.4-4 of the package, all three ways give different results!
@@ -239,6 +264,7 @@ microbenchmark::microtiming_precision()
 precision <- microbenchmark::microtiming_precision()
 ?microbenchmark::microtiming_precision
 ```
+:::
 
 #### The Microbenchmark Way.
 
@@ -249,6 +275,8 @@ Finally, let's benchmark our `rnorm` example using `microbenchmark`:
 - look at the summary of the benchmark,
 - how long does it take to dispatch a simple function that does nothing compared to evaluating a constant and adding two integers?
 
+::: {.callout-tip collapse="true"}
+## Example Solution
 ```{r}
 #| eval: false
 require(microbenchmark)
@@ -262,8 +290,9 @@ mb2 <- microbenchmark(f(), pi, 2+2)
 summary(mb2)
 autoplot(mb2)
 ```
+:::
 
-### Task: More Advanced Profiling.
+### Optional Task: More Advanced Profiling.
 
 Now, we will use a even more sophisticated approach to profiling.
 
@@ -275,7 +304,7 @@ Now, we will use a even more sophisticated approach to profiling.
 - `fill_noloop` should not the loop for filling the matrix in. 
 
 ::: {.callout-warning}
-Do not perform addition of column number in the same
+Do not perform addition of column number in the same loop.
 :::
 
 Following this and using `rnorm(1000, mean = 0, sd = 1)`:
@@ -284,6 +313,8 @@ Following this and using `rnorm(1000, mean = 0, sd = 1)`:
 - use `Rprof` to check whether there is a difference between initializing the matrix using `NULL` and 0 in `fill_alloc`,
 - what happens if $N = 10$ compared to $N = 20$ to $N = 100$? 
 
+::: {.callout-tip collapse="true"}
+## Example Solution
 ```{r}
 #| eval: false
 fill_noloop <- function(N, bag, seed = 42) {
@@ -337,13 +368,16 @@ summary$by.self
 
 # answers to the remaining questions are not given
 ```
+:::
 
 ### Optimization
 
-Have a look at our answers.
+Have a look at our answers from the previous task .
 
 * How can you optimize the `fill_alloc` even further (call the optimized version `fill_alloc_opt`)?
 
+::: {.callout-tip collapse="true"}
+## Example Solution
 ```{r}
 #| eval: false
 fill_alloc_opt <- function(N, bag, seed = 42, init = NA) {
@@ -360,9 +394,12 @@ fill_alloc_opt <- function(N, bag, seed = 42, init = NA) {
   return(M)
 }
 ```
+:::
 
 * Optimize the `fill_noloop` to `fill_noloops` that does not use any loops at all.
 
+::: {.callout-tip collapse="true"}
+## Example Solution
 ```{r}
 #| eval: false
 fill_noloops <- function(N, bag, seed = 42) {
@@ -372,8 +409,9 @@ fill_noloops <- function(N, bag, seed = 42) {
   return(M)
 }
 ```
+:::
 
-### Using the `profr` package.
+### Optiona Task: Using the `profr` package.
 
 - Install and load the `profr` package.
 - Use `profr` to profile `fill_noloop`, `fill_noloops` and `fill_alloc_opt`.
@@ -405,6 +443,8 @@ ggplot.profr <- function(data, ..., minlabel = 0.1, angle=0) {
 }
 ```
 
+::: {.callout-tip collapse="true"}
+## Example Solution
 ```{r}
 #| eval: false
 library(profr)
@@ -428,8 +468,9 @@ profr::ggplot.profr(profile_noloop_df)
 profr::ggplot.profr(profile_noloops_df)
 profr::ggplot.profr(profile_alloc_opt_df)
 ```
+:::
 
-### Using the `profvis` package.
+### Optional Task: Using the `profvis` package.
 
 - Install and load the `profvis` package.
 - Use `profvis` to profile `fill_noloop`, and `fill_alloc` functions.
@@ -442,7 +483,8 @@ In this section, we will deal with some selected ways to optimize your code.
 
 Given is a function:
 
-```         
+```{r}
+#| eval: false
 optimize_me <- function(N = 1000, values = c(1:1e4)) {
   N = 10; values = c(1:1e4)
   dat1 <- matrix(size = N^2)

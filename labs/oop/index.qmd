@@ -29,6 +29,7 @@ While S3 and S4 are base-R OOP systems, R6 is provided by the `R6` package. Both
 
 ```{r}
 #| results: hide
+#| code-fold: true
 obj <- lm(speed ~ dist, data = cars) 
 class(obj)
 ```
@@ -37,6 +38,7 @@ class(obj)
 
 ```{r}
 #| results: hide
+#| code-fold: true
 typeof(obj)
 ```
 
@@ -44,6 +46,7 @@ typeof(obj)
 
 ```{r}
 #| results: hide
+#| code-fold: true
 attributes(obj)
 ```
 
@@ -51,6 +54,7 @@ attributes(obj)
 
 ```{r}
 #| results: hide
+#| code-fold: true
 str(obj)
 ```
 
@@ -58,6 +62,7 @@ str(obj)
 
 ```{r}
 #| results: hide
+#| code-fold: true
 str(obj)
 # compare to:
 str(unclass(obj)) 
@@ -65,10 +70,11 @@ str(unclass(obj))
 # Answer: no
 ```
 
-- What is the class of a `tibble`? You have to loadt the `tidyverse` package and use on of the built-in datasets, e.g. `mtcars` as argument to `as_tibble()` to check the class.
+- What is the class of a `tibble`? You have to load the `tidyverse` package and use on of the built-in datasets, e.g. `mtcars` as argument to `as_tibble()` to check the class.
 
 ```{r}
 #| results: hide
+#| code-fold: true
 require(tidyverse)
 obj <- as_tibble(mtcars)
 class(obj)
@@ -78,6 +84,7 @@ class(obj)
 
 ```{r}
 #| results: hide
+#| code-fold: true
 typeof(obj)
 ```
 
@@ -85,6 +92,7 @@ typeof(obj)
 
 ```{r}
 #| results: hide
+#| code-fold: true
 str(obj)
 str(unclass(obj))
 # Answer: no
@@ -100,6 +108,7 @@ Check that it works, i.e. that it has the expected attributes and that it is a s
 
 ```{r}
 #| results: hide
+#| code-fold: true
 meta_frame <- function(df, descr, creation) {
   structure(
     list(
@@ -126,6 +135,7 @@ obj$descr
 
 ```{r}
 #| results: hide
+#| code-fold: true
 # Constructor
 new_protein <- function(sequence, length, ptm_site, ptm_type) {
   stopifnot(is.character(sequence))
@@ -152,7 +162,7 @@ protein <- function(sequence, ptm) {
 
 # Validator
 validate_protein <- function(x) {
-  sequence <- unclass(x)
+  sequence <- x[1]
   len <- attr(x, 'length')
   ptm_site <- attr(x, 'ptm_site')
   ptm_type <- attr(x, 'ptm_type')
@@ -183,6 +193,7 @@ validate_protein <- function(x) {
 
 ```{r}
 #| results: hide
+#| code-fold: true
 print.protein <- function(x) {
   sequence <- unclass(x)
   len <- attr(x, 'length')
@@ -201,6 +212,7 @@ print.protein <- function(x) {
 
 ```{r}
 #| results: hide
+#| code-fold: true
 my_prot <- protein("ARNDKLLQWYTTARD", 
                    list(
                      site = c(3, 5), 
@@ -218,6 +230,7 @@ print(my_prot)
 
 ```{r}
 #| results: hide
+#| code-fold: true
 # Generator
 .protein <- setClass('protein',
                      slots = c(
@@ -255,6 +268,7 @@ protein <- function(sequence, ptm) {
 
 ```{r}
 #| results: hide
+#| code-fold: true
 my_prot <- protein("ARNDKLLQWYTTARD", 
                    list(
                      site = c(3, 5), 
@@ -270,6 +284,7 @@ str(my_prot)
 
 ```{r}
 #| results: hide
+#| code-fold: true
 setMethod('print', 'protein', 
   function(x) {
     sequence <- x@sequence
@@ -294,6 +309,7 @@ print(my_prot)
 
 ```{r}
 #| results: hide
+#| code-fold: true
 .ext_protein <- setClass('ext_protein', 
                          contains = c('protein'),
                          slots = c(
@@ -319,6 +335,7 @@ str(my_ext_prot)
 
 ```{r}
 #| results: hide
+#| code-fold: true
 require(R6)
 protein <- R6Class(classname = 'protein',
                         public = list(

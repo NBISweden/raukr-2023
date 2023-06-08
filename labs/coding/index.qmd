@@ -43,7 +43,8 @@ Which of the following are valid/good variable names in R. What is wrong with th
 
 The code below works, but can be improved. Do improve it!
 
-```         
+```{r}
+#| eval: false
 myIterAtoR.max <- 5
 second_iterator.max<-7
 col.NUM= 10
@@ -56,6 +57,8 @@ fwzy45[haystack, needle]<-NA}
 }}
 ```
 
+::: {.callout-tip collapse="true"}
+## Example Solution
 ```{r}
 #| eval: false
 iter_max <- 5
@@ -72,12 +75,14 @@ for (i in 1:col_num) {
 
 # Can you improve the code more by eliminating loops or at least one of them?
 ```
+:::
 
 ### Task: Better Formatting.
 
 Improve formatting and style of the following code:
 
-```         
+```{r}
+#| eval: false         
 simulate_genotype <- function( q, N=100 ) {
   if( length(q)==1 ){
     p <- (1 - q)
@@ -90,6 +95,8 @@ simulate_genotype <- function( q, N=100 ) {
 }
 ```
 
+::: {.callout-tip collapse="true"}
+## Example Solution
 ```{r}
 #| eval: false
 simulate_genotype <- function(q, N = 100) {
@@ -105,46 +112,58 @@ simulate_genotype <- function(q, N = 100) {
          replace = TRUE)
 }
 ```
+:::
 
 ### Task: Hidden Variable.
 
 Assign a vector of three last months (abbreviated in English) in a year to a hidden variable `my_months`.
 
+::: {.callout-tip collapse="true"}
+## Example Solution
 ```{r}
 #| eval: false
 .my_months <- rev(rev(month.abb)[1:3])
 ```
+:::
 
 ### Task: Pipeline-friendly Function.
 
 Modify the function below so that it works with R pipes `%>%`:
 
-```         
-my_filter <- function(threshold = 1, data, scalar = 5) {
-  data[data >= threshold] <- NA 
-  data <- data * scalar
-  return(data)
+```{r}
+#| eval: false        
+my_filter <- function(threshold = 1, x, scalar = 5) {
+  x[x >= threshold] <- NA 
+  x <- x * scalar
+  return(x)
 }
 ```
 
-**Note** you need to have the `magrittr` or `tidyverse` package loaded in order to be able to use the pipe `%>%`!
+::: {.callout-note}
+## Necessary Packages
+You need to have the `magrittr` or `tidyverse` package loaded in order to be able to use the pipe `%>%`!
+:::
 
+::: {.callout-tip collapse="true"}
+## Example Solution
 ```{r}
 #| eval: false
-my_filter <- function(data, threshold = 1, scalar = 5) {
-  data[data >= threshold] <- NA 
-  data * scalar
+my_filter <- function(x, threshold = 1, scalar = 5) {
+  x[x >= threshold] <- NA 
+  x * scalar
 }
 
 # Test:
 c(-5, 5) %>% my_filter()
 ```
+:::
 
 ### Task: Untidy Code?
 
 Is the code below correct? Can it be improved?
 
-```         
+```{r}
+#| eval: false         
 simulate_phenotype <- function(pop_params, gp_map, gtype) {
   pop_mean <- pop_params[1]
   pop_var <- pop_params[2]
@@ -160,10 +179,13 @@ simulate_phenotype <- function(pop_params, gp_map, gtype) {
 }
 ```
 
+::: {.callout-tip collapse="true"}
+## Example Solution
 ```{r}
 #| eval: false
 Maybe some small improvements can be done, but in principle the code is clean! Except that... the N is not initialized anywhere.
 ```
+:::
 
 ## Structuring the Code
 
@@ -172,10 +194,12 @@ Maybe some small improvements can be done, but in principle the code is clean! E
 Write a modular code (function or functions) that computes the sample standard deviation given a vector of numbers. Decide how to logically structure the code. Assume there are no built-in R functions for computing mean and variance available. The formula for variance is: $SD = \sqrt{\frac{\Sigma_{i=1}^{N}(x_i - \bar{x})^2}{N-1}}$. Standard deviation is $Var=SD^2$.
 
 
-::: {.callout-tip}
+::: {.callout-note}
 Consider that you may want to re-use some computed values in future, e.g. variance.
 :::
 
+::: {.callout-tip collapse="true"}
+## Example Solution
 ```{r}
 #| eval: false
 sample_mean <- function(x) {
@@ -195,12 +219,14 @@ variance <- function(x) {
   std_dev(x)^2
 }
 ```
+:::
 
 ### Task: Writing a Wrapper Function.
 
 You found two functions in two different packages: the `randomSampleInt` function that generates a random sample of integer numbers and the `randomSampleLetter` function for generating a random sample of letters. Unfortunately, the functions are called in different ways which you want to unify in order to use them interchangeably in your code. Write a wrapper function around the `randomSampleLetter` that will provide the same interface to the function as the `randomSampleInt`. Also, the `randomSampleLetter` cannot handle the seed. Can you add this feature to your wrapper?
 
-```         
+```{r}
+#| eval: false         
 randomSampleInt <- function(x, verbose, length, seed = 42) {
   if (verbose) {
     print(paste0('Generating random sample of ', length, ' integers using seed ', seed))
@@ -219,6 +245,8 @@ randomSampleLetter <- function(N, silent=T, lett) {
 }
 ```
 
+::: {.callout-tip collapse="true"}
+## Example Solution
 ```{r}
 #| eval: false
 randomSampleLetterWrapper <- function(x, verbose, length, seed = 42) {
@@ -226,6 +254,7 @@ randomSampleLetterWrapper <- function(x, verbose, length, seed = 42) {
   randomSampleLetter(N = length, silent = !verbose, lett = x)
 }
 ```
+:::
 
 ### Task: Customizing `plot`.
 
@@ -235,12 +264,15 @@ Write a wrapper around the `graphics::plot` function that modifies its default b
 You may want to have a look at `graphics::plot.default`.
 :::
 
+::: {.callout-tip collapse="true"}
+## Example Solution
 ```{r}
 #| eval: false
 my_plot <- function(x, ...) {
   plot(x, pch = 3, col = 'red', ...) 
 }
 ```
+:::
 
 ### Task: Adding Arguments to a Function.
 
@@ -252,12 +284,15 @@ Read help for `alist` and `formals`.
 
 Original function:
 
-```         
+```{r}
+#| eval: false        
 red_plot <- function(x, y) { 
   plot(x, y, las=1, cex.axis=.8, ...)
 }
 ```
 
+::: {.callout-tip collapse="true"}
+## Example Solution
 ```{r}
 #| eval: false
 red_plot <- function(x, y) { 
@@ -268,6 +303,7 @@ red_plot(1, 1, col = 'red', pch = 19) # Does not work.
 formals(red_plot) <- c(formals(red_plot), alist(... = )) # Fix.
 red_plot(1, 1, col = 'red', pch = 19) # Works!
 ```
+:::
 
 ### Task: Using `options`.
 
@@ -277,9 +313,12 @@ Use `options` to change the default prompt in R to `hello :-) >`.
 Check what options are stored in the **hidden** variable called *Options*.
 :::
 
+::: {.callout-tip collapse="true"}
+## Example Solution
 ```{r}
 #| eval: false
 options(prompt = "hello :-) > ")
 .Options
 options(prompt = "> ") # restoring the default
 ```
+:::

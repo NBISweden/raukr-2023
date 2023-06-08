@@ -21,100 +21,246 @@ library(ggplot2)
 #library(gpuR)
 ```
 
-## Topics of This Presentation
+## Run Forrest, run!
+:::{.columns}
+:::{.column width="50%"}
 
+<br><br><br>
+
+:::{.incremental}
+- *My code does not run!* -- **debugging**<br><br>
+- *Now it does run but... out of memory!* -- **profiling**<br><br>
+- *It runs! It says it will finish in 5 ~~minutes~~ years.* -- **optimization**
+:::
+:::
+:::{.column width="50%"}
+<img src="assets/resources.jpg" style="width:80%;"/>
+:::
+::: 
+
+## Types of bugs {background-image="assets/featured.jpg"}
+- `r emo::ji('input_symbols')` Syntax errors
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "1|2"
+prin(var1) 
+mean(sum(seq((x + 2) * (y - 9 * b)))
+```
+
+. . .s
+
+- `r emo::ji('input_numbers')` Arithmetic 
+```{r} 
+#| echo: true
+y <- 7 / 0
+```
+*Not in R though! `y = Inf`*
+
+. . .
+
+- `r emo::ji('apple')``r emo::ji('orange')` Type 
+```{r}
+#| eval: false 
+mean('a')
+```
+
+. . .
+
+- `r emo::ji('puzzle')` Logic
+
+Everything works and produces seemingly valid output that is WRONG!  
+IMHO those are the hardest `r emo::ji('skull')` to debug!
+
+## How to avoid bugs
+<br><br><br>
+
+:::{.incremental}
+- Encapsulate your code in smaller units `r emo::ji('bento_box')` (functions), you can test.<br><br>
+- Use classes and type checking `r emo::ji('ok')`.<br><br>
+- Test `r emo::ji('test_tube')` at the boundaries, e.g. loops at min and max value.<br><br>
+- Feed your functions with test data `r emo::ji('floppy_disk')` that should result with a known output.<br><br>
+- Use *antibugging* `r emo::ji('spider_web')`: `stopifnot(y <= 75)`
+:::
+
+## Floating confusion
 <br><br>
 
-Code:
-<br>
-
-- **Debugging** -- my code does not run.
-- **Profiling** -- now it does run but... out of memory!
-- **Optimization** -- making things better.
-
-## Types of bugs
-
-### There are different types of bugs we can introduce:
-
-- Syntax -- `prin(var1), mean(sum(seq((x + 2) * (y - 9 * b)))`
-- Arithmetic -- `x/0` (not in R, though!) `Inf/Inf`
-- Type -- `mean('a')`
-- Logic -- everything works and produces seemingly valid output that is WRONG!
-
-### To avoid bugs:
-
-- Encapsulate your code in smaller units (functions), you can test.
-- Use classes and type checking.
-- Test at the boundaries, e.g. loops at min and max value.
-- Feed your functions with test data that should result with a known output.
-- Use *antibugging*: `stopifnot(y <= 75)`
-
-## Arithmetic bugs
-
-```{r arithmetic_bugs}
+```{r arithmetic_bugs1}
+#| results: false
+#| code-line-numbers: "1|2-3"
 (vec <- seq(0.1, 0.9, by=0.1))
 vec == 0.7 
 vec == 0.5
-(0.5 + 0.1) - 0.6
-(0.7 + 0.1) - 0.8 # round((0.7 + 0.1) , digits = 2) - 0.8
 ```
 
-Beware of floating point arithmetic!
+. . .
+
+```{r arithmetic_bugs2}
+#| echo: false
+(vec <- seq(0.1, 0.9, by=0.1))
+vec == 0.7 
+vec == 0.5
+```
+
+. . .
+
+<br>
+```{r arithmetic_bugs2_1}
+#| eval: false
+(0.5 + 0.1) - 0.6
+(0.7 + 0.1) - 0.8 
+```
+
+. . .
+
+```{r arithmetic_bugs2_2}
+#| echo: false
+(0.5 + 0.1) - 0.6
+(0.7 + 0.1) - 0.8 
+```
+
+<br/>
+<div style="text-align:center;"/>
+`r emo::ji('skull')` Beware of floating point arithmetic! `r emo::ji('skull')`
+</div/>
+
+## How to float `r emo::ji('person_swimming')`
+<br><br>
+
+```{r floating_rounding}
+round((0.7 + 0.1) , digits = 2) - 0.8
+```
+
+. . .
+
+Comparing floating point numbers: 
+```{r float_comparisons}
+#| echo: true
+(vec <- seq(0.1, 0.9, by=0.1))
+vec == 0.7
+```
+
+. . .
+
+```{r float_comparisons_epsilon}
+epsilon <- 0.001
+abs(vec - 0.7) <= epsilon
+```
+
+## Final thoughts on floating 
 
 ```{r double_epsilon}
 head(unlist(.Machine))
+```
+
+. . .
+
+```{r}
 head(unlist(.Platform))
 ```
 
 ## Handling Errors
 
+Let us generate some errors:
 ```{r error_log}
 #| error: true
-
-input <- c(1, 10, -7, -2/5, 0, 'char', 100, pi)
+input <- c(1, 10, -7, -2/5, 0, 'char', 100, pi, NaN)
 for (val in input) {
   (paste0('Log of ', val, 'is ', log10(val)))
 }
 ```
 
-One option is to use the `try` block:
+. . .
 
-```{r error_log_try}
-for (val in input) {
-  val <- as.numeric(val)
-  try(print(paste0('Log of ', val, ' is ', log10(val))))
-}
+:::{.columns}
+:::{.column width="30%"}
+<img src = "assets/ui_ux_error.jpg" style="width: 100%"/>
+:::
+:::{.column width="70%"}
+<br><br><br><br>So, how to handle this mess?
+:::
+:::
+
+## Handling Errors -- `try`
+<br><br>
+
+```{r error_log_try1}
+#| eval: false
+try(
+  print(
+    paste0('Log of ', input, ' is ', log10(as.numeric(input)))
+  )
+)
 ```
 
-## Handling Errors with `tryCatch`
+. . .
 
-```{r error_log_tryCatch}
+```{r error_log_try2}
+#| echo: false
+try(
+  print(
+    paste0('Log of ', input, ' is ', log10(as.numeric(input)))
+  )
+)
+```
+
+## Handling Errors -- `tryCatch` block:
+
+```{r error_log_tryCatch1}
+#| eval: false
+result <- tryCatch(log10(val), 
+            warning = function(w) { 
+              print('Warning! Negative argument supplied. Negating.') 
+              log10(-val) }, 
+            error = function(e) { 
+              print('ERROR! Not a number!')
+              NaN
+            }
+          )
+```
+
+. . .
+
+```{r error_log_tryCatch2}
+#| echo: false
 for (val in input) {
   val <- as.numeric(val)
   result <- tryCatch(log10(val), 
-              warning = function(w) { print('Negative argument supplied. Negating.'); log10(-val) }, 
-              error = function(e) { print('Not a number!'); NaN })
+              warning = function(w) { 
+                print('Warning! Negative argument supplied. Negating.') 
+                log10(-val) }, 
+              error = function(e) { 
+                print('ERROR! Not a number!')
+                NaN
+              }
+            )
   print(paste0('Log of ', val, ' is ', result))
 }
 ```
 
-## Debugging -- Errors and Warnings
+## Debugging -- errors and warnings
 
+:::{.incremental}
 - An error in your code will result in a call to the `stop()` function that:
   - Breaks the execution of the program (loop, if-statement, etc.)
   - Performs the action defined by the global parameter `error`.
 - A warning just prints out the warning message (or reports it in another way)
-- Global parameter `error` defines what R should do when an error occurs.
+:::
 
+. . .
+
+- Global parameter `error` defines what R should do when an error occurs.
 ```{r debug_options}
 #| eval: false
-
 options(error = )
 ```
 
-- You can use `simpleError()` and `simpleWarning()` to generate errors and warnings in your code:
+. . .
 
+- You can use `simpleError()` and `simpleWarning()` to generate errors and warnings in your code:
 ```{r simpleErr_simmpleWarn}
+#| code-line-numbers: "4"
 f <- function(x) {
   if (x < 0) {
     x <- abs(x)
@@ -124,81 +270,71 @@ f <- function(x) {
 }
 ```
 
-## Debugging -- What are my Options?
+## Debugging -- what are my options?
 
 - Old-school debugging: a lot of `print` statements
   - print values of your variables at some checkpoints,
   - sometimes fine but often laborious,
   - need to remove/comment out manually after debugging.
+
+. . .
+
 - Dumping frames
   - on error, R state will be saved to a file,
   - file can be read into debugger,
   - values of all variables can be checked,
   - can debug on another machine, e.g. send dump to your colleague!
+  
+. . .
+
 - Traceback
-  - a list of the recent function calls with values of their parameters,
+  - a list of the recent function calls with values of their parameters
+  
+. . .
+
 - Step-by-step debugging
   - execute code line by line within the debugger
 
-## Option 1: Dumping Frames
+## Option 1: dumping frames
 
 ```{r dump_frames}
-#| error: true
-options(error = quote(dump.frames("testdump", TRUE)))
-
-f <- function(x) {
-    sin(x)
-}
+#| eval: false
+#| code-line-numbers: "2|4-6"
+f <- function(x) { sin(x) }
+options(error = quote(dump.frames(dumpto = "assets/testdump", to.file = T)))
 f('test')
-options(error = NULL)
-load("testdump.rda")
+options(error = NULL) # reset the behavior
+load('assets/testdump.rda')
 # debugger(testdump)
 ```
+Hint: Last empty line brings you back to the environments menu.
 
-```
-Message:  Error in sin(x) : non-numeric argument to mathematical function <br>
-Available environments had calls: <br>
-1: f("test") <br>
- <br>
-Enter an environment number, or 0 to exit   <br>
-Selection: 1 <br>
-Browsing in the environment with call: <br>
-   f("test") <br>
-Called from: debugger.look(ind) <br>
-Browse[1]> x <br>
-[1] "test" <br>
-Browse[1]>  <br>
-[1] "test" <br>
-Browse[1]> 
-```
-
-Last empty line brings you back to the environments menu.
-
-## Option 2: Traceback
+## Option 2: traceback
 
 ```{r traceback}
 #| eval: true
 #| echo: true
 #| error: true
-f <- function(x) {
-  log10(x)  
+f <- function(x) { 
+  log10(x) 
 }
-
-g <- function(x) {
-  f(x)
+g <- function(x) { 
+  f(x) 
 }
 g('test')
 ```
 
+. . .
+
 ```
-> traceback()<br>
-2: f(x) at #2<br>
-1: g("test")<br>
+> traceback()
+2: f(x) at #2
+1: g("test")
 ```
 
 `traceback()` shows what were the function calls and what parameters were passed to them when the error occurred.
 
-## Option 3: Debug step-by-step
+## Option 3: step-by-step debugging
 
 Let us define a new function `h(x, y)`:
 
@@ -206,7 +342,7 @@ Let us define a new function `h(x, y)`:
 h <- function(x, y) { 
   f(x) 
   f(y) 
-  }
+}
 ```
 
 Now, we can use `debug()` to debug the function in a step-by-step manner:
@@ -218,39 +354,13 @@ h('text', 7)
 undebug(h)
 ```
 
-## Option 3: Debug step-by-step cted.
+. . .
 
-`n` -- execute next line, `c` -- execute whole function, `q` -- quit debugger mode.
-
-```
-> debug(h)<br>
-> h('text', 7)<br>
-debugging in: h("text", 7)<br>
-debug at #1: {<br>
-    f(x)<br>
-    f(y)<br>
-}<br>
-</tt>
---
-<tt>Browse[2]> x<br>
-[1] "text"<br></tt>
---
-<tt>Browse[2]> y<br>
-[1] 7<br></tt>
---
-<tt>Browse[2]> n<br>
-debug at #2: f(x)<br></tt>
---
-<tt>Browse[2]> x<br>
-[1] "text"<br></tt>
---
-<tt>Browse[2]> n<br>
-Error in log10(x) : non-numeric argument to mathematical function<br>
-```
+<img src="assets/debug.png" style="width: 100%"/>
 
 ## Profiling -- `proc.time()`
 
-Profiling is the process of identifying memory and time bottlenecks in your code.
+Profiling is the process of **identifying memory** and time **bottlenecks** `r emo::ji('bottle')` in your code.
 
 ```{r proc_time}
 proc.time()
@@ -259,6 +369,8 @@ proc.time()
 - `user time` -- CPU time charged for the execution of user instructions of the calling process,
 - `system time` -- CPU time charged for execution by the system on behalf of the calling process,
 - `elapsed time` -- total CPU time elapsed for the currently running R process.
+
+. . .
 
 ```{r proc_time_ex}
 pt1 <- proc.time()
@@ -274,23 +386,27 @@ system.time(runif(n = 10e6))
 system.time(rnorm(n = 10e6))
 ```
 
+. . .
+
 An alternative approach is to use `tic` and `toc` statements from the `tictoc` package.
 
 ```{r tictoc}
 #| cache: true
 library(tictoc)
 tic()
-tmp1 <-runif(n = 10e6)
+tmp1 <- runif(n = 10e6)
 toc()
 ```
 
-## Profiling in Action
+## Profiling in action
 
-Let's see profiling in action! We will define four functions that fill a large vector in two different ways:
+These 4 functions fill a **large vector** with values supplied by function `f`.
 
 . . .
 
+1 -- loop without memory allocation.
 ```{r profiling_fundef1}
+#| code-line-numbers: "2|3-5"
 fun_fill_loop1 <- function(n = 10e6, f) {
   result <- NULL
   for (i in 1:n) {
@@ -302,7 +418,9 @@ fun_fill_loop1 <- function(n = 10e6, f) {
 
 . . .
 
+2 -- loop with memory allocation.
 ```{r profiling_fundef2}
+#| code-line-numbers: "2|3-5"
 fun_fill_loop2 <- function(n = 10e6, f) {
   result <- vector(length = n)
   for (i in 1:n) {
@@ -312,9 +430,9 @@ fun_fill_loop2 <- function(n = 10e6, f) {
 }
 ```
 
-## Profiling in Action cted.
+## Profiling in action cted.
 
-It is maybe better to use...
+But it is maybe better to use...
 
 . . .
 
@@ -322,7 +440,9 @@ vectorization!
 
 . . .
 
+3 -- vectorized loop without memory allocation.
 ```{r profiling_fundef3}
+#| code-line-numbers: "2|3"
 fun_fill_vec1 <- function(n = 10e6, f) {
   result <- NULL
   result <- eval(call(f, n))
@@ -332,7 +452,9 @@ fun_fill_vec1 <- function(n = 10e6, f) {
 
 . . .
 
+4 -- vectorized with memory allocation.
 ```{r profiling_fundef4}
+#| code-line-numbers: "2|3"
 fun_fill_vec2 <- function(n = 10e6, f) {
   result <- vector(length = n)
   result <- eval(call(f, n))
@@ -341,15 +463,28 @@ fun_fill_vec2 <- function(n = 10e6, f) {
 ```
 
 ## Profiling our functions
+<br>
 
 ```{r profile_loop}
 #| cache: true
-system.time(fun_fill_loop1(n = 10e4, "runif")) # Loop 1
-system.time(fun_fill_loop2(n = 10e4, "runif")) # Loop 2
-system.time(fun_fill_vec1(n = 10e4, "runif"))  # Vectorized 1
-system.time(fun_fill_vec2(n = 10e4, "runif"))  # Vectorized 2
+p1 <- system.time(fun_fill_loop1(n = 10e4, "runif")) # 1 - loop, no alloc
+p2 <- system.time(fun_fill_loop2(n = 10e4, "runif")) # 2 - loop, alloc 
+p3 <- system.time(fun_fill_vec1(n = 10e4, "runif"))  # 3 - vector, no alloc
+p4 <- system.time(fun_fill_vec2(n = 10e4, "runif"))  # 4 - vector, alloc
 ```
 
+```{r profile_plot}
+#| echo: false
+#| results: true
+p <- data.frame(fn = paste0(rep('fn', 4), c(1,2,3,4)),
+                user.self = 1*(c(p1[1], p2[1], p3[1], p4[1])),
+                sys.self = 1*(c(p1[2], p2[2], p3[2], p4[2])),
+                elapsed = 1*(c(p1[3], p2[3], p3[3], p4[3]))
+)
+
+#barplot(log10(elapsed) ~ fn, data = p, horiz = T, las=1)
+knitr::kable(p)
+```
 The `system.time()` function is not the most accurate though. During the lab, we will experiment with package `microbenchmark`.
 
 ## More advanced profiling
@@ -357,7 +492,7 @@ The `system.time()` function is not the most accurate though. During the lab, we
 We can also do a bit more advanced profiling, including the memory profiling, using, e.g. `Rprof()` function.
 
 ```{r Rprof}
-#| include: false
+#| include: true
 #| eval: false
 #| cache: true
 
@@ -373,8 +508,7 @@ And let us summarise:
 
 ```{r summaryRprof}
 summary <- summaryRprof('profiler_test.out', memory='both')
-DT::datatable(summary$by.self, options=list(pageLength = 10, searching = F, info = F))
-#knitr::kable(summary$by.self)
+knitr::kable(summary$by.self)
 ```
 
 ## Profiling -- `profr` package
@@ -401,7 +535,7 @@ load('profiler_test2.Rdat')
 
 ```{r show_profr_result}
 #| echo: false
-datatable(profile_df, options=list(pageLength = 5, searching = F, info = F))
+knitr::kable(profile_df)
 ```
 
 # Profiling -- `profr` package cted.
@@ -436,9 +570,8 @@ profvis({fun_fill_loop2(1e4, 'runif')
 
 ```{r profviz_run}
 #| echo: false
-
 library(profvis)
-profvis({fun_fill_loop2(1e4, 'runif')
+profvis({fun_fill_loop2(1e4, 'runif') 
   c()
 })
 ```
@@ -453,25 +586,28 @@ We should forget about small efficiencies, say about 97% of the time: premature 
 
 :::: {.columns}
 ::: {.column width="50%"}
-![](assets/xkcd_automation.png){height="300px"}  
+![](assets/xkcd_automation.png){height="350px"}  
 [source: http://www.xkcd/com/1319]{.smaller}
 :::
 
 ::: {.column width="50%"}
-![](assets/xkcd_is_it_worth_the_time_2x.png){height="300px"}  
+![](assets/xkcd_is_it_worth_the_time_2x.png){height="350px"}  
 [source: http://www.xkcd/com/1205]{.smaller}
 :::
 ::::
 
 ## Ways to optimize the code
 
+:::{.incremental}
 - write it in a more efficient way, e.g. use vectorization or `*apply` family instead of loops etc.,
 - allocating memory to avoid copy-on-modify,
 - use package `BLAS` for linear algebra,
 - use `bigmemory` package,
 - GPU computations,
 - multicore support, e.g. `multicore`, `snow`
+- use `futures`
 - use `data.table` or `tibble` instead of `data.frame`
+:::
 
 ## Copy-on-modify
 
@@ -507,16 +643,17 @@ address(matrix_B)
 
 ## Avoid copying by allocating memory
 
-### No memory allocation
+No memory allocation
 
 ```{r noalloc_ex}
+#| code-line-numbers: "2|5"
 f1 <- function(to = 3, silent=F) {
   tmp <- c()
   for (i in 1:to) {
     a1 <- address(tmp)
     tmp <- c(tmp, i)
     a2 <- address(tmp)
-    if(!silent) { print(paste0(a1, " --> ", a2)) } 
+    if (!silent) { print(paste0(a1, " --> ", a2)) } 
   }
 }
 f1()
@@ -524,9 +661,10 @@ f1()
 
 ## Avoid copying by allocating memory cted.
 
-### With allocation
+With memory allocation
 
 ```{r alloc_ex}
+#| code-line-numbers: "2|5"
 f2 <- function(to = 3, silent = FALSE) {
   tmp <- vector(length = to, mode='numeric')
   for (i in 1:to) {
@@ -557,7 +695,7 @@ ggplot2::autoplot(benchmrk)
 ## GPU
 
 ```{r gpu_R}
-#| eval: false
+#| eval: true
 #| cache: true
 
 library(gpuR)
@@ -569,9 +707,9 @@ gpuB = gpuMatrix(B, type = "float")
 vclA = vclMatrix(A, type = "float") # stored: GPU, computed: GPU
 vclB = vclMatrix(B, type = "float")
 bch <- microbenchmark(
-  cpuC = A %*% B,
-  gpuC = gpuA %*% gpuB,
-  vclC = vclA %*% vclB, 
+  cpu_ram = A %*% B,
+  gpu_ram = gpuA %*% gpuB,
+  gpu_vcl = vclA %*% vclB, 
   times = 10L) 
 ```
 
@@ -584,7 +722,7 @@ bch <- microbenchmark(
 #| fig-align: center
 #| fig-height: 5
 #| fig-width: 4
-#| eval: false
+#| eval: true
 ggplot2::autoplot(bch)
 ```
 
@@ -593,7 +731,7 @@ ggplot2::autoplot(bch)
 Easiest to parallelize is `lapply`:
 
 ```{r parallel_lapply}
-result <- lapply(1:2, function(x) { c(x, x^2, x^3) } )
+result <- lapply(1:2, function(x) { c(x, x^2, x^3) })
 result
 ```
 
