@@ -538,7 +538,7 @@ load('profiler_test2.Rdat')
 knitr::kable(profile_df)
 ```
 
-# Profiling -- `profr` package cted.
+## Profiling -- `profr` package cted.
 
 We can also plot the results using -- `proftools` package-
 
@@ -695,7 +695,7 @@ ggplot2::autoplot(benchmrk)
 ## GPU
 
 ```{r gpu_R}
-#| eval: true
+#| eval: false
 #| cache: true
 
 library(gpuR)
@@ -722,7 +722,7 @@ bch <- microbenchmark(
 #| fig-align: center
 #| fig-height: 5
 #| fig-width: 4
-#| eval: true
+#| eval: false
 ggplot2::autoplot(bch)
 ```
 
