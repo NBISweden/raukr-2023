@@ -3658,6 +3658,34 @@
     "href": "slides/git/index.html#git-with-github-1",
     "title": "git and R",
     "section": "git with github",
-    "text": "git with github\n\nWorking with others workflow\n\npull changes made by others from github repo.\nSettle eventual merge conflicts.\nMake own changes.\nadd and commit changes.\nRepeat 3 and 4 as necessary.\npush changes to github, sharing them with others.\n\n\nAssuming you already have a github repository and a cloned local repository."
+    "text": "git with github\n\nWorking with others workflow\n1. pull changes made by others from github repo.\n2. Settle eventual merge conflicts.\n3. Make own changes.\n4. add and commit changes.\n5. Repeat 3 and 4 as necessary.\n6. push changes to github, sharing them with others.\n\n\nAssuming you already have a github repository and a cloned local repository."
+  },
+  {
+    "objectID": "labs/git/index.html",
+    "href": "labs/git/index.html",
+    "title": "git and R",
+    "section": "",
+    "text": "Note\n\n\n\nThis is the lab on using git and github with R. It will take you through some basic steps to start using git with your R code and how to work with others on the same code. When you are comfortable there are some more exercises showing good to know functionalities of git and github.\nThis lab assumes that you have a github account, commandline git and correct git configurations. If you do not and need help, please contact a TA."
+  },
+  {
+    "objectID": "labs/git/index.html#install-set-up",
+    "href": "labs/git/index.html#install-set-up",
+    "title": "git and R",
+    "section": "1 Install & set-up",
+    "text": "1 Install & set-up\nThe first thing we want to do is install the package required for the exercise."
+  },
+  {
+    "objectID": "labs/git/index.html#exercises",
+    "href": "labs/git/index.html#exercises",
+    "title": "git and R",
+    "section": "2 Exercises",
+    "text": "2 Exercises\n\n2.1 Working with git and github starting from RStudio\n\n\n2.2 Working with git and RStudio starting from github"
+  },
+  {
+    "objectID": "labs/git/index.html#additional-topics-and-exercises",
+    "href": "labs/git/index.html#additional-topics-and-exercises",
+    "title": "git and R",
+    "section": "3 Additional topics and exercises",
+    "text": "3 Additional topics and exercises\n\n3.1 Branches\n\n\n3.2 Merge conflicts\n\n\n3.3 Forks\n\n\n3.4 pull requests\n\n\n3.5 github actions"
   }
 ]

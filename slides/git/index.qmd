@@ -297,16 +297,17 @@ push/pull with github
 
 ## git with github
 
-[![](assets/github_text.png){height="350px"}]{.center}
+[![](assets/github_text.png){height="400px"}]{.center}
 
-#### Working with others workflow
+Working with others workflow
 
-1. `pull` changes made by others from github repo.
-2.  Settle eventual merge conflicts.
-3.  Make own changes.
-4.  `add` and `commit` changes.
-5.  Repeat 3 and 4 as necessary.
-6.  `push` changes to github, sharing them with others.
+[1. `pull` changes made by others from github repo.]{.small} \
+[2. Settle eventual merge conflicts.]{.small} \
+[3. Make own changes.]{.small} \
+[4. `add` and `commit` changes.]{.small} \
+[5. Repeat 3 and 4 as necessary.]{.small} \
+[6. `push` changes to github, sharing them with others.]{.small} \
+
 
 ::: notes
 Assuming you already have a github repository and a cloned local repository.
