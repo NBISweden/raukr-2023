@@ -8,7 +8,19 @@ format: html
 
 ```{r}
 #| include: false
+library(usethis)
+library(gitcreds)
 ```
+
+<!--
+Lab extras:
+branches
+Forks
+merge conflicts
+Mention remotes? Maybe "What is a remote and why is it useful", and then do the "how" in lab? Could just teach them the github way of sync instead... easier.
+pull requests
+github actions
+-->
 
 ::: {.callout-note}
 This is the lab on integrating git with R. It will take you through some basic steps to start using git with your R code and how to work with others on the same code.

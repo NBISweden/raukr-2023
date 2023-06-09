@@ -419,20 +419,34 @@ Sebastian DiLorenzo
 <li>What is git and why should I use it?</li>
 <li>git set-up</li>
 <li>git for yourself</li>
-<li>git and Rstudio</li>
-<li>git with github and collaborators</li>
-<li>github actions</li>
+<li>git with github</li>
+<li>Summary</li>
 </ul>
 </div><div class="column" style="width:40%;">
 <p><img data-src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="300"> <img data-src="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png" width="300"></p>
 </div>
 </div>
+<aside class="notes">
+<p>Maybe start with a show of hands. “How many have heard the word git before?” “How many have used git before?” “How many had a github account before the course?”</p>
+<p>Throughout I will show how to do things from RStudio, since this is an R course. In git with github I will not only show how to integrate github for yourself but also with collaborators.</p>
+<p>Github actions I will only talk briefly about what it is because it is good to know, not how to set it up. This is an advanced exercise in the lab later.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="what-is-git-and-why-should-i-use-it" class="slide level2">
 <h2>What is git and why should I use it?</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><img data-src="assets/tree.png" style="width:80.0%"></p>
+<p><img data-src="assets/tree.png" style="width:70.0%"></p>
 </div><div class="column" style="width:50%;">
 <p><br></p>
 <ul>
@@ -610,7 +624,7 @@ Sebastian DiLorenzo
 </section>
 <section id="git-for-yourself" class="slide level2">
 <h2>git for yourself</h2>
-<p><img data-src="assets/git_text.png" height="400"></p>
+<p><span class="center"><img data-src="assets/git_text.png" height="400"></span></p>
 <aside class="notes">
 <p>Now that we hopefully are all set-up, lets finally take a look at actually working with git. As a user, git is a folder and collection of files on your computer that you have initiated git version control on. A repository.</p>
 <p>To revert: git reset HEAD~</p>
@@ -628,7 +642,7 @@ Sebastian DiLorenzo
 </section>
 <section id="git-for-yourself-1" class="slide level2">
 <h2>git for yourself</h2>
-<p><img data-src="assets/git_text.png" height="400"></p>
+<p><span class="center"><img data-src="assets/git_text.png" height="400"></span></p>
 <p>Workflow:</p>
 <ul>
 <li>Make some changes.</li>
@@ -659,7 +673,7 @@ Sebastian DiLorenzo
 </section>
 <section id="git-for-yourself-2" class="slide level2">
 <h2>git for yourself</h2>
-<p><img data-src="assets/git_text.png" height="400"></p>
+<p><span class="center"><img data-src="assets/git_text.png" height="400"></span></p>
 <p>Useful commands:</p>
 <ul>
 <li><code>git status</code> lists changes in your repository.</li>
@@ -673,25 +687,14 @@ Sebastian DiLorenzo
 <ul>
 <li><code>git reset</code> go to a previous commit state.</li>
 </ul>
+</div>
+<div class="fragment">
+<ul>
+<li><code>usethis::use_git()</code>, initialize git in a project that did not have git activated.</li>
+</ul>
 <aside class="notes">
-<p>git status git reset HEAD~</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-<aside class="notes">
-<p>diff</p>
-<p>later, push/pull with github. clone</p>
-<p>Git and Rstudio: Clone a repo using rstudio File &gt; New Project &gt; Version Control &gt; Git</p>
-<p>Connect existing code to new github repo: usethis::use_git() usethis::use_github()</p>
-<p>Mention branches? Mention merge conflicts? Mention remotes? Maybe “What is a remote and why is it useful”, and then do the “how” in lab? Could just teach them the github way of sync instead… easier. mention github actions, what it does, but not how to set it up? Maybe add as advanced topic for lab. Git clients. Mentioned here but not taught.</p>
+<p>git diff git status git reset HEAD~ usethis::use_git()</p>
+<p><strong>DEMO</strong></p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -705,15 +708,63 @@ Sebastian DiLorenzo
       }</style></aside>
 </div>
 </section>
-<section id="project-setup" class="slide level2">
-<h2>Project setup</h2>
+<section id="git-with-github" class="slide level2">
+<h2>git with github</h2>
+<p><span class="center"><img data-src="assets/github_text.png" height="400"></span></p>
+<div class="fragment">
+<ul>
+<li><code>git clone</code>, copy the github repository to a local repository.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Create a repository on github from your current RStudio git repository: <code>usethis::use_github()</code></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><code>git push</code> your local file changes to the github repository.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><code>git pull</code> the github repositories file changes to your local repository.</li>
+</ul>
 <aside class="notes">
+<p>So what is github? In its very essence, github is a hosting service, a place where you can have your git repositories. By having them on github many people can collaborate on one code project at the same time. It also functions as a backup of your repository, so if something goes amiss with your local repository, you can always delete it and grab the backup from github.</p>
+<p>You can go many ways about connecting your local git repository to github. You can create the repository on github first and then create a local copy repository. You can also take a local repository and create a github repository from it.</p>
+<p>Lets look at that as an example.</p>
+<p>Connect existing repository to a new github repo: usethis::use_github()</p>
+<p>Clone a repo using rstudio File &gt; New Project &gt; Version Control &gt; Git</p>
+<p>push/pull with github</p>
+<p><strong>DEMO</strong></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="git-with-github-1" class="slide level2">
+<h2>git with github</h2>
+<p><span class="center"><img data-src="assets/github_text.png" height="350"></span></p>
+<h4 id="working-with-others-workflow">Working with others workflow</h4>
 <ol type="1">
-<li>Create a folder.</li>
-<li>Make it a Rstudio project.</li>
-<li>Make it a git repository</li>
-<li>Connect it to github</li>
+<li><code>pull</code> changes made by others from github repo.</li>
+<li>Settle eventual merge conflicts.</li>
+<li>Make own changes.</li>
+<li><code>add</code> and <code>commit</code> changes.</li>
+<li>Repeat 3 and 4 as necessary.</li>
+<li><code>push</code> changes to github, sharing them with others.</li>
 </ol>
+<aside class="notes">
+<p>Assuming you already have a github repository and a cloned local repository.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -726,11 +777,26 @@ Sebastian DiLorenzo
           display:block!important;
       }</style></aside>
 </section>
-<section id="github" class="slide level2">
-<h2>Github</h2>
+<section id="summary" class="slide level2">
+<h2>Summary</h2>
+<p><br></p>
+<blockquote>
+<p>git and github are great for structured, reproducible, collaborative work.</p>
+</blockquote>
+<p><br></p>
+<ol type="1">
+<li>Create a folder.</li>
+<li>Make it a RStudio project.</li>
+<li>Make it a git repository.</li>
+<li>Connect it to github.</li>
+<li>Profit.</li>
+</ol>
+<p><br></p>
+<blockquote>
+<p><code>commit</code> often, <code>push</code>/<code>pull</code> less often.</p>
+</blockquote>
 <aside class="notes">
-<p>Github is the hosting service that allows for syncing your work with other people, in private work groups or in open access collaboration. The nice thing about having work on github is also that if something really breaks in your local git repo you can always delete it and download a fresh copy off github.</p>
-<p>By pushing to GitHub, you make your work and all your accumulated progress accessible to others.</p>
+<p>I wasn’t going to tell you more than this right now, but there is a lot more to say. But I think you need to go in and get your hands dirty with this before adding more topics or you will be overburdened. Because of this and because I imagine the level of prior git knowledge can vary greatly in class I have put a lot of extra exercises with explanatory information in the lab.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;

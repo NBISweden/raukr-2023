@@ -18,9 +18,8 @@ library(usethis)
 - What is git and why should I use it?
 - git set-up
 - git for yourself
-- git and Rstudio
-- git with github and collaborators
-- github actions
+- git with github
+- Summary
 :::
 
 ::: {.column width="40%"}
@@ -29,11 +28,22 @@ library(usethis)
 :::
 ::::
 
+::: notes
+Maybe start with a show of hands.
+"How many have heard the word git before?"
+"How many have used git before?"
+"How many had a github account before the course?"
+
+Throughout I will show how to do things from RStudio, since this is an R course. In git with github I will not only show how to integrate github for yourself but also with collaborators.
+
+Github actions I will only talk briefly about what it is because it is good to know, not how to set it up. This is an advanced exercise in the lab later.
+:::
+
 ## What is git and why should I use it?
 
 :::: {.columns}
 ::: {.column width="50%"}
-![](assets/tree.png){width="80%"}
+![](assets/tree.png){width="70%"}
 :::
 
 ::: {.column width="50%"}
@@ -189,7 +199,7 @@ credentials::set_github_pat("my_pat")
 
 ## git for yourself
 
-![](assets/git_text.png){height="400px"}
+[![](assets/git_text.png){height="400px"}]{.center}
 
 ::: notes
 Now that we hopefully are all set-up, lets finally take a look at actually working with git. As a user, git is a folder and collection of files on your computer that you have initiated git version control on. A repository. 
@@ -200,7 +210,7 @@ git reset HEAD~
 
 ## git for yourself
 
-![](assets/git_text.png){height="400px"}
+[![](assets/git_text.png){height="400px"}]{.center}
 
 Workflow:
 
@@ -221,7 +231,7 @@ As you make changes to the files you can save the current state of the files. Th
 
 ## git for yourself
 
-![](assets/git_text.png){height="400px"}
+[![](assets/git_text.png){height="400px"}]{.center}
 
 Useful commands:
 
@@ -240,48 +250,87 @@ Useful commands:
 - `usethis::use_git()`, initialize git in a project that did not have git activated.
 
 ::: notes
+git diff
 git status
 git reset HEAD~
 usethis::use_git()
 
 **DEMO**
-::: 
+:::
+
+## git with github
+
+[![](assets/github_text.png){height="400px"}]{.center}
+
+. . .
+
+- `git clone`, copy the github repository to a local repository.
+
+. . .
+
+- Create a repository on github from your current RStudio git repository: `usethis::use_github()`
+
+. . .
+
+- `git push` your local file changes to the github repository.
+
+. . .
+
+- `git pull` the github repositories file changes to your local repository.
 
 ::: notes
-diff
+So what is github? In its very essence, github is a hosting service, a place where you can have your git repositories. By having them on github many people can collaborate on one code project at the same time. It also functions as a backup of your repository, so if something goes amiss with your local repository, you can always delete it and grab the backup from github.
 
-later, push/pull with github.
-clone
+You can go many ways about connecting your local git repository to github. You can create the repository on github first and then create a local copy repository. You can also take a local repository and create a github repository from it.
 
-Git and Rstudio:
-Clone a repo using rstudio File > New Project > Version Control > Git
+Lets look at that as an example.
 
-Connect existing code to new github repo:
+Connect existing repository to a new github repo:
 usethis::use_github()
 
-Mention branches?
-Mention merge conflicts?
-Mention remotes? Maybe "What is a remote and why is it useful", and then do the "how" in lab? Could just teach them the github way of sync instead... easier.
-mention github actions, what it does, but not how to set it up? Maybe add as advanced topic for lab.
-Git clients. Mentioned here but not taught.
+Clone a repo using rstudio File > New Project > Version Control > Git
+
+push/pull with github
+
+**DEMO**
 :::
 
-## Project setup
+## git with github
+
+[![](assets/github_text.png){height="350px"}]{.center}
+
+#### Working with others workflow
+
+1. `pull` changes made by others from github repo.
+2.  Settle eventual merge conflicts.
+3.  Make own changes.
+4.  `add` and `commit` changes.
+5.  Repeat 3 and 4 as necessary.
+6.  `push` changes to github, sharing them with others.
 
 ::: notes
+Assuming you already have a github repository and a cloned local repository.
+:::
+
+## Summary
+<br>
+
+> git and github are great for structured, reproducible, collaborative work.
+
+<br>
+
 1. Create a folder.
-2. Make it a Rstudio project.
-3. Make it a git repository
-4. Connect it to github
-:::
+2. Make it a RStudio project.
+3. Make it a git repository.
+4. Connect it to github.
+5. Profit.
 
-## Github
+<br>
+
+> `commit` often, `push`/`pull` less often.
 
 ::: notes
-Github is the hosting service that allows for syncing your work with other people, in private work groups or in open access collaboration.
-The nice thing about having work on github is also that if something really breaks in your local git repo you can always delete it and download a fresh copy off github.
-
-By pushing to GitHub, you make your work and all your accumulated progress accessible to others.
+I wasn't going to tell you more than this right now, but there is a lot more to say. But I think you need to go in and get your hands dirty with this before adding more topics or you will be overburdened. Because of this and because I imagine the level of prior git knowledge can vary greatly in class I have put a lot of extra exercises with explanatory information in the lab.
 :::
 
 ##  {background-image="../../assets/images/cover.jpg"}

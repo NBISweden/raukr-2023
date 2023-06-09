@@ -3525,7 +3525,7 @@
     "href": "slides/git/index.html#overview",
     "title": "git and R",
     "section": "Overview",
-    "text": "Overview\n\n\n\nWhat is git and why should I use it?\ngit set-up\ngit for yourself\ngit and Rstudio\ngit with github and collaborators\ngithub actions"
+    "text": "Overview\n\n\n\nWhat is git and why should I use it?\ngit set-up\ngit for yourself\ngit with github\nSummary\n\n\n \n\n\n\nMaybe start with a show of hands. “How many have heard the word git before?” “How many have used git before?” “How many had a github account before the course?”\nThroughout I will show how to do things from RStudio, since this is an R course. In git with github I will not only show how to integrate github for yourself but also with collaborators.\nGithub actions I will only talk briefly about what it is because it is good to know, not how to set it up. This is an advanced exercise in the lab later."
   },
   {
     "objectID": "slides/git/index.html#title",
@@ -3637,6 +3637,27 @@
     "href": "slides/git/index.html#git-for-yourself-2",
     "title": "git and R",
     "section": "git for yourself",
-    "text": "git for yourself\n\nUseful commands:\n\ngit status lists changes in your repository.\n\n\n\ngit diff shows the difference between a file and its last commit state.\n\n\n\n\ngit reset go to a previous commit state.\n\n\ngit status git reset HEAD~\n\n\ndiff\nlater, push/pull with github. clone\nGit and Rstudio: Clone a repo using rstudio File &gt; New Project &gt; Version Control &gt; Git\nConnect existing code to new github repo: usethis::use_git() usethis::use_github()\nMention branches? Mention merge conflicts? Mention remotes? Maybe “What is a remote and why is it useful”, and then do the “how” in lab? Could just teach them the github way of sync instead… easier. mention github actions, what it does, but not how to set it up? Maybe add as advanced topic for lab. Git clients. Mentioned here but not taught."
+    "text": "git for yourself\n\nUseful commands:\n\ngit status lists changes in your repository.\n\n\n\ngit diff shows the difference between a file and its last commit state.\n\n\n\n\ngit reset go to a previous commit state.\n\n\n\n\nusethis::use_git(), initialize git in a project that did not have git activated.\n\n\ngit diff git status git reset HEAD~ usethis::use_git()\nDEMO"
+  },
+  {
+    "objectID": "slides/git/index.html#git-with-github",
+    "href": "slides/git/index.html#git-with-github",
+    "title": "git and R",
+    "section": "git with github",
+    "text": "git with github\n\n\n\ngit clone, copy the github repository to a local repository.\n\n\n\n\nCreate a repository on github from your current RStudio git repository: usethis::use_github()\n\n\n\n\ngit push your local file changes to the github repository.\n\n\n\n\ngit pull the github repositories file changes to your local repository.\n\n\nSo what is github? In its very essence, github is a hosting service, a place where you can have your git repositories. By having them on github many people can collaborate on one code project at the same time. It also functions as a backup of your repository, so if something goes amiss with your local repository, you can always delete it and grab the backup from github.\nYou can go many ways about connecting your local git repository to github. You can create the repository on github first and then create a local copy repository. You can also take a local repository and create a github repository from it.\nLets look at that as an example.\nConnect existing repository to a new github repo: usethis::use_github()\nClone a repo using rstudio File &gt; New Project &gt; Version Control &gt; Git\npush/pull with github\nDEMO"
+  },
+  {
+    "objectID": "slides/git/index.html#summary",
+    "href": "slides/git/index.html#summary",
+    "title": "git and R",
+    "section": "Summary",
+    "text": "Summary\n\n\ngit and github are great for structured, reproducible, collaborative work.\n\n\n\nCreate a folder.\nMake it a RStudio project.\nMake it a git repository.\nConnect it to github.\nProfit.\n\n\n\ncommit often, push/pull less often.\n\n\nI wasn’t going to tell you more than this right now, but there is a lot more to say. But I think you need to go in and get your hands dirty with this before adding more topics or you will be overburdened. Because of this and because I imagine the level of prior git knowledge can vary greatly in class I have put a lot of extra exercises with explanatory information in the lab."
+  },
+  {
+    "objectID": "slides/git/index.html#git-with-github-1",
+    "href": "slides/git/index.html#git-with-github-1",
+    "title": "git and R",
+    "section": "git with github",
+    "text": "git with github\n\nWorking with others workflow\n\npull changes made by others from github repo.\nSettle eventual merge conflicts.\nMake own changes.\nadd and commit changes.\nRepeat 3 and 4 as necessary.\npush changes to github, sharing them with others.\n\n\nAssuming you already have a github repository and a cloned local repository."
   }
 ]
