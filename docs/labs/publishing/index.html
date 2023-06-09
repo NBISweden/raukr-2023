@@ -395,14 +395,14 @@ Superscript written like this <code>2^10^</code> renders as 2<sup>10</sup>.</p>
 <p>Images can be displayed from a relative local location using <code>![This is a caption](assets/gotland.jpg)</code>. For example:</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="assets/gotland.jpg" class="lightbox" title="This is a caption" data-gallery="quarto-lightbox-gallery-4"><img src="assets/gotland.jpg" class="img-fluid figure-img"></a></p>
+<p><a href="assets/gotland.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="This is a caption"><img src="assets/gotland.jpg" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">This is a caption</figcaption>
 </figure>
 </div>
 <p>By default, the image is displayed at full scale or until it fills the display width. The image dimension can be adjusted <code>![This is a caption](assets/gotland.jpg){width=40%}</code>.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="assets/gotland.jpg" class="lightbox" title="This is a caption" data-gallery="quarto-lightbox-gallery-5"><img src="assets/gotland.jpg" class="img-fluid figure-img" style="width:40.0%"></a></p>
+<p><a href="assets/gotland.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="This is a caption"><img src="assets/gotland.jpg" class="img-fluid figure-img" style="width:40.0%"></a></p>
 <figcaption class="figure-caption">This is a caption</figcaption>
 </figure>
 </div>
@@ -704,7 +704,7 @@ execute:
 <div class="cell-output-display">
 <div id="fig-plot-a" class="quarto-figure quarto-figure-left anchored">
 <figure class="figure">
-<p><a href="index_files/figure-html/fig-plot-a-1.png" class="lightbox" title="This is a figure caption." data-gallery="quarto-lightbox-gallery-8"><img src="index_files/figure-html/fig-plot-a-1.png" class="img-fluid figure-img" width="576"></a></p>
+<p><a href="index_files/figure-html/fig-plot-a-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="This is a figure caption."><img src="index_files/figure-html/fig-plot-a-1.png" class="img-fluid figure-img" width="576"></a></p>
 <figcaption class="figure-caption">Figure&nbsp;1: This is a figure caption.</figcaption>
 </figure>
 </div>
@@ -1140,7 +1140,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-right">Published with <a href="https://quarto.org/">Quarto</a> v1.3.340</div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","closeEffect":"zoom","loop":true,"selector":".lightbox","descPosition":"bottom"});</script>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","descPosition":"bottom","openEffect":"zoom","loop":true});</script>
 
 
 

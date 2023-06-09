@@ -412,57 +412,66 @@ Marcin Kierczak
 </div>
 </div>
 
-  <p class="date">13-Mar-2023</p>
+  <p class="date">08-Jun-2023</p>
 </section>
 
 <section id="learning-outcomes" class="slide level2">
 <h2>Learning Outcomes</h2>
+<p><br></p>
 <p>When this module is complete, you will:</p>
 <ul>
-<li>know what <code>tidyverse</code> is and a bit about its history</li>
-<li>be able to use different pipes, including advanced ones and placeholders</li>
-<li>know whether the data you work with are tidy</li>
-<li>will be able to load, debug and tidy your data</li>
-<li>understand how to combine datasets using <code>join_*</code></li>
-<li>be aware of useful packages within <code>tidyverse</code></li>
+<li><p>know what <code>tidyverse</code> is and a bit about its history</p></li>
+<li><p>be able to use different pipes, including advanced ones and placeholders</p></li>
+<li><p>know whether the data you work with are tidy</p></li>
+<li><p>will be able to load, debug and tidy your data</p></li>
+<li><p>understand how to combine data sets using <code>join_*</code></p></li>
+<li><p>be aware of useful packages within <code>tidyverse</code></p></li>
 </ul>
 </section>
 <section id="tidyverse-what-is-it-all-about" class="slide level2">
 <h2>Tidyverse — what is it all about?</h2>
 <ul>
-<li><a href="http://www.tidyverse.org">tidyverse</a> is a collection of packages 📦</li>
-<li>created by <a href="http://hadley.nz">Hadley Wickham</a></li>
-<li>constantly gains popularity 📈,</li>
+<li><a href="http://www.tidyverse.org">tidyverse</a> is a collection of packages 📦,</li>
+<li>created by <a href="http://hadley.nz">Hadley Wickham</a>,</li>
 <li>has became a <em>de facto</em> standard in data analyses,</li>
-<li>knowing how to use it can increase your salary 💰</li>
-<li>a philosophy of programming or a programming paradigm</li>
-<li>everything is about 🌊 the flow of 🧹 <em>tidy data</em></li>
+<li>a philosophy of programming or a programming paradigm: everything is about 🌊 the flow of 🧹 <em>tidy data</em>.</li>
 </ul>
-<div class="fragment">
 <div data-layout.ncol="3">
 <p><img data-src="assets/hex-tidyverse.png" height="250"> <img data-src="assets/Hadley-wickham2016-02-04.jpeg" height="250"> <img data-src="assets/RforDataScience.jpeg" height="250"></p>
 </div>
 
-</div>
 <aside><div>
 <p>Images: www.tidyverse.org, Wikipedia, www.tidyverse.org</p>
 </div></aside></section>
-<section id="typical-tidyverse-workflow" class="slide level2">
-<h2>Typical Tidyverse Workflow</h2>
-<p>☠️ The tidyverse curse? ☠️<br></p>
+<section id="tidyverse-or-tidyverse" class="slide level2">
+<h2><code>?(Tidyverse OR !Tidyverse)</code></h2>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>☠️ There are still some people out there talking about <em>the tidyverse curse</em> though… ☠️<br></p>
+</div>
+</div>
+</div>
 <div class="fragment">
 <div class="blockquote">
 <p><em>Navigating the balance between base R and the tidyverse is a challenge to learn.</em><br>
 <a href="http://r4stats.com/articles/why-r-is-hard-to-learn/">- Robert A. Muenchen</a></p>
 </div>
 </div>
-<div class="fragment">
+</section>
+<section id="typical-tidyverse-workflow" class="slide level2">
+<h2>Typical Tidyverse Workflow</h2>
 <p><img data-src="assets/tidyverse-flow.png" height="400"><br>
 <span class="smaller"><a href="http://www.storybench.org/getting-started-with-tidyverse-in-r/">Source: http://www.storybench.org/getting-started-with-tidyverse-in-r/</a></span></p>
-</div>
 </section>
-<section id="introduction-to-pipes" class="slide level2">
-<h2>Introduction to Pipes</h2>
+<section id="introduction-to-pipes-or-let-my-data-flow" class="slide level2" data-background-image="assets/pipes.jpg" data-background-opacity="0.8">
+<h2>Introduction to Pipes or Let My Data Flow 🌊</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><img data-src="assets/MagrittePipe.jpg"></p>
@@ -471,24 +480,22 @@ Marcin Kierczak
 <p><img data-src="assets/magrittr.png"></p>
 </div><div class="column" style="width:50%;">
 <ul>
-<li>let the data flow 🌊…</li>
-<li><code>magrittr</code> package — <code>tidyverse</code> and beyond</li>
-<li>the <code>%&gt;%</code> pipe
+<li><code>magrittr</code> package — <code>tidyverse</code> and beyond <br><br></li>
+<li>the <code>%&gt;%</code> pipe <br><br>
 <ul>
-<li><code>x %&gt;% f</code> <span class="math inline">\(\equiv\)</span> <code>f(x)</code></li>
-<li><code>x %&gt;% f(y)</code> <span class="math inline">\(\equiv\)</span> <code>f(x, y)</code></li>
+<li><code>x %&gt;% f</code> <span class="math inline">\(\equiv\)</span> <code>f(x)</code> <br><br></li>
+<li><code>x %&gt;% f(y)</code> <span class="math inline">\(\equiv\)</span> <code>f(x, y)</code> <br><br></li>
 <li><code>x %&gt;% f %&gt;% g %&gt;% h</code> <span class="math inline">\(\equiv\)</span> <code>h(g(f(x)))</code></li>
 </ul></li>
 </ul>
 </div>
 </div>
 </section>
-<section id="introduction-to-pipes-1" class="slide level2">
+<section id="introduction-to-pipes" class="slide level2">
 <h2>Introduction to Pipes</h2>
 <p>Instead of writing this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>data <span class="ot">&lt;-</span> iris</span>
-<span id="cb1-2"><a href="#cb1-2"></a>data <span class="ot">&lt;-</span> <span class="fu">head</span>(data, <span class="at">n=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>result <span class="ot">&lt;-</span> <span class="fu">head</span>(iris, <span class="at">n=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>write this:</p>
 <div class="cell">
@@ -521,20 +528,29 @@ Marcin Kierczak
 <img data-src="index_files/figure-revealjs/magrittr2a-1.png" width="384" class="r-stretch"></section>
 <section id="other-types-of-pipes-t-1" class="slide level2">
 <h2>Other Types of Pipes — <code>%T&gt;%</code></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
 <p><img data-src="assets/T-pipe.png" height="180"></p>
-<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">rnorm</span>(<span class="dv">50</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">%T&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">plot</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-2-1.png" width="384"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-3-1.png" width="288"></p>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       V1                V2         
- Min.   :-2.3619   Min.   :-3.0829  
- 1st Qu.:-0.9189   1st Qu.:-1.1184  
- Median : 0.1565   Median :-0.3508  
- Mean   :-0.2460   Mean   :-0.2624  
- 3rd Qu.: 0.4307   3rd Qu.: 0.4239  
- Max.   : 1.9173   Max.   : 2.2178  </code></pre>
+ Min.   :-2.2743   Min.   :-1.7470  
+ 1st Qu.:-1.0018   1st Qu.:-0.8541  
+ Median :-0.3667   Median : 0.1510  
+ Mean   :-0.2214   Mean   : 0.1988  
+ 3rd Qu.: 0.2674   3rd Qu.: 0.9378  
+ Max.   : 2.2399   Max.   : 2.5419  </code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -542,15 +558,16 @@ Marcin Kierczak
 <section id="other-types-of-magrittr-pipes" class="slide level2">
 <h2>Other Types of <code>magrittr</code> Pipes — <code>%$%</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>iris <span class="sc">%&gt;%</span> <span class="fu">cor</span>(Sepal.Length, Sepal.Width)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>iris <span class="sc">%&gt;%</span> <span class="fu">cor</span>(Sepal.Length, Sepal.Width)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in pmatch(use, c("all.obs", "complete.obs", "pairwise.complete.obs", : object 'Sepal.Width' not found</code></pre>
 </div>
 </div>
+<hr>
 <div class="fragment">
-<p>We need the <code>%$%</code> pipe with exposition of variables:</p>
+<p>We need the <code>%$%</code> pipe with <strong>exposition of variables</strong>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>iris <span class="sc">%$%</span> <span class="fu">cor</span>(Sepal.Length, Sepal.Width)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>iris <span class="sc">%$%</span> <span class="fu">cor</span>(Sepal.Length, Sepal.Width)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.1175698</code></pre>
 </div>
@@ -562,77 +579,126 @@ Marcin Kierczak
 </section>
 <section id="other-types-of-magrittr-pipes-1" class="slide level2">
 <h2>Other Types of <code>magrittr</code> Pipes — %&lt;&gt;%</h2>
-<p>It exists but can lead to somewhat confusing code! ☠️</p>
+<p>It exists but can lead to somewhat confusing code! 💀</p>
 <p><code>x %&lt;&gt;% f</code> <span class="math inline">\(\equiv\)</span> <code>x &lt;- f(x)</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>M <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">16</span>), <span class="at">nrow=</span><span class="dv">4</span>)</span>
-<span id="cb11-2"><a href="#cb11-2"></a>M <span class="sc">%&lt;&gt;%</span> <span class="fu">colSums</span>()</span>
-<span id="cb11-3"><a href="#cb11-3"></a>M</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>M <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">16</span>), <span class="at">nrow=</span><span class="dv">4</span>); M <span class="sc">%&lt;&gt;%</span> <span class="fu">colSums</span>(); M</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.8626513 0.8147449 3.6828117 0.5134010</code></pre>
+<pre><code>[1] -2.634811  3.018416 -2.240745 -3.392864</code></pre>
 </div>
 </div>
-<p>From R &gt;= 4.1.0 we have a native <code>|&gt;</code> pipe that is a bit faster than <code>%&gt;%</code> but currently has no placeholders mechanism.</p>
+</section>
+<section id="native-r-pipe" class="slide level2">
+<h2>Native R pipe</h2>
+<p>From R &gt;= 4.1.0 we have a native <code>| &gt;</code> pipe that is a bit faster than <code>%&gt;%</code> but currently has no placeholders mechanism.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>) <span class="sc">|&gt;</span> <span class="fu">mean</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>) <span class="sc">|&gt;</span> <span class="fu">mean</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3</code></pre>
 </div>
 </div>
-<p>but</p>
+<div class="fragment">
+<hr>
+<p>even simple placeholder <code>_</code> is available now. But ⚡ only for <strong>named</strong> arguments.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>mtcars <span class="sc">|&gt;</span> (\(x) <span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> x))()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>mtcars <span class="sc">|&gt;</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> _)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = mpg ~ disp, data = x)
+lm(formula = mpg ~ disp, data = mtcars)
 
 Coefficients:
 (Intercept)         disp  
    29.59985     -0.04122  </code></pre>
 </div>
 </div>
+</div>
 </section>
 <section id="placeholders-in-magrittr-pipes" class="slide level2">
 <h2>Placeholders in <code>magrittr</code> Pipes</h2>
-<p>Sometimes we want to pass the resulting data to <em>other than the first</em> argument of the next function in chain. <code>magritter</code> provides placeholder mechanism for this: - <code>x %&gt;% f(y, .)</code> <span class="math inline">\(\equiv\)</span> <code>f(y, x)</code>, - <code>x %&gt;% f(y, z = .)</code> <span class="math inline">\(\equiv\)</span> <code>f(y, z = x)</code>.</p>
+<p>Sometimes we want to pass the resulting data to <em>other than the first</em> argument of the next function in chain. <code>magritter</code> provides placeholder mechanism for this:</p>
+<ul>
+<li><code>x %&gt;% f(y, .)</code> <span class="math inline">\(\equiv\)</span> <code>f(y, x)</code>,</li>
+<li><code>x %&gt;% f(y, z = .)</code> <span class="math inline">\(\equiv\)</span> <code>f(y, z = x)</code>.</li>
+</ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>M <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">4</span>) <span class="sc">%&gt;%</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb17-2"><a href="#cb17-2"></a>M <span class="sc">%&gt;%</span> <span class="st">`</span><span class="at">%*%</span><span class="st">`</span>(., .)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>M <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">4</span>) <span class="sc">%&gt;%</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb18-2"><a href="#cb18-2"></a>M <span class="sc">%&gt;%</span> <span class="st">`</span><span class="at">%*%</span><span class="st">`</span>(., .)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>            [,1]        [,2]
-[1,]  0.27435745 -0.25389542
-[2,] -0.07377071  0.06831386</code></pre>
+<pre><code>           [,1]      [,2]
+[1,]  0.4318009 -1.279220
+[2,] -0.6224206  3.207945</code></pre>
 </div>
 </div>
 </div>
-<div class="fragment">
+</section>
+<section id="placeholders-for-nested-expressions" class="slide level2">
+<h2>Placeholders for nested expressions</h2>
 <p>But for nested expressions:</p>
 <ul>
 <li><code>x %&gt;% f(a = p(.), b = q(.))</code> <span class="math inline">\(\equiv\)</span> <code>f(x, a = p(x), b = q(x))</code></li>
+</ul>
+<div class="fragment">
+<ul>
 <li><code>x %&gt;% {f(a = p(.), b = q(.))}</code> <span class="math inline">\(\equiv\)</span> <code>f(a = p(x), b = q(x))</code></li>
 </ul>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>print_M_summ <span class="ot">&lt;-</span> <span class="cf">function</span>(nrow, ncol) {</span>
-<span id="cb19-2"><a href="#cb19-2"></a>  <span class="fu">paste0</span>(<span class="st">'Matrix M has: '</span>, nrow, <span class="st">' rows and '</span>, ncol, <span class="st">' columns.'</span>)</span>
-<span id="cb19-3"><a href="#cb19-3"></a>}</span>
-<span id="cb19-4"><a href="#cb19-4"></a>M <span class="sc">%&gt;%</span> {<span class="fu">print_M_summ</span>(<span class="fu">nrow</span>(.), <span class="fu">ncol</span>(.))}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>print_M_summ <span class="ot">&lt;-</span> <span class="cf">function</span>(nrow, ncol) <span class="fu">paste0</span>(<span class="st">'Matrix M has: '</span>, nrow, <span class="st">' rows and '</span>, ncol, <span class="st">' cols.'</span>)</span>
+<span id="cb20-2"><a href="#cb20-2"></a>M <span class="sc">%&gt;%</span> {<span class="fu">print_M_summ</span>(<span class="fu">nrow</span>(.), <span class="fu">ncol</span>(.))}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Matrix M has: 2 rows and 2 columns."</code></pre>
+<pre><code>[1] "Matrix M has: 2 rows and 2 cols."</code></pre>
 </div>
 </div>
 </div>
 </section>
+<section id="placeholders-unary-functions" class="slide level2">
+<h2>Placeholders – unary functions</h2>
+<p>We can even use placeholders as the first element of a pipe:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>f <span class="ot">&lt;-</span> . <span class="sc">%&gt;%</span> sin <span class="sc">%&gt;%</span> cos</span>
+<span id="cb22-2"><a href="#cb22-2"></a>f</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Functional sequence with the following components:
+
+ 1. sin(.)
+ 2. cos(.)
+
+Use 'functions' to extract the individual functions. </code></pre>
+</div>
+</div>
+<p>and, indeed the <code>f</code> function works:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="dv">7</span> <span class="sc">%&gt;%</span> f</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7918362</code></pre>
+</div>
+</div>
+</section>
+<section id="time-to-do-lab-1.1" class="slide level2">
+<h2>Time to do <a href="../../labs/tidyverse/#pipes">Lab 1.1</a></h2>
+
+<img data-src="assets/your_turn.jpg" class="r-stretch"></section>
 <section id="tibbles" class="slide level2">
 <h2>Tibbles</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><img data-src="assets/hex-tidyverse.png" class="center" style="width:30.0%"></p>
+<p><img data-src="assets/tibble_tweet.jpg"></p>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><code>tibble</code> is one of the unifying features of tidyverse, <br><br></li>
+<li>it is a <em>better</em> <code>data.frame</code> realization, <br><br></li>
+<li>objects <code>data.frame</code> can be coerced to <code>tibble</code> using <code>as_tibble()</code></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="convert-data.frame-to-tibble" class="slide level2">
+<h2>Convert <code>data.frame</code> to <code>tibble</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">as_tibble</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">as_tibble</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 150 × 5
    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
@@ -650,36 +716,31 @@ Coefficients:
 # ℹ 140 more rows</code></pre>
 </div>
 </div>
-</div><div class="column" style="width:50%;">
-<ul>
-<li><code>tibble</code> is one of the unifying features of tidyverse,</li>
-<li>it is a <em>better</em> <code>data.frame</code> realization,</li>
-<li>objects <code>data.frame</code> can be coerced to <code>tibble</code> using <code>as_tibble()</code></li>
-</ul>
+</section>
+<section id="tibbles-from-scratch-with-tibble" class="slide level2">
+<h2>Tibbles from scratch with <code>tibble</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>  <span class="fu">tibble</span>(</span>
-<span id="cb23-2"><a href="#cb23-2"></a>    <span class="at">x =</span> <span class="dv">1</span>,          <span class="co"># recycling</span></span>
-<span id="cb23-3"><a href="#cb23-3"></a>    <span class="at">y =</span> <span class="fu">runif</span>(<span class="dv">50</span>), </span>
-<span id="cb23-4"><a href="#cb23-4"></a>    <span class="at">z =</span> x <span class="sc">+</span> y<span class="sc">^</span><span class="dv">2</span>,</span>
-<span id="cb23-5"><a href="#cb23-5"></a>    <span class="at">outcome =</span> <span class="fu">rnorm</span>(<span class="dv">50</span>)</span>
-<span id="cb23-6"><a href="#cb23-6"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb28-2"><a href="#cb28-2"></a>    <span class="at">x =</span> <span class="dv">1</span>,          <span class="co"># recycling</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a>    <span class="at">y =</span> <span class="fu">runif</span>(<span class="dv">50</span>), </span>
+<span id="cb28-4"><a href="#cb28-4"></a>    <span class="at">z =</span> x <span class="sc">+</span> y<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb28-5"><a href="#cb28-5"></a>    <span class="at">outcome =</span> <span class="fu">rnorm</span>(<span class="dv">50</span>)</span>
+<span id="cb28-6"><a href="#cb28-6"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 50 × 4
        x      y     z outcome
    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
- 1     1 0.0248  1.00  -1.14 
- 2     1 0.531   1.28   1.18 
- 3     1 0.594   1.35   1.52 
- 4     1 0.215   1.05   0.501
- 5     1 0.459   1.21  -0.159
- 6     1 0.296   1.09   0.669
- 7     1 0.912   1.83  -2.81 
- 8     1 0.745   1.56  -1.29 
- 9     1 0.551   1.30   1.89 
-10     1 0.380   1.14   0.153
+ 1     1 0.312   1.10 -1.88  
+ 2     1 0.269   1.07  1.15  
+ 3     1 0.261   1.07  1.66  
+ 4     1 0.993   1.99 -0.845 
+ 5     1 0.0205  1.00  0.0335
+ 6     1 0.369   1.14  0.220 
+ 7     1 0.209   1.04  1.08  
+ 8     1 0.345   1.12 -1.64  
+ 9     1 0.664   1.44  0.167 
+10     1 0.457   1.21 -0.985 
 # ℹ 40 more rows</code></pre>
-</div>
-</div>
 </div>
 </div>
 </section>
@@ -694,7 +755,7 @@ Coefficients:
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">as_tibble</span>(cars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">as_tibble</span>(cars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 50 × 2
    speed  dist
@@ -712,6 +773,9 @@ Coefficients:
 # ℹ 40 more rows</code></pre>
 </div>
 </div>
+</section>
+<section id="tibble-printing-options" class="slide level2">
+<h2>Tibble printing options</h2>
 <ul>
 <li><code>my_tibble %&gt;% print(n = 50, width = Inf)</code>,</li>
 <li><code>options(tibble.print_min = 15, tibble.print_max = 25)</code>,</li>
@@ -723,14 +787,14 @@ Coefficients:
 <h2>Subsetting Tibbles</h2>
 <p><strong>vehicles</strong> will be our <code>tibble</code> version of <code>cars</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>vehicles <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(cars[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>vehicles <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(cars[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p>We can access data like this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>vehicles[[<span class="st">'speed'</span>]]</span>
-<span id="cb28-2"><a href="#cb28-2"></a>vehicles[[<span class="dv">1</span>]]</span>
-<span id="cb28-3"><a href="#cb28-3"></a>vehicles<span class="sc">$</span>speed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>vehicles[[<span class="st">'speed'</span>]]</span>
+<span id="cb33-2"><a href="#cb33-2"></a>vehicles[[<span class="dv">1</span>]]</span>
+<span id="cb33-3"><a href="#cb33-3"></a>vehicles<span class="sc">$</span>speed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4 4 7 7 8
 [1] 4 4 7 7 8
@@ -741,38 +805,36 @@ Coefficients:
 <div class="fragment">
 <p>Or, alternatively, using placeholders:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>vehicles <span class="sc">%&gt;%</span> .<span class="sc">$</span>dist</span>
-<span id="cb30-2"><a href="#cb30-2"></a>vehicles <span class="sc">%&gt;%</span> .[[<span class="st">'dist'</span>]]</span>
-<span id="cb30-3"><a href="#cb30-3"></a>vehicles <span class="sc">%&gt;%</span> .[[<span class="dv">2</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1]  2 10  4 22 16
-[1]  2 10  4 22 16
-[1]  2 10  4 22 16</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>vehicles <span class="sc">%&gt;%</span> .<span class="sc">$</span>speed</span>
+<span id="cb35-2"><a href="#cb35-2"></a>vehicles <span class="sc">%&gt;%</span> .[[<span class="st">'speed'</span>]]</span>
+<span id="cb35-3"><a href="#cb35-3"></a>vehicles <span class="sc">%&gt;%</span> .[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
 <p><strong>Note!</strong> Not all old R functions work with tibbles, than you have to use <code>as.data.frame(my_tibble)</code>.</p>
 </div>
 </section>
-<section id="tibbles-are-stricter-than-data.frames" class="slide level2">
-<h2>Tibbles are Stricter than <code>data.frames</code></h2>
+<section id="partial-matching" class="slide level2">
+<h2>Partial Matching</h2>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>cars <span class="ot">&lt;-</span> cars[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]; <span class="fu">colnames</span>(vehicles)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "speed" "dist" </code></pre>
 </div>
 </div>
 <div class="fragment">
+<hr>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>cars<span class="sc">$</span>spe      <span class="co"># partial matching</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>cars<span class="sc">$</span>spe      <span class="co"># partial matching</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4 4 7 7 8</code></pre>
 </div>
 </div>
 </div>
 <div class="fragment">
+<hr>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>vehicles<span class="sc">$</span>spe  <span class="co"># no partial matching</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>vehicles<span class="sc">$</span>spe  <span class="co"># no partial matching</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Unknown or uninitialised column: `spe`.</code></pre>
 </div>
@@ -781,17 +843,19 @@ Coefficients:
 </div>
 </div>
 </div>
-<div class="fragment">
+</section>
+<section id="non-existing-columns" class="slide level2">
+<h2>Non-existing Columns</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>cars<span class="sc">$</span>gear</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>cars<span class="sc">$</span>gear</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NULL</code></pre>
 </div>
 </div>
-</div>
 <div class="fragment">
+<hr>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>vehicles<span class="sc">$</span>gear</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>vehicles<span class="sc">$</span>gear</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Unknown or uninitialised column: `gear`.</code></pre>
 </div>
@@ -801,10 +865,10 @@ Coefficients:
 </div>
 </div>
 </section>
-<section id="use-tibbles-they-are-real" class="slide level2">
-<h2>Use tibbles; they are real!</h2>
+<section id="time-to-do-lab-1.2" class="slide level2">
+<h2>Time to do <a href="../../labs/tidyverse/#tibbles">Lab 1.2</a></h2>
 
-<img data-src="assets/tibble_tweet.jpg" class="r-stretch"></section>
+<img data-src="assets/your_turn.jpg" class="r-stretch"></section>
 <section id="loading-data" class="slide level2">
 <h2>Loading Data</h2>
 <p>In <code>tidyverse</code> you import data using <code>readr</code> package that provides a number of useful data import functions:</p>
@@ -837,23 +901,23 @@ Coefficients:
 <h2>Under the Hood – <code>parse_*</code> Functions</h2>
 <p>Under the hood, data-reading functions use <code>parse_*</code> functions:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="fu">parse_double</span>(<span class="st">"42.24"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="fu">parse_double</span>(<span class="st">"42.24"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 42.24</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">parse_number</span>(<span class="st">"272'555'849,55"</span>, </span>
-<span id="cb45-2"><a href="#cb45-2"></a>             <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">decimal_mark =</span> <span class="st">","</span>, </span>
-<span id="cb45-3"><a href="#cb45-3"></a>                             <span class="at">grouping_mark =</span> <span class="st">"'"</span></span>
-<span id="cb45-4"><a href="#cb45-4"></a>                            )</span>
-<span id="cb45-5"><a href="#cb45-5"></a>             )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="fu">parse_number</span>(<span class="st">"272'555'849,55"</span>, </span>
+<span id="cb50-2"><a href="#cb50-2"></a>             <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">decimal_mark =</span> <span class="st">","</span>, </span>
+<span id="cb50-3"><a href="#cb50-3"></a>                             <span class="at">grouping_mark =</span> <span class="st">"'"</span></span>
+<span id="cb50-4"><a href="#cb50-4"></a>                            )</span>
+<span id="cb50-5"><a href="#cb50-5"></a>             )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 272555850</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="fu">parse_number</span>(<span class="fu">c</span>(<span class="st">'100%'</span>, <span class="st">'price: 500$'</span>, <span class="st">'21sek'</span>, <span class="st">'42F'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="fu">parse_number</span>(<span class="fu">c</span>(<span class="st">'100%'</span>, <span class="st">'price: 500$'</span>, <span class="st">'21sek'</span>, <span class="st">'42F'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 100 500  21  42</code></pre>
 </div>
@@ -865,30 +929,14 @@ Coefficients:
 <li>Strings can be represented in different encodings:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>text1 <span class="ot">&lt;-</span> <span class="st">'På en ö är en å'</span></span>
-<span id="cb49-2"><a href="#cb49-2"></a>text2 <span class="ot">&lt;-</span> <span class="st">'Zażółć gęślą jaźń'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>text1 <span class="ot">&lt;-</span> <span class="st">'På en ö är en å'</span></span>
+<span id="cb54-2"><a href="#cb54-2"></a>text2 <span class="ot">&lt;-</span> <span class="st">'Zażółć gęślą jaźń'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a>text1</span>
-<span id="cb50-2"><a href="#cb50-2"></a><span class="fu">charToRaw</span>(text2)</span>
-<span id="cb50-3"><a href="#cb50-3"></a><span class="fu">parse_character</span>(text1, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">'UTF-8'</span>))</span>
-<span id="cb50-4"><a href="#cb50-4"></a><span class="fu">guess_encoding</span>(<span class="fu">charToRaw</span>(<span class="st">"Test"</span>))</span>
-<span id="cb50-5"><a href="#cb50-5"></a><span class="fu">guess_encoding</span>(<span class="fu">charToRaw</span>(text2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "På en ö är en å"
- [1] 5a 61 c5 bc c3 b3 c5 82 c4 87 20 67 c4 99 c5 9b 6c c4 85 20 6a 61 c5 ba c5
-[26] 84
-[1] "På en ö är en å"
-# A tibble: 1 × 2
-  encoding confidence
-  &lt;chr&gt;         &lt;dbl&gt;
-1 ASCII             1
-# A tibble: 2 × 2
-  encoding     confidence
-  &lt;chr&gt;             &lt;dbl&gt;
-1 UTF-8              1   
-2 windows-1252       0.24</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a><span class="fu">charToRaw</span>(text2)</span>
+<span id="cb55-2"><a href="#cb55-2"></a><span class="fu">parse_character</span>(text1, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">'UTF-8'</span>))</span>
+<span id="cb55-3"><a href="#cb55-3"></a><span class="fu">guess_encoding</span>(<span class="fu">charToRaw</span>(<span class="st">"Test"</span>))</span>
+<span id="cb55-4"><a href="#cb55-4"></a><span class="fu">guess_encoding</span>(<span class="fu">charToRaw</span>(text2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="parsing-factors" class="slide level2">
@@ -898,9 +946,9 @@ Coefficients:
 <li>Supply known levels to <code>parse_factor</code> so that it warns you when an unknown level is present in the data:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>landscapes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'mountains'</span>, <span class="st">'swamps'</span>, <span class="st">'seaside'</span>)</span>
-<span id="cb52-2"><a href="#cb52-2"></a><span class="fu">parse_factor</span>(<span class="fu">c</span>(<span class="st">'mountains'</span>, <span class="st">'plains'</span>, <span class="st">'seaside'</span>, <span class="st">'swamps'</span>), </span>
-<span id="cb52-3"><a href="#cb52-3"></a>             <span class="at">levels =</span> landscapes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a>landscapes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'mountains'</span>, <span class="st">'swamps'</span>, <span class="st">'seaside'</span>)</span>
+<span id="cb56-2"><a href="#cb56-2"></a><span class="fu">parse_factor</span>(<span class="fu">c</span>(<span class="st">'mountains'</span>, <span class="st">'plains'</span>, <span class="st">'seaside'</span>, <span class="st">'swamps'</span>), </span>
+<span id="cb56-3"><a href="#cb56-3"></a>             <span class="at">levels =</span> landscapes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] mountains &lt;NA&gt;      seaside   swamps   
 attr(,"problems")
@@ -920,108 +968,16 @@ Levels: mountains swamps seaside</code></pre>
 <li><code>guess</code></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a><span class="fu">guess_parser</span>(<span class="st">"2018-06-11 09:00:00"</span>)</span>
-<span id="cb54-2"><a href="#cb54-2"></a><span class="fu">parse_guess</span>(<span class="st">"2018-06-11 09:00:00"</span>)</span>
-<span id="cb54-3"><a href="#cb54-3"></a></span>
-<span id="cb54-4"><a href="#cb54-4"></a><span class="fu">guess_parser</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">2.3</span>, <span class="st">"23$"</span>, <span class="st">"54%"</span>))</span>
-<span id="cb54-5"><a href="#cb54-5"></a><span class="fu">parse_guess</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">2.3</span>, <span class="st">"23$"</span>, <span class="st">"54%"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a><span class="fu">guess_parser</span>(<span class="st">"2018-06-11 09:00:00"</span>)</span>
+<span id="cb58-2"><a href="#cb58-2"></a><span class="fu">parse_guess</span>(<span class="st">"2018-06-11 09:00:00"</span>)</span>
+<span id="cb58-3"><a href="#cb58-3"></a></span>
+<span id="cb58-4"><a href="#cb58-4"></a><span class="fu">guess_parser</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">2.3</span>, <span class="st">"23$"</span>, <span class="st">"54%"</span>))</span>
+<span id="cb58-5"><a href="#cb58-5"></a><span class="fu">parse_guess</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">2.3</span>, <span class="st">"23$"</span>, <span class="st">"54%"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "datetime"
 [1] "2018-06-11 09:00:00 UTC"
 [1] "character"
 [1] "1"   "2.3" "23$" "54%"</code></pre>
-</div>
-</div>
-</section>
-<section id="importing-data-using-readr" class="slide level2">
-<h2>Importing Data Using <code>readr</code></h2>
-<p>When reading and parsing a file, <code>readr</code> attempts to guess proper parser for each column by looking at the 1000 first rows.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a>tricky_dataset <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">readr_example</span>(<span class="st">'challenge.csv'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 2000 Columns: 2
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-dbl  (1): x
-date (1): y
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-</div>
-<p>OK, so there are some parsing failures. We can examine them more closely using <code>problems()</code> as suggested in the above output.</p>
-</section>
-<section id="looking-at-problematic-columns" class="slide level2">
-<h2>Looking at Problematic Columns</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a>p <span class="ot">&lt;-</span> <span class="fu">problems</span>(tricky_dataset)</span>
-<span id="cb58-2"><a href="#cb58-2"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 0 × 5
-# ℹ 5 variables: row &lt;int&gt;, col &lt;int&gt;, expected &lt;chr&gt;, actual &lt;chr&gt;, file &lt;chr&gt;</code></pre>
-</div>
-</div>
-<p>OK, let’s see which columns cause trouble:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a>p <span class="sc">%$%</span> <span class="fu">table</span>(col)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt; table of extent 0 &gt;</code></pre>
-</div>
-</div>
-<p>Looks like the problem occurs only in the <code>y</code> column.</p>
-</section>
-<section id="fixing-problematic-columns" class="slide level2">
-<h2>Fixing Problematic Columns</h2>
-<p>So, how can we fix the problematic columns?</p>
-<p>We can explicitly tell what parser to use:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a>tricky_dataset <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">readr_example</span>(<span class="st">'challenge.csv'</span>),</span>
-<span id="cb62-2"><a href="#cb62-2"></a>                           <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">x =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb62-3"><a href="#cb62-3"></a>                                            <span class="at">y =</span> <span class="fu">col_character</span>()</span>
-<span id="cb62-4"><a href="#cb62-4"></a>                                            )</span>
-<span id="cb62-5"><a href="#cb62-5"></a>                                                      )</span>
-<span id="cb62-6"><a href="#cb62-6"></a>tricky_dataset <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 2
-      x y         
-  &lt;dbl&gt; &lt;chr&gt;     
-1 0.164 2018-03-29
-2 0.472 2014-08-04
-3 0.718 2015-08-16
-4 0.270 2020-02-04
-5 0.608 2019-01-06</code></pre>
-</div>
-</div>
-<p>As you can see, we can still do better by parsing the <code>y</code> column as <em>date</em>, not as <em>character</em>.</p>
-</section>
-<section id="fixing-problematic-columns-cted." class="slide level2">
-<h2>Fixing Problematic Columns cted.</h2>
-<p>But knowing that the <strong>parser is guessed based on the first 1000 lines</strong>, we can see what sits past the 1000th line in the data:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a>tricky_dataset <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">1002</span>) <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="at">n =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 2
-         x y         
-     &lt;dbl&gt; &lt;chr&gt;     
-1 4569     &lt;NA&gt;      
-2 4548     &lt;NA&gt;      
-3    0.238 2015-01-16
-4    0.412 2018-05-18</code></pre>
-</div>
-</div>
-<p>It seems, we were very unlucky, because up till the 1000th line there are only integers in the <code>x</code> column and <code>NA</code>s in the <code>y</code> column so the parser cannot be guessed correctly. To fix this:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a>tricky_dataset <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">readr_example</span>(<span class="st">'challenge.csv'</span>),</span>
-<span id="cb66-2"><a href="#cb66-2"></a>                           <span class="at">guess_max =</span> <span class="dv">1001</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 2000 Columns: 2
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-dbl  (1): x
-date (1): y
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 </div>
 </section>
@@ -1044,27 +1000,25 @@ date (1): y
 <li>Tse <code>write_feather()</code> and <code>read_feather()</code> from package <code>feather</code> to read/write objects in a fast binary format that other programming languages can access.</li>
 </ul>
 </section>
+<section id="time-to-do-lab-1.3" class="slide level2">
+<h2>Time to do <a href="../../labs/tidyverse/#parsing">Lab 1.3</a></h2>
+
+<img data-src="assets/your_turn.jpg" class="r-stretch"></section>
 <section id="basic-data-transformations-with-dplyr" class="slide level2">
 <h2>Basic Data Transformations with <code>dplyr</code></h2>
 <p>Let us create a tibble:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1"></a>bijou <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(diamonds) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">100</span>)</span>
-<span id="cb68-2"><a href="#cb68-2"></a>bijou</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a>bijou <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(diamonds) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span>
+<span id="cb60-2"><a href="#cb60-2"></a>bijou[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 100 × 10
-   carat cut       color clarity depth table price     x     y     z
-   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1  0.23 Ideal     E     SI2      61.5    55   326  3.95  3.98  2.43
- 2  0.21 Premium   E     SI1      59.8    61   326  3.89  3.84  2.31
- 3  0.23 Good      E     VS1      56.9    65   327  4.05  4.07  2.31
- 4  0.29 Premium   I     VS2      62.4    58   334  4.2   4.23  2.63
- 5  0.31 Good      J     SI2      63.3    58   335  4.34  4.35  2.75
- 6  0.24 Very Good J     VVS2     62.8    57   336  3.94  3.96  2.48
- 7  0.24 Very Good I     VVS1     62.3    57   336  3.95  3.98  2.47
- 8  0.26 Very Good H     SI1      61.9    55   337  4.07  4.11  2.53
- 9  0.22 Fair      E     VS2      65.1    61   337  3.87  3.78  2.49
-10  0.23 Very Good H     VS1      59.4    61   338  4     4.05  2.39
-# ℹ 90 more rows</code></pre>
+<pre><code># A tibble: 5 × 10
+  carat cut     color clarity depth table price     x     y     z
+  &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1  0.23 Ideal   E     SI2      61.5    55   326  3.95  3.98  2.43
+2  0.21 Premium E     SI1      59.8    61   326  3.89  3.84  2.31
+3  0.23 Good    E     VS1      56.9    65   327  4.05  4.07  2.31
+4  0.29 Premium I     VS2      62.4    58   334  4.2   4.23  2.63
+5  0.31 Good    J     SI2      63.3    58   335  4.34  4.35  2.75</code></pre>
 </div>
 </div>
 <p><img data-src="assets/diamonds.png" class="center" height="200"></p>
@@ -1072,77 +1026,101 @@ date (1): y
 <section id="picking-observations-using-filter" class="slide level2">
 <h2>Picking Observations using <code>filter()</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1"></a>bijou <span class="sc">%&gt;%</span> <span class="fu">filter</span>(cut <span class="sc">==</span> <span class="st">'Ideal'</span> <span class="sc">|</span> cut <span class="sc">==</span> <span class="st">'Premium'</span>, carat <span class="sc">&gt;=</span> <span class="fl">0.23</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb70-2"><a href="#cb70-2"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a>bijou <span class="sc">%&gt;%</span> <span class="fu">filter</span>(cut <span class="sc">==</span> <span class="st">'Ideal'</span> <span class="sc">|</span> cut <span class="sc">==</span> <span class="st">'Premium'</span>, carat <span class="sc">&gt;=</span> <span class="fl">0.23</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 10
+<pre><code># A tibble: 2 × 10
   carat cut     color clarity depth table price     x     y     z
   &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 1  0.23 Ideal   E     SI2      61.5    55   326  3.95  3.98  2.43
-2  0.29 Premium I     VS2      62.4    58   334  4.2   4.23  2.63
-3  0.23 Ideal   J     VS1      62.8    56   340  3.93  3.9   2.46
-4  0.31 Ideal   J     SI2      62.2    54   344  4.35  4.37  2.71
-5  0.32 Premium E     I1       60.9    58   345  4.38  4.42  2.68</code></pre>
+2  0.29 Premium I     VS2      62.4    58   334  4.2   4.23  2.63</code></pre>
 </div>
 </div>
-<p>Be careful with floating point comparisons! Also, rows with comparison resulting in <code>NA</code> are skipped by default!</p>
+</section>
+<section id="floating-point-and-tidyverse" class="slide level2">
+<h2>Floating point and <code>tidyverse</code></h2>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Caution</strong></p>
+</div>
+<div class="callout-content">
+<p>🛶 Be careful with floating point comparisons!<br>
+🏴‍☠️ Also, rows with comparison resulting in <code>NA</code> are skipped by default!</p>
+</div>
+</div>
+</div>
+<div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1"></a>bijou <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">near</span>(<span class="fl">0.23</span>, carat) <span class="sc">|</span> <span class="fu">is.na</span>(carat)) <span class="sc">%&gt;%</span></span>
-<span id="cb72-2"><a href="#cb72-2"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a>bijou <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">near</span>(<span class="fl">0.23</span>, carat) <span class="sc">|</span> <span class="fu">is.na</span>(carat)) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 10
-  carat cut       color clarity depth table price     x     y     z
-  &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1  0.23 Ideal     E     SI2      61.5    55   326  3.95  3.98  2.43
-2  0.23 Good      E     VS1      56.9    65   327  4.05  4.07  2.31
-3  0.23 Very Good H     VS1      59.4    61   338  4     4.05  2.39
-4  0.23 Ideal     J     VS1      62.8    56   340  3.93  3.9   2.46
-5  0.23 Very Good E     VS2      63.8    55   352  3.85  3.92  2.48</code></pre>
+<pre><code># A tibble: 2 × 10
+  carat cut   color clarity depth table price     x     y     z
+  &lt;dbl&gt; &lt;ord&gt; &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1  0.23 Ideal E     SI2      61.5    55   326  3.95  3.98  2.43
+2  0.23 Good  E     VS1      56.9    65   327  4.05  4.07  2.31</code></pre>
+</div>
 </div>
 </div>
 </section>
 <section id="rearranging-observations-using-arrange" class="slide level2">
 <h2>Rearranging Observations using <code>arrange()</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1"></a>bijou <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(cut, carat, <span class="fu">desc</span>(price))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a>bijou <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(cut, carat, <span class="fu">desc</span>(price))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 100 × 10
-   carat cut   color clarity depth table price     x     y     z
-   &lt;dbl&gt; &lt;ord&gt; &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1  0.22 Fair  E     VS2      65.1    61   337  3.87  3.78  2.49
- 2  0.86 Fair  E     SI2      55.1    69  2757  6.45  6.33  3.52
- 3  0.96 Fair  F     SI2      66.3    62  2759  6.27  5.95  4.07
- 4  0.23 Good  F     VS1      58.2    59   402  4.06  4.08  2.37
- 5  0.23 Good  E     VS1      64.1    59   402  3.83  3.85  2.46
- 6  0.23 Good  E     VS1      56.9    65   327  4.05  4.07  2.31
- 7  0.26 Good  E     VVS1     57.9    60   554  4.22  4.25  2.45
- 8  0.26 Good  D     VS2      65.2    56   403  3.99  4.02  2.61
- 9  0.26 Good  D     VS1      58.4    63   403  4.19  4.24  2.46
-10  0.3  Good  H     SI1      63.7    57   554  4.28  4.26  2.72
-# ℹ 90 more rows</code></pre>
+<pre><code># A tibble: 6 × 10
+  carat cut       color clarity depth table price     x     y     z
+  &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1  0.23 Good      E     VS1      56.9    65   327  4.05  4.07  2.31
+2  0.31 Good      J     SI2      63.3    58   335  4.34  4.35  2.75
+3  0.24 Very Good J     VVS2     62.8    57   336  3.94  3.96  2.48
+4  0.21 Premium   E     SI1      59.8    61   326  3.89  3.84  2.31
+5  0.29 Premium   I     VS2      62.4    58   334  4.2   4.23  2.63
+6  0.23 Ideal     E     SI2      61.5    55   326  3.95  3.98  2.43</code></pre>
 </div>
 </div>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Caution</strong></p>
+</div>
+<div class="callout-content">
 <p>The <code>NA</code>s always end up at the end of the rearranged tibble.</p>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="selecting-variables-with-select" class="slide level2">
 <h2>Selecting Variables with <code>select()</code></h2>
-<p>Simple <code>select</code> with a range:</p>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Simple range</a></li><li><a href="#tabset-1-2">Exclusion</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1"></a>bijou <span class="sc">%&gt;%</span> <span class="fu">select</span>(color, clarity, x<span class="sc">:</span>z) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1"></a>bijou <span class="sc">%&gt;%</span> <span class="fu">select</span>(color, clarity, x<span class="sc">:</span>z) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 5
+<pre><code># A tibble: 4 × 5
   color clarity     x     y     z
   &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 1 E     SI2      3.95  3.98  2.43
 2 E     SI1      3.89  3.84  2.31
 3 E     VS1      4.05  4.07  2.31
-4 I     VS2      4.2   4.23  2.63
-5 J     SI2      4.34  4.35  2.75</code></pre>
+4 I     VS2      4.2   4.23  2.63</code></pre>
 </div>
 </div>
-<p>Exclusive <code>select</code>:</p>
+</div>
+<div id="tabset-1-2">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1"></a>bijou <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>(x<span class="sc">:</span>z)) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1"></a>bijou <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>(x<span class="sc">:</span>z)) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 7
   carat cut     color clarity depth table price
@@ -1154,42 +1132,80 @@ date (1): y
 5  0.31 Good    J     SI2      63.3    58   335</code></pre>
 </div>
 </div>
+</div>
+</div>
+</div>
 </section>
-<section id="selecting-variables-with-select-cted." class="slide level2">
-<h2>Selecting Variables with <code>select()</code> cted.</h2>
+<section id="renaming-variables" class="slide level2">
+<h2>Renaming variables</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
 <p><code>rename</code> is a variant of <code>select</code>, here used with <code>everything()</code> to move <code>x</code> to the beginning and rename it to <code>var_x</code></p>
+</div>
+</div>
+</div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1"></a>bijou <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">var_x =</span> x) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1"></a>bijou <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">var_x =</span> x) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 10
+<pre><code># A tibble: 2 × 10
   carat cut     color clarity depth table price var_x     y     z
   &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 1  0.23 Ideal   E     SI2      61.5    55   326  3.95  3.98  2.43
-2  0.21 Premium E     SI1      59.8    61   326  3.89  3.84  2.31
-3  0.23 Good    E     VS1      56.9    65   327  4.05  4.07  2.31
-4  0.29 Premium I     VS2      62.4    58   334  4.2   4.23  2.63
-5  0.31 Good    J     SI2      63.3    58   335  4.34  4.35  2.75</code></pre>
+2  0.21 Premium E     SI1      59.8    61   326  3.89  3.84  2.31</code></pre>
 </div>
 </div>
-<p>use <code>everything()</code> to bring some columns to the front:</p>
+</div>
+</section>
+<section id="bring-columns-to-front" class="slide level2">
+<h2>Bring columns to front</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>use <code>everything()</code> to bring some columns to the front</p>
+</div>
+</div>
+</div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1"></a>bijou <span class="sc">%&gt;%</span> <span class="fu">select</span>(x<span class="sc">:</span>z, <span class="fu">everything</span>()) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1"></a>bijou <span class="sc">%&gt;%</span> <span class="fu">select</span>(x<span class="sc">:</span>z, <span class="fu">everything</span>()) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 10
+<pre><code># A tibble: 2 × 10
       x     y     z carat cut     color clarity depth table price
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
 1  3.95  3.98  2.43  0.23 Ideal   E     SI2      61.5    55   326
-2  3.89  3.84  2.31  0.21 Premium E     SI1      59.8    61   326
-3  4.05  4.07  2.31  0.23 Good    E     VS1      56.9    65   327
-4  4.2   4.23  2.63  0.29 Premium I     VS2      62.4    58   334
-5  4.34  4.35  2.75  0.31 Good    J     SI2      63.3    58   335</code></pre>
+2  3.89  3.84  2.31  0.21 Premium E     SI1      59.8    61   326</code></pre>
+</div>
 </div>
 </div>
 </section>
 <section id="createalter-new-variables-with-mutate" class="slide level2">
 <h2>Create/alter new Variables with <code>mutate</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1"></a>bijou <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">p =</span> x <span class="sc">+</span> z, <span class="at">q =</span> p <span class="sc">+</span> y) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>(depth<span class="sc">:</span>price)) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1"></a>bijou <span class="sc">%&gt;%</span> </span>
+<span id="cb76-2"><a href="#cb76-2"></a>  <span class="fu">mutate</span>(<span class="at">p =</span> x <span class="sc">+</span> z, <span class="at">q =</span> p <span class="sc">+</span> y) <span class="sc">%&gt;%</span> </span>
+<span id="cb76-3"><a href="#cb76-3"></a>  <span class="fu">select</span>(<span class="sc">-</span>(depth<span class="sc">:</span>price)) <span class="sc">%&gt;%</span> </span>
+<span id="cb76-4"><a href="#cb76-4"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 9
   carat cut     color clarity     x     y     z     p     q
@@ -1201,12 +1217,25 @@ date (1): y
 5  0.31 Good    J     SI2      4.34  4.35  2.75  7.09  11.4</code></pre>
 </div>
 </div>
+</div>
 </section>
-<section id="createalter-new-variables-with-transmutate" class="slide level2">
-<h2>Create/alter new Variables with <code>transmutate</code></h2>
-<p>Only the transformed variables will be retained</p>
+<section id="createalter-new-variables-with-transmute" class="slide level2">
+<h2>Create/alter new Variables with <code>transmute</code> 🧙‍♂️</h2>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Caution</strong></p>
+</div>
+<div class="callout-content">
+<p>Only the transformed variables will be retained.</p>
+</div>
+</div>
+</div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1"></a>bijou <span class="sc">%&gt;%</span> <span class="fu">transmute</span>(carat, cut, <span class="at">sum =</span> x <span class="sc">+</span> y <span class="sc">+</span> z) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1"></a>bijou <span class="sc">%&gt;%</span> <span class="fu">transmute</span>(carat, cut, <span class="at">sum =</span> x <span class="sc">+</span> y <span class="sc">+</span> z) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
   carat cut       sum
@@ -1221,53 +1250,58 @@ date (1): y
 </section>
 <section id="group-and-summarize" class="slide level2">
 <h2>Group and Summarize</h2>
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Simple</a></li><li><a href="#tabset-2-2">More complex</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1"></a>bijou <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(cut) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">max_price =</span> <span class="fu">max</span>(price),</span>
-<span id="cb88-2"><a href="#cb88-2"></a>                                      <span class="at">mean_price =</span> <span class="fu">mean</span>(price),</span>
-<span id="cb88-3"><a href="#cb88-3"></a>                                      <span class="at">min_price =</span> <span class="fu">min</span>(price))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1"></a>bijou <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(cut) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">max_price =</span> <span class="fu">max</span>(price),</span>
+<span id="cb80-2"><a href="#cb80-2"></a>                                      <span class="at">mean_price =</span> <span class="fu">mean</span>(price),</span>
+<span id="cb80-3"><a href="#cb80-3"></a>                                      <span class="at">min_price =</span> <span class="fu">min</span>(price))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 4
+<pre><code># A tibble: 4 × 4
   cut       max_price mean_price min_price
   &lt;ord&gt;         &lt;int&gt;      &lt;dbl&gt;     &lt;int&gt;
-1 Fair           2759      1951        337
-2 Good           2759       661.       327
-3 Very Good      2760       610.       336
-4 Premium        2760       569.       326
-5 Ideal          2757       693.       326</code></pre>
+1 Good            335        331       327
+2 Very Good       336        336       336
+3 Premium         334        330       326
+4 Ideal           326        326       326</code></pre>
 </div>
 </div>
+</div>
+<div id="tabset-2-2">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1"></a>bijou <span class="sc">%&gt;%</span> </span>
-<span id="cb90-2"><a href="#cb90-2"></a>  <span class="fu">group_by</span>(cut, color) <span class="sc">%&gt;%</span> </span>
-<span id="cb90-3"><a href="#cb90-3"></a>  <span class="fu">summarize</span>(<span class="at">max_price =</span> <span class="fu">max</span>(price), </span>
-<span id="cb90-4"><a href="#cb90-4"></a>            <span class="at">mean_price =</span> <span class="fu">mean</span>(price), </span>
-<span id="cb90-5"><a href="#cb90-5"></a>            <span class="at">min_price =</span> <span class="fu">min</span>(price)) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1"></a>bijou <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(cut, color) <span class="sc">%&gt;%</span>  <span class="fu">summarize</span>(<span class="at">max_price =</span> <span class="fu">max</span>(price), </span>
+<span id="cb82-2"><a href="#cb82-2"></a>                                              <span class="at">mean_price =</span> <span class="fu">mean</span>(price), </span>
+<span id="cb82-3"><a href="#cb82-3"></a>                                              <span class="at">min_price =</span> <span class="fu">min</span>(price)) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 5
-# Groups:   cut [2]
-  cut   color max_price mean_price min_price
-  &lt;ord&gt; &lt;ord&gt;     &lt;int&gt;      &lt;dbl&gt;     &lt;int&gt;
-1 Fair  E          2757      1547        337
-2 Fair  F          2759      2759       2759
-3 Good  D           403       403        403
-4 Good  E          2759      1010.       327
-5 Good  F          2759      1580.       402</code></pre>
+# Groups:   cut [3]
+  cut       color max_price mean_price min_price
+  &lt;ord&gt;     &lt;ord&gt;     &lt;int&gt;      &lt;dbl&gt;     &lt;int&gt;
+1 Good      E           327        327       327
+2 Good      J           335        335       335
+3 Very Good J           336        336       336
+4 Premium   E           326        326       326
+5 Premium   I           334        334       334</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </section>
 <section id="other-data-manipulation-tips" class="slide level2">
 <h2>Other data manipulation tips</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1"></a>bijou <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(cut) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1"></a>bijou <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(cut) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 2
+<pre><code># A tibble: 4 × 2
   cut       count
   &lt;ord&gt;     &lt;int&gt;
-1 Fair          3
-2 Good         18
-3 Very Good    38
-4 Premium      22
-5 Ideal        19</code></pre>
+1 Good          2
+2 Very Good     1
+3 Premium       2
+4 Ideal         1</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -1276,7 +1310,6 @@ date (1): y
 </section>
 <section id="the-concept-of-tidy-data" class="slide level2">
 <h2>The Concept of Tidy Data</h2>
-<p>Data are tidy <em>sensu Wickham</em> if:</p>
 <ul>
 <li>Each and every observation is represented as exactly one row,</li>
 <li>Each and every variable is represented by exactly one column,</li>
@@ -1460,41 +1493,48 @@ date (1): y
 </section>
 <section id="tidying-data-with-pivot_longer" class="slide level2">
 <h2>Tidying Data with <code>pivot_longer</code></h2>
-<p>If some of your column names are actually values of a variable, use <code>pivot_longer</code> (old <code>gather</code>):</p>
+<p>If some of your column names should be values of a variable, use <code>pivot_longer</code> (old <code>gather</code>):</p>
+<div class="columns">
+<div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1"></a>bijou2 <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1"></a>bijou2 <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
   cut     `2008` `2009`
   &lt;ord&gt;    &lt;int&gt;  &lt;dbl&gt;
-1 Ideal      326    334
-2 Premium    326    334
-3 Good       327    335
-4 Premium    334    342
-5 Good       335    343</code></pre>
+1 Ideal      326    330
+2 Premium    326    330
+3 Good       327    331
+4 Premium    334    338
+5 Good       335    339</code></pre>
 </div>
 </div>
+</div><div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1"></a>bijou2 <span class="sc">%&gt;%</span> </span>
-<span id="cb96-2"><a href="#cb96-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">2008</span><span class="st">`</span>, <span class="st">`</span><span class="at">2009</span><span class="st">`</span>), <span class="at">names_to =</span> <span class="st">'year'</span>, <span class="at">values_to =</span> <span class="st">'price'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb96-3"><a href="#cb96-3"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1"></a>bijou2 <span class="sc">%&gt;%</span> </span>
+<span id="cb88-2"><a href="#cb88-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">2008</span><span class="st">`</span>, <span class="st">`</span><span class="at">2009</span><span class="st">`</span>), <span class="at">names_to =</span> <span class="st">'year'</span>, <span class="at">values_to =</span> <span class="st">'price'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb88-3"><a href="#cb88-3"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
   cut     year  price
   &lt;ord&gt;   &lt;chr&gt; &lt;dbl&gt;
 1 Ideal   2008    326
-2 Ideal   2009    334
+2 Ideal   2009    330
 3 Premium 2008    326
-4 Premium 2009    334
+4 Premium 2009    330
 5 Good    2008    327</code></pre>
+</div>
+</div>
 </div>
 </div>
 </section>
 <section id="tidying-data-with-pivot_wider" class="slide level2">
 <h2>Tidying Data with <code>pivot_wider</code></h2>
 <p>If some of your observations are scattered across many rows, use <code>pivot_wider</code> (old <code>spread</code>):</p>
+<div class="columns">
+<div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1"></a>bijou3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1"></a>bijou3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9 × 5
   cut     price clarity dimension measurement
@@ -1510,10 +1550,11 @@ date (1): y
 9 Good      327 VS1     z                2.31</code></pre>
 </div>
 </div>
+</div><div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1"></a>bijou3 <span class="sc">%&gt;%</span> </span>
-<span id="cb100-2"><a href="#cb100-2"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> dimension, <span class="at">values_from =</span> measurement) <span class="sc">%&gt;%</span> </span>
-<span id="cb100-3"><a href="#cb100-3"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1"></a>bijou3 <span class="sc">%&gt;%</span> </span>
+<span id="cb92-2"><a href="#cb92-2"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> dimension, <span class="at">values_from =</span> measurement) <span class="sc">%&gt;%</span> </span>
+<span id="cb92-3"><a href="#cb92-3"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 6
   cut     price clarity     x     y     z
@@ -1523,43 +1564,56 @@ date (1): y
 3 Good      327 VS1      4.05  4.07  2.31</code></pre>
 </div>
 </div>
+</div>
+</div>
 </section>
 <section id="tidying-data-with-separate" class="slide level2">
 <h2>Tidying Data with <code>separate</code></h2>
 <p>If some of your columns contain more than one value, use <code>separate</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1"></a>bijou4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 4
+<pre><code># A tibble: 2 × 4
   cut     price clarity dim           
   &lt;ord&gt;   &lt;int&gt; &lt;ord&gt;   &lt;chr&gt;         
 1 Ideal     326 SI2     3.95/3.98/2.43
-2 Premium   326 SI1     3.89/3.84/2.31
-3 Good      327 VS1     4.05/4.07/2.31
-4 Premium   334 VS2     4.2/4.23/2.63 
-5 Good      335 SI2     4.34/4.35/2.75</code></pre>
+2 Premium   326 SI1     3.89/3.84/2.31</code></pre>
 </div>
 </div>
+<div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1"></a>bijou4 <span class="sc">%&gt;%</span> </span>
-<span id="cb104-2"><a href="#cb104-2"></a>  <span class="fu">separate</span>(dim, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span>), <span class="at">sep =</span> <span class="st">"/"</span>, <span class="at">convert =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1"></a>bijou4 <span class="sc">%&gt;%</span> </span>
+<span id="cb95-2"><a href="#cb95-2"></a>  <span class="fu">separate</span>(dim, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span>), <span class="at">sep =</span> <span class="st">"/"</span>, <span class="at">convert =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 6
+<pre><code># A tibble: 2 × 6
   cut     price clarity     x     y     z
   &lt;ord&gt;   &lt;int&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 1 Ideal     326 SI2      3.95  3.98  2.43
-2 Premium   326 SI1      3.89  3.84  2.31
-3 Good      327 VS1      4.05  4.07  2.31
-4 Premium   334 VS2      4.2   4.23  2.63
-5 Good      335 SI2      4.34  4.35  2.75</code></pre>
+2 Premium   326 SI1      3.89  3.84  2.31</code></pre>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Here, <code>sep</code> is here interpreted as the position to split on. It can also be a <em>regular expression</em> or a delimiting string/character. Pretty flexible approach!</p>
+</div>
+</div>
 </div>
 </div>
 </section>
 <section id="tidying-data-with-unite" class="slide level2">
 <h2>Tidying Data with <code>unite</code></h2>
-<p>If some of your columns contain more than one value, use <code>separate</code>:</p>
+<p>If some of your columns contain more than one value</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1"></a>bijou5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 7
   cut     price clarity_prefix clarity_suffix     x     y     z
@@ -1571,8 +1625,11 @@ date (1): y
 5 Good      335 SI             2               4.34  4.35  2.75</code></pre>
 </div>
 </div>
+<div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1"></a>bijou5 <span class="sc">%&gt;%</span> <span class="fu">unite</span>(clarity, clarity_prefix, clarity_suffix, <span class="at">sep=</span><span class="st">''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1"></a>bijou5 <span class="sc">%&gt;%</span> <span class="fu">unite</span>(clarity, clarity_prefix, clarity_suffix, <span class="at">sep=</span><span class="st">''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 6
   cut     price clarity     x     y     z
@@ -1584,36 +1641,33 @@ date (1): y
 5 Good      335 SI2      4.34  4.35  2.75</code></pre>
 </div>
 </div>
-<p><strong>Note:</strong> that <code>sep</code> is here interpreted as the position to split on. It can also be a <em>regular expression</em> or a delimiting string/character. Pretty flexible approach!</p>
+</div>
 </section>
 <section id="completing-missing-values-using-complete" class="slide level2">
 <h2>Completing Missing Values Using <code>complete</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1"></a>bijou <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb110-2"><a href="#cb110-2"></a>  <span class="fu">select</span>(cut, clarity, price) <span class="sc">%&gt;%</span> </span>
-<span id="cb110-3"><a href="#cb110-3"></a>  <span class="fu">mutate</span>(<span class="at">continent =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">'AusOce'</span>, <span class="st">'Eur'</span>), </span>
-<span id="cb110-4"><a href="#cb110-4"></a>                            <span class="at">size =</span> <span class="dv">10</span>, </span>
-<span id="cb110-5"><a href="#cb110-5"></a>                            <span class="at">replace =</span> T)) <span class="ot">-&gt;</span> missing_stones</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb100" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1"></a>bijou <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(cut, clarity, price) <span class="sc">%&gt;%</span> </span>
+<span id="cb100-2"><a href="#cb100-2"></a>  <span class="fu">mutate</span>(<span class="at">continent =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">'Aus'</span>, <span class="st">'Eur'</span>), <span class="at">size =</span> <span class="dv">6</span>, <span class="at">replace =</span> T)) <span class="ot">-&gt;</span> missing_stones</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1"></a>missing_stones <span class="sc">%&gt;%</span> <span class="fu">complete</span>(cut, continent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1"></a>missing_stones <span class="sc">%&gt;%</span> <span class="fu">complete</span>(cut, continent) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 13 × 4
-   cut       continent clarity price
-   &lt;ord&gt;     &lt;chr&gt;     &lt;ord&gt;   &lt;int&gt;
- 1 Fair      AusOce    VS2       337
- 2 Fair      Eur       &lt;NA&gt;       NA
- 3 Good      AusOce    &lt;NA&gt;       NA
- 4 Good      Eur       VS1       327
- 5 Good      Eur       SI2       335
- 6 Very Good AusOce    VS1       338
- 7 Very Good Eur       VVS2      336
- 8 Very Good Eur       VVS1      336
- 9 Very Good Eur       SI1       337
-10 Premium   AusOce    VS2       334
-11 Premium   Eur       SI1       326
-12 Ideal     AusOce    &lt;NA&gt;       NA
-13 Ideal     Eur       SI2       326</code></pre>
+<pre><code># A tibble: 7 × 4
+  cut       continent clarity price
+  &lt;ord&gt;     &lt;chr&gt;     &lt;ord&gt;   &lt;int&gt;
+1 Fair      Aus       &lt;NA&gt;       NA
+2 Fair      Eur       &lt;NA&gt;       NA
+3 Good      Aus       &lt;NA&gt;       NA
+4 Good      Eur       VS1       327
+5 Good      Eur       SI2       335
+6 Very Good Aus       &lt;NA&gt;       NA
+7 Very Good Eur       VVS2      336</code></pre>
+</div>
 </div>
 </div>
 </section>
@@ -1781,8 +1835,8 @@ date (1): y
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1"></a>A <span class="sc">%&gt;%</span> <span class="fu">inner_join</span>(B, <span class="at">by =</span> <span class="st">'key'</span>)</span>
-<span id="cb113-2"><a href="#cb113-2"></a><span class="co"># All non-matching rows are dropped!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1"></a>A <span class="sc">%&gt;%</span> <span class="fu">inner_join</span>(B, <span class="at">by =</span> <span class="st">'key'</span>)</span>
+<span id="cb103-2"><a href="#cb103-2"></a><span class="co"># All non-matching rows are dropped!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   key   x     y    
@@ -1867,7 +1921,7 @@ date (1): y
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1"></a>A <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(B, <span class="at">by =</span> <span class="st">'key'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1"></a>A <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(B, <span class="at">by =</span> <span class="st">'key'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
   key   x     y    
@@ -1953,7 +2007,7 @@ date (1): y
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1"></a>A <span class="sc">%&gt;%</span> <span class="fu">right_join</span>(B, <span class="at">by =</span> <span class="st">'key'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1"></a>A <span class="sc">%&gt;%</span> <span class="fu">right_join</span>(B, <span class="at">by =</span> <span class="st">'key'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
   key   x     y    
@@ -2039,7 +2093,7 @@ date (1): y
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1"></a>A <span class="sc">%&gt;%</span> <span class="fu">full_join</span>(B, <span class="at">by =</span> <span class="st">'key'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1"></a>A <span class="sc">%&gt;%</span> <span class="fu">full_join</span>(B, <span class="at">by =</span> <span class="st">'key'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
   key   x     y    

@@ -409,7 +409,7 @@ Marcin Kierczak
 </div>
 </div>
 
-  <p class="date">13-Mar-2023</p>
+  <p class="date">08-Jun-2023</p>
 </section>
 
 <section id="oop-example" class="slide level2">
@@ -784,7 +784,7 @@ Coefficients:
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
   0.002   0.000   0.003 
-[1] 0.3096554 0.6438509 0.5122237 0.4045981 0.6382816</code></pre>
+[1] 0.8922596 0.3056659 0.1122873 0.8592792 0.8629397</code></pre>
 </div>
 </div>
 <ul>
@@ -801,11 +801,8 @@ Coefficients:
 </ul>
 <p>Even more patterns <a href="https://github.com/tidylab/R6P">here</a>.</p>
 </section>
-<section id="constructor-validator" class="slide level2">
-<h2>Constructor, Validator</h2>
-<ul>
-<li>Constructor</li>
-</ul>
+<section id="safe-s3-constructor" class="slide level2">
+<h2>Safe S3 – Constructor</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>new_Animal <span class="ot">&lt;-</span> <span class="cf">function</span>(species, age) {</span>
 <span id="cb43-2"><a href="#cb43-2"></a>  <span class="fu">stopifnot</span>(<span class="fu">is.character</span>(species))</span>
@@ -818,12 +815,12 @@ Coefficients:
 <span id="cb43-9"><a href="#cb43-9"></a>  )</span>
 <span id="cb43-10"><a href="#cb43-10"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ul>
-<li>Validator</li>
-</ul>
+</section>
+<section id="safe-s3-validator" class="slide level2">
+<h2>Safe S3 – Validator</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>validate_Animal <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb44-2"><a href="#cb44-2"></a>  species <span class="ot">&lt;-</span> <span class="fu">unclass</span>(x)</span>
+<span id="cb44-2"><a href="#cb44-2"></a>  species <span class="ot">&lt;-</span> x[<span class="dv">1</span>]</span>
 <span id="cb44-3"><a href="#cb44-3"></a>  age <span class="ot">&lt;-</span> <span class="fu">attr</span>(x, <span class="st">'age'</span>)</span>
 <span id="cb44-4"><a href="#cb44-4"></a>  </span>
 <span id="cb44-5"><a href="#cb44-5"></a>  <span class="cf">if</span> (<span class="fu">is.na</span>(species) <span class="sc">||</span> species <span class="sc">==</span> <span class="st">""</span>) {</span>
@@ -836,11 +833,8 @@ Coefficients:
 <span id="cb44-12"><a href="#cb44-12"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="helper" class="slide level2">
-<h2>Helper</h2>
-<ul>
-<li>Helper</li>
-</ul>
+<section id="safe-s3-helper" class="slide level2">
+<h2>Safe S3 – Helper</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>Animal <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
 <span id="cb45-2"><a href="#cb45-2"></a>  species <span class="ot">&lt;-</span> x[[<span class="dv">1</span>]] </span>
@@ -901,7 +895,7 @@ Coefficients:
 <section id="r6-class-example" class="slide level2">
 <h2>R6 Class Example</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="fu">library</span>(R6)</span>
+<div class="sourceCode cell-code" id="cb53" data-code-line-numbers="1|3-4|5-6|6-11|13-14|15-17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="fu">library</span>(R6)</span>
 <span id="cb53-2"><a href="#cb53-2"></a></span>
 <span id="cb53-3"><a href="#cb53-3"></a>Person <span class="ot">&lt;-</span> <span class="fu">R6Class</span>(<span class="st">"Person"</span>,</span>
 <span id="cb53-4"><a href="#cb53-4"></a>  <span class="at">public =</span> <span class="fu">list</span>(</span>
@@ -940,7 +934,9 @@ Classes 'Person', 'R6' &lt;Person&gt;
     set_hair: function (val)  </code></pre>
 </div>
 </div>
-<div class="fragment">
+</section>
+<section id="r6-methods" class="slide level2">
+<h2>R6 – methods</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a>kate<span class="sc">$</span><span class="fu">greet</span>()</span>
 <span id="cb56-2"><a href="#cb56-2"></a>kate<span class="sc">$</span><span class="fu">set_hair</span>(<span class="st">'red'</span>)</span>
@@ -955,7 +951,6 @@ Classes 'Person', 'R6' &lt;Person&gt;
     initialize: function (name = NA, hair = NA) 
     name: Kate
     set_hair: function (val) </code></pre>
-</div>
 </div>
 </div>
 </section>
@@ -982,6 +977,38 @@ Classes 'Person', 'R6' &lt;Person&gt;
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a>kate<span class="sc">$</span>hair</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "blue"</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="r6-clone" class="slide level2">
+<h2>R6 – clone()</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a>kate<span class="sc">$</span><span class="fu">set_hair</span>(<span class="st">'brown'</span>)</span>
+<span id="cb64-2"><a href="#cb64-2"></a>kate<span class="sc">$</span>hair</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "brown"</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66" data-code-line-numbers="1|2-3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a>ann <span class="ot">&lt;-</span> kate<span class="sc">$</span><span class="fu">clone</span>()</span>
+<span id="cb66-2"><a href="#cb66-2"></a>kate<span class="sc">$</span>hair</span>
+<span id="cb66-3"><a href="#cb66-3"></a>ann<span class="sc">$</span>hair</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "brown"
+[1] "brown"</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1"></a>ann<span class="sc">$</span><span class="fu">set_hair</span>(<span class="st">'blond'</span>)</span>
+<span id="cb68-2"><a href="#cb68-2"></a>kate<span class="sc">$</span>hair</span>
+<span id="cb68-3"><a href="#cb68-3"></a>ann<span class="sc">$</span>hair</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "brown"
+[1] "blond"</code></pre>
 </div>
 </div>
 </div>

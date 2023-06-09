@@ -392,16 +392,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&amp;family=Nunito:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap" rel="stylesheet">
-  
   <script src="../../site_libs/htmlwidgets-1.6.1/htmlwidgets.js"></script>
-  <link href="../../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-  <script src="../../site_libs/datatables-binding-0.27/datatables.js"></script>
-  <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-  <link href="../../site_libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
-  <link href="../../site_libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet">
-  <script src="../../site_libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
-  <link href="../../site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
-  <script src="../../site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+  <script src="../../site_libs/jquery-1.12.4/jquery.min.js"></script>
   <script src="../../site_libs/d3-3.5.6/d3.min.js"></script>
   <link href="../../site_libs/profvis-0.3.6.9000/profvis.css" rel="stylesheet">
   <script src="../../site_libs/profvis-0.3.6.9000/profvis.js"></script>
@@ -426,149 +418,276 @@ Marcin Kierczak
 </div>
 </div>
 
-  <p class="date">13-Mar-2023</p>
+  <p class="date">09-Jun-2023</p>
 </section>
 
-<section id="topics-of-this-presentation" class="slide level2">
-<h2>Topics of This Presentation</h2>
-<p><br><br></p>
-<p>Code: <br></p>
+<section id="run-forrest-run" class="slide level2">
+<h2>Run Forrest, run!</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><br><br><br></p>
+<div>
 <ul>
-<li><strong>Debugging</strong> – my code does not run.</li>
-<li><strong>Profiling</strong> – now it does run but… out of memory!</li>
-<li><strong>Optimization</strong> – making things better.</li>
+<li class="fragment"><em>My code does not run!</em> – <strong>debugging</strong><br><br></li>
+<li class="fragment"><em>Now it does run but… out of memory!</em> – <strong>profiling</strong><br><br></li>
+<li class="fragment"><em>It runs! It says it will finish in 5 <del>minutes</del> years.</em> – <strong>optimization</strong></li>
 </ul>
+</div>
+</div><div class="column" style="width:50%;">
+<p><img src="assets/resources.jpg" style="width:80%;"></p>
+</div>
+</div>
 </section>
-<section id="types-of-bugs" class="slide level2">
+<section id="types-of-bugs" class="slide level2" data-background-image="assets/featured.jpg">
 <h2>Types of bugs</h2>
-<h3 id="there-are-different-types-of-bugs-we-can-introduce">There are different types of bugs we can introduce:</h3>
 <ul>
-<li>Syntax – <code>prin(var1), mean(sum(seq((x + 2) * (y - 9 * b)))</code></li>
-<li>Arithmetic – <code>x/0</code> (not in R, though!) <code>Inf/Inf</code></li>
-<li>Type – <code>mean('a')</code></li>
-<li>Logic – everything works and produces seemingly valid output that is WRONG!</li>
+<li>🔣 Syntax errors</li>
 </ul>
-<h3 id="to-avoid-bugs">To avoid bugs:</h3>
-<ul>
-<li>Encapsulate your code in smaller units (functions), you can test.</li>
-<li>Use classes and type checking.</li>
-<li>Test at the boundaries, e.g.&nbsp;loops at min and max value.</li>
-<li>Feed your functions with test data that should result with a known output.</li>
-<li>Use <em>antibugging</em>: <code>stopifnot(y &lt;= 75)</code></li>
-</ul>
-</section>
-<section id="arithmetic-bugs" class="slide level2">
-<h2>Arithmetic bugs</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>(vec <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>, <span class="at">by=</span><span class="fl">0.1</span>))</span>
-<span id="cb2-2"><a href="#cb2-2"></a>vec <span class="sc">==</span> <span class="fl">0.7</span> </span>
-<span id="cb2-3"><a href="#cb2-3"></a>vec <span class="sc">==</span> <span class="fl">0.5</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a>(<span class="fl">0.5</span> <span class="sc">+</span> <span class="fl">0.1</span>) <span class="sc">-</span> <span class="fl">0.6</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>(<span class="fl">0.7</span> <span class="sc">+</span> <span class="fl">0.1</span>) <span class="sc">-</span> <span class="fl">0.8</span> <span class="co"># round((0.7 + 0.1) , digits = 2) - 0.8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2" data-code-line-numbers="1|2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">prin</span>(var1) </span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">mean</span>(<span class="fu">sum</span>(<span class="fu">seq</span>((x <span class="sc">+</span> <span class="dv">2</span>) <span class="sc">*</span> (y <span class="sc">-</span> <span class="dv">9</span> <span class="sc">*</span> b)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>. . .s</p>
+<ul>
+<li>🔢 Arithmetic</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>y <span class="ot">&lt;-</span> <span class="dv">7</span> <span class="sc">/</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><em>Not in R though! <code>y = Inf</code></em></p>
+<div class="fragment">
+<ul>
+<li>🍎🍊 Type</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">mean</span>(<span class="st">'a'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<ul>
+<li>🧩 Logic</li>
+</ul>
+<p>Everything works and produces seemingly valid output that is WRONG!<br>
+IMHO those are the hardest 💀 to debug!</p>
+</div>
+</section>
+<section id="how-to-avoid-bugs" class="slide level2">
+<h2>How to avoid bugs</h2>
+<p><br><br><br></p>
+<div>
+<ul>
+<li class="fragment">Encapsulate your code in smaller units 🍱 (functions), you can test.<br><br></li>
+<li class="fragment">Use classes and type checking 🆗.<br><br></li>
+<li class="fragment">Test 🧪 at the boundaries, e.g.&nbsp;loops at min and max value.<br><br></li>
+<li class="fragment">Feed your functions with test data 💾 that should result with a known output.<br><br></li>
+<li class="fragment">Use <em>antibugging</em> 🕸: <code>stopifnot(y &lt;= 75)</code></li>
+</ul>
+</div>
+</section>
+<section id="floating-confusion" class="slide level2">
+<h2>Floating confusion</h2>
+<p><br><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="1|2-3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>(vec <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>, <span class="at">by=</span><span class="fl">0.1</span>))</span>
+<span id="cb5-2"><a href="#cb5-2"></a>vec <span class="sc">==</span> <span class="fl">0.7</span> </span>
+<span id="cb5-3"><a href="#cb5-3"></a>vec <span class="sc">==</span> <span class="fl">0.5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9
 [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE
-[1] 0
+[1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>(<span class="fl">0.5</span> <span class="sc">+</span> <span class="fl">0.1</span>) <span class="sc">-</span> <span class="fl">0.6</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>(<span class="fl">0.7</span> <span class="sc">+</span> <span class="fl">0.1</span>) <span class="sc">-</span> <span class="fl">0.8</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0
 [1] -1.110223e-16</code></pre>
 </div>
 </div>
-<p>Beware of floating point arithmetic!</p>
+<br>
+<div style="text-align:center;">
+<p>💀 Beware of floating point arithmetic! 💀</p>
+</div>
+</div>
+</section>
+<section id="how-to-float" class="slide level2">
+<h2>How to float 🏊</h2>
+<p><br><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">head</span>(<span class="fu">unlist</span>(.Machine))</span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">head</span>(<span class="fu">unlist</span>(.Platform))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">round</span>((<span class="fl">0.7</span> <span class="sc">+</span> <span class="fl">0.1</span>) , <span class="at">digits =</span> <span class="dv">2</span>) <span class="sc">-</span> <span class="fl">0.8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>Comparing floating point numbers:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>(vec <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>, <span class="at">by=</span><span class="fl">0.1</span>))</span>
+<span id="cb11-2"><a href="#cb11-2"></a>vec <span class="sc">==</span> <span class="fl">0.7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9
+[1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>epsilon <span class="ot">&lt;-</span> <span class="fl">0.001</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">abs</span>(vec <span class="sc">-</span> <span class="fl">0.7</span>) <span class="sc">&lt;=</span> epsilon</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="final-thoughts-on-floating" class="slide level2">
+<h2>Final thoughts on floating</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">head</span>(<span class="fu">unlist</span>(.Machine))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    double.eps double.neg.eps    double.xmin    double.xmax    double.base 
   2.220446e-16   1.110223e-16  2.225074e-308  1.797693e+308   2.000000e+00 
  double.digits 
-  5.300000e+01 
-   OS.type   file.sep dynlib.ext        GUI     endian    pkgType 
+  5.300000e+01 </code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">head</span>(<span class="fu">unlist</span>(.Platform))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   OS.type   file.sep dynlib.ext        GUI     endian    pkgType 
     "unix"        "/"      ".so"      "X11"   "little"   "source" </code></pre>
+</div>
 </div>
 </div>
 </section>
 <section id="handling-errors" class="slide level2">
 <h2>Handling Errors</h2>
+<p>Let us generate some errors:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>input <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="sc">-</span><span class="dv">7</span>, <span class="sc">-</span><span class="dv">2</span><span class="sc">/</span><span class="dv">5</span>, <span class="dv">0</span>, <span class="st">'char'</span>, <span class="dv">100</span>, pi)</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="cf">for</span> (val <span class="cf">in</span> input) {</span>
-<span id="cb6-3"><a href="#cb6-3"></a>  (<span class="fu">paste0</span>(<span class="st">'Log of '</span>, val, <span class="st">'is '</span>, <span class="fu">log10</span>(val)))</span>
-<span id="cb6-4"><a href="#cb6-4"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>input <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="sc">-</span><span class="dv">7</span>, <span class="sc">-</span><span class="dv">2</span><span class="sc">/</span><span class="dv">5</span>, <span class="dv">0</span>, <span class="st">'char'</span>, <span class="dv">100</span>, pi, <span class="cn">NaN</span>)</span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="cf">for</span> (val <span class="cf">in</span> input) {</span>
+<span id="cb19-3"><a href="#cb19-3"></a>  (<span class="fu">paste0</span>(<span class="st">'Log of '</span>, val, <span class="st">'is '</span>, <span class="fu">log10</span>(val)))</span>
+<span id="cb19-4"><a href="#cb19-4"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in log10(val): non-numeric argument to mathematical function</code></pre>
 </div>
 </div>
-<p>One option is to use the <code>try</code> block:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="cf">for</span> (val <span class="cf">in</span> input) {</span>
-<span id="cb8-2"><a href="#cb8-2"></a>  val <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(val)</span>
-<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">try</span>(<span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">'Log of '</span>, val, <span class="st">' is '</span>, <span class="fu">log10</span>(val))))</span>
-<span id="cb8-4"><a href="#cb8-4"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Log of 1 is 0"
-[1] "Log of 10 is 1"
-[1] "Log of -7 is NaN"
-[1] "Log of -0.4 is NaN"
-[1] "Log of 0 is -Inf"
-[1] "Log of NA is NA"
-[1] "Log of 100 is 2"
-[1] "Log of 3.14159265358979 is 0.497149872694133"</code></pre>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><img src="assets/ui_ux_error.jpg" style="width: 100%"></p>
+</div><div class="column" style="width:70%;">
+<p><br><br><br><br>So, how to handle this mess?</p>
+</div>
 </div>
 </div>
 </section>
-<section id="handling-errors-with-trycatch" class="slide level2">
-<h2>Handling Errors with <code>tryCatch</code></h2>
+<section id="handling-errors-try" class="slide level2">
+<h2>Handling Errors – <code>try</code></h2>
+<p><br><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="cf">for</span> (val <span class="cf">in</span> input) {</span>
-<span id="cb10-2"><a href="#cb10-2"></a>  val <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(val)</span>
-<span id="cb10-3"><a href="#cb10-3"></a>  result <span class="ot">&lt;-</span> <span class="fu">tryCatch</span>(<span class="fu">log10</span>(val), </span>
-<span id="cb10-4"><a href="#cb10-4"></a>              <span class="at">warning =</span> <span class="cf">function</span>(w) { <span class="fu">print</span>(<span class="st">'Negative argument supplied. Negating.'</span>); <span class="fu">log10</span>(<span class="sc">-</span>val) }, </span>
-<span id="cb10-5"><a href="#cb10-5"></a>              <span class="at">error =</span> <span class="cf">function</span>(e) { <span class="fu">print</span>(<span class="st">'Not a number!'</span>); <span class="cn">NaN</span> })</span>
-<span id="cb10-6"><a href="#cb10-6"></a>  <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">'Log of '</span>, val, <span class="st">' is '</span>, result))</span>
-<span id="cb10-7"><a href="#cb10-7"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">try</span>(</span>
+<span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">print</span>(</span>
+<span id="cb21-3"><a href="#cb21-3"></a>    <span class="fu">paste0</span>(<span class="st">'Log of '</span>, input, <span class="st">' is '</span>, <span class="fu">log10</span>(<span class="fu">as.numeric</span>(input)))</span>
+<span id="cb21-4"><a href="#cb21-4"></a>  )</span>
+<span id="cb21-5"><a href="#cb21-5"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Log of 1 is 0"                               
+[2] "Log of 10 is 1"                              
+[3] "Log of -7 is NaN"                            
+[4] "Log of -0.4 is NaN"                          
+[5] "Log of 0 is -Inf"                            
+[6] "Log of char is NA"                           
+[7] "Log of 100 is 2"                             
+[8] "Log of 3.14159265358979 is 0.497149872694133"
+[9] "Log of NaN is NaN"                           </code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="handling-errors-trycatch-block" class="slide level2">
+<h2>Handling Errors – <code>tryCatch</code> block:</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>result <span class="ot">&lt;-</span> <span class="fu">tryCatch</span>(<span class="fu">log10</span>(val), </span>
+<span id="cb23-2"><a href="#cb23-2"></a>            <span class="at">warning =</span> <span class="cf">function</span>(w) { </span>
+<span id="cb23-3"><a href="#cb23-3"></a>              <span class="fu">print</span>(<span class="st">'Warning! Negative argument supplied. Negating.'</span>) </span>
+<span id="cb23-4"><a href="#cb23-4"></a>              <span class="fu">log10</span>(<span class="sc">-</span>val) }, </span>
+<span id="cb23-5"><a href="#cb23-5"></a>            <span class="at">error =</span> <span class="cf">function</span>(e) { </span>
+<span id="cb23-6"><a href="#cb23-6"></a>              <span class="fu">print</span>(<span class="st">'ERROR! Not a number!'</span>)</span>
+<span id="cb23-7"><a href="#cb23-7"></a>              <span class="cn">NaN</span></span>
+<span id="cb23-8"><a href="#cb23-8"></a>            }</span>
+<span id="cb23-9"><a href="#cb23-9"></a>          )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Log of 1 is 0"
 [1] "Log of 10 is 1"
-[1] "Negative argument supplied. Negating."
+[1] "Warning! Negative argument supplied. Negating."
 [1] "Log of -7 is 0.845098040014257"
-[1] "Negative argument supplied. Negating."
+[1] "Warning! Negative argument supplied. Negating."
 [1] "Log of -0.4 is -0.397940008672038"
 [1] "Log of 0 is -Inf"
 [1] "Log of NA is NA"
 [1] "Log of 100 is 2"
-[1] "Log of 3.14159265358979 is 0.497149872694133"</code></pre>
+[1] "Log of 3.14159265358979 is 0.497149872694133"
+[1] "Log of NaN is NaN"</code></pre>
+</div>
 </div>
 </div>
 </section>
 <section id="debugging-errors-and-warnings" class="slide level2">
-<h2>Debugging – Errors and Warnings</h2>
+<h2>Debugging – errors and warnings</h2>
+<div>
 <ul>
-<li>An error in your code will result in a call to the <code>stop()</code> function that:
+<li class="fragment">An error in your code will result in a call to the <code>stop()</code> function that:
 <ul>
-<li>Breaks the execution of the program (loop, if-statement, etc.)</li>
-<li>Performs the action defined by the global parameter <code>error</code>.</li>
+<li class="fragment">Breaks the execution of the program (loop, if-statement, etc.)</li>
+<li class="fragment">Performs the action defined by the global parameter <code>error</code>.</li>
 </ul></li>
-<li>A warning just prints out the warning message (or reports it in another way)</li>
+<li class="fragment">A warning just prints out the warning message (or reports it in another way)</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
 <li>Global parameter <code>error</code> defines what R should do when an error occurs.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">options</span>(<span class="at">error =</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">options</span>(<span class="at">error =</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+<div class="fragment">
 <ul>
 <li>You can use <code>simpleError()</code> and <code>simpleWarning()</code> to generate errors and warnings in your code:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb13-2"><a href="#cb13-2"></a>  <span class="cf">if</span> (x <span class="sc">&lt;</span> <span class="dv">0</span>) {</span>
-<span id="cb13-3"><a href="#cb13-3"></a>    x <span class="ot">&lt;-</span> <span class="fu">abs</span>(x)</span>
-<span id="cb13-4"><a href="#cb13-4"></a>    w <span class="ot">&lt;-</span> <span class="fu">simpleWarning</span>(<span class="st">"Value less than 0. Taking abs(x)"</span>)</span>
-<span id="cb13-5"><a href="#cb13-5"></a>    w</span>
-<span id="cb13-6"><a href="#cb13-6"></a>  }</span>
-<span id="cb13-7"><a href="#cb13-7"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb26-2"><a href="#cb26-2"></a>  <span class="cf">if</span> (x <span class="sc">&lt;</span> <span class="dv">0</span>) {</span>
+<span id="cb26-3"><a href="#cb26-3"></a>    x <span class="ot">&lt;-</span> <span class="fu">abs</span>(x)</span>
+<span id="cb26-4"><a href="#cb26-4"></a>    w <span class="ot">&lt;-</span> <span class="fu">simpleWarning</span>(<span class="st">"Value less than 0. Taking abs(x)"</span>)</span>
+<span id="cb26-5"><a href="#cb26-5"></a>    w</span>
+<span id="cb26-6"><a href="#cb26-6"></a>  }</span>
+<span id="cb26-7"><a href="#cb26-7"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </section>
 <section id="debugging-what-are-my-options" class="slide level2">
-<h2>Debugging – What are my Options?</h2>
+<h2>Debugging – what are my options?</h2>
 <ul>
 <li>Old-school debugging: a lot of <code>print</code> statements
 <ul>
@@ -576,6 +695,9 @@ Marcin Kierczak
 <li>sometimes fine but often laborious,</li>
 <li>need to remove/comment out manually after debugging.</li>
 </ul></li>
+</ul>
+<div class="fragment">
+<ul>
 <li>Dumping frames
 <ul>
 <li>on error, R state will be saved to a file,</li>
@@ -583,122 +705,85 @@ Marcin Kierczak
 <li>values of all variables can be checked,</li>
 <li>can debug on another machine, e.g.&nbsp;send dump to your colleague!</li>
 </ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
 <li>Traceback
 <ul>
-<li>a list of the recent function calls with values of their parameters,</li>
+<li>a list of the recent function calls with values of their parameters</li>
 </ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
 <li>Step-by-step debugging
 <ul>
 <li>execute code line by line within the debugger</li>
 </ul></li>
 </ul>
+</div>
 </section>
 <section id="option-1-dumping-frames" class="slide level2">
-<h2>Option 1: Dumping Frames</h2>
+<h2>Option 1: dumping frames</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">options</span>(<span class="at">error =</span> <span class="fu">quote</span>(<span class="fu">dump.frames</span>(<span class="st">"testdump"</span>, <span class="cn">TRUE</span>)))</span>
-<span id="cb14-2"><a href="#cb14-2"></a></span>
-<span id="cb14-3"><a href="#cb14-3"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb14-4"><a href="#cb14-4"></a>    <span class="fu">sin</span>(x)</span>
-<span id="cb14-5"><a href="#cb14-5"></a>}</span>
-<span id="cb14-6"><a href="#cb14-6"></a><span class="fu">f</span>(<span class="st">'test'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in sin(x): non-numeric argument to mathematical function</code></pre>
+<div class="sourceCode cell-code" id="cb27" data-code-line-numbers="2|4-6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) { <span class="fu">sin</span>(x) }</span>
+<span id="cb27-2"><a href="#cb27-2"></a><span class="fu">options</span>(<span class="at">error =</span> <span class="fu">quote</span>(<span class="fu">dump.frames</span>(<span class="at">dumpto =</span> <span class="st">"assets/testdump"</span>, <span class="at">to.file =</span> T)))</span>
+<span id="cb27-3"><a href="#cb27-3"></a><span class="fu">f</span>(<span class="st">'test'</span>)</span>
+<span id="cb27-4"><a href="#cb27-4"></a><span class="fu">options</span>(<span class="at">error =</span> <span class="cn">NULL</span>) <span class="co"># reset the behavior</span></span>
+<span id="cb27-5"><a href="#cb27-5"></a><span class="fu">load</span>(<span class="st">'assets/testdump.rda'</span>)</span>
+<span id="cb27-6"><a href="#cb27-6"></a><span class="co"># debugger(testdump)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">options</span>(<span class="at">error =</span> <span class="cn">NULL</span>)</span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">load</span>(<span class="st">"testdump.rda"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in readChar(con, 5L, useBytes = TRUE): cannot open the connection</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># debugger(testdump)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<pre><code>Message:  Error in sin(x) : non-numeric argument to mathematical function &lt;br&gt;
-Available environments had calls: &lt;br&gt;
-1: f("test") &lt;br&gt;
- &lt;br&gt;
-Enter an environment number, or 0 to exit   &lt;br&gt;
-Selection: 1 &lt;br&gt;
-Browsing in the environment with call: &lt;br&gt;
-   f("test") &lt;br&gt;
-Called from: debugger.look(ind) &lt;br&gt;
-Browse[1]&gt; x &lt;br&gt;
-[1] "test" &lt;br&gt;
-Browse[1]&gt;  &lt;br&gt;
-[1] "test" &lt;br&gt;
-Browse[1]&gt; </code></pre>
-<p>Last empty line brings you back to the environments menu.</p>
+<p>Hint: Last empty line brings you back to the environments menu.</p>
 </section>
 <section id="option-2-traceback" class="slide level2">
-<h2>Option 2: Traceback</h2>
+<h2>Option 2: traceback</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb20-2"><a href="#cb20-2"></a>  <span class="fu">log10</span>(x)  </span>
-<span id="cb20-3"><a href="#cb20-3"></a>}</span>
-<span id="cb20-4"><a href="#cb20-4"></a></span>
-<span id="cb20-5"><a href="#cb20-5"></a>g <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb20-6"><a href="#cb20-6"></a>  <span class="fu">f</span>(x)</span>
-<span id="cb20-7"><a href="#cb20-7"></a>}</span>
-<span id="cb20-8"><a href="#cb20-8"></a><span class="fu">g</span>(<span class="st">'test'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) { </span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">log10</span>(x) </span>
+<span id="cb28-3"><a href="#cb28-3"></a>}</span>
+<span id="cb28-4"><a href="#cb28-4"></a>g <span class="ot">&lt;-</span> <span class="cf">function</span>(x) { </span>
+<span id="cb28-5"><a href="#cb28-5"></a>  <span class="fu">f</span>(x) </span>
+<span id="cb28-6"><a href="#cb28-6"></a>}</span>
+<span id="cb28-7"><a href="#cb28-7"></a><span class="fu">g</span>(<span class="st">'test'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in log10(x): non-numeric argument to mathematical function</code></pre>
 </div>
 </div>
-<pre><code>&gt; traceback()&lt;br&gt;
-2: f(x) at #2&lt;br&gt;
-1: g("test")&lt;br&gt;</code></pre>
+<div class="fragment">
+<pre><code>&gt; traceback()
+2: f(x) at #2
+1: g("test")</code></pre>
 <p><code>traceback()</code> shows what were the function calls and what parameters were passed to them when the error occurred.</p>
+</div>
 </section>
-<section id="option-3-debug-step-by-step" class="slide level2">
-<h2>Option 3: Debug step-by-step</h2>
+<section id="option-3-step-by-step-debugging" class="slide level2">
+<h2>Option 3: step-by-step debugging</h2>
 <p>Let us define a new function <code>h(x, y)</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>h <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) { </span>
-<span id="cb23-2"><a href="#cb23-2"></a>  <span class="fu">f</span>(x) </span>
-<span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">f</span>(y) </span>
-<span id="cb23-4"><a href="#cb23-4"></a>  }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>h <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) { </span>
+<span id="cb31-2"><a href="#cb31-2"></a>  <span class="fu">f</span>(x) </span>
+<span id="cb31-3"><a href="#cb31-3"></a>  <span class="fu">f</span>(y) </span>
+<span id="cb31-4"><a href="#cb31-4"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now, we can use <code>debug()</code> to debug the function in a step-by-step manner:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">debug</span>(h)</span>
-<span id="cb24-2"><a href="#cb24-2"></a><span class="fu">h</span>(<span class="st">'text'</span>, <span class="dv">7</span>)</span>
-<span id="cb24-3"><a href="#cb24-3"></a><span class="fu">undebug</span>(h)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">debug</span>(h)</span>
+<span id="cb32-2"><a href="#cb32-2"></a><span class="fu">h</span>(<span class="st">'text'</span>, <span class="dv">7</span>)</span>
+<span id="cb32-3"><a href="#cb32-3"></a><span class="fu">undebug</span>(h)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="option-3-debug-step-by-step-cted." class="slide level2">
-<h2>Option 3: Debug step-by-step cted.</h2>
-<p><code>n</code> – execute next line, <code>c</code> – execute whole function, <code>q</code> – quit debugger mode.</p>
-<pre><code>&gt; debug(h)&lt;br&gt;
-&gt; h('text', 7)&lt;br&gt;
-debugging in: h("text", 7)&lt;br&gt;
-debug at #1: {&lt;br&gt;
-    f(x)&lt;br&gt;
-    f(y)&lt;br&gt;
-}&lt;br&gt;
-&lt;/tt&gt;
---
-&lt;tt&gt;Browse[2]&gt; x&lt;br&gt;
-[1] "text"&lt;br&gt;&lt;/tt&gt;
---
-&lt;tt&gt;Browse[2]&gt; y&lt;br&gt;
-[1] 7&lt;br&gt;&lt;/tt&gt;
---
-&lt;tt&gt;Browse[2]&gt; n&lt;br&gt;
-debug at #2: f(x)&lt;br&gt;&lt;/tt&gt;
---
-&lt;tt&gt;Browse[2]&gt; x&lt;br&gt;
-[1] "text"&lt;br&gt;&lt;/tt&gt;
---
-&lt;tt&gt;Browse[2]&gt; n&lt;br&gt;
-Error in log10(x) : non-numeric argument to mathematical function&lt;br&gt;</code></pre>
+<div class="fragment">
+<p><img src="assets/debug.png" style="width: 100%"></p>
+</div>
 </section>
 <section id="profiling-proc.time" class="slide level2">
 <h2>Profiling – <code>proc.time()</code></h2>
-<p>Profiling is the process of identifying memory and time bottlenecks in your code.</p>
+<p>Profiling is the process of <strong>identifying memory</strong> and time <strong>bottlenecks</strong> 🍾 in your code.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">proc.time</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">proc.time</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  1.972   0.626   1.627 </code></pre>
+  2.089   0.664   1.798 </code></pre>
 </div>
 </div>
 <ul>
@@ -706,107 +791,146 @@ Error in log10(x) : non-numeric argument to mathematical function&lt;br&gt;</cod
 <li><code>system time</code> – CPU time charged for execution by the system on behalf of the calling process,</li>
 <li><code>elapsed time</code> – total CPU time elapsed for the currently running R process.</li>
 </ul>
+<div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>pt1 <span class="ot">&lt;-</span> <span class="fu">proc.time</span>()</span>
-<span id="cb28-2"><a href="#cb28-2"></a>tmp <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n =</span>  <span class="fl">10e5</span>)</span>
-<span id="cb28-3"><a href="#cb28-3"></a>pt2 <span class="ot">&lt;-</span> <span class="fu">proc.time</span>()</span>
-<span id="cb28-4"><a href="#cb28-4"></a>pt2 <span class="sc">-</span> pt1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>pt1 <span class="ot">&lt;-</span> <span class="fu">proc.time</span>()</span>
+<span id="cb35-2"><a href="#cb35-2"></a>tmp <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n =</span>  <span class="fl">10e5</span>)</span>
+<span id="cb35-3"><a href="#cb35-3"></a>pt2 <span class="ot">&lt;-</span> <span class="fu">proc.time</span>()</span>
+<span id="cb35-4"><a href="#cb35-4"></a>pt2 <span class="sc">-</span> pt1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.031   0.000   0.031 </code></pre>
+  0.029   0.000   0.031 </code></pre>
+</div>
 </div>
 </div>
 </section>
 <section id="profiling-system.time" class="slide level2">
 <h2>Profiling – <code>system.time()</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">system.time</span>(<span class="fu">runif</span>(<span class="at">n =</span> <span class="fl">10e6</span>))</span>
-<span id="cb30-2"><a href="#cb30-2"></a><span class="fu">system.time</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="fl">10e6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="fu">system.time</span>(<span class="fu">runif</span>(<span class="at">n =</span> <span class="fl">10e6</span>))</span>
+<span id="cb37-2"><a href="#cb37-2"></a><span class="fu">system.time</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="fl">10e6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.351   0.007   0.359 
+  0.323   0.019   0.343 
    user  system elapsed 
-  0.634   0.003   0.637 </code></pre>
+  0.535   0.020   0.556 </code></pre>
 </div>
 </div>
+<div class="fragment">
 <p>An alternative approach is to use <code>tic</code> and <code>toc</code> statements from the <code>tictoc</code> package.</p>
-<div class="cell" data-hash="index_cache/revealjs/tictoc_10f436cc9863b57c7e540339606b0f32">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">library</span>(tictoc)</span>
-<span id="cb32-2"><a href="#cb32-2"></a><span class="fu">tic</span>()</span>
-<span id="cb32-3"><a href="#cb32-3"></a>tmp1 <span class="ot">&lt;-</span><span class="fu">runif</span>(<span class="at">n =</span> <span class="fl">10e6</span>)</span>
-<span id="cb32-4"><a href="#cb32-4"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/revealjs/tictoc_72a3f602576354fdfe74e911e58cf8a5">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">library</span>(tictoc)</span>
+<span id="cb39-2"><a href="#cb39-2"></a><span class="fu">tic</span>()</span>
+<span id="cb39-3"><a href="#cb39-3"></a>tmp1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n =</span> <span class="fl">10e6</span>)</span>
+<span id="cb39-4"><a href="#cb39-4"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.268 sec elapsed</code></pre>
+<pre><code>0.272 sec elapsed</code></pre>
+</div>
 </div>
 </div>
 </section>
 <section id="profiling-in-action" class="slide level2">
-<h2>Profiling in Action</h2>
-<p>Let’s see profiling in action! We will define four functions that fill a large vector in two different ways:</p>
+<h2>Profiling in action</h2>
+<p>These 4 functions fill a <strong>large vector</strong> with values supplied by function <code>f</code>.</p>
 <div class="fragment">
+<p>1 – loop without memory allocation.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>fun_fill_loop1 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="fl">10e6</span>, f) {</span>
-<span id="cb34-2"><a href="#cb34-2"></a>  result <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb34-3"><a href="#cb34-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
-<span id="cb34-4"><a href="#cb34-4"></a>    result <span class="ot">&lt;-</span> <span class="fu">c</span>(result, <span class="fu">eval</span>(<span class="fu">call</span>(f, <span class="dv">1</span>)))</span>
-<span id="cb34-5"><a href="#cb34-5"></a>  }</span>
-<span id="cb34-6"><a href="#cb34-6"></a>  <span class="fu">return</span>(result)</span>
-<span id="cb34-7"><a href="#cb34-7"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41" data-code-line-numbers="2|3-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>fun_fill_loop1 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="fl">10e6</span>, f) {</span>
+<span id="cb41-2"><a href="#cb41-2"></a>  result <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb41-3"><a href="#cb41-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
+<span id="cb41-4"><a href="#cb41-4"></a>    result <span class="ot">&lt;-</span> <span class="fu">c</span>(result, <span class="fu">eval</span>(<span class="fu">call</span>(f, <span class="dv">1</span>)))</span>
+<span id="cb41-5"><a href="#cb41-5"></a>  }</span>
+<span id="cb41-6"><a href="#cb41-6"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb41-7"><a href="#cb41-7"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
+<p>2 – loop with memory allocation.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>fun_fill_loop2 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="fl">10e6</span>, f) {</span>
-<span id="cb35-2"><a href="#cb35-2"></a>  result <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">length =</span> n)</span>
-<span id="cb35-3"><a href="#cb35-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
-<span id="cb35-4"><a href="#cb35-4"></a>    result[i] <span class="ot">&lt;-</span> <span class="fu">eval</span>(<span class="fu">call</span>(f, <span class="dv">1</span>))</span>
-<span id="cb35-5"><a href="#cb35-5"></a>  }</span>
-<span id="cb35-6"><a href="#cb35-6"></a>  <span class="fu">return</span>(result)</span>
-<span id="cb35-7"><a href="#cb35-7"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42" data-code-line-numbers="2|3-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>fun_fill_loop2 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="fl">10e6</span>, f) {</span>
+<span id="cb42-2"><a href="#cb42-2"></a>  result <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">length =</span> n)</span>
+<span id="cb42-3"><a href="#cb42-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
+<span id="cb42-4"><a href="#cb42-4"></a>    result[i] <span class="ot">&lt;-</span> <span class="fu">eval</span>(<span class="fu">call</span>(f, <span class="dv">1</span>))</span>
+<span id="cb42-5"><a href="#cb42-5"></a>  }</span>
+<span id="cb42-6"><a href="#cb42-6"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb42-7"><a href="#cb42-7"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
 <section id="profiling-in-action-cted." class="slide level2">
-<h2>Profiling in Action cted.</h2>
-<p>It is maybe better to use…</p>
+<h2>Profiling in action cted.</h2>
+<p>But it is maybe better to use…</p>
 <div class="fragment">
 <p>vectorization!</p>
 </div>
 <div class="fragment">
+<p>3 – vectorized loop without memory allocation.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>fun_fill_vec1 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="fl">10e6</span>, f) {</span>
-<span id="cb36-2"><a href="#cb36-2"></a>  result <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb36-3"><a href="#cb36-3"></a>  result <span class="ot">&lt;-</span> <span class="fu">eval</span>(<span class="fu">call</span>(f, n))</span>
-<span id="cb36-4"><a href="#cb36-4"></a>  <span class="fu">return</span>(result)</span>
-<span id="cb36-5"><a href="#cb36-5"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43" data-code-line-numbers="2|3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>fun_fill_vec1 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="fl">10e6</span>, f) {</span>
+<span id="cb43-2"><a href="#cb43-2"></a>  result <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb43-3"><a href="#cb43-3"></a>  result <span class="ot">&lt;-</span> <span class="fu">eval</span>(<span class="fu">call</span>(f, n))</span>
+<span id="cb43-4"><a href="#cb43-4"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb43-5"><a href="#cb43-5"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
+<p>4 – vectorized with memory allocation.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>fun_fill_vec2 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="fl">10e6</span>, f) {</span>
-<span id="cb37-2"><a href="#cb37-2"></a>  result <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">length =</span> n)</span>
-<span id="cb37-3"><a href="#cb37-3"></a>  result <span class="ot">&lt;-</span> <span class="fu">eval</span>(<span class="fu">call</span>(f, n))</span>
-<span id="cb37-4"><a href="#cb37-4"></a>  <span class="fu">return</span>(result)</span>
-<span id="cb37-5"><a href="#cb37-5"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44" data-code-line-numbers="2|3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>fun_fill_vec2 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="fl">10e6</span>, f) {</span>
+<span id="cb44-2"><a href="#cb44-2"></a>  result <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">length =</span> n)</span>
+<span id="cb44-3"><a href="#cb44-3"></a>  result <span class="ot">&lt;-</span> <span class="fu">eval</span>(<span class="fu">call</span>(f, n))</span>
+<span id="cb44-4"><a href="#cb44-4"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb44-5"><a href="#cb44-5"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
 <section id="profiling-our-functions" class="slide level2">
 <h2>Profiling our functions</h2>
-<div class="cell" data-hash="index_cache/revealjs/profile_loop_efde299692f281dd5e6e528ebd451524">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="fu">system.time</span>(<span class="fu">fun_fill_loop1</span>(<span class="at">n =</span> <span class="fl">10e4</span>, <span class="st">"runif"</span>)) <span class="co"># Loop 1</span></span>
-<span id="cb38-2"><a href="#cb38-2"></a><span class="fu">system.time</span>(<span class="fu">fun_fill_loop2</span>(<span class="at">n =</span> <span class="fl">10e4</span>, <span class="st">"runif"</span>)) <span class="co"># Loop 2</span></span>
-<span id="cb38-3"><a href="#cb38-3"></a><span class="fu">system.time</span>(<span class="fu">fun_fill_vec1</span>(<span class="at">n =</span> <span class="fl">10e4</span>, <span class="st">"runif"</span>))  <span class="co"># Vectorized 1</span></span>
-<span id="cb38-4"><a href="#cb38-4"></a><span class="fu">system.time</span>(<span class="fu">fun_fill_vec2</span>(<span class="at">n =</span> <span class="fl">10e4</span>, <span class="st">"runif"</span>))  <span class="co"># Vectorized 2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   user  system elapsed 
-  7.854   0.168   8.022 
-   user  system elapsed 
-  0.494   0.016   0.510 
-   user  system elapsed 
-  0.003   0.000   0.002 
-   user  system elapsed 
-  0.002   0.000   0.002 </code></pre>
+<p><br></p>
+<div class="cell" data-hash="index_cache/revealjs/profile_loop_62a0eec983b04050bb879573c12d6cee">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">system.time</span>(<span class="fu">fun_fill_loop1</span>(<span class="at">n =</span> <span class="fl">10e4</span>, <span class="st">"runif"</span>)) <span class="co"># 1 - loop, no alloc</span></span>
+<span id="cb45-2"><a href="#cb45-2"></a>p2 <span class="ot">&lt;-</span> <span class="fu">system.time</span>(<span class="fu">fun_fill_loop2</span>(<span class="at">n =</span> <span class="fl">10e4</span>, <span class="st">"runif"</span>)) <span class="co"># 2 - loop, alloc </span></span>
+<span id="cb45-3"><a href="#cb45-3"></a>p3 <span class="ot">&lt;-</span> <span class="fu">system.time</span>(<span class="fu">fun_fill_vec1</span>(<span class="at">n =</span> <span class="fl">10e4</span>, <span class="st">"runif"</span>))  <span class="co"># 3 - vector, no alloc</span></span>
+<span id="cb45-4"><a href="#cb45-4"></a>p4 <span class="ot">&lt;-</span> <span class="fu">system.time</span>(<span class="fu">fun_fill_vec2</span>(<span class="at">n =</span> <span class="fl">10e4</span>, <span class="st">"runif"</span>))  <span class="co"># 4 - vector, alloc</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">fn</th>
+<th style="text-align: right;">user.self</th>
+<th style="text-align: right;">sys.self</th>
+<th style="text-align: right;">elapsed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">fn1</td>
+<td style="text-align: right;">8.335</td>
+<td style="text-align: right;">0.064</td>
+<td style="text-align: right;">8.400</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">fn2</td>
+<td style="text-align: right;">0.530</td>
+<td style="text-align: right;">0.004</td>
+<td style="text-align: right;">0.534</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">fn3</td>
+<td style="text-align: right;">0.002</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.002</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">fn4</td>
+<td style="text-align: right;">0.002</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.002</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <p>The <code>system.time()</code> function is not the most accurate though. During the lab, we will experiment with package <code>microbenchmark</code>.</p>
@@ -814,15 +938,121 @@ Error in log10(x) : non-numeric argument to mathematical function&lt;br&gt;</cod
 <section id="more-advanced-profiling" class="slide level2">
 <h2>More advanced profiling</h2>
 <p>We can also do a bit more advanced profiling, including the memory profiling, using, e.g.&nbsp;<code>Rprof()</code> function.</p>
+<div class="cell" data-hash="index_cache/revealjs/Rprof_e8b4d11518ed18303ac57ba2e951b9bd">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="fu">Rprof</span>(<span class="st">'profiler_test.out'</span>, <span class="at">interval =</span> <span class="fl">0.01</span>, <span class="at">memory.profiling =</span> T)</span>
+<span id="cb46-2"><a href="#cb46-2"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb46-3"><a href="#cb46-3"></a>  result <span class="ot">&lt;-</span> <span class="fu">fun_fill_loop2</span>(<span class="at">n =</span> <span class="fl">10e4</span>, <span class="st">"runif"</span>)</span>
+<span id="cb46-4"><a href="#cb46-4"></a>  <span class="fu">print</span>(result)</span>
+<span id="cb46-5"><a href="#cb46-5"></a>}</span>
+<span id="cb46-6"><a href="#cb46-6"></a><span class="fu">Rprof</span>(<span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>And let us summarise:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>summary <span class="ot">&lt;-</span> <span class="fu">summaryRprof</span>(<span class="st">'profiler_test.out'</span>, <span class="at">memory=</span><span class="st">'both'</span>)</span>
-<span id="cb40-2"><a href="#cb40-2"></a>DT<span class="sc">::</span><span class="fu">datatable</span>(summary<span class="sc">$</span>by.self, <span class="at">options=</span><span class="fu">list</span>(<span class="at">pageLength =</span> <span class="dv">10</span>, <span class="at">searching =</span> F, <span class="at">info =</span> F))</span>
-<span id="cb40-3"><a href="#cb40-3"></a><span class="co">#knitr::kable(summary$by.self)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>summary <span class="ot">&lt;-</span> <span class="fu">summaryRprof</span>(<span class="st">'profiler_test.out'</span>, <span class="at">memory=</span><span class="st">'both'</span>)</span>
+<span id="cb47-2"><a href="#cb47-2"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(summary<span class="sc">$</span>by.self)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-a551c0305c265e6aec69" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-a551c0305c265e6aec69">{"x":{"filter":"none","vertical":false,"data":[["\"print.default\"","\"eval\"","\"runif\"","\"fun_fill_loop2\"","\"parent.frame\"","\"is.list\"","\"is.pairlist\"","\"baseenv\"","\"close.connection\"","\"findCenvVar\""],[2.84,0.82,0.63,0.24,0.08,0.04,0.04,0.03,0.01,0.01],[59.92,17.3,13.29,5.06,1.69,0.84,0.84,0.63,0.21,0.21],[2.84,1.64,0.63,1.89,0.08,0.04,0.04,0.03,0.01,0.01],[59.92,34.6,13.29,39.87,1.69,0.84,0.84,0.63,0.21,0.21],[[2.8],[703.2],[275.9],[872.6],[48.5],[10.5],[0],[6.4],[0],[1.5]]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>self.time<\/th>\n      <th>self.pct<\/th>\n      <th>total.time<\/th>\n      <th>total.pct<\/th>\n      <th>mem.total<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"searching":false,"info":false,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<table>
+<colgroup>
+<col style="width: 27%">
+<col style="width: 14%">
+<col style="width: 13%">
+<col style="width: 15%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">self.time</th>
+<th style="text-align: right;">self.pct</th>
+<th style="text-align: right;">total.time</th>
+<th style="text-align: right;">total.pct</th>
+<th style="text-align: right;">mem.total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">“print.default”</td>
+<td style="text-align: right;">2.84</td>
+<td style="text-align: right;">59.92</td>
+<td style="text-align: right;">2.84</td>
+<td style="text-align: right;">59.92</td>
+<td style="text-align: right;">2.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">“eval”</td>
+<td style="text-align: right;">0.82</td>
+<td style="text-align: right;">17.30</td>
+<td style="text-align: right;">1.64</td>
+<td style="text-align: right;">34.60</td>
+<td style="text-align: right;">703.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">“runif”</td>
+<td style="text-align: right;">0.63</td>
+<td style="text-align: right;">13.29</td>
+<td style="text-align: right;">0.63</td>
+<td style="text-align: right;">13.29</td>
+<td style="text-align: right;">275.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">“fun_fill_loop2”</td>
+<td style="text-align: right;">0.24</td>
+<td style="text-align: right;">5.06</td>
+<td style="text-align: right;">1.89</td>
+<td style="text-align: right;">39.87</td>
+<td style="text-align: right;">872.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">“parent.frame”</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">1.69</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">1.69</td>
+<td style="text-align: right;">48.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">“is.list”</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.84</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.84</td>
+<td style="text-align: right;">10.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">“is.pairlist”</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.84</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.84</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">“baseenv”</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.63</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.63</td>
+<td style="text-align: right;">6.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">“close.connection”</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">“findCenvVar”</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">1.5</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </section>
@@ -830,30 +1060,620 @@ Error in log10(x) : non-numeric argument to mathematical function&lt;br&gt;</cod
 <h2>Profiling – <code>profr</code> package</h2>
 <p>There are also packages available that enable even more advanced profiling:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="fu">library</span>(profr)</span>
-<span id="cb41-2"><a href="#cb41-2"></a><span class="fu">Rprof</span>(<span class="st">"profiler_test2.out"</span>, <span class="at">interval =</span> <span class="fl">0.01</span>)</span>
-<span id="cb41-3"><a href="#cb41-3"></a>tmp <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="fu">sort</span>(<span class="fu">rnorm</span>(<span class="fl">1e5</span>)))</span>
-<span id="cb41-4"><a href="#cb41-4"></a><span class="fu">Rprof</span>(<span class="cn">NULL</span>)</span>
-<span id="cb41-5"><a href="#cb41-5"></a>profile_df <span class="ot">&lt;-</span> <span class="fu">parse_rprof</span>(<span class="st">'profiler_test2.out'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="fu">library</span>(profr)</span>
+<span id="cb48-2"><a href="#cb48-2"></a><span class="fu">Rprof</span>(<span class="st">"profiler_test2.out"</span>, <span class="at">interval =</span> <span class="fl">0.01</span>)</span>
+<span id="cb48-3"><a href="#cb48-3"></a>tmp <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="fu">sort</span>(<span class="fu">rnorm</span>(<span class="fl">1e5</span>)))</span>
+<span id="cb48-4"><a href="#cb48-4"></a><span class="fu">Rprof</span>(<span class="cn">NULL</span>)</span>
+<span id="cb48-5"><a href="#cb48-5"></a>profile_df <span class="ot">&lt;-</span> <span class="fu">parse_rprof</span>(<span class="st">'profiler_test2.out'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This returns a table that can be visualised:</p>
 <div class="cell">
 <div class="cell-output-display">
-
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-03641597ae73ef04bba0" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-03641597ae73ef04bba0">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47"],[1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38],[1,2,1,2,3,1,2,3,4,1,2,3,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,2,1,1,2,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],["table","cb","sort","factor","tryCatch","rnorm","sort.default","unique","tryCatchList","sort.int","unique.default","tryCatchOne","order","doTryCatch","inspect_env","lapply","FUN","scalar","trimws","mysub","sub","is.factor","mysub","sub","is.factor","try_capture_str","tryCatch","tryCatchList","tryCatchOne","doTryCatch","capture_str","paste0","utils::capture.output","withVisible","...elt","utils::str","str.default","cat","formObj","maybe_truncate","nchar.w","paste","format.fun","format","format.default","prettyNum","is.na"],[0,0.46,0,0.04,0.46,0,0.02,0.04,0.46,0.02,0.04,0.46,0.02,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46,0.46],[0.46,0.48,0.04,0.46,0.48,0.02,0.04,0.28,0.48,0.04,0.28,0.48,0.04,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48,0.48],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[false,false,false,false,false,true,false,false,false,false,true,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true],[0.46,0.02,0.04,0.42,0.02,0.02,0.02,0.24,0.02,0.02,0.24,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02],["base",null,"base","base","base","stats","base","base",null,"base","base",null,"base",null,null,"base",null,null,"base",null,"base","base",null,"base","base",null,"base",null,null,null,null,"base",null,"base",null,null,null,"base",null,null,null,"base",null,"base","base","base","base"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>level<\/th>\n      <th>g_id<\/th>\n      <th>t_id<\/th>\n      <th>f<\/th>\n      <th>start<\/th>\n      <th>end<\/th>\n      <th>n<\/th>\n      <th>leaf<\/th>\n      <th>time<\/th>\n      <th>source<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"searching":false,"info":false,"columnDefs":[{"className":"dt-right","targets":[1,2,3,5,6,7,9]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 31%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 4%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">level</th>
+<th style="text-align: right;">g_id</th>
+<th style="text-align: right;">t_id</th>
+<th style="text-align: left;">f</th>
+<th style="text-align: right;">start</th>
+<th style="text-align: right;">end</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: left;">leaf</th>
+<th style="text-align: right;">time</th>
+<th style="text-align: left;">source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">table</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: left;">base</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">cb</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">sort</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: left;">base</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">factor</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.42</td>
+<td style="text-align: left;">base</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">tryCatch</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">base</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">rnorm</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">stats</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">sort.default</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">base</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">unique</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.28</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.24</td>
+<td style="text-align: left;">base</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">tryCatchList</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">sort.int</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">base</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">unique.default</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.28</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">0.24</td>
+<td style="text-align: left;">base</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">tryCatchOne</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">order</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">base</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">doTryCatch</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">inspect_env</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">lapply</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">base</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FUN</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">scalar</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">trimws</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">base</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">mysub</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">sub</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">base</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">is.factor</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">base</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">mysub</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">sub</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">base</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">is.factor</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">base</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">try_capture_str</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">tryCatch</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">base</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">tryCatchList</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">tryCatchOne</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">doTryCatch</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">capture_str</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">paste0</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">base</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">utils::capture.output</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">withVisible</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">base</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">…elt</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">utils::str</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">str.default</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">cat</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">base</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">formObj</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">maybe_truncate</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">nchar.w</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">paste</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">base</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">format.fun</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">format</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">base</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">format.default</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">base</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">prettyNum</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">base</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">is.na</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: left;">base</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </section>
-<section>
-<section id="profiling-profr-package-cted." class="title-slide slide level1 center">
-<h1>Profiling – <code>profr</code> package cted.</h1>
+<section id="profiling-profr-package-cted." class="slide level2">
+<h2>Profiling – <code>profr</code> package cted.</h2>
 <p>We can also plot the results using – <code>proftools</code> package-</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="fu">library</span>(Rgraphviz)</span>
-<span id="cb42-2"><a href="#cb42-2"></a><span class="fu">library</span>(proftools) <span class="co"># depends on "graph" and "Rgraphviz" packages</span></span>
-<span id="cb42-3"><a href="#cb42-3"></a>profile_df2 <span class="ot">&lt;-</span> <span class="fu">readProfileData</span>(<span class="st">"profiler_test2.out"</span>)</span>
-<span id="cb42-4"><a href="#cb42-4"></a><span class="fu">plotProfileCallGraph</span>(profile_df2, <span class="at">style =</span> google.style, <span class="at">score =</span> <span class="st">"total"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a><span class="fu">library</span>(Rgraphviz)</span>
+<span id="cb49-2"><a href="#cb49-2"></a><span class="fu">library</span>(proftools) <span class="co"># depends on "graph" and "Rgraphviz" packages</span></span>
+<span id="cb49-3"><a href="#cb49-3"></a>profile_df2 <span class="ot">&lt;-</span> <span class="fu">readProfileData</span>(<span class="st">"profiler_test2.out"</span>)</span>
+<span id="cb49-4"><a href="#cb49-4"></a><span class="fu">plotProfileCallGraph</span>(profile_df2, <span class="at">style =</span> google.style, <span class="at">score =</span> <span class="st">"total"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="index_files/figure-revealjs/show_profr_result_plot-1.png" width="384" class="r-stretch quarto-figure-center"></section>
@@ -861,18 +1681,18 @@ Error in log10(x) : non-numeric argument to mathematical function&lt;br&gt;</cod
 <h2>Profiling with <code>profvis</code></h2>
 <p>Yet another nice way to profile your code is by using Hadley Wickham’s <code>profvis</code> package:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="fu">library</span>(profvis)</span>
-<span id="cb43-2"><a href="#cb43-2"></a><span class="fu">profvis</span>({<span class="fu">fun_fill_loop2</span>(<span class="fl">1e4</span>, <span class="st">'runif'</span>)</span>
-<span id="cb43-3"><a href="#cb43-3"></a>  <span class="fu">fun_fill_vec2</span>(<span class="fl">1e4</span>, <span class="st">'runif'</span>)</span>
-<span id="cb43-4"><a href="#cb43-4"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="fu">library</span>(profvis)</span>
+<span id="cb50-2"><a href="#cb50-2"></a><span class="fu">profvis</span>({<span class="fu">fun_fill_loop2</span>(<span class="fl">1e4</span>, <span class="st">'runif'</span>)</span>
+<span id="cb50-3"><a href="#cb50-3"></a>  <span class="fu">fun_fill_vec2</span>(<span class="fl">1e4</span>, <span class="st">'runif'</span>)</span>
+<span id="cb50-4"><a href="#cb50-4"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="profiling-with-profvis-cted." class="slide level2">
 <h2>Profiling with <code>profvis</code> cted.</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div class="profvis html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-30f42c6c4fc9e2b2357b" style="width:100%;height:600px;"></div>
-<script type="application/json" data-for="htmlwidget-30f42c6c4fc9e2b2357b">{"x":{"message":{"prof":{"time":[1,1,1,2,2,2,3,3,3,4,4,4,5,5,5],"depth":[3,2,1,3,2,1,3,2,1,3,2,1,3,2,1],"label":["eval","fun_fill_loop2",".main","runif","fun_fill_loop2",".main","eval","fun_fill_loop2",".main","eval","fun_fill_loop2",".main","eval","fun_fill_loop2",".main"],"filenum":[null,2,null,null,2,null,null,2,null,null,2,null,null,2,null],"linenum":[null,2,null,null,2,null,null,2,null,null,2,null,null,2,null],"memalloc":[30.2715606689453,30.2715606689453,30.2715606689453,34.0936126708984,34.0936126708984,34.0936126708984,39.6345901489258,39.6345901489258,39.6345901489258,43.2494735717773,43.2494735717773,43.2494735717773,48.1593627929688,48.1593627929688,48.1593627929688],"meminc":[0,0,0,3.82205200195312,0,0,5.54097747802734,0,0,3.61488342285156,0,0,4.90988922119141,0,0],"filename":[null,"<expr>",null,null,"<expr>",null,null,"<expr>",null,null,"<expr>",null,null,"<expr>",null]},"interval":10,"files":[{"filename":"<expr>","content":"library(profvis)\nprofvis({fun_fill_loop2(1e4, 'runif')\n  c()\n})","normpath":"<expr>"}],"prof_output":"/tmp/RtmpAYjOcP/file2619d1da53a00.prof","highlight":{"output":["^output\\$"],"gc":["^<GC>$"],"stacktrace":["^\\.\\.stacktraceo(n|ff)\\.\\.$"]},"split":"h"}},"evals":[],"jsHooks":[]}</script>
+<div class="profvis html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-10a9c9a0f7bd8bf7391f" style="width:100%;height:600px;"></div>
+<script type="application/json" data-for="htmlwidget-10a9c9a0f7bd8bf7391f">{"x":{"message":{"prof":{"time":[1,1,1,2,2,2,2,3,3,3,4,4,4],"depth":[3,2,1,4,3,2,1,3,2,1,3,2,1],"label":["runif","fun_fill_loop2",".main","force","eval","fun_fill_loop2",".main","eval","fun_fill_loop2",".main","runif","fun_fill_loop2",".main"],"filenum":[null,1,null,null,null,1,null,null,1,null,null,1,null],"linenum":[null,2,null,null,null,2,null,null,2,null,null,2,null],"memalloc":[32.9371032714844,32.9371032714844,32.9371032714844,37.5450210571289,37.5450210571289,37.5450210571289,37.5450210571289,44.0564956665039,44.0564956665039,44.0564956665039,47.771354675293,47.771354675293,47.771354675293],"meminc":[0,0,0,4.60791778564453,0,0,0,6.511474609375,0,0,3.71485900878906,0,0],"filename":[null,"<expr>",null,null,null,"<expr>",null,null,"<expr>",null,null,"<expr>",null]},"interval":10,"files":[{"filename":"<expr>","content":"library(profvis)\nprofvis({fun_fill_loop2(1e4, 'runif') \n  c()\n})","normpath":"<expr>"}],"prof_output":"/tmp/RtmpQ7y8Ts/file29b4dc83249.prof","highlight":{"output":["^output\\$"],"gc":["^<GC>$"],"stacktrace":["^\\.\\.stacktraceo(n|ff)\\.\\.$"]},"split":"h"}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -884,44 +1704,47 @@ Error in log10(x) : non-numeric argument to mathematical function&lt;br&gt;</cod
 </div>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><img data-src="assets/xkcd_automation.png" height="300"><br>
+<p><img data-src="assets/xkcd_automation.png" height="350"><br>
 <span class="smaller">source: http://www.xkcd/com/1319</span></p>
 </div><div class="column" style="width:50%;">
-<p><img data-src="assets/xkcd_is_it_worth_the_time_2x.png" height="300"><br>
+<p><img data-src="assets/xkcd_is_it_worth_the_time_2x.png" height="350"><br>
 <span class="smaller">source: http://www.xkcd/com/1205</span></p>
 </div>
 </div>
 </section>
 <section id="ways-to-optimize-the-code" class="slide level2">
 <h2>Ways to optimize the code</h2>
+<div>
 <ul>
-<li>write it in a more efficient way, e.g.&nbsp;use vectorization or <code>*apply</code> family instead of loops etc.,</li>
-<li>allocating memory to avoid copy-on-modify,</li>
-<li>use package <code>BLAS</code> for linear algebra,</li>
-<li>use <code>bigmemory</code> package,</li>
-<li>GPU computations,</li>
-<li>multicore support, e.g.&nbsp;<code>multicore</code>, <code>snow</code></li>
-<li>use <code>data.table</code> or <code>tibble</code> instead of <code>data.frame</code></li>
+<li class="fragment">write it in a more efficient way, e.g.&nbsp;use vectorization or <code>*apply</code> family instead of loops etc.,</li>
+<li class="fragment">allocating memory to avoid copy-on-modify,</li>
+<li class="fragment">use package <code>BLAS</code> for linear algebra,</li>
+<li class="fragment">use <code>bigmemory</code> package,</li>
+<li class="fragment">GPU computations,</li>
+<li class="fragment">multicore support, e.g.&nbsp;<code>multicore</code>, <code>snow</code></li>
+<li class="fragment">use <code>futures</code></li>
+<li class="fragment">use <code>data.table</code> or <code>tibble</code> instead of <code>data.frame</code></li>
 </ul>
+</div>
 </section>
 <section id="copy-on-modify" class="slide level2">
 <h2>Copy-on-modify</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="fu">library</span>(pryr)</span>
-<span id="cb44-2"><a href="#cb44-2"></a>order <span class="ot">&lt;-</span> <span class="dv">1024</span></span>
-<span id="cb44-3"><a href="#cb44-3"></a>matrix_A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(order<span class="sc">^</span><span class="dv">2</span>), <span class="at">nrow =</span> order)</span>
-<span id="cb44-4"><a href="#cb44-4"></a>matrix_B <span class="ot">&lt;-</span> matrix_A</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="fu">library</span>(pryr)</span>
+<span id="cb51-2"><a href="#cb51-2"></a>order <span class="ot">&lt;-</span> <span class="dv">1024</span></span>
+<span id="cb51-3"><a href="#cb51-3"></a>matrix_A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(order<span class="sc">^</span><span class="dv">2</span>), <span class="at">nrow =</span> order)</span>
+<span id="cb51-4"><a href="#cb51-4"></a>matrix_B <span class="ot">&lt;-</span> matrix_A</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p>Check where the objects are in the memory:</p>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">address</span>(matrix_A)</span>
-<span id="cb45-2"><a href="#cb45-2"></a><span class="fu">address</span>(matrix_B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="fu">address</span>(matrix_A)</span>
+<span id="cb52-2"><a href="#cb52-2"></a><span class="fu">address</span>(matrix_B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "0x7f757dffc010"
-[1] "0x7f757dffc010"</code></pre>
+<pre><code>[1] "0x7feb9f674010"
+[1] "0x7feb9f674010"</code></pre>
 </div>
 </div>
 </div>
@@ -930,100 +1753,100 @@ Error in log10(x) : non-numeric argument to mathematical function&lt;br&gt;</cod
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>matrix_B[<span class="dv">1</span>,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb47-2"><a href="#cb47-2"></a><span class="fu">address</span>(matrix_A)</span>
-<span id="cb47-3"><a href="#cb47-3"></a><span class="fu">address</span>(matrix_B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>matrix_B[<span class="dv">1</span>,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb54-2"><a href="#cb54-2"></a><span class="fu">address</span>(matrix_A)</span>
+<span id="cb54-3"><a href="#cb54-3"></a><span class="fu">address</span>(matrix_B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "0x7f757dffc010"
-[1] "0x7f757d7fb010"</code></pre>
+<pre><code>[1] "0x7feb9f674010"
+[1] "0x55e6e6e691a0"</code></pre>
 </div>
 </div>
 </div>
 </section>
 <section id="avoid-copying-by-allocating-memory" class="slide level2">
 <h2>Avoid copying by allocating memory</h2>
-<h3 id="no-memory-allocation">No memory allocation</h3>
+<p>No memory allocation</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>f1 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">to =</span> <span class="dv">3</span>, <span class="at">silent=</span>F) {</span>
-<span id="cb49-2"><a href="#cb49-2"></a>  tmp <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
-<span id="cb49-3"><a href="#cb49-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>to) {</span>
-<span id="cb49-4"><a href="#cb49-4"></a>    a1 <span class="ot">&lt;-</span> <span class="fu">address</span>(tmp)</span>
-<span id="cb49-5"><a href="#cb49-5"></a>    tmp <span class="ot">&lt;-</span> <span class="fu">c</span>(tmp, i)</span>
-<span id="cb49-6"><a href="#cb49-6"></a>    a2 <span class="ot">&lt;-</span> <span class="fu">address</span>(tmp)</span>
-<span id="cb49-7"><a href="#cb49-7"></a>    <span class="cf">if</span>(<span class="sc">!</span>silent) { <span class="fu">print</span>(<span class="fu">paste0</span>(a1, <span class="st">" --&gt; "</span>, a2)) } </span>
-<span id="cb49-8"><a href="#cb49-8"></a>  }</span>
-<span id="cb49-9"><a href="#cb49-9"></a>}</span>
-<span id="cb49-10"><a href="#cb49-10"></a><span class="fu">f1</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56" data-code-line-numbers="2|5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a>f1 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">to =</span> <span class="dv">3</span>, <span class="at">silent=</span>F) {</span>
+<span id="cb56-2"><a href="#cb56-2"></a>  tmp <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb56-3"><a href="#cb56-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>to) {</span>
+<span id="cb56-4"><a href="#cb56-4"></a>    a1 <span class="ot">&lt;-</span> <span class="fu">address</span>(tmp)</span>
+<span id="cb56-5"><a href="#cb56-5"></a>    tmp <span class="ot">&lt;-</span> <span class="fu">c</span>(tmp, i)</span>
+<span id="cb56-6"><a href="#cb56-6"></a>    a2 <span class="ot">&lt;-</span> <span class="fu">address</span>(tmp)</span>
+<span id="cb56-7"><a href="#cb56-7"></a>    <span class="cf">if</span> (<span class="sc">!</span>silent) { <span class="fu">print</span>(<span class="fu">paste0</span>(a1, <span class="st">" --&gt; "</span>, a2)) } </span>
+<span id="cb56-8"><a href="#cb56-8"></a>  }</span>
+<span id="cb56-9"><a href="#cb56-9"></a>}</span>
+<span id="cb56-10"><a href="#cb56-10"></a><span class="fu">f1</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "0x55ac7e931a10 --&gt; 0x55ac881d5e30"
-[1] "0x55ac881d5e30 --&gt; 0x55ac881d6300"
-[1] "0x55ac881d6300 --&gt; 0x55ac857b19e8"</code></pre>
+<pre><code>[1] "0x55e6dab30b70 --&gt; 0x55e6e3fa2798"
+[1] "0x55e6e3fa2798 --&gt; 0x55e6e3fa2b50"
+[1] "0x55e6e3fa2b50 --&gt; 0x55e6ddd21708"</code></pre>
 </div>
 </div>
 </section>
 <section id="avoid-copying-by-allocating-memory-cted." class="slide level2">
 <h2>Avoid copying by allocating memory cted.</h2>
-<h3 id="with-allocation">With allocation</h3>
+<p>With memory allocation</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a>f2 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">to =</span> <span class="dv">3</span>, <span class="at">silent =</span> <span class="cn">FALSE</span>) {</span>
-<span id="cb51-2"><a href="#cb51-2"></a>  tmp <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">length =</span> to, <span class="at">mode=</span><span class="st">'numeric'</span>)</span>
-<span id="cb51-3"><a href="#cb51-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>to) {</span>
-<span id="cb51-4"><a href="#cb51-4"></a>    a1 <span class="ot">&lt;-</span> <span class="fu">address</span>(tmp)</span>
-<span id="cb51-5"><a href="#cb51-5"></a>    tmp[i] <span class="ot">&lt;-</span> i</span>
-<span id="cb51-6"><a href="#cb51-6"></a>    a2 <span class="ot">&lt;-</span> <span class="fu">address</span>(tmp)</span>
-<span id="cb51-7"><a href="#cb51-7"></a>    <span class="cf">if</span>(<span class="sc">!</span>silent) { <span class="fu">print</span>(<span class="fu">paste0</span>(a1, <span class="st">" --&gt; "</span>, a2)) }</span>
-<span id="cb51-8"><a href="#cb51-8"></a>  }</span>
-<span id="cb51-9"><a href="#cb51-9"></a>}</span>
-<span id="cb51-10"><a href="#cb51-10"></a><span class="fu">f2</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58" data-code-line-numbers="2|5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a>f2 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">to =</span> <span class="dv">3</span>, <span class="at">silent =</span> <span class="cn">FALSE</span>) {</span>
+<span id="cb58-2"><a href="#cb58-2"></a>  tmp <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">length =</span> to, <span class="at">mode=</span><span class="st">'numeric'</span>)</span>
+<span id="cb58-3"><a href="#cb58-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>to) {</span>
+<span id="cb58-4"><a href="#cb58-4"></a>    a1 <span class="ot">&lt;-</span> <span class="fu">address</span>(tmp)</span>
+<span id="cb58-5"><a href="#cb58-5"></a>    tmp[i] <span class="ot">&lt;-</span> i</span>
+<span id="cb58-6"><a href="#cb58-6"></a>    a2 <span class="ot">&lt;-</span> <span class="fu">address</span>(tmp)</span>
+<span id="cb58-7"><a href="#cb58-7"></a>    <span class="cf">if</span>(<span class="sc">!</span>silent) { <span class="fu">print</span>(<span class="fu">paste0</span>(a1, <span class="st">" --&gt; "</span>, a2)) }</span>
+<span id="cb58-8"><a href="#cb58-8"></a>  }</span>
+<span id="cb58-9"><a href="#cb58-9"></a>}</span>
+<span id="cb58-10"><a href="#cb58-10"></a><span class="fu">f2</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "0x55ac85dc0208 --&gt; 0x55ac85dc0208"
-[1] "0x55ac85dc0208 --&gt; 0x55ac85dc0208"
-[1] "0x55ac85dc0208 --&gt; 0x55ac85dc0208"</code></pre>
+<pre><code>[1] "0x55e6e10691b8 --&gt; 0x55e6e10691b8"
+[1] "0x55e6e10691b8 --&gt; 0x55e6e10691b8"
+[1] "0x55e6e10691b8 --&gt; 0x55e6e10691b8"</code></pre>
 </div>
 </div>
 </section>
 <section id="allocating-memory-benchmark." class="slide level2">
 <h2>Allocating memory – benchmark.</h2>
-<div class="cell" data-layout-align="center" data-hash="index_cache/revealjs/unnamed-chunk-5_b0a73da6db72f0c8e3cbf747ad3cd762">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="fu">library</span>(microbenchmark)</span>
-<span id="cb53-2"><a href="#cb53-2"></a>benchmrk <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(<span class="fu">f1</span>(<span class="at">to =</span> <span class="fl">1e3</span>, <span class="at">silent =</span> T), </span>
-<span id="cb53-3"><a href="#cb53-3"></a>                           <span class="fu">f2</span>(<span class="at">to =</span> <span class="fl">1e3</span>, <span class="at">silent =</span> T), </span>
-<span id="cb53-4"><a href="#cb53-4"></a>                           <span class="at">times =</span> 100L)</span>
-<span id="cb53-5"><a href="#cb53-5"></a>ggplot2<span class="sc">::</span><span class="fu">autoplot</span>(benchmrk)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="index_cache/revealjs/unnamed-chunk-9_eb12fc3d2f33b23bce082811171a5391">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a><span class="fu">library</span>(microbenchmark)</span>
+<span id="cb60-2"><a href="#cb60-2"></a>benchmrk <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(<span class="fu">f1</span>(<span class="at">to =</span> <span class="fl">1e3</span>, <span class="at">silent =</span> T), </span>
+<span id="cb60-3"><a href="#cb60-3"></a>                           <span class="fu">f2</span>(<span class="at">to =</span> <span class="fl">1e3</span>, <span class="at">silent =</span> T), </span>
+<span id="cb60-4"><a href="#cb60-4"></a>                           <span class="at">times =</span> 100L)</span>
+<span id="cb60-5"><a href="#cb60-5"></a>ggplot2<span class="sc">::</span><span class="fu">autoplot</span>(benchmrk)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="index_files/figure-revealjs/unnamed-chunk-5-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="gpu" class="slide level2">
 <h2>GPU</h2>
-<div class="cell" data-hash="index_cache/revealjs/gpu_R_6fb387704fc8b7a74effe3d0c57e95c1">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a><span class="fu">library</span>(gpuR)</span>
-<span id="cb54-2"><a href="#cb54-2"></a><span class="fu">library</span>(microbenchmark)</span>
-<span id="cb54-3"><a href="#cb54-3"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span><span class="sc">^</span><span class="dv">2</span>), <span class="at">nrow=</span><span class="dv">1000</span>) <span class="co"># stored: RAM, computed: CPU</span></span>
-<span id="cb54-4"><a href="#cb54-4"></a>B <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span><span class="sc">^</span><span class="dv">2</span>), <span class="at">nrow=</span><span class="dv">1000</span>) </span>
-<span id="cb54-5"><a href="#cb54-5"></a>gpuA <span class="ot">=</span> <span class="fu">gpuMatrix</span>(A, <span class="at">type =</span> <span class="st">"float"</span>) <span class="co"># stored: RAM, computed: GPU</span></span>
-<span id="cb54-6"><a href="#cb54-6"></a>gpuB <span class="ot">=</span> <span class="fu">gpuMatrix</span>(B, <span class="at">type =</span> <span class="st">"float"</span>)</span>
-<span id="cb54-7"><a href="#cb54-7"></a>vclA <span class="ot">=</span> <span class="fu">vclMatrix</span>(A, <span class="at">type =</span> <span class="st">"float"</span>) <span class="co"># stored: GPU, computed: GPU</span></span>
-<span id="cb54-8"><a href="#cb54-8"></a>vclB <span class="ot">=</span> <span class="fu">vclMatrix</span>(B, <span class="at">type =</span> <span class="st">"float"</span>)</span>
-<span id="cb54-9"><a href="#cb54-9"></a>bch <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(</span>
-<span id="cb54-10"><a href="#cb54-10"></a>  <span class="at">cpuC =</span> A <span class="sc">%*%</span> B,</span>
-<span id="cb54-11"><a href="#cb54-11"></a>  <span class="at">gpuC =</span> gpuA <span class="sc">%*%</span> gpuB,</span>
-<span id="cb54-12"><a href="#cb54-12"></a>  <span class="at">vclC =</span> vclA <span class="sc">%*%</span> vclB, </span>
-<span id="cb54-13"><a href="#cb54-13"></a>  <span class="at">times =</span> 10L) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/revealjs/gpu_R_5a85af7c0cc5e9b06d469f37a38d51a6">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a><span class="fu">library</span>(gpuR)</span>
+<span id="cb61-2"><a href="#cb61-2"></a><span class="fu">library</span>(microbenchmark)</span>
+<span id="cb61-3"><a href="#cb61-3"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span><span class="sc">^</span><span class="dv">2</span>), <span class="at">nrow=</span><span class="dv">1000</span>) <span class="co"># stored: RAM, computed: CPU</span></span>
+<span id="cb61-4"><a href="#cb61-4"></a>B <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span><span class="sc">^</span><span class="dv">2</span>), <span class="at">nrow=</span><span class="dv">1000</span>) </span>
+<span id="cb61-5"><a href="#cb61-5"></a>gpuA <span class="ot">=</span> <span class="fu">gpuMatrix</span>(A, <span class="at">type =</span> <span class="st">"float"</span>) <span class="co"># stored: RAM, computed: GPU</span></span>
+<span id="cb61-6"><a href="#cb61-6"></a>gpuB <span class="ot">=</span> <span class="fu">gpuMatrix</span>(B, <span class="at">type =</span> <span class="st">"float"</span>)</span>
+<span id="cb61-7"><a href="#cb61-7"></a>vclA <span class="ot">=</span> <span class="fu">vclMatrix</span>(A, <span class="at">type =</span> <span class="st">"float"</span>) <span class="co"># stored: GPU, computed: GPU</span></span>
+<span id="cb61-8"><a href="#cb61-8"></a>vclB <span class="ot">=</span> <span class="fu">vclMatrix</span>(B, <span class="at">type =</span> <span class="st">"float"</span>)</span>
+<span id="cb61-9"><a href="#cb61-9"></a>bch <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(</span>
+<span id="cb61-10"><a href="#cb61-10"></a>  <span class="at">cpu_ram =</span> A <span class="sc">%*%</span> B,</span>
+<span id="cb61-11"><a href="#cb61-11"></a>  <span class="at">gpu_ram =</span> gpuA <span class="sc">%*%</span> gpuB,</span>
+<span id="cb61-12"><a href="#cb61-12"></a>  <span class="at">gpu_vcl =</span> vclA <span class="sc">%*%</span> vclB, </span>
+<span id="cb61-13"><a href="#cb61-13"></a>  <span class="at">times =</span> 10L) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><span class="smaller">More on <a href="https://www.r-bloggers.com/r-gpu-programming-for-all-with-gpur/">Charles Determan’s Blog</a>.</span></p>
 </section>
 <section id="gpu-cted." class="slide level2">
 <h2>GPU cted.</h2>
-<div class="cell" data-layout-align="center" data-hash="index_cache/revealjs/unnamed-chunk-6_6d4a848080e5f0f058dcc311c89a89fa">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a>ggplot2<span class="sc">::</span><span class="fu">autoplot</span>(bch)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="index_cache/revealjs/unnamed-chunk-10_2330654fe948488f84e8535a72d6423d">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a>ggplot2<span class="sc">::</span><span class="fu">autoplot</span>(bch)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="parallelization-using-package-parallel" class="slide level2">
 <h2>Parallelization using package <code>parallel</code></h2>
 <p>Easiest to parallelize is <code>lapply</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a>result <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="cf">function</span>(x) { <span class="fu">c</span>(x, x<span class="sc">^</span><span class="dv">2</span>, x<span class="sc">^</span><span class="dv">3</span>) } )</span>
-<span id="cb56-2"><a href="#cb56-2"></a>result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a>result <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="cf">function</span>(x) { <span class="fu">c</span>(x, x<span class="sc">^</span><span class="dv">2</span>, x<span class="sc">^</span><span class="dv">3</span>) })</span>
+<span id="cb63-2"><a href="#cb63-2"></a>result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 [1] 1 1 1
@@ -1033,11 +1856,11 @@ Error in log10(x) : non-numeric argument to mathematical function&lt;br&gt;</cod
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a><span class="fu">library</span>(parallel)</span>
-<span id="cb58-2"><a href="#cb58-2"></a>num_cores <span class="ot">&lt;-</span> <span class="fu">detectCores</span>() <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb58-3"><a href="#cb58-3"></a>cl <span class="ot">&lt;-</span> <span class="fu">makeCluster</span>(num_cores) <span class="co"># Init cluster</span></span>
-<span id="cb58-4"><a href="#cb58-4"></a><span class="fu">parLapply</span>(cl, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="cf">function</span>(x) { <span class="fu">c</span>(x, x<span class="sc">^</span><span class="dv">2</span>, x<span class="sc">^</span><span class="dv">3</span>)} )</span>
-<span id="cb58-5"><a href="#cb58-5"></a><span class="fu">stopCluster</span>(cl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a><span class="fu">library</span>(parallel)</span>
+<span id="cb65-2"><a href="#cb65-2"></a>num_cores <span class="ot">&lt;-</span> <span class="fu">detectCores</span>() <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb65-3"><a href="#cb65-3"></a>cl <span class="ot">&lt;-</span> <span class="fu">makeCluster</span>(num_cores) <span class="co"># Init cluster</span></span>
+<span id="cb65-4"><a href="#cb65-4"></a><span class="fu">parLapply</span>(cl, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="cf">function</span>(x) { <span class="fu">c</span>(x, x<span class="sc">^</span><span class="dv">2</span>, x<span class="sc">^</span><span class="dv">3</span>)} )</span>
+<span id="cb65-5"><a href="#cb65-5"></a><span class="fu">stopCluster</span>(cl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 [1] 1 1 1
@@ -1072,7 +1895,7 @@ minor    2.2                   </code></pre>
 <img data-src="../../assets/logos/nbis-scilifelab.svg">
 </div>
 </div>
-</section></section>
+</section>
     </div>
   </div>
 

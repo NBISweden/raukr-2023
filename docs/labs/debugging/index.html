@@ -184,7 +184,7 @@ background-size: cover;
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">13-Mar-2023</p>
+        <p class="date">08-Jun-2023</p>
       </div>
     </div>
     
@@ -222,13 +222,13 @@ background-size: cover;
   <li><a href="#microtiming-precision." id="toc-microtiming-precision." class="nav-link" data-scroll-target="#microtiming-precision."><span class="header-section-number">2.3.2</span> Microtiming Precision.</a></li>
   <li><a href="#the-microbenchmark-way." id="toc-the-microbenchmark-way." class="nav-link" data-scroll-target="#the-microbenchmark-way."><span class="header-section-number">2.3.3</span> The Microbenchmark Way.</a></li>
   </ul></li>
-  <li><a href="#task-more-advanced-profiling." id="toc-task-more-advanced-profiling." class="nav-link" data-scroll-target="#task-more-advanced-profiling."><span class="header-section-number">2.4</span> Task: More Advanced Profiling.</a>
+  <li><a href="#optional-task-more-advanced-profiling." id="toc-optional-task-more-advanced-profiling." class="nav-link" data-scroll-target="#optional-task-more-advanced-profiling."><span class="header-section-number">2.4</span> Optional Task: More Advanced Profiling.</a>
   <ul class="collapse">
   <li><a href="#the-rprof-way." id="toc-the-rprof-way." class="nav-link" data-scroll-target="#the-rprof-way."><span class="header-section-number">2.4.1</span> The <code>Rprof</code> way.</a></li>
   </ul></li>
   <li><a href="#optimization" id="toc-optimization" class="nav-link" data-scroll-target="#optimization"><span class="header-section-number">2.5</span> Optimization</a></li>
-  <li><a href="#using-the-profr-package." id="toc-using-the-profr-package." class="nav-link" data-scroll-target="#using-the-profr-package."><span class="header-section-number">2.6</span> Using the <code>profr</code> package.</a></li>
-  <li><a href="#using-the-profvis-package." id="toc-using-the-profvis-package." class="nav-link" data-scroll-target="#using-the-profvis-package."><span class="header-section-number">2.7</span> Using the <code>profvis</code> package.</a></li>
+  <li><a href="#optiona-task-using-the-profr-package." id="toc-optiona-task-using-the-profr-package." class="nav-link" data-scroll-target="#optiona-task-using-the-profr-package."><span class="header-section-number">2.6</span> Optiona Task: Using the <code>profr</code> package.</a></li>
+  <li><a href="#optional-task-using-the-profvis-package." id="toc-optional-task-using-the-profvis-package." class="nav-link" data-scroll-target="#optional-task-using-the-profvis-package."><span class="header-section-number">2.7</span> Optional Task: Using the <code>profvis</code> package.</a></li>
   </ul></li>
   <li><a href="#optimize-your-code" id="toc-optimize-your-code" class="nav-link" data-scroll-target="#optimize-your-code"><span class="header-section-number">3</span> Optimize Your Code</a>
   <ul>
@@ -253,7 +253,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The objective of this lab is to improve your coding skills by focusing on code debugging, benchmarking and optimization. Below, you will find a number of tasks connected to the topics covered in the <em>Debugging, profiling and optimization</em> lecture. Some tasks extend lectures content and require you to find some more information online. Please, note that while we are providing example solutions to many tasks, these are only <strong>examples</strong>. If you solve a task in a different way it does not matter your solution is wrong. In fact, it may be better than our solution. If in doubt, ask PI for help. We are here for you!</p>
+<p>The objective of this lab is to improve your coding skills by focusing on code debugging, benchmarking and optimization. Below, you will find a number of tasks connected to the topics covered in the <em>Debugging, profiling and optimization</em> lecture. Some tasks extend lectures content and require you to find some more information online. Please, note that while we are providing example solutions to many tasks, these are only <strong>examples</strong>. If you solve a task in a different way it does not matter your solution is wrong. In fact, it may be better than our solution. If in doubt, ask TA for help. We are here for you!</p>
 </div>
 </div>
 <section id="debugging" class="level2" data-number="1">
@@ -263,45 +263,53 @@ Note
 <p>Which of the following chunks of code are correct and which contain errors? Identify these errors.</p>
 <section id="chunk-1" class="level4" data-number="1.1.1">
 <h4 data-number="1.1.1" class="anchored" data-anchor-id="chunk-1"><span class="header-section-number">1.1.1</span> Chunk 1</h4>
-<pre><code>input &lt;- sample(1:1000, size = 1000, replace = T)
-currmin &lt;- NULL
-for (i in input) {
-  if (input &gt; currmin) {
-    currmin &lt;- input
-    print(paste0("The new minimum is: ", currmin))
-  }
-}</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="at">size =</span> <span class="dv">1000</span>, <span class="at">replace =</span> T)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>currmin <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> input) {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (input <span class="sc">&gt;</span> currmin) {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    currmin <span class="ot">&lt;-</span> input</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">"The new minimum is: "</span>, currmin))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="chunk-2" class="level4" data-number="1.1.2">
 <h4 data-number="1.1.2" class="anchored" data-anchor-id="chunk-2"><span class="header-section-number">1.1.2</span> Chunk 2</h4>
-<pre><code>input &lt;- sample(1:1000, size = 1000, replac = T)
-currmin &lt;- NULL
-for (i in input) {
-  if (input &lt; currmin) {
-    currmin &lt;- input
-    print(paste0("The new minimum is: ", currmin))
-  }
-}</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="at">size =</span> <span class="dv">1000</span>, <span class="at">replac =</span> T)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>currmin <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> input) {</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (input <span class="sc">&lt;</span> currmin) {</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    currmin <span class="ot">&lt;-</span> input</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">"The new minimum is: "</span>, currmin))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="chunk-3" class="level4" data-number="1.1.3">
 <h4 data-number="1.1.3" class="anchored" data-anchor-id="chunk-3"><span class="header-section-number">1.1.3</span> Chunk 3</h4>
-<pre><code>for (cnt in 1:100) {
-  if (cnt &gt; 12) {
-    print("12+")
-  } else {
-    print("Not 12+")
-  }
-}</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (cnt <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (cnt <span class="sc">&gt;</span> <span class="dv">12</span>) {</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="st">"12+"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="st">"Not 12+"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="chunk-4" class="level4" data-number="1.1.4">
 <h4 data-number="1.1.4" class="anchored" data-anchor-id="chunk-4"><span class="header-section-number">1.1.4</span> Chunk 4</h4>
-<pre><code>result &lt;- logical(10)
-input &lt;- sample(1:10, size = 10, replace = T)
-for (i in 0:length(input)) {
-  if (input[i] &gt;= 5) {
-    result[i] &lt;- TRUE
-  }
-}</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">logical</span>(<span class="dv">10</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">replace =</span> T)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span><span class="fu">length</span>(input)) {</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (input[i] <span class="sc">&gt;=</span> <span class="dv">5</span>) {</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    result[i] <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 </section>
 <section id="task-debugger." class="level3" data-number="1.2">
@@ -325,8 +333,22 @@ Tip
 </div>
 </div>
 <p>Put the value of your double <span class="math inline">\(\epsilon\)</span> into <a href="https://docs.google.com/spreadsheets/d/1_2tDeEkDVS06RkB437yBI1XEB5SUebtHWyxAf_aRJu4/edit?usp=sharing">this spreadsheet</a> (Best Coding Practises Lab sheet).</p>
-<pre><code>vec &lt;- seq(0.1, 0.9, by=0.1)
-vec == 0.7</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>vec <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>, <span class="at">by=</span><span class="fl">0.1</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>vec <span class="sc">==</span> <span class="fl">0.7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One way is to use epsilon</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Check machine's floating point representation</span></span>
@@ -350,6 +372,9 @@ vec == 0.7</code></pre>
 <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Now you can use the is_equal to fix the code!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="profiling" class="level2" data-number="2">
@@ -357,7 +382,7 @@ vec == 0.7</code></pre>
 <section id="task-filling-a-large-matrix." class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="task-filling-a-large-matrix."><span class="header-section-number">2.1</span> Task: Filling A Large Matrix.</h3>
 <p>Create a 10 000 x 10 000 matrix and fill it with random numbers (from 1 to 42), first row by row and later column by column. Use <code>proc.time</code> to see if there is any difference. Is the measurement reliable? Record the values you got in this spreadsheet:</p>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-3_281cd3ef6ca72e753cc8a35ab0a6d331">
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-8_3e1ef076168d0db3dde2778d4548026f">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fl">10e3</span> <span class="sc">*</span> <span class="fl">10e3</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># By row</span></span>
@@ -375,10 +400,24 @@ vec == 0.7</code></pre>
 </section>
 <section id="task-timing-reliability." class="level3" data-number="2.2">
 <h3 data-number="2.2" class="anchored" data-anchor-id="task-timing-reliability."><span class="header-section-number">2.2</span> Task: Timing Reliability.</h3>
-<p>In the lecture slides, you have seen how to time sampling from Gaussian distribution:</p>
-<pre><code>system.time(rnorm(n = 10e6))</code></pre>
+<p>In the lecture slides, you have seen how to time sampling from Normal Gaussian distribution:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="fl">10e6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Is such single measurement reliable? Run the code 100 times, plot and record the mean and the variance of the <code>elapsed</code> time. Put these values (elapsed.time mean and variance) into <a href="https://docs.google.com/spreadsheets/d/1_2tDeEkDVS06RkB437yBI1XEB5SUebtHWyxAf_aRJu4/edit?usp=sharing">this spreadsheet</a> (Best Coding Practises Lab sheet).</p>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-4_6a11bdd5169c90e6693bc9fb874a949b">
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-10_2bdea4673233109930bd52d43562864f">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>timing <span class="ot">&lt;-</span> <span class="fu">double</span>(<span class="dv">100</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  st <span class="ot">&lt;-</span> <span class="fu">system.time</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="fl">10e6</span>))</span>
@@ -388,9 +427,27 @@ vec == 0.7</code></pre>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(timing)</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(timing)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>An alternative approach or, more exactly, an alternative notation that achieves the same as the previous chunk of code but in a more compact way makes use of the <code>replicate</code>, a wrapper function around <code>sapply</code> that simplifies repeated evaluation of expressions. The drawback is you do not get the vector of the actual timing values but the results of calling <code>system.time</code> are already averaged for you. Try to read about the <code>replicate</code> and use it to re-write the code above. Put the <code>elapsed.time</code> into <a href="https://docs.google.com/spreadsheets/d/1_2tDeEkDVS06RkB437yBI1XEB5SUebtHWyxAf_aRJu4/edit?usp=sharing">this spreadsheet</a> (Best Coding Practises Lab sheet). How does this value compare to calling <code>system.time</code> within a loop in the previous chunk of code? Are the values similar?</p>
+</div>
+</div>
+</div>
+<p><strong>Optional</strong> An alternative approach or, more exactly, an alternative notation that achieves the same as the previous chunk of code but in a more compact way makes use of the <code>replicate</code>, a wrapper function around <code>sapply</code> that simplifies repeated evaluation of expressions. The drawback is you do not get the vector of the actual timing values but the results of calling <code>system.time</code> are already averaged for you. Try to read about the <code>replicate</code> and use it to re-write the code above. Put the <code>elapsed.time</code> into <a href="https://docs.google.com/spreadsheets/d/1_2tDeEkDVS06RkB437yBI1XEB5SUebtHWyxAf_aRJu4/edit?usp=sharing">this spreadsheet</a> (Best Coding Practises Lab sheet). How does this value compare to calling <code>system.time</code> within a loop in the previous chunk of code? Are the values similar?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>st2 <span class="ot">&lt;-</span> <span class="fu">system.time</span>(<span class="fu">replicate</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="fl">10e6</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section id="task-microbenchmarking." class="level3" data-number="2.3">
@@ -408,13 +465,27 @@ vec == 0.7</code></pre>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>microbenchmark<span class="sc">::</span><span class="fu">get_nanotime</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Modify the code below so that it uses the current value of platform’s timer:</p>
-<pre><code>timing &lt;- double(100)
-for (i in 1:100) {
-  st &lt;- system.time(rnorm(n = 10e6))
-  timing[i] &lt;- st[3]
-}
-boxplot(timing)</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>timing <span class="ot">&lt;-</span> <span class="fu">double</span>(<span class="dv">100</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  st <span class="ot">&lt;-</span> <span class="fu">system.time</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="fl">10e6</span>))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  timing[i] <span class="ot">&lt;-</span> st[<span class="dv">3</span>]</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(timing)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Put the mean and the variance into <a href="https://docs.google.com/spreadsheets/d/1_2tDeEkDVS06RkB437yBI1XEB5SUebtHWyxAf_aRJu4/edit?usp=sharing">this spreadsheet</a> (Best Coding Practises Lab sheet, Microbenchmark – loop)</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(microbenchmark)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>timing <span class="ot">&lt;-</span> <span class="fu">double</span>(<span class="dv">100</span>)</span>
@@ -428,22 +499,55 @@ boxplot(timing)</code></pre>
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(timing)</span>
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(timing)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+</div>
+</div>
 </section>
 <section id="microtiming-precision." class="level4" data-number="2.3.2">
 <h4 data-number="2.3.2" class="anchored" data-anchor-id="microtiming-precision."><span class="header-section-number">2.3.2</span> Microtiming Precision.</h4>
 <p>There is an experimental function in the <code>microbenchmark</code> package that helps the package estimate granularity and resolution of your particular timing subsystem. According to the documentation, <em>the function measures the overhead of timing a C function call rounds times and returns all non-zero timings observed.</em></p>
 <p><br> Run the <code>microtiming_precision</code> function and put the mean and the variance of the resulting vector into <a href="https://docs.google.com/spreadsheets/d/1_2tDeEkDVS06RkB437yBI1XEB5SUebtHWyxAf_aRJu4/edit?usp=sharing">this spreadsheet</a> (Best Coding Practises Lab sheet, Microbenchmark – precision)</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>precision <span class="ot">&lt;-</span> microbenchmark<span class="sc">::</span><span class="fu">microtiming_precision</span>()</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(precision)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(precision)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+</div>
+</div>
 <p>Run the function one time without assigning its value to a variable and consult the documentation. Compare the output of running the function without assigning the value to a variable, the values stored in the variable by the function upon assignment and the value specified in the documentation.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In version 1.4-4 of the package, all three ways give different results!</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>microbenchmark<span class="sc">::</span><span class="fu">microtiming_precision</span>()</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>precision <span class="ot">&lt;-</span> microbenchmark<span class="sc">::</span><span class="fu">microtiming_precision</span>()</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>?microbenchmark<span class="sc">::</span>microtiming_precision</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section id="the-microbenchmark-way." class="level4" data-number="2.3.3">
@@ -455,6 +559,18 @@ boxplot(timing)</code></pre>
 <li>look at the summary of the benchmark,</li>
 <li>how long does it take to dispatch a simple function that does nothing compared to evaluating a constant and adding two integers?</li>
 </ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(microbenchmark)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span>
@@ -467,10 +583,13 @@ boxplot(timing)</code></pre>
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mb2)</span>
 <span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(mb2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+</div>
+</div>
 </section>
 </section>
-<section id="task-more-advanced-profiling." class="level3" data-number="2.4">
-<h3 data-number="2.4" class="anchored" data-anchor-id="task-more-advanced-profiling."><span class="header-section-number">2.4</span> Task: More Advanced Profiling.</h3>
+<section id="optional-task-more-advanced-profiling." class="level3" data-number="2.4">
+<h3 data-number="2.4" class="anchored" data-anchor-id="optional-task-more-advanced-profiling."><span class="header-section-number">2.4</span> Optional Task: More Advanced Profiling.</h3>
 <p>Now, we will use a even more sophisticated approach to profiling.</p>
 <section id="the-rprof-way." class="level4" data-number="2.4.1">
 <h4 data-number="2.4.1" class="anchored" data-anchor-id="the-rprof-way."><span class="header-section-number">2.4.1</span> The <code>Rprof</code> way.</h4>
@@ -490,7 +609,7 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Do not perform addition of column number in the same</p>
+<p>Do not perform addition of column number in the same loop.</p>
 </div>
 </div>
 <p>Following this and using <code>rnorm(1000, mean = 0, sd = 1)</code>:</p>
@@ -499,6 +618,18 @@ Warning
 <li>use <code>Rprof</code> to check whether there is a difference between initializing the matrix using <code>NULL</code> and 0 in <code>fill_alloc</code>,</li>
 <li>what happens if <span class="math inline">\(N = 10\)</span> compared to <span class="math inline">\(N = 20\)</span> to <span class="math inline">\(N = 100\)</span>?</li>
 </ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fill_noloop <span class="ot">&lt;-</span> <span class="cf">function</span>(N, bag, <span class="at">seed =</span> <span class="dv">42</span>) {</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(seed)</span>
@@ -551,14 +682,29 @@ Warning
 <span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a><span class="co"># answers to the remaining questions are not given</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="optimization" class="level3" data-number="2.5">
 <h3 data-number="2.5" class="anchored" data-anchor-id="optimization"><span class="header-section-number">2.5</span> Optimization</h3>
-<p>Have a look at our answers.</p>
+<p>Have a look at our answers from the previous task .</p>
 <ul>
 <li>How can you optimize the <code>fill_alloc</code> even further (call the optimized version <code>fill_alloc_opt</code>)?</li>
 </ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fill_alloc_opt <span class="ot">&lt;-</span> <span class="cf">function</span>(N, bag, <span class="at">seed =</span> <span class="dv">42</span>, <span class="at">init =</span> <span class="cn">NA</span>) {</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(seed)</span>
@@ -574,9 +720,24 @@ Warning
 <span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(M)</span>
 <span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+</div>
+</div>
 <ul>
 <li>Optimize the <code>fill_noloop</code> to <code>fill_noloops</code> that does not use any loops at all.</li>
 </ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fill_noloops <span class="ot">&lt;-</span> <span class="cf">function</span>(N, bag, <span class="at">seed =</span> <span class="dv">42</span>) {</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  values <span class="ot">&lt;-</span> <span class="fu">sample</span>(bag, <span class="at">size =</span> N<span class="sc">^</span><span class="dv">2</span>, <span class="at">replace =</span> T)</span>
@@ -585,9 +746,12 @@ Warning
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(M)</span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+</div>
+</div>
 </section>
-<section id="using-the-profr-package." class="level3" data-number="2.6">
-<h3 data-number="2.6" class="anchored" data-anchor-id="using-the-profr-package."><span class="header-section-number">2.6</span> Using the <code>profr</code> package.</h3>
+<section id="optiona-task-using-the-profr-package." class="level3" data-number="2.6">
+<h3 data-number="2.6" class="anchored" data-anchor-id="optiona-task-using-the-profr-package."><span class="header-section-number">2.6</span> Optiona Task: Using the <code>profr</code> package.</h3>
 <ul>
 <li>Install and load the <code>profr</code> package.</li>
 <li>Use <code>profr</code> to profile <code>fill_noloop</code>, <code>fill_noloops</code> and <code>fill_alloc_opt</code>.</li>
@@ -616,6 +780,18 @@ Warning
 <span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">scale_x_continuous</span>(<span class="st">"level"</span>)</span>
 <span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(profr)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -638,9 +814,12 @@ Warning
 <span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>profr<span class="sc">::</span><span class="fu">ggplot.profr</span>(profile_noloops_df)</span>
 <span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>profr<span class="sc">::</span><span class="fu">ggplot.profr</span>(profile_alloc_opt_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+</div>
+</div>
 </section>
-<section id="using-the-profvis-package." class="level3" data-number="2.7">
-<h3 data-number="2.7" class="anchored" data-anchor-id="using-the-profvis-package."><span class="header-section-number">2.7</span> Using the <code>profvis</code> package.</h3>
+<section id="optional-task-using-the-profvis-package." class="level3" data-number="2.7">
+<h3 data-number="2.7" class="anchored" data-anchor-id="optional-task-using-the-profvis-package."><span class="header-section-number">2.7</span> Optional Task: Using the <code>profvis</code> package.</h3>
 <ul>
 <li>Install and load the <code>profvis</code> package.</li>
 <li>Use <code>profvis</code> to profile <code>fill_noloop</code>, and <code>fill_alloc</code> functions.</li>
@@ -653,42 +832,44 @@ Warning
 <section id="task-fix-and-optimize-this" class="level3" data-number="3.1">
 <h3 data-number="3.1" class="anchored" data-anchor-id="task-fix-and-optimize-this"><span class="header-section-number">3.1</span> Task: Fix and Optimize This!</h3>
 <p>Given is a function:</p>
-<pre><code>optimize_me &lt;- function(N = 1000, values = c(1:1e4)) {
-  N = 10; values = c(1:1e4)
-  dat1 &lt;- matrix(size = N^2)
-  for (i in 1:N) {
-    for (j in 1:N) {
-      dat1[i, j] &lt;- sample(values, 1)
-    }
-  }
-  dat0 &lt;- dat1
-  dat1[lower.tri(dat1)] &lt;- t(dat1)[lower.tri(dat1)]
-  
-  dat2 &lt;- NULL 
-  for (i in 1:N) {
-    i_tmp &lt;- c()
-    for (j in 1:N) {
-      i_tmp &lt;- c(i_tmp, sample(values, 1))
-    }
-    dat2 &lt;- rbind(dat2, i_tmp)
-  }
-  dat2[lower.tri(dat2)] &lt;- t(dat2)[lower.tri(dat2)]
- 
-  M &lt;- dat2
-  for (i in 1:N) {
-    for (j in 1:N) {
-      M[i, j] &lt;- dat1[i, j] * dat2[i, j]
-    }
-  }
-  for (i in 1:N) {
-    for (j in 1:N) {
-      M[i, j] &lt;- M[i, j] + values[3]
-    }
-  }
-  N &lt;- M %*% dat0
-  result &lt;- apply(N, 2, mean)
-  return(result)
-}</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>optimize_me <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">N =</span> <span class="dv">1000</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fl">1e4</span>)) {</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  N <span class="ot">=</span> <span class="dv">10</span>; values <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fl">1e4</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  dat1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">size =</span> N<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N) {</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N) {</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>      dat1[i, j] <span class="ot">&lt;-</span> <span class="fu">sample</span>(values, <span class="dv">1</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  dat0 <span class="ot">&lt;-</span> dat1</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  dat1[<span class="fu">lower.tri</span>(dat1)] <span class="ot">&lt;-</span> <span class="fu">t</span>(dat1)[<span class="fu">lower.tri</span>(dat1)]</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  dat2 <span class="ot">&lt;-</span> <span class="cn">NULL</span> </span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N) {</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    i_tmp <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N) {</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>      i_tmp <span class="ot">&lt;-</span> <span class="fu">c</span>(i_tmp, <span class="fu">sample</span>(values, <span class="dv">1</span>))</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>    dat2 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(dat2, i_tmp)</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>  dat2[<span class="fu">lower.tri</span>(dat2)] <span class="ot">&lt;-</span> <span class="fu">t</span>(dat2)[<span class="fu">lower.tri</span>(dat2)]</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>  M <span class="ot">&lt;-</span> dat2</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N) {</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N) {</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>      M[i, j] <span class="ot">&lt;-</span> dat1[i, j] <span class="sc">*</span> dat2[i, j]</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N) {</span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N) {</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>      M[i, j] <span class="ot">&lt;-</span> M[i, j] <span class="sc">+</span> values[<span class="dv">3</span>]</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>  N <span class="ot">&lt;-</span> M <span class="sc">%*%</span> dat0</span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">apply</span>(N, <span class="dv">2</span>, mean)</span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <ul>
 <li>What does it do, step-by-step?</li>
 <li>Profile it.</li>

@@ -182,7 +182,7 @@ background-size: cover;
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">13-Mar-2023</p>
+        <p class="date">08-Jun-2023</p>
       </div>
     </div>
     
@@ -204,7 +204,7 @@ background-size: cover;
   </ul></li>
   <li><a href="#task-2-fibonacci-sequence" id="toc-task-2-fibonacci-sequence" class="nav-link" data-scroll-target="#task-2-fibonacci-sequence"><span class="header-section-number">2</span> Task 2: Fibonacci sequence</a>
   <ul>
-  <li><a href="#nth-fibonacci-number" id="toc-nth-fibonacci-number" class="nav-link" data-scroll-target="#nth-fibonacci-number"><span class="header-section-number">2.1</span> Nth Fibonacci number</a></li>
+  <li><a href="#n-th-fibonacci-number" id="toc-n-th-fibonacci-number" class="nav-link" data-scroll-target="#n-th-fibonacci-number"><span class="header-section-number">2.1</span> N-th Fibonacci number</a></li>
   <li><a href="#generate-fibonacci-sequence" id="toc-generate-fibonacci-sequence" class="nav-link" data-scroll-target="#generate-fibonacci-sequence"><span class="header-section-number">2.2</span> Generate Fibonacci sequence</a></li>
   <li><a href="#vectorized-fibonacci-generator" id="toc-vectorized-fibonacci-generator" class="nav-link" data-scroll-target="#vectorized-fibonacci-generator"><span class="header-section-number">2.3</span> Vectorized Fibonacci generator</a></li>
   </ul></li>
@@ -227,7 +227,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>In programming languages loop structures, either with or without conditions, are used to repeat commands over multiple entities. For and while loops as well as if-else statements are also often used in R, but perhaps not as often as in many other programming languages. The reason for this is that in R, there is an alternative called vectorization which usually is more efficient.</p>
+<p>In programming languages loop structures, either with or without conditions, are used to repeat commands over multiple entities. For and while loops as well as if-else statements are also often used in R, but perhaps not as often as in many other programming languages. The reason for this is that in R, there is an alternative called <em>vectorization</em> which usually is more efficient.</p>
 </div>
 </div>
 <p>Vectorization implies that we can multiply all values in a vector in R by two by calling:</p>
@@ -318,12 +318,15 @@ Note
 <section id="task-2-fibonacci-sequence" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="task-2-fibonacci-sequence"><span class="header-section-number">2</span> Task 2: Fibonacci sequence</h2>
 <p>During the lecture an approach to calculate factorials was implemented using recursion (function calling itself). Here we should use recursion to generate a sequence of Fibonacci numbers. A Fibonacci number is part of a series of number with the following properties:</p>
-<p>The first two numbers in the Fibonacci sequence are either 1 and 1, or 0 and 1, depending on the chosen starting point of the sequence, and each subsequent number is the sum of the previous two. Hence:</p>
+<ul>
+<li>the first two numbers in the Fibonacci sequence are either 1 and 1, or 0 and 1 (depending on the chosen starting point)</li>
+<li>each subsequent number is the sum of the previous two. Hence:</li>
+</ul>
 <p><code>0, 1, 1, 2, 3, 5, 8, 13, 21, ...</code></p>
 <p>or</p>
 <p><code>1, 1, 2, 3, 5, 8, 13, 21, ...</code></p>
-<section id="nth-fibonacci-number" class="level3" data-number="2.1">
-<h3 data-number="2.1" class="anchored" data-anchor-id="nth-fibonacci-number"><span class="header-section-number">2.1</span> Nth Fibonacci number</h3>
+<section id="n-th-fibonacci-number" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="n-th-fibonacci-number"><span class="header-section-number">2.1</span> N-th Fibonacci number</h3>
 <p>Write a function that generates Fibonacci number using a recursive approach.</p>
 <div class="cell">
 <details>

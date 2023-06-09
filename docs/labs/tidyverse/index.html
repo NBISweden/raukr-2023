@@ -185,7 +185,7 @@ background-size: cover;
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">13-Mar-2023</p>
+        <p class="date">08-Jun-2023</p>
       </div>
     </div>
     
@@ -272,7 +272,9 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Welcome to the hands-on workshop “Tidy Work in Tidyverse”. Most of the things necessary to complete the tutorials and challenges were covered in the lecture. However, sometimes the tasks require that you check the docs or search online. Not all our solutions are optimal. Let us know if you can do better or solve things in a different way. If stuck, look at hints, next google and if still stuck, turn to TA. It is a lot of material, do not feel bad if you do not solve all tasks. If you completed Challenge 3, you are good and have used the most important features of tidyverse! Good luck!</p>
+<p>Welcome to the hands-on workshop “Tidy Work in Tidyverse”. Most of the functions necessary to complete the tutorials and challenges were covered in the lecture. However, sometimes the tasks <strong>require</strong> that you check the docs or search online. Our solutions are not the only possible ones! Let us know if you can do better or solve things in a different way!</p>
+<p><em>If stuck, look at hints, next do some google searches and, if still stuck, turn to a TA.</em></p>
+<p>It is a lot of material, we know! <strong>Do not feel bad</strong> if you do not solve all the tasks. If you completed Challenge 3, you have used all the most important features of <code>tidyverse</code>! Good luck!</p>
 </div>
 </div>
 <section id="general-exercises" class="level2" data-number="1">
@@ -283,9 +285,11 @@ Note
 <section id="chunk-1" class="level4" data-number="1.1.1">
 <h4 data-number="1.1.1" class="anchored" data-anchor-id="chunk-1"><span class="header-section-number">1.1.1</span> Chunk 1</h4>
 <p>Rewrite the following code chunks as pipes (Load package <code>magrittr</code> because <code>tidyverse</code> supports only the <code>%&gt;%</code> pipe!):</p>
-<pre><code>my_cars &lt;- mtcars[, c(1:4, 10)]
-my_cars &lt;- my_cars[my_cars$disp &gt; mean(my_cars$disp), ]
-my_cars &lt;- colMeans(my_cars)</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>my_cars <span class="ot">&lt;-</span> mtcars[, <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">10</span>)]</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>my_cars <span class="ot">&lt;-</span> my_cars[my_cars<span class="sc">$</span>disp <span class="sc">&gt;</span> <span class="fu">mean</span>(my_cars<span class="sc">$</span>disp), ]</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>my_cars <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(my_cars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>This is our solution:</p>
 <div class="cell">
 <details>
@@ -319,9 +323,11 @@ Tip
 </section>
 <section id="chunk-2" class="level4" data-number="1.1.2">
 <h4 data-number="1.1.2" class="anchored" data-anchor-id="chunk-2"><span class="header-section-number">1.1.2</span> Chunk 2</h4>
-<p>The <code>summary(x)</code> function is a bit special: when you type <code>summary(x)</code> in the console, <code>print</code> is called in an implicit way. Pipe call does not do, so you will have to invoke <code>print</code> in an explicit way. But the <code>%T&gt;%</code> does unbranch for one call only, you will have to make printing of the <code>summary</code> a one single composed call using <code>{}</code>.</p>
-<pre><code>summary(cars)
-colSums(cars)</code></pre>
+<p>The <code>summary(x)</code> function is a bit special: when you type <code>summary(x)</code> in the console, <code>print</code> is called in an implicit way. Pipe call does not do such implicite call, so you will have to invoke <code>print</code> in an explicit way. But the <code>%T&gt;%</code> does unbranch for one call only, you will have to make printing of the <code>summary</code> a one single composed call using <code>{}</code>. Try to wrap your mind around this. If in doubt, turn to a TA.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cars)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(cars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -331,15 +337,19 @@ colSums(cars)</code></pre>
 </section>
 <section id="chunk-3" class="level4" data-number="1.1.3">
 <h4 data-number="1.1.3" class="anchored" data-anchor-id="chunk-3"><span class="header-section-number">1.1.3</span> Chunk 3</h4>
-<p>Rewrite correlations to pipes.</p>
-<pre><code>cor(mtcars$gear, mtcars$mpg)</code></pre>
+<p>Rewrite the following correlations using pipes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(mtcars<span class="sc">$</span>gear, mtcars<span class="sc">$</span>mpg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%$%</span> <span class="fu">cor</span>(gear, mpg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<pre><code>cor(mtcars)</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -349,28 +359,35 @@ colSums(cars)</code></pre>
 </section>
 <section id="chunk-4" class="level4" data-number="1.1.4">
 <h4 data-number="1.1.4" class="anchored" data-anchor-id="chunk-4"><span class="header-section-number">1.1.4</span> Chunk 4</h4>
-<p>Given is the <code>dim_summary(nrows, ncols)</code> function which takes matrix <code>nrows</code> and <code>ncols</code> as arguments and prints this info about its dimensions:</p>
-<pre><code>dim_summary &lt;- function(nrows, ncols) {
-  print(
-    paste0('Matrix M has: ', nrows, ' rows and ', ncols, ' columns.')
-  )
-}</code></pre>
-<p>Rewrite the code chunks below as pipes:</p>
-<pre><code>distr1 &lt;- rnorm(16)
-M &lt;- matrix(distr1, ncol = 4)
-plot(M)
-M &lt;- M + sample(M)
-dim_summary(nrows = nrow(M), ncols = ncol(M))</code></pre>
-<pre><code>distr2 &lt;- rnorm(16)
-N &lt;- matrix(distr2, ncol = 4)
-colnames(N) &lt;- (letters[1:4])
-summary(N)
-N &lt;- N + 0</code></pre>
-<pre><code>P &lt;- M %x% t(N)
-heatmap(P)
-colnames(P) &lt;- letters[1:dim(P)[2]]
-cor(P[ ,'a'], P[ ,'i'])</code></pre>
-<p>A class of functions, called the <em>replacement functions</em> are of the form <code>function(arguments)&lt;-value</code> and <code>rownames(x) &lt;- c('a', 'b', 'c')</code> is a good example of a replacement function. When writing pipes, we have bear in mind that whole <code>function&lt;-</code> is the name of the replacement function and thus we have to use it as such in the pipe.</p>
+<p>Given is the <code>dim_summary(nrows, ncols)</code> function which takes <code>nrows</code> and <code>ncols</code> as arguments and prints this info:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dim_summary <span class="ot">&lt;-</span> <span class="cf">function</span>(nrows, ncols) {</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste0</span>(<span class="st">'Matrix M has: '</span>, nrows, <span class="st">' rows and '</span>, ncols, <span class="st">' columns.'</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Rewrite each of the code chunks below using pipes:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>distr1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">16</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="fu">matrix</span>(distr1, <span class="at">ncol =</span> <span class="dv">4</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(M)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> M <span class="sc">+</span> <span class="fu">sample</span>(M)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dim_summary</span>(<span class="at">nrows =</span> <span class="fu">nrow</span>(M), <span class="at">ncols =</span> <span class="fu">ncol</span>(M))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>distr2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">16</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">matrix</span>(distr2, <span class="at">ncol =</span> <span class="dv">4</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(N) <span class="ot">&lt;-</span> (letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(N)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> N <span class="sc">+</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> M <span class="sc">%x%</span> <span class="fu">t</span>(N)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap</span>(P)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(P) <span class="ot">&lt;-</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="fu">dim</span>(P)[<span class="dv">2</span>]]</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(P[ ,<span class="st">'a'</span>], P[ ,<span class="st">'i'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -381,7 +398,20 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Sometimes, it may not be possible to put everything into one single pipe, the results of running two or more pipes have to be used in the final pipe.</p>
+<p>Beware of a class of functions, called <em>replacement functions</em>. These beasts are of the form: <code>function(arguments) &lt;- value</code> and <code>rownames(x) &lt;- c('a', 'b', 'c')</code> is a good example of such beast. When writing pipes, we have bear in mind that whole <code>function &lt;-</code> is the name of the replacement function and thus we have to use it as such in the pipe enquoted using backticks. Yes, we know… but you wont see this too often.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sometimes, it may not be possible to put everything into one single pipe and the results of running two or more pipes have to be used in the final pipe.</p>
 </div>
 </div>
 <div class="cell">
@@ -522,7 +552,7 @@ Tip
 </section>
 <section id="task-3" class="level4" data-number="1.2.3">
 <h4 data-number="1.2.3" class="anchored" data-anchor-id="task-3"><span class="header-section-number">1.2.3</span> Task 3</h4>
-<p>Compare the performance of <code>as.data.frame()</code>, <code>as_data_frame()</code> and <code>as_tibble()</code> on a 100 x 30 matrix filled with random integers. Use package <code>microbenchmark</code>. Fill in your result <a href="https://docs.google.com/spreadsheets/d/1_2tDeEkDVS06RkB437yBI1XEB5SUebtHWyxAf_aRJu4/edit#gid=99106509">here</a> in the Tidyverse Lab sheet, Tibbles – performance.</p>
+<p>Compare the performance of <code>as.data.frame()</code>, <code>as_data_frame()</code> and <code>as_tibble()</code> on a 100 x 30 matrix filled with some random integers. Use package <code>microbenchmark</code>. Fill in your result <a href="https://docs.google.com/spreadsheets/d/1_2tDeEkDVS06RkB437yBI1XEB5SUebtHWyxAf_aRJu4/edit#gid=99106509">here</a> in the Tidyverse Lab sheet, Tibbles – performance.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -551,9 +581,9 @@ Tip
 <h3 data-number="1.3" class="anchored" data-anchor-id="parsing"><span class="header-section-number">1.3</span> Parsing</h3>
 <p>Parse the following vectors using <code>parse_</code> functions:</p>
 <ul>
-<li><code>vec1 &lt;- c(1, 7.2, 3.84, -5.23)</code> – parse it as double (any problems? why?).</li>
-<li>Now, parse the same vector <code>c(1, 7.2, 3.84, -5.23)</code> as integer. What happens?</li>
-<li>Can you still parse it as integer somehow?</li>
+<li><code>vec1 &lt;- c(1, 7.2, 3.84, -5.23)</code> – parse it as <code>double</code> (any problems? why?).</li>
+<li>Now, parse the same vector <code>c(1, 7.2, 3.84, -5.23)</code> as <code>integer</code>. What happens?</li>
+<li>Can you still parse it as <code>integer</code> somehow?</li>
 <li>Parse as double <code>vec2 &lt;- c('2', '3,45', '?', '-7,28')</code></li>
 <li>Parse correctly <code>vec3 &lt;- c('2', '3,45', '?', '-7.28')</code></li>
 <li>Parse the following guessing the parser: <code>vec4 &lt;- c('barrel: 432.7$', 'liter: 15.42PLN', 'gallon costs approx 32.1SEK', 'sunny, wind gusts up till 55m/s')</code></li>
@@ -590,14 +620,14 @@ Tip
 <section id="task-1-selecting-column" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="task-1-selecting-column"><span class="header-section-number">2.1</span> Task 1: Selecting column</h3>
 <ul>
-<li>Load the <code>nycflights13</code> package (install if necessary),</li>
-<li>Read about the data in the package docs,</li>
+<li>Load the <code>nycflights13</code> package (install if necessary).</li>
+<li>Read about the data in the package docs.</li>
 <li>Inspect the <code>flights</code> tibble.</li>
-<li>Select all columns but <code>carrier</code> and <code>arr_time</code>,</li>
-<li>Select <code>carrier</code>, <code>tailnum</code> and <code>origin</code>,</li>
-<li>Hide columns from <code>day</code> through <code>carrier</code>,</li>
-<li>Select all columns that have to do with <code>arr</code>ival (hint: <code>?tidyselect</code>),</li>
-<li>Select columns based on a vector <code>v &lt;- c("arr_time", "sched_arr_time", "arr_delay")</code>,</li>
+<li>Select all columns but <code>carrier</code> and <code>arr_time</code>.</li>
+<li>Select <code>carrier</code>, <code>tailnum</code> and <code>origin</code>.</li>
+<li>Hide columns from <code>day</code> through <code>carrier</code>.</li>
+<li>Select all columns that have to do with <code>arr</code>ival (hint: <code>?tidyselect</code>).</li>
+<li>Select columns based on a vector <code>v &lt;- c("arr_time", "sched_arr_time", "arr_delay")</code>.</li>
 <li>Rename column <code>dest</code> to <code>destination</code> using:
 <ul>
 <li><code>select()</code> and</li>
@@ -631,14 +661,14 @@ Tip
 <span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>flights <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="at">destination =</span> dest)</span>
 <span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>flights <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">destination =</span> dest)</span>
 <span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="co"># select keeps only the renamed column while rename returns the whole dataset</span></span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="co"># with the column renamed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="co"># with the column renamed.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
 <section id="task-2-filtering-rows" class="level3" data-number="2.2">
 <h3 data-number="2.2" class="anchored" data-anchor-id="task-2-filtering-rows"><span class="header-section-number">2.2</span> Task 2: Filtering rows</h3>
 <ul>
-<li>Filter only the flights that arrived ahead of schedule</li>
+<li>Filter only the flights that arrived ahead of schedule.</li>
 </ul>
 <div class="cell">
 <details>
@@ -647,7 +677,7 @@ Tip
 </details>
 </div>
 <ul>
-<li>Filter the flights that had departure delay between 10 and 33</li>
+<li>Filter the flights that had departure delay between 10 and 33.</li>
 </ul>
 <div class="cell">
 <details>
@@ -657,7 +687,7 @@ Tip
 </details>
 </div>
 <ul>
-<li>Fish out all flights with unknown arrival time</li>
+<li>Fish out all flights with unknown arrival time.</li>
 </ul>
 <div class="cell">
 <details>
@@ -666,7 +696,7 @@ Tip
 </details>
 </div>
 <ul>
-<li>Retrieve rows 1234:1258 (hint: <code>?slice</code>)</li>
+<li>Retrieve rows 1234:1258 (hint: <code>?slice</code>).</li>
 </ul>
 <div class="cell">
 <details>
@@ -675,7 +705,7 @@ Tip
 </details>
 </div>
 <ul>
-<li>Sample (<code>?sample_n()</code>) 3 random flights per day in March</li>
+<li>Sample (<code>?sample_n()</code>) 3 random flights per day in March.</li>
 </ul>
 <div class="cell">
 <details>
@@ -686,7 +716,7 @@ Tip
 </details>
 </div>
 <ul>
-<li>Show 5 most departure-delayed flights in January per carrier</li>
+<li>Show 5 most departure-delayed flights in January per carrier.</li>
 </ul>
 <div class="cell">
 <details>
@@ -698,7 +728,7 @@ Tip
 </details>
 </div>
 <ul>
-<li>Retrieve all <code>unique()</code> routes and sort them by destination</li>
+<li>Retrieve all <code>unique()</code> routes and sort them by destination.</li>
 </ul>
 <div class="cell">
 <details>
@@ -715,7 +745,7 @@ Tip
 </details>
 </div>
 <ul>
-<li>Retrieve all <code>distinct()</code> routes and sort them by destination</li>
+<li>Retrieve all <code>distinct()</code> routes and sort them by destination.</li>
 </ul>
 <div class="cell">
 <details>
@@ -754,9 +784,9 @@ Tip
 <section id="task-3-transmutations" class="level3" data-number="2.3">
 <h3 data-number="2.3" class="anchored" data-anchor-id="task-3-transmutations"><span class="header-section-number">2.3</span> Task 3: Trans(mutations)</h3>
 <ul>
-<li><code>air_time</code> is the amount of time in minutes spent in the air. Add a new column <code>air_spd</code> that will contain aircraft’s airspeed in mph,</li>
-<li>As above, but keep only the new <code>air_spd</code> variable,</li>
-<li>Use <code>rownames_to_column()</code> on <code>mtcars</code> to add car model as an extra column,</li>
+<li><code>air_time</code> is the amount of time in minutes spent in the air. Add a new column <code>air_spd</code> that will contain aircraft’s airspeed in mph.</li>
+<li>As above, but keep only the new <code>air_spd</code> variable.</li>
+<li>Use <code>rownames_to_column()</code> on <code>mtcars</code> to add car model as an extra column.</li>
 </ul>
 <div class="cell">
 <details>
@@ -770,7 +800,7 @@ Tip
 <section id="task-4-groups-and-counts" class="level3" data-number="2.4">
 <h3 data-number="2.4" class="anchored" data-anchor-id="task-4-groups-and-counts"><span class="header-section-number">2.4</span> Task 4: Groups and counts</h3>
 <ul>
-<li>Use <code>group_by()</code>, <code>summarise()</code> and <code>n()</code> to see how many planes were delayed (departure) every month,</li>
+<li>Use <code>group_by()</code>, <code>summarise()</code> and <code>n()</code> to see how many planes were delayed (departure) every month.</li>
 </ul>
 <div class="cell">
 <details>
@@ -782,7 +812,7 @@ Tip
 </details>
 </div>
 <ul>
-<li>Do the same but using <code>tally()</code> and <code>count()</code>,</li>
+<li>Do the same but using <code>tally()</code> and <code>count()</code>.</li>
 </ul>
 <div class="cell">
 <details>
@@ -809,7 +839,7 @@ Tip
 </details>
 </div>
 <ul>
-<li>Count the number of incoming delayed flights from each unique origin and sort origins by this count (descending),</li>
+<li>Count the number of incoming delayed flights from each unique origin and sort origins by this count (descending).</li>
 </ul>
 <div class="cell">
 <details>
@@ -834,7 +864,7 @@ Tip
 </details>
 </div>
 <ul>
-<li>Use <code>summarise()</code> to sum total <code>dep_delay</code> per month in hours,</li>
+<li>Use <code>summarise()</code> to sum total <code>dep_delay</code> per month in hours.</li>
 </ul>
 <div class="cell">
 <details>
@@ -845,7 +875,7 @@ Tip
 </details>
 </div>
 <ul>
-<li>Use the <code>wt</code> parameter of <code>count()</code> (works with <code>tally()</code> too) to achieve the same,</li>
+<li>Use the <code>wt</code> parameter of <code>count()</code> (works with <code>tally()</code> too) to achieve the same.</li>
 </ul>
 <div class="cell">
 <details>
@@ -867,7 +897,7 @@ Tip
 </details>
 </div>
 <ul>
-<li>Use <code>n_groups()</code> to check the number of unique origin-carrier pairs,</li>
+<li>Use <code>n_groups()</code> to check the number of unique origin-carrier pairs.</li>
 </ul>
 <div class="cell">
 <details>
@@ -888,13 +918,15 @@ Note on <code>ungroup</code>
 </div>
 <div class="callout-body-container callout-body">
 <p>Depending on the version of <code>dplyr</code>, you may or may need to use the <code>ungroup()</code> if you want to group your data on some other variables. In the newer versions, <code>summarise</code> and <code>mutate</code> drop one aggregation level.</p>
-<pre><code>flights %&gt;%
-  group_by(origin) %&gt;%
-  mutate(mean_delay_orig = (mean(dep_delay, na.rm = T) + mean(arr_delay, na.rm = T)) / 2) %&gt;%
-  ungroup() %&gt;%
-  group_by(carrier) %&gt;%
-  mutate(mean_delay_carr = (mean(dep_delay, na.rm = T) + mean(arr_delay, na.rm = T)) / 2) %&gt;%
-  select(origin, carrier, mean_delay_orig, mean_delay_carr)</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(origin) <span class="sc">%&gt;%</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mean_delay_orig =</span> (<span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> T) <span class="sc">+</span> <span class="fu">mean</span>(arr_delay, <span class="at">na.rm =</span> T)) <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(carrier) <span class="sc">%&gt;%</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mean_delay_carr =</span> (<span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> T) <span class="sc">+</span> <span class="fu">mean</span>(arr_delay, <span class="at">na.rm =</span> T)) <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(origin, carrier, mean_delay_orig, mean_delay_carr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </div>
 </section>
@@ -979,7 +1011,7 @@ Note on <code>ungroup</code>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="index_files/figure-html/unnamed-chunk-34-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="index_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="index_files/figure-html/unnamed-chunk-43-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="index_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -994,7 +1026,7 @@ Note on <code>ungroup</code>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="index_files/figure-html/unnamed-chunk-36-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="index_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="index_files/figure-html/unnamed-chunk-45-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="index_files/figure-html/unnamed-chunk-45-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1004,42 +1036,12 @@ Note on <code>ungroup</code>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">right_join</span>(set1, set2, <span class="at">by =</span> <span class="st">'id'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<div class="kable-table">
-<table class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;">id</th>
-<th style="text-align: left;">color</th>
-<th style="text-align: left;">size</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">id2</td>
-<td style="text-align: left;">green</td>
-<td style="text-align: left;">XL</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">id3</td>
-<td style="text-align: left;">blue</td>
-<td style="text-align: left;">M</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">id4</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">M</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 </div>
 <div class="cell" data-layout-align="left">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="index_files/figure-html/unnamed-chunk-38-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="index_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="index_files/figure-html/unnamed-chunk-47-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="index_files/figure-html/unnamed-chunk-47-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1051,57 +1053,12 @@ Note on <code>ungroup</code>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">semi_join</span>(set1, set2, <span class="at">by =</span> <span class="st">'id'</span>) <span class="co"># semi_join removes duplicates in x</span></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="co"># and also returns only columns from x.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<div class="kable-table">
-<table class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;">id</th>
-<th style="text-align: left;">color</th>
-<th style="text-align: left;">size</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">id2</td>
-<td style="text-align: left;">green</td>
-<td style="text-align: left;">XL</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">id3</td>
-<td style="text-align: left;">blue</td>
-<td style="text-align: left;">M</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="kable-table">
-<table class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;">id</th>
-<th style="text-align: left;">color</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">id2</td>
-<td style="text-align: left;">green</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">id3</td>
-<td style="text-align: left;">blue</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 </div>
 <div class="cell" data-layout-align="left">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="index_files/figure-html/unnamed-chunk-40-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="index_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="index_files/figure-html/unnamed-chunk-49-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="index_files/figure-html/unnamed-chunk-49-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1111,52 +1068,12 @@ Note on <code>ungroup</code>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">full_join</span>(set1, set2, <span class="at">by =</span> <span class="st">'id'</span>) <span class="co"># or</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<div class="kable-table">
-<table class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;">id</th>
-<th style="text-align: left;">color</th>
-<th style="text-align: left;">size</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">id1</td>
-<td style="text-align: left;">grey</td>
-<td style="text-align: left;">NA</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">id1</td>
-<td style="text-align: left;">red</td>
-<td style="text-align: left;">NA</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">id2</td>
-<td style="text-align: left;">green</td>
-<td style="text-align: left;">XL</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">id3</td>
-<td style="text-align: left;">blue</td>
-<td style="text-align: left;">M</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">id4</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">M</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 </div>
 <div class="cell" data-layout-align="left">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="index_files/figure-html/unnamed-chunk-42-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="index_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="index_files/figure-html/unnamed-chunk-51-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="index_files/figure-html/unnamed-chunk-51-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1166,28 +1083,6 @@ Note on <code>ungroup</code>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anti_join</span>(set1, set2, <span class="at">by =</span> <span class="st">'id'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<div class="kable-table">
-<table class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;">id</th>
-<th style="text-align: left;">color</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">id1</td>
-<td style="text-align: left;">grey</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">id1</td>
-<td style="text-align: left;">red</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 </div>
 </section>
 </section>
@@ -1219,7 +1114,7 @@ Note on <code>ungroup</code>
 </details>
 </div>
 <ul>
-<li>The <code>storms</code> dataset contains the <code>date</code> column. Make it into 3 columns: <code>year</code>, <code>month</code> and <code>day</code>. Store the result as <code>tidy_storms</code></li>
+<li>The <code>storms</code> dataset contains the <code>date</code> column. Make it into 3 columns: <code>year</code>, <code>month</code> and <code>day</code>. Store the result as <code>tidy_storms</code>.</li>
 </ul>
 <div class="cell">
 <details>
@@ -1238,65 +1133,13 @@ Note on <code>ungroup</code>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>tidy_storms <span class="sc">%&gt;%</span> <span class="fu">unite</span>(<span class="at">col =</span> <span class="st">"date"</span>, <span class="dv">4</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">sep =</span> <span class="st">"/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<div class="kable-table">
-<table class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;">storm</th>
-<th style="text-align: right;">wind</th>
-<th style="text-align: right;">pressure</th>
-<th style="text-align: left;">date</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Alberto</td>
-<td style="text-align: right;">110</td>
-<td style="text-align: right;">1007</td>
-<td style="text-align: left;">2000/08/03</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Alex</td>
-<td style="text-align: right;">45</td>
-<td style="text-align: right;">1009</td>
-<td style="text-align: left;">1998/07/27</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Allison</td>
-<td style="text-align: right;">65</td>
-<td style="text-align: right;">1005</td>
-<td style="text-align: left;">1995/06/03</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Ana</td>
-<td style="text-align: right;">40</td>
-<td style="text-align: right;">1013</td>
-<td style="text-align: left;">1997/06/30</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Arlene</td>
-<td style="text-align: right;">50</td>
-<td style="text-align: right;">1010</td>
-<td style="text-align: left;">1999/06/11</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Arthur</td>
-<td style="text-align: right;">45</td>
-<td style="text-align: right;">1010</td>
-<td style="text-align: left;">1996/06/17</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 </div>
 </section>
 <section id="nanopore-channel-activity-challenge" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="nanopore-channel-activity-challenge"><span class="header-section-number">4</span> Nanopore Channel Activity Challenge</h2>
 <section id="introduction" class="level3" data-number="4.1">
 <h3 data-number="4.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">4.1</span> Introduction</h3>
-<p>You will be given a <code>fastq</code> file coming from MinION sequencer (Oxford Nanopore). This file contains test reads from the chicken genome. The flow-cell used here has 512 channels, each channel consists of 4 pores and only one pore is active at a time. Once your sequence gets stuck for some reason, the device will attempt to remove it from the pore by playing with reversing polarity on that pore. If this was successful, the pore will be re-used. Your task will be to visualize reading events from the meta-data in the <code>fastq</code> dataset and to see how each and every channel behaved. Also, you will plot the distribution of reading times.</p>
+<p>You will be given a <code>fastq</code> file coming from Oxford Nanopore MinION sequencer This file contains test reads from the chicken genome. The flow-cell used here has 512 channels, each channel consists of 4 pores and only one pore is active at a time. Once your sequence gets stuck for some reason, the device will attempt to remove it from the pore by playing with reversing polarity on that pore. If this was successful, the pore will be re-used. Your task will be to visualize reading events from the meta-data in the <code>fastq</code> dataset and to see how each and every channel behaved. Also, you will plot the distribution of reading times.</p>
 <p>Datasets are available <a href="https://www.dropbox.com/s/dxxt959g6iefeaf/tidyverse_lab_data.zip?dl=0">here</a>.</p>
 </section>
 <section id="preparations" class="level3" data-number="4.2">
@@ -2391,7 +2234,7 @@ strict &lt;- F</code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="index_files/figure-html/unnamed-chunk-58-1.png" class="lightbox" title="Red – only one species in the current OTU, blue – identification above the threshold, grey – identification below the threshold" data-gallery="quarto-lightbox-gallery-8"><img src="index_files/figure-html/unnamed-chunk-58-1.png" class="img-fluid figure-img" width="864"></a></p>
+<p><a href="index_files/figure-html/unnamed-chunk-67-1.png" class="lightbox" title="Red – only one species in the current OTU, blue – identification above the threshold, grey – identification below the threshold" data-gallery="quarto-lightbox-gallery-8"><img src="index_files/figure-html/unnamed-chunk-67-1.png" class="img-fluid figure-img" width="864"></a></p>
 <figcaption class="figure-caption">Red – only one species in the current OTU, blue – identification above the threshold, grey – identification below the threshold</figcaption>
 </figure>
 </div>
@@ -2650,7 +2493,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-right">Published with <a href="https://quarto.org/">Quarto</a> v1.3.340</div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","loop":true,"descPosition":"bottom","selector":".lightbox","closeEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","descPosition":"bottom","openEffect":"zoom","loop":true});</script>
 
 
 

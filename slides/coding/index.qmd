@@ -200,8 +200,6 @@ It is also important to maintain code readability by having your variable names:
 
 ## Special Variable Names
 
-Few more things to consider:
-
 - There are built-in variable names:
 
   - `LETTERS`: the 26 upper-case letters of the Roman alphabet
@@ -275,11 +273,8 @@ new_counter <- function() {
   }
 }
 
-counter1 <- new_counter()
-counter2 <- new_counter()
-counter1()
-counter1()
-counter2()
+counter1 <- new_counter(); counter2 <- new_counter()
+counter1(); counter1(); counter2()
 ```
 
 [based on Stackoverflow [answer](https://stackoverflow.com/questions/2628621/how-do-you-use-scoping-assignment-in-r)]{.smaller}

@@ -409,7 +409,7 @@ Marcin Kierczak
 </div>
 </div>
 
-  <p class="date">13-Mar-2023</p>
+  <p class="date">08-Jun-2023</p>
 </section>
 
 <section id="learning-outcomes" class="slide level2">
@@ -454,17 +454,27 @@ Marcin Kierczak
 <h2>Repeating actions — vectorization</h2>
 <p>Let us compare the time of execution of the vectorized version (vector with 10,000 elements):</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fl">1e6</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a>peakRAM<span class="sc">::</span><span class="fu">peakRAM</span>(vec <span class="ot">&lt;-</span> vec <span class="sc">+</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   user  system elapsed 
-  0.003   0.004   0.007 </code></pre>
+<pre><code>  Function_Call Elapsed_Time_sec Total_RAM_Used_MiB Peak_RAM_Used_MiB
+1    vec&lt;-vec+1            0.004                3.8               7.6</code></pre>
 </div>
 </div>
 <div class="fragment">
 <p>to the loop version:</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fl">1e6</span>)</span>
+<span id="cb7-2"><a href="#cb7-2"></a>loop <span class="ot">&lt;-</span> <span class="cf">function</span>(vec) {</span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> vec) {</span>
+<span id="cb7-4"><a href="#cb7-4"></a>    vec[i] <span class="ot">&lt;-</span> vec[i] <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>  }</span>
+<span id="cb7-6"><a href="#cb7-6"></a>  <span class="fu">return</span>(vec)</span>
+<span id="cb7-7"><a href="#cb7-7"></a>}</span>
+<span id="cb7-8"><a href="#cb7-8"></a>peakRAM<span class="sc">::</span><span class="fu">peakRAM</span>(<span class="fu">loop</span>(vec))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   user  system elapsed 
-  0.060   0.008   0.067 </code></pre>
+<pre><code>  Function_Call Elapsed_Time_sec Total_RAM_Used_MiB Peak_RAM_Used_MiB
+1     loop(vec)            0.055                7.6               7.7</code></pre>
 </div>
 </div>
 </div>
@@ -472,17 +482,17 @@ Marcin Kierczak
 <section id="vectorization-the-problem" class="slide level2">
 <h2>Vectorization — the problem</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>is_a_droid <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb7-2"><a href="#cb7-2"></a>  droids <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'2-1B'</span>, <span class="st">'4-LOM'</span>, <span class="st">'8D8'</span>, <span class="st">'0-0-0'</span>, <span class="st">'AP-5'</span>, <span class="st">'AZI-3'</span>, <span class="st">'Mister Bones'</span>, <span class="st">'BB-8'</span>, <span class="st">'BB-9E'</span>, <span class="st">'BD-1'</span>, <span class="st">'BT-1'</span>, <span class="st">'C1-10P'</span>, <span class="st">'C-3PO'</span>, <span class="st">'R2-D2'</span>)</span>
-<span id="cb7-3"><a href="#cb7-3"></a>  <span class="cf">if</span> (x <span class="sc">%in%</span> droids) {</span>
-<span id="cb7-4"><a href="#cb7-4"></a>    <span class="fu">return</span>(T)</span>
-<span id="cb7-5"><a href="#cb7-5"></a>  } <span class="cf">else</span> {</span>
-<span id="cb7-6"><a href="#cb7-6"></a>    <span class="fu">return</span>(F)</span>
-<span id="cb7-7"><a href="#cb7-7"></a>  }</span>
-<span id="cb7-8"><a href="#cb7-8"></a>}</span>
-<span id="cb7-9"><a href="#cb7-9"></a></span>
-<span id="cb7-10"><a href="#cb7-10"></a>test <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Anakin'</span>, <span class="st">'Vader'</span>, <span class="st">'R2-D2'</span>, <span class="st">'AZI-3'</span>, <span class="st">'Luke'</span>)</span>
-<span id="cb7-11"><a href="#cb7-11"></a><span class="fu">is_a_droid</span>(test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>is_a_droid <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb9-2"><a href="#cb9-2"></a>  droids <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'2-1B'</span>, <span class="st">'4-LOM'</span>, <span class="st">'8D8'</span>, <span class="st">'0-0-0'</span>, <span class="st">'AP-5'</span>, <span class="st">'AZI-3'</span>, <span class="st">'Mister Bones'</span>, <span class="st">'BB-8'</span>, <span class="st">'BB-9E'</span>, <span class="st">'BD-1'</span>, <span class="st">'BT-1'</span>, <span class="st">'C1-10P'</span>, <span class="st">'C-3PO'</span>, <span class="st">'R2-D2'</span>)</span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="cf">if</span> (x <span class="sc">%in%</span> droids) {</span>
+<span id="cb9-4"><a href="#cb9-4"></a>    <span class="fu">return</span>(T)</span>
+<span id="cb9-5"><a href="#cb9-5"></a>  } <span class="cf">else</span> {</span>
+<span id="cb9-6"><a href="#cb9-6"></a>    <span class="fu">return</span>(F)</span>
+<span id="cb9-7"><a href="#cb9-7"></a>  }</span>
+<span id="cb9-8"><a href="#cb9-8"></a>}</span>
+<span id="cb9-9"><a href="#cb9-9"></a></span>
+<span id="cb9-10"><a href="#cb9-10"></a>test <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Anakin'</span>, <span class="st">'Vader'</span>, <span class="st">'R2-D2'</span>, <span class="st">'AZI-3'</span>, <span class="st">'Luke'</span>)</span>
+<span id="cb9-11"><a href="#cb9-11"></a><span class="fu">is_a_droid</span>(test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in if (x %in% droids) {: the condition has length &gt; 1</code></pre>
 </div>
@@ -492,8 +502,8 @@ Marcin Kierczak
 <h2>Vectorization — the solution(s)</h2>
 <p>The <code>base::Vectorize</code> way:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>vectorized_is_a_droid <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">Vectorize</span>(is_a_droid, <span class="at">vectorize.args =</span> <span class="fu">c</span>(<span class="st">'x'</span>))</span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">vectorized_is_a_droid</span>(test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>vectorized_is_a_droid <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">Vectorize</span>(is_a_droid, <span class="at">vectorize.args =</span> <span class="fu">c</span>(<span class="st">'x'</span>))</span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">vectorized_is_a_droid</span>(test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Anakin  Vader  R2-D2  AZI-3   Luke 
  FALSE  FALSE   TRUE   TRUE  FALSE </code></pre>
@@ -502,7 +512,7 @@ Marcin Kierczak
 <div class="fragment">
 <p>The <code>apply*</code> way:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">apply</span>(<span class="fu">as.matrix</span>(test), <span class="at">FUN =</span> is_a_droid, <span class="at">MARGIN =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">apply</span>(<span class="fu">as.matrix</span>(test), <span class="at">FUN =</span> is_a_droid, <span class="at">MARGIN =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE FALSE  TRUE  TRUE FALSE</code></pre>
 </div>
@@ -510,7 +520,7 @@ Marcin Kierczak
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">lapply</span>(test, <span class="at">FUN=</span>is_a_droid) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">lapply</span>(test, <span class="at">FUN=</span>is_a_droid) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>() <span class="co"># list apply</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE FALSE  TRUE  TRUE FALSE</code></pre>
 </div>
@@ -518,7 +528,7 @@ Marcin Kierczak
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">sapply</span>(test, is_a_droid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">sapply</span>(test, is_a_droid) <span class="co"># simplified lapply</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Anakin  Vader  R2-D2  AZI-3   Luke 
  FALSE  FALSE   TRUE   TRUE  FALSE </code></pre>
@@ -530,29 +540,18 @@ Marcin Kierczak
 <h2>Vectorization — the solution(s)</h2>
 <p>The <code>vapply</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">vapply</span>(test, is_a_droid, <span class="at">FUN.VALUE =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">vapply</span>(test, is_a_droid, <span class="at">FUN.VALUE =</span> <span class="cn">TRUE</span>) <span class="co"># value type-safe sapply </span></span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="fu">vapply</span>(test, is_a_droid, <span class="at">FUN.VALUE =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Anakin  Vader  R2-D2  AZI-3   Luke 
- FALSE  FALSE   TRUE   TRUE  FALSE </code></pre>
-</div>
-</div>
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">vapply</span>(test, is_a_droid, <span class="at">FUN.VALUE =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Anakin  Vader  R2-D2  AZI-3   Luke 
+ FALSE  FALSE   TRUE   TRUE  FALSE 
+Anakin  Vader  R2-D2  AZI-3   Luke 
      0      0      1      1      0 </code></pre>
 </div>
 </div>
-</div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">vapply</span>(test, is_a_droid, <span class="at">FUN.VALUE =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in vapply(test, is_a_droid, FUN.VALUE = c(1, 0)): values must be length 2,
- but FUN(X[[1]]) result is length 1</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">vapply</span>(test, is_a_droid, <span class="at">FUN.VALUE =</span> <span class="st">'a'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">vapply</span>(test, is_a_droid, <span class="at">FUN.VALUE =</span> <span class="st">'a'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in vapply(test, is_a_droid, FUN.VALUE = "a"): values must be type 'character',
  but FUN(X[[1]]) result is type 'logical'</code></pre>
@@ -562,7 +561,7 @@ Marcin Kierczak
 <div class="fragment">
 <p>Or the <code>purrr</code> way:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>purrr<span class="sc">::</span><span class="fu">map</span>(test, is_a_droid) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>purrr<span class="sc">::</span><span class="fu">map</span>(test, is_a_droid) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE FALSE  TRUE  TRUE FALSE</code></pre>
 </div>
@@ -573,67 +572,41 @@ Marcin Kierczak
 <h2>Recursion</h2>
 <p>When we explicitly repeat an action using a loop, we talk about <strong>iteration</strong>. We can also repeat actions by means of <strong>recursion</strong>, i.e.&nbsp;when a function calls itself. Let us implement a factorial <span class="math inline">\(!\)</span>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>factorial.rec <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb27-2"><a href="#cb27-2"></a>  <span class="cf">if</span> (x <span class="sc">==</span> <span class="dv">0</span> <span class="sc">||</span> x <span class="sc">==</span> <span class="dv">1</span>)</span>
-<span id="cb27-3"><a href="#cb27-3"></a>    <span class="fu">return</span>(<span class="dv">1</span>)</span>
-<span id="cb27-4"><a href="#cb27-4"></a>  <span class="cf">else</span></span>
-<span id="cb27-5"><a href="#cb27-5"></a>    <span class="fu">return</span>(x <span class="sc">*</span> <span class="fu">factorial.rec</span>(x <span class="sc">-</span> <span class="dv">1</span>)) <span class="co"># Recursive call!</span></span>
-<span id="cb27-6"><a href="#cb27-6"></a>}</span>
-<span id="cb27-7"><a href="#cb27-7"></a><span class="fu">factorial.rec</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>factorial_rec <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb25-2"><a href="#cb25-2"></a>  <span class="cf">if</span> (x <span class="sc">==</span> <span class="dv">0</span> <span class="sc">||</span> x <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb25-3"><a href="#cb25-3"></a>    <span class="fu">return</span>(<span class="dv">1</span>)</span>
+<span id="cb25-4"><a href="#cb25-4"></a>  <span class="cf">else</span></span>
+<span id="cb25-5"><a href="#cb25-5"></a>    <span class="fu">return</span>(x <span class="sc">*</span> <span class="fu">factorial_rec</span>(x <span class="sc">-</span> <span class="dv">1</span>)) <span class="co"># Recursive call!</span></span>
+<span id="cb25-6"><a href="#cb25-6"></a>}</span>
+<span id="cb25-7"><a href="#cb25-7"></a><span class="fu">factorial_rec</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 120</code></pre>
 </div>
 </div>
 </section>
-<section id="recursion-iteration" class="slide level2">
-<h2>Recursion = iteration?</h2>
-<p>Yes, every iteration can be converted to recursion (Church-Turing conjecture) and <em>vice versa</em>. It is not always obvious, but theoretically it is doable. Let’s see how to implement <em>factorial</em> in iterative manner:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>factorial.iter <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb29-2"><a href="#cb29-2"></a>  <span class="cf">if</span> (x <span class="sc">==</span> <span class="dv">0</span> <span class="sc">||</span> x <span class="sc">==</span> <span class="dv">1</span>)</span>
-<span id="cb29-3"><a href="#cb29-3"></a>    <span class="fu">return</span>(<span class="dv">1</span>)</span>
-<span id="cb29-4"><a href="#cb29-4"></a>  <span class="cf">else</span> {</span>
-<span id="cb29-5"><a href="#cb29-5"></a>    tmp <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb29-6"><a href="#cb29-6"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>x) {</span>
-<span id="cb29-7"><a href="#cb29-7"></a>      tmp <span class="ot">&lt;-</span> tmp <span class="sc">*</span> i</span>
-<span id="cb29-8"><a href="#cb29-8"></a>    }</span>
-<span id="cb29-9"><a href="#cb29-9"></a>    <span class="fu">return</span>(tmp)  </span>
-<span id="cb29-10"><a href="#cb29-10"></a>  }</span>
-<span id="cb29-11"><a href="#cb29-11"></a>}</span>
-<span id="cb29-12"><a href="#cb29-12"></a><span class="fu">factorial.iter</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 120</code></pre>
-</div>
-</div>
-</section>
-<section id="recursion-iteration-really" class="slide level2">
-<h2>Recursion == iteration, really?</h2>
-<p>More writing for the iterative version, right? What about the time efficiency?<br>
-The recursive version:</p>
-<p>And the iterative one:</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>         Function_Call Elapsed_Time_sec Total_RAM_Used_MiB Peak_RAM_Used_MiB
-1 factorial.iter(2000)            0.003                  0               0.1</code></pre>
-</div>
-</div>
+<section id="to-recurse-or-to-iterate" class="slide level2">
+<h2>To recurse or to iterate?</h2>
+<pre><code>Comparing recursion to iteration is like comparing a phillips head screwdriver to a flat head screwdriver. For the most part you could remove any phillips head screw with a flat head, but it would just be easier if you used the screwdriver designed for that screw right?
+
+Some algorithms just lend themselves to recursion because of the way they are designed (Fibonacci sequences, traversing a tree like structure, etc.). Recursion makes the algorithm more succinct and easier to understand (therefore shareable and reusable)</code></pre>
+<p>– <a href="https://stackoverflow.com/questions/72209/recursion-or-iteration">StackOverflow</a></p>
 </section>
 <section id="loops-avoid-growing-data" class="slide level2">
 <h2>Loops — avoid growing data</h2>
 <p>Avoid changing dimensions of an object inside the loop:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>() <span class="co"># Initialize</span></span>
-<span id="cb32-2"><a href="#cb32-2"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
-<span id="cb32-3"><a href="#cb32-3"></a>  v <span class="ot">&lt;-</span> <span class="fu">c</span>(v, i)</span>
-<span id="cb32-4"><a href="#cb32-4"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>() <span class="co"># Initialize</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb28-3"><a href="#cb28-3"></a>  v <span class="ot">&lt;-</span> <span class="fu">c</span>(v, i)</span>
+<span id="cb28-4"><a href="#cb28-4"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p>It is much better to do it like this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>v <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">100</span>) <span class="co"># Initialize with length</span></span>
-<span id="cb33-2"><a href="#cb33-2"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
-<span id="cb33-3"><a href="#cb33-3"></a>  v[i] <span class="ot">&lt;-</span> i</span>
-<span id="cb33-4"><a href="#cb33-4"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>v <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">100</span>) <span class="co"># Initialize with length</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb29-3"><a href="#cb29-3"></a>  v[i] <span class="ot">&lt;-</span> i</span>
+<span id="cb29-4"><a href="#cb29-4"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -650,6 +623,47 @@ minor    2.2                   </code></pre>
 </div>
 </div>
 <p><span class="smaller">2023 • <a href="https://www.scilifelab.se/">SciLifeLab</a> • <a href="https://nbis.se/">NBIS</a> • <a href="https://nbisweden.github.io/workshop-RaukR-2306/">RaukR</a></span></p>
+</section>
+<section id="recursion-iteration" class="slide level2">
+<h2>Recursion = iteration?</h2>
+<p>Yes, every iteration can be converted to recursion (Church-Turing conjecture) and <em>vice versa</em>. It is not always obvious, but theoretically it is doable. Let’s see how to implement <em>factorial</em> in iterative manner:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>factorial_iter <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb31-2"><a href="#cb31-2"></a>  <span class="cf">if</span> (x <span class="sc">==</span> <span class="dv">0</span> <span class="sc">||</span> x <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb31-3"><a href="#cb31-3"></a>    <span class="fu">return</span>(<span class="dv">1</span>)</span>
+<span id="cb31-4"><a href="#cb31-4"></a>  <span class="cf">else</span> {</span>
+<span id="cb31-5"><a href="#cb31-5"></a>    tmp <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb31-6"><a href="#cb31-6"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>x) {</span>
+<span id="cb31-7"><a href="#cb31-7"></a>      tmp <span class="ot">&lt;-</span> tmp <span class="sc">*</span> i</span>
+<span id="cb31-8"><a href="#cb31-8"></a>    }</span>
+<span id="cb31-9"><a href="#cb31-9"></a>    <span class="fu">return</span>(tmp)  </span>
+<span id="cb31-10"><a href="#cb31-10"></a>  }</span>
+<span id="cb31-11"><a href="#cb31-11"></a>}</span>
+<span id="cb31-12"><a href="#cb31-12"></a><span class="fu">factorial_iter</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 120</code></pre>
+</div>
+</div>
+</section>
+<section id="recursion-iteration-really" class="slide level2">
+<h2>Recursion == iteration, really?</h2>
+<p>More writing for the iterative version, right? What about the time efficiency?<br>
+The recursive version:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>peakRAM<span class="sc">::</span><span class="fu">peakRAM</span>(<span class="fu">factorial_rec</span>(<span class="dv">1000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        Function_Call Elapsed_Time_sec Total_RAM_Used_MiB Peak_RAM_Used_MiB
+1 factorial_rec(1000)            0.003                  0               0.1</code></pre>
+</div>
+</div>
+<p>And the iterative one:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>peakRAM<span class="sc">::</span><span class="fu">peakRAM</span>(<span class="fu">factorial_iter</span>(<span class="dv">1000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         Function_Call Elapsed_Time_sec Total_RAM_Used_MiB Peak_RAM_Used_MiB
+1 factorial_iter(1000)            0.004                  0               0.1</code></pre>
+</div>
+</div>
 
 <div class="footer footer-default">
 
