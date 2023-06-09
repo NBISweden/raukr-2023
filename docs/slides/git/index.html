@@ -576,12 +576,117 @@ Sebastian DiLorenzo
 <h2>git set-up</h2>
 <p><br></p>
 <h4 id="personal-access-token-pat">Personal Access Token (PAT)</h4>
+<ul>
+<li>Credentials</li>
+<li>Scope
+<ul>
+<li>“What is this PAT allowed to modify?”</li>
+</ul></li>
+<li>No password prompt when uploading/downloading data.</li>
+</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>usethis<span class="sc">::</span><span class="fu">use_git_config</span>(<span class="at">user.name =</span> <span class="st">"Jane Doe"</span>, <span class="at">user.email =</span> <span class="st">"jane@example.com"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#Takes you to github.com create new token.</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>usethis<span class="sc">::</span><span class="fu">create_github_token</span>()</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#Use to set your new token in your configuration</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>gitcreds<span class="sc">::</span><span class="fu">gitcreds_set</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <aside class="notes">
-<p>When we interact with a remote Git server, such as GitHub, we have to include credentials in the request. This proves we are a specific GitHub user, who’s allowed to do whatever we’re asking to do. What we are allowed to do with a certain PAT is the <strong>scope</strong> of the PAT. Now that your git PAT usethis::create_github_token() gitcreds::gitcreds_set() credentials::set_github_pat(“my_pat”)</p>
-<p>change commit add status</p>
+<p>When we interact with a remote Git server, such as GitHub, we have to include credentials in the request. This proves we are a specific GitHub user, who’s allowed to do whatever we’re asking to do. What we are allowed to do with a certain PAT is the <strong>scope</strong> of the PAT.</p>
+<p><strong>DEMO create_github_token</strong></p>
+<p>Once we have created our token we can save it in a password manager if you are using that. Then set it with our configuration with gitcreds_set(). Let’s do this now, then check out gitcreds_sitrep().</p>
+<p>usethis::create_github_token() gitcreds::gitcreds_set() credentials::set_github_pat(“my_pat”)</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="git-for-yourself" class="slide level2">
+<h2>git for yourself</h2>
+<p><img data-src="assets/git_text.png" height="400"></p>
+<aside class="notes">
+<p>Now that we hopefully are all set-up, lets finally take a look at actually working with git. As a user, git is a folder and collection of files on your computer that you have initiated git version control on. A repository.</p>
+<p>To revert: git reset HEAD~</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="git-for-yourself-1" class="slide level2">
+<h2>git for yourself</h2>
+<p><img data-src="assets/git_text.png" height="400"></p>
+<p>Workflow:</p>
+<ul>
+<li>Make some changes.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><code>git add</code> the new or changed files.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><code>git commit</code> the current state of repository.</li>
+</ul>
+<aside class="notes">
+<p>As you make changes to the files you can save the current state of the files. This is called a <strong>commit</strong>. You can and should give the commit some message describing what you have done. “Fixed bug A”, “Created function B”, “Added a bunch of new images”. It is these commits then that you can revert to as necessary. <strong>DEMO RSTUDIO</strong></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="git-for-yourself-2" class="slide level2">
+<h2>git for yourself</h2>
+<p><img data-src="assets/git_text.png" height="400"></p>
+<p>Useful commands:</p>
+<ul>
+<li><code>git status</code> lists changes in your repository.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><code>git diff</code> shows the difference between a file and its last commit state.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><code>git reset</code> go to a previous commit state.</li>
+</ul>
+<aside class="notes">
+<p>git status git reset HEAD~</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<aside class="notes">
 <p>diff</p>
 <p>later, push/pull with github. clone</p>
 <p>Git and Rstudio: Clone a repo using rstudio File &gt; New Project &gt; Version Control &gt; Git</p>
@@ -598,6 +703,7 @@ Sebastian DiLorenzo
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</div>
 </section>
 <section id="project-setup" class="slide level2">
 <h2>Project setup</h2>

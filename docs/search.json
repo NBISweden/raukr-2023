@@ -3616,6 +3616,27 @@
     "href": "slides/git/index.html#git-set-up-3",
     "title": "git and R",
     "section": "git set-up",
-    "text": "git set-up\n\nPersonal Access Token (PAT)\n\nusethis::use_git_config(user.name = \"Jane Doe\", user.email = \"jane@example.com\")\n\n\nWhen we interact with a remote Git server, such as GitHub, we have to include credentials in the request. This proves we are a specific GitHub user, who’s allowed to do whatever we’re asking to do. What we are allowed to do with a certain PAT is the scope of the PAT. Now that your git PAT usethis::create_github_token() gitcreds::gitcreds_set() credentials::set_github_pat(“my_pat”)\nchange commit add status\ndiff\nlater, push/pull with github. clone\nGit and Rstudio: Clone a repo using rstudio File &gt; New Project &gt; Version Control &gt; Git\nConnect existing code to new github repo: usethis::use_git() usethis::use_github()\nMention branches? Mention merge conflicts? Mention remotes? Maybe “What is a remote and why is it useful”, and then do the “how” in lab? Could just teach them the github way of sync instead… easier. mention github actions, what it does, but not how to set it up? Maybe add as advanced topic for lab. Git clients. Mentioned here but not taught."
+    "text": "git set-up\n\nPersonal Access Token (PAT)\n\nCredentials\nScope\n\n“What is this PAT allowed to modify?”\n\nNo password prompt when uploading/downloading data.\n\n\n#Takes you to github.com create new token.\nusethis::create_github_token()\n\n#Use to set your new token in your configuration\ngitcreds::gitcreds_set()\n\n\nWhen we interact with a remote Git server, such as GitHub, we have to include credentials in the request. This proves we are a specific GitHub user, who’s allowed to do whatever we’re asking to do. What we are allowed to do with a certain PAT is the scope of the PAT.\nDEMO create_github_token\nOnce we have created our token we can save it in a password manager if you are using that. Then set it with our configuration with gitcreds_set(). Let’s do this now, then check out gitcreds_sitrep().\nusethis::create_github_token() gitcreds::gitcreds_set() credentials::set_github_pat(“my_pat”)"
+  },
+  {
+    "objectID": "slides/git/index.html#git-for-yourself",
+    "href": "slides/git/index.html#git-for-yourself",
+    "title": "git and R",
+    "section": "git for yourself",
+    "text": "git for yourself\n\n\nNow that we hopefully are all set-up, lets finally take a look at actually working with git. As a user, git is a folder and collection of files on your computer that you have initiated git version control on. A repository.\nTo revert: git reset HEAD~"
+  },
+  {
+    "objectID": "slides/git/index.html#git-for-yourself-1",
+    "href": "slides/git/index.html#git-for-yourself-1",
+    "title": "git and R",
+    "section": "git for yourself",
+    "text": "git for yourself\n\nWorkflow:\n\nMake some changes.\n\n\n\ngit add the new or changed files.\n\n\n\n\ngit commit the current state of repository.\n\n\nAs you make changes to the files you can save the current state of the files. This is called a commit. You can and should give the commit some message describing what you have done. “Fixed bug A”, “Created function B”, “Added a bunch of new images”. It is these commits then that you can revert to as necessary. DEMO RSTUDIO"
+  },
+  {
+    "objectID": "slides/git/index.html#git-for-yourself-2",
+    "href": "slides/git/index.html#git-for-yourself-2",
+    "title": "git and R",
+    "section": "git for yourself",
+    "text": "git for yourself\n\nUseful commands:\n\ngit status lists changes in your repository.\n\n\n\ngit diff shows the difference between a file and its last commit state.\n\n\n\n\ngit reset go to a previous commit state.\n\n\ngit status git reset HEAD~\n\n\ndiff\nlater, push/pull with github. clone\nGit and Rstudio: Clone a repo using rstudio File &gt; New Project &gt; Version Control &gt; Git\nConnect existing code to new github repo: usethis::use_git() usethis::use_github()\nMention branches? Mention merge conflicts? Mention remotes? Maybe “What is a remote and why is it useful”, and then do the “how” in lab? Could just teach them the github way of sync instead… easier. mention github actions, what it does, but not how to set it up? Maybe add as advanced topic for lab. Git clients. Mentioned here but not taught."
   }
 ]

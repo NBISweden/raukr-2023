@@ -189,32 +189,65 @@ credentials::set_github_pat("my_pat")
 
 ## git for yourself
 
-:::: {.columns}
-::: {.column width="25%"}
-
-<br>
-
-- Track changes
-- Revert changes
-- Reproducibility
-- Backups
-- Working with others
-:::
-
-::: {.column width="75%"}
-![](assets/tree.png){width="80%"}
-:::
-:::: 
-
+![](assets/git_text.png){height="400px"}
 
 ::: notes
-Now that we hopefully are all set-up, lets finally take a look at actually working with git.
+Now that we hopefully are all set-up, lets finally take a look at actually working with git. As a user, git is a folder and collection of files on your computer that you have initiated git version control on. A repository. 
 
-change
-commit
-add
-status
+To revert:
+git reset HEAD~
+:::
 
+## git for yourself
+
+![](assets/git_text.png){height="400px"}
+
+Workflow:
+
+- Make some changes.
+
+. . .
+
+- `git add` the new or changed files.
+
+. . .
+
+- `git commit` the current state of repository.
+
+::: notes
+As you make changes to the files you can save the current state of the files. This is called a **commit**. You can and should give the commit some message describing what you have done. "Fixed bug A", "Created function B", "Added a bunch of new images". It is these commits then that you can revert to as necessary.
+**DEMO RSTUDIO**
+::: 
+
+## git for yourself
+
+![](assets/git_text.png){height="400px"}
+
+Useful commands:
+
+- `git status` lists changes in your repository.
+
+. . .
+
+- `git diff` shows the difference between a file and its last commit state.
+
+. . .
+
+- `git reset` go to a previous commit state.
+
+. . .
+
+- `usethis::use_git()`, initialize git in a project that did not have git activated.
+
+::: notes
+git status
+git reset HEAD~
+usethis::use_git()
+
+**DEMO**
+::: 
+
+::: notes
 diff
 
 later, push/pull with github.
@@ -224,7 +257,6 @@ Git and Rstudio:
 Clone a repo using rstudio File > New Project > Version Control > Git
 
 Connect existing code to new github repo:
-usethis::use_git()
 usethis::use_github()
 
 Mention branches?
