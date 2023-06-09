@@ -18,7 +18,7 @@ library(pryr)
 library(microbenchmark)
 library(ggplot2)
 # remotes::install_github("cdeterman/gpuR")
-#library(gpuR)
+library(gpuR)
 ```
 
 ## Run Forrest, run!
@@ -48,7 +48,7 @@ prin(var1)
 mean(sum(seq((x + 2) * (y - 9 * b)))
 ```
 
-. . .s
+. . .
 
 - `r emo::ji('input_numbers')` Arithmetic 
 ```{r} 
@@ -695,11 +695,9 @@ ggplot2::autoplot(benchmrk)
 ## GPU
 
 ```{r gpu_R}
-#| eval: false
+#| eval: true
 #| cache: true
 
-library(gpuR)
-library(microbenchmark)
 A = matrix(rnorm(1000^2), nrow=1000) # stored: RAM, computed: CPU
 B = matrix(rnorm(1000^2), nrow=1000) 
 gpuA = gpuMatrix(A, type = "float") # stored: RAM, computed: GPU
@@ -722,7 +720,7 @@ bch <- microbenchmark(
 #| fig-align: center
 #| fig-height: 5
 #| fig-width: 4
-#| eval: false
+#| eval: true
 ggplot2::autoplot(bch)
 ```
 

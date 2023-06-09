@@ -858,7 +858,7 @@
     "href": "slides/debugging/index.html#types-of-bugs",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Types of bugs",
-    "text": "Types of bugs\n\n🔣 Syntax errors\n\n\nprin(var1) \nmean(sum(seq((x + 2) * (y - 9 * b)))\n\n. . .s\n\n🔢 Arithmetic\n\n\ny &lt;- 7 / 0\n\nNot in R though! y = Inf\n\n\n🍎🍊 Type\n\n\nmean('a')\n\n\n\n\n🧩 Logic\n\nEverything works and produces seemingly valid output that is WRONG!\nIMHO those are the hardest 💀 to debug!"
+    "text": "Types of bugs\n\n🔣 Syntax errors\n\n\nprin(var1) \nmean(sum(seq((x + 2) * (y - 9 * b)))\n\n\n\n🔢 Arithmetic\n\n\ny &lt;- 7 / 0\n\nNot in R though! y = Inf\n\n\n\n🍎🍊 Type\n\n\nmean('a')\n\n\n\n\n🧩 Logic\n\nEverything works and produces seemingly valid output that is WRONG!\nIMHO those are the hardest 💀 to debug!"
   },
   {
     "objectID": "slides/debugging/index.html#how-to-avoid-bugs",
@@ -886,7 +886,7 @@
     "href": "slides/debugging/index.html#final-thoughts-on-floating",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Final thoughts on floating",
-    "text": "Final thoughts on floating\n\nhead(unlist(.Machine))\n\n    double.eps double.neg.eps    double.xmin    double.xmax    double.base \n  2.220446e-16   1.110223e-16  2.225074e-308  1.797693e+308   2.000000e+00 \n double.digits \n  5.300000e+01 \n\n\n\n\nhead(unlist(.Platform))\n\n   OS.type   file.sep dynlib.ext        GUI     endian    pkgType \n    \"unix\"        \"/\"      \".so\"      \"X11\"   \"little\"   \"source\""
+    "text": "Final thoughts on floating\n\nhead(unlist(.Machine))\n\n    double.eps double.neg.eps    double.xmin    double.xmax    double.base \n  2.220446e-16   1.110223e-16  2.225074e-308  1.797693e+308   2.000000e+00 \n double.digits \n  5.300000e+01 \n\n\n\n\nhead(unlist(.Platform))\n\n                    OS.type                    file.sep \n                     \"unix\"                         \"/\" \n                 dynlib.ext                         GUI \n                      \".so\"                       \"X11\" \n                     endian                     pkgType \n                   \"little\" \"mac.binary.big-sur-x86_64\""
   },
   {
     "objectID": "slides/debugging/index.html#handling-errors",
@@ -949,14 +949,14 @@
     "href": "slides/debugging/index.html#profiling-proc.time",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Profiling – proc.time()",
-    "text": "Profiling – proc.time()\nProfiling is the process of identifying memory and time bottlenecks 🍾 in your code.\n\nproc.time()\n\n   user  system elapsed \n  2.089   0.664   1.798 \n\n\n\nuser time – CPU time charged for the execution of user instructions of the calling process,\nsystem time – CPU time charged for execution by the system on behalf of the calling process,\nelapsed time – total CPU time elapsed for the currently running R process.\n\n\n\npt1 &lt;- proc.time()\ntmp &lt;- runif(n =  10e5)\npt2 &lt;- proc.time()\npt2 - pt1\n\n   user  system elapsed \n  0.029   0.000   0.031"
+    "text": "Profiling – proc.time()\nProfiling is the process of identifying memory and time bottlenecks 🍾 in your code.\n\nproc.time()\n\n   user  system elapsed \n  2.073   0.206   2.342 \n\n\n\nuser time – CPU time charged for the execution of user instructions of the calling process,\nsystem time – CPU time charged for execution by the system on behalf of the calling process,\nelapsed time – total CPU time elapsed for the currently running R process.\n\n\n\npt1 &lt;- proc.time()\ntmp &lt;- runif(n =  10e5)\npt2 &lt;- proc.time()\npt2 - pt1\n\n   user  system elapsed \n  0.016   0.002   0.019"
   },
   {
     "objectID": "slides/debugging/index.html#profiling-system.time",
     "href": "slides/debugging/index.html#profiling-system.time",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Profiling – system.time()",
-    "text": "Profiling – system.time()\n\nsystem.time(runif(n = 10e6))\nsystem.time(rnorm(n = 10e6))\n\n   user  system elapsed \n  0.323   0.019   0.343 \n   user  system elapsed \n  0.535   0.020   0.556 \n\n\n\nAn alternative approach is to use tic and toc statements from the tictoc package.\n\nlibrary(tictoc)\ntic()\ntmp1 &lt;- runif(n = 10e6)\ntoc()\n\n0.272 sec elapsed"
+    "text": "Profiling – system.time()\n\nsystem.time(runif(n = 10e6))\nsystem.time(rnorm(n = 10e6))\n\n   user  system elapsed \n  0.224   0.020   0.243 \n   user  system elapsed \n  0.413   0.001   0.415 \n\n\n\nAn alternative approach is to use tic and toc statements from the tictoc package.\n\nlibrary(tictoc)\ntic()\ntmp1 &lt;- runif(n = 10e6)\ntoc()\n\n0.21 sec elapsed"
   },
   {
     "objectID": "slides/debugging/index.html#profiling-in-action",
@@ -977,7 +977,7 @@
     "href": "slides/debugging/index.html#profiling-our-functions",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Profiling our functions",
-    "text": "Profiling our functions\n\n\np1 &lt;- system.time(fun_fill_loop1(n = 10e4, \"runif\")) # 1 - loop, no alloc\np2 &lt;- system.time(fun_fill_loop2(n = 10e4, \"runif\")) # 2 - loop, alloc \np3 &lt;- system.time(fun_fill_vec1(n = 10e4, \"runif\"))  # 3 - vector, no alloc\np4 &lt;- system.time(fun_fill_vec2(n = 10e4, \"runif\"))  # 4 - vector, alloc\n\n\n\n\n\n\nfn\nuser.self\nsys.self\nelapsed\n\n\n\n\nfn1\n8.335\n0.064\n8.400\n\n\nfn2\n0.530\n0.004\n0.534\n\n\nfn3\n0.002\n0.000\n0.002\n\n\nfn4\n0.002\n0.000\n0.002\n\n\n\n\n\nThe system.time() function is not the most accurate though. During the lab, we will experiment with package microbenchmark."
+    "text": "Profiling our functions\n\n\np1 &lt;- system.time(fun_fill_loop1(n = 10e4, \"runif\")) # 1 - loop, no alloc\np2 &lt;- system.time(fun_fill_loop2(n = 10e4, \"runif\")) # 2 - loop, alloc \np3 &lt;- system.time(fun_fill_vec1(n = 10e4, \"runif\"))  # 3 - vector, no alloc\np4 &lt;- system.time(fun_fill_vec2(n = 10e4, \"runif\"))  # 4 - vector, alloc\n\n\n\n\n\n\nfn\nuser.self\nsys.self\nelapsed\n\n\n\n\nfn1\n14.887\n9.326\n24.465\n\n\nfn2\n0.558\n0.021\n0.580\n\n\nfn3\n0.001\n0.000\n0.001\n\n\nfn4\n0.002\n0.000\n0.002\n\n\n\n\n\nThe system.time() function is not the most accurate though. During the lab, we will experiment with package microbenchmark."
   },
   {
     "objectID": "slides/debugging/index.html#more-advanced-profiling",
@@ -1033,21 +1033,21 @@
     "href": "slides/debugging/index.html#copy-on-modify",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Copy-on-modify",
-    "text": "Copy-on-modify\n\nlibrary(pryr)\norder &lt;- 1024\nmatrix_A &lt;- matrix(rnorm(order^2), nrow = order)\nmatrix_B &lt;- matrix_A\n\n\nCheck where the objects are in the memory:\n\n\n\naddress(matrix_A)\naddress(matrix_B)\n\n[1] \"0x7feb9f674010\"\n[1] \"0x7feb9f674010\"\n\n\n\n\nWhat happens if we modify a value in one of the matrices?\n\n\n\nmatrix_B[1,1] &lt;- 1\naddress(matrix_A)\naddress(matrix_B)\n\n[1] \"0x7feb9f674010\"\n[1] \"0x55e6e6e691a0\""
+    "text": "Copy-on-modify\n\nlibrary(pryr)\norder &lt;- 1024\nmatrix_A &lt;- matrix(rnorm(order^2), nrow = order)\nmatrix_B &lt;- matrix_A\n\n\nCheck where the objects are in the memory:\n\n\n\naddress(matrix_A)\naddress(matrix_B)\n\n[1] \"0x7f87bd306000\"\n[1] \"0x7f87bd306000\"\n\n\n\n\nWhat happens if we modify a value in one of the matrices?\n\n\n\nmatrix_B[1,1] &lt;- 1\naddress(matrix_A)\naddress(matrix_B)\n\n[1] \"0x7f87bd306000\"\n[1] \"0x7f87bdb07000\""
   },
   {
     "objectID": "slides/debugging/index.html#avoid-copying-by-allocating-memory",
     "href": "slides/debugging/index.html#avoid-copying-by-allocating-memory",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Avoid copying by allocating memory",
-    "text": "Avoid copying by allocating memory\nNo memory allocation\n\nf1 &lt;- function(to = 3, silent=F) {\n  tmp &lt;- c()\n  for (i in 1:to) {\n    a1 &lt;- address(tmp)\n    tmp &lt;- c(tmp, i)\n    a2 &lt;- address(tmp)\n    if (!silent) { print(paste0(a1, \" --&gt; \", a2)) } \n  }\n}\nf1()\n\n[1] \"0x55e6dab30b70 --&gt; 0x55e6e3fa2798\"\n[1] \"0x55e6e3fa2798 --&gt; 0x55e6e3fa2b50\"\n[1] \"0x55e6e3fa2b50 --&gt; 0x55e6ddd21708\""
+    "text": "Avoid copying by allocating memory\nNo memory allocation\n\nf1 &lt;- function(to = 3, silent=F) {\n  tmp &lt;- c()\n  for (i in 1:to) {\n    a1 &lt;- address(tmp)\n    tmp &lt;- c(tmp, i)\n    a2 &lt;- address(tmp)\n    if (!silent) { print(paste0(a1, \" --&gt; \", a2)) } \n  }\n}\nf1()\n\n[1] \"0x7f87ca80ece0 --&gt; 0x7f87d64ed2a8\"\n[1] \"0x7f87d64ed2a8 --&gt; 0x7f87d64ed628\"\n[1] \"0x7f87d64ed628 --&gt; 0x7f87d5f82fc8\""
   },
   {
     "objectID": "slides/debugging/index.html#avoid-copying-by-allocating-memory-cted.",
     "href": "slides/debugging/index.html#avoid-copying-by-allocating-memory-cted.",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Avoid copying by allocating memory cted.",
-    "text": "Avoid copying by allocating memory cted.\nWith memory allocation\n\nf2 &lt;- function(to = 3, silent = FALSE) {\n  tmp &lt;- vector(length = to, mode='numeric')\n  for (i in 1:to) {\n    a1 &lt;- address(tmp)\n    tmp[i] &lt;- i\n    a2 &lt;- address(tmp)\n    if(!silent) { print(paste0(a1, \" --&gt; \", a2)) }\n  }\n}\nf2()\n\n[1] \"0x55e6e10691b8 --&gt; 0x55e6e10691b8\"\n[1] \"0x55e6e10691b8 --&gt; 0x55e6e10691b8\"\n[1] \"0x55e6e10691b8 --&gt; 0x55e6e10691b8\""
+    "text": "Avoid copying by allocating memory cted.\nWith memory allocation\n\nf2 &lt;- function(to = 3, silent = FALSE) {\n  tmp &lt;- vector(length = to, mode='numeric')\n  for (i in 1:to) {\n    a1 &lt;- address(tmp)\n    tmp[i] &lt;- i\n    a2 &lt;- address(tmp)\n    if(!silent) { print(paste0(a1, \" --&gt; \", a2)) }\n  }\n}\nf2()\n\n[1] \"0x7f87d4cfa888 --&gt; 0x7f87d4cfa888\"\n[1] \"0x7f87d4cfa888 --&gt; 0x7f87d4cfa888\"\n[1] \"0x7f87d4cfa888 --&gt; 0x7f87d4cfa888\""
   },
   {
     "objectID": "slides/debugging/index.html#allocating-memory-benchmark.",
@@ -1061,7 +1061,7 @@
     "href": "slides/debugging/index.html#gpu",
     "title": "Debugging, Profiling, and Optimization",
     "section": "GPU",
-    "text": "GPU\n\nlibrary(gpuR)\nlibrary(microbenchmark)\nA = matrix(rnorm(1000^2), nrow=1000) # stored: RAM, computed: CPU\nB = matrix(rnorm(1000^2), nrow=1000) \ngpuA = gpuMatrix(A, type = \"float\") # stored: RAM, computed: GPU\ngpuB = gpuMatrix(B, type = \"float\")\nvclA = vclMatrix(A, type = \"float\") # stored: GPU, computed: GPU\nvclB = vclMatrix(B, type = \"float\")\nbch &lt;- microbenchmark(\n  cpu_ram = A %*% B,\n  gpu_ram = gpuA %*% gpuB,\n  gpu_vcl = vclA %*% vclB, \n  times = 10L) \n\nMore on Charles Determan’s Blog."
+    "text": "GPU\n\nA = matrix(rnorm(1000^2), nrow=1000) # stored: RAM, computed: CPU\nB = matrix(rnorm(1000^2), nrow=1000) \ngpuA = gpuMatrix(A, type = \"float\") # stored: RAM, computed: GPU\ngpuB = gpuMatrix(B, type = \"float\")\nvclA = vclMatrix(A, type = \"float\") # stored: GPU, computed: GPU\nvclB = vclMatrix(B, type = \"float\")\nbch &lt;- microbenchmark(\n  cpu_ram = A %*% B,\n  gpu_ram = gpuA %*% gpuB,\n  gpu_vcl = vclA %*% vclB, \n  times = 10L) \n\nMore on Charles Determan’s Blog."
   },
   {
     "objectID": "slides/debugging/index.html#gpu-cted.",
@@ -1082,7 +1082,7 @@
     "href": "slides/debugging/index.html#section-1",
     "title": "Debugging, Profiling, and Optimization",
     "section": "",
-    "text": "Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
+    "text": "Thank you! Questions?\n\n\n         _                    \nplatform x86_64-apple-darwin20\nos       darwin20             \nmajor    4                    \nminor    3.0                  \n\n\n2023 • SciLifeLab • NBIS • RaukR"
   },
   {
     "objectID": "slides/demo/index.html#introduction",

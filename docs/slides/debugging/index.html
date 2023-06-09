@@ -11,7 +11,7 @@
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/reveal-header-1.0.0/add_header.js" defer="true"></script>
 <link href="../../site_libs/quarto-contrib/reveal-header-1.0.0/add_header.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.340">
+  <meta name="generator" content="quarto-1.3.361">
 
   <meta name="author" content="Marcin Kierczak">
   <title>Debugging, Profiling, and Optimization</title>
@@ -98,7 +98,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -392,7 +392,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&amp;family=Nunito:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap" rel="stylesheet">
-  <script src="../../site_libs/htmlwidgets-1.6.1/htmlwidgets.js"></script>
+  <script src="../../site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
   <script src="../../site_libs/jquery-1.12.4/jquery.min.js"></script>
   <script src="../../site_libs/d3-3.5.6/d3.min.js"></script>
   <link href="../../site_libs/profvis-0.3.6.9000/profvis.css" rel="stylesheet">
@@ -400,7 +400,7 @@
   <script src="../../site_libs/profvis-0.3.6.9000/scroll.js"></script>
   <link href="../../site_libs/highlight-6.2.0/textmate.css" rel="stylesheet">
   <script src="../../site_libs/highlight-6.2.0/highlight.js"></script>
-  <script src="../../site_libs/profvis-binding-0.3.7/profvis.js"></script>
+  <script src="../../site_libs/profvis-binding-0.3.8/profvis.js"></script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -444,23 +444,24 @@ Marcin Kierczak
 <li>🔣 Syntax errors</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2" data-code-line-numbers="1|2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">prin</span>(var1) </span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">mean</span>(<span class="fu">sum</span>(<span class="fu">seq</span>((x <span class="sc">+</span> <span class="dv">2</span>) <span class="sc">*</span> (y <span class="sc">-</span> <span class="dv">9</span> <span class="sc">*</span> b)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3" data-code-line-numbers="1|2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">prin</span>(var1) </span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">mean</span>(<span class="fu">sum</span>(<span class="fu">seq</span>((x <span class="sc">+</span> <span class="dv">2</span>) <span class="sc">*</span> (y <span class="sc">-</span> <span class="dv">9</span> <span class="sc">*</span> b)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>. . .s</p>
+<div class="fragment">
 <ul>
 <li>🔢 Arithmetic</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>y <span class="ot">&lt;-</span> <span class="dv">7</span> <span class="sc">/</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>y <span class="ot">&lt;-</span> <span class="dv">7</span> <span class="sc">/</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><em>Not in R though! <code>y = Inf</code></em></p>
+</div>
 <div class="fragment">
 <ul>
 <li>🍎🍊 Type</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">mean</span>(<span class="st">'a'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">mean</span>(<span class="st">'a'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
@@ -488,9 +489,9 @@ IMHO those are the hardest 💀 to debug!</p>
 <h2>Floating confusion</h2>
 <p><br><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="1|2-3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>(vec <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>, <span class="at">by=</span><span class="fl">0.1</span>))</span>
-<span id="cb5-2"><a href="#cb5-2"></a>vec <span class="sc">==</span> <span class="fl">0.7</span> </span>
-<span id="cb5-3"><a href="#cb5-3"></a>vec <span class="sc">==</span> <span class="fl">0.5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6" data-code-line-numbers="1|2-3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>(vec <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>, <span class="at">by=</span><span class="fl">0.1</span>))</span>
+<span id="cb6-2"><a href="#cb6-2"></a>vec <span class="sc">==</span> <span class="fl">0.7</span> </span>
+<span id="cb6-3"><a href="#cb6-3"></a>vec <span class="sc">==</span> <span class="fl">0.5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <div class="cell">
@@ -504,8 +505,8 @@ IMHO those are the hardest 💀 to debug!</p>
 <div class="fragment">
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>(<span class="fl">0.5</span> <span class="sc">+</span> <span class="fl">0.1</span>) <span class="sc">-</span> <span class="fl">0.6</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>(<span class="fl">0.7</span> <span class="sc">+</span> <span class="fl">0.1</span>) <span class="sc">-</span> <span class="fl">0.8</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>(<span class="fl">0.5</span> <span class="sc">+</span> <span class="fl">0.1</span>) <span class="sc">-</span> <span class="fl">0.6</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>(<span class="fl">0.7</span> <span class="sc">+</span> <span class="fl">0.1</span>) <span class="sc">-</span> <span class="fl">0.8</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
@@ -525,7 +526,7 @@ IMHO those are the hardest 💀 to debug!</p>
 <h2>How to float 🏊</h2>
 <p><br><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">round</span>((<span class="fl">0.7</span> <span class="sc">+</span> <span class="fl">0.1</span>) , <span class="at">digits =</span> <span class="dv">2</span>) <span class="sc">-</span> <span class="fl">0.8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">round</span>((<span class="fl">0.7</span> <span class="sc">+</span> <span class="fl">0.1</span>) , <span class="at">digits =</span> <span class="dv">2</span>) <span class="sc">-</span> <span class="fl">0.8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0</code></pre>
 </div>
@@ -533,8 +534,8 @@ IMHO those are the hardest 💀 to debug!</p>
 <div class="fragment">
 <p>Comparing floating point numbers:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>(vec <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>, <span class="at">by=</span><span class="fl">0.1</span>))</span>
-<span id="cb11-2"><a href="#cb11-2"></a>vec <span class="sc">==</span> <span class="fl">0.7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>(vec <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>, <span class="at">by=</span><span class="fl">0.1</span>))</span>
+<span id="cb12-2"><a href="#cb12-2"></a>vec <span class="sc">==</span> <span class="fl">0.7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9
 [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
@@ -543,8 +544,8 @@ IMHO those are the hardest 💀 to debug!</p>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>epsilon <span class="ot">&lt;-</span> <span class="fl">0.001</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">abs</span>(vec <span class="sc">-</span> <span class="fl">0.7</span>) <span class="sc">&lt;=</span> epsilon</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>epsilon <span class="ot">&lt;-</span> <span class="fl">0.001</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">abs</span>(vec <span class="sc">-</span> <span class="fl">0.7</span>) <span class="sc">&lt;=</span> epsilon</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE</code></pre>
 </div>
@@ -554,7 +555,7 @@ IMHO those are the hardest 💀 to debug!</p>
 <section id="final-thoughts-on-floating" class="slide level2">
 <h2>Final thoughts on floating</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">head</span>(<span class="fu">unlist</span>(.Machine))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">head</span>(<span class="fu">unlist</span>(.Machine))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    double.eps double.neg.eps    double.xmin    double.xmax    double.base 
   2.220446e-16   1.110223e-16  2.225074e-308  1.797693e+308   2.000000e+00 
@@ -564,10 +565,14 @@ IMHO those are the hardest 💀 to debug!</p>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">head</span>(<span class="fu">unlist</span>(.Platform))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">head</span>(<span class="fu">unlist</span>(.Platform))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   OS.type   file.sep dynlib.ext        GUI     endian    pkgType 
-    "unix"        "/"      ".so"      "X11"   "little"   "source" </code></pre>
+<pre><code>                    OS.type                    file.sep 
+                     "unix"                         "/" 
+                 dynlib.ext                         GUI 
+                      ".so"                       "X11" 
+                     endian                     pkgType 
+                   "little" "mac.binary.big-sur-x86_64" </code></pre>
 </div>
 </div>
 </div>
@@ -576,10 +581,10 @@ IMHO those are the hardest 💀 to debug!</p>
 <h2>Handling Errors</h2>
 <p>Let us generate some errors:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>input <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="sc">-</span><span class="dv">7</span>, <span class="sc">-</span><span class="dv">2</span><span class="sc">/</span><span class="dv">5</span>, <span class="dv">0</span>, <span class="st">'char'</span>, <span class="dv">100</span>, pi, <span class="cn">NaN</span>)</span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="cf">for</span> (val <span class="cf">in</span> input) {</span>
-<span id="cb19-3"><a href="#cb19-3"></a>  (<span class="fu">paste0</span>(<span class="st">'Log of '</span>, val, <span class="st">'is '</span>, <span class="fu">log10</span>(val)))</span>
-<span id="cb19-4"><a href="#cb19-4"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>input <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="sc">-</span><span class="dv">7</span>, <span class="sc">-</span><span class="dv">2</span><span class="sc">/</span><span class="dv">5</span>, <span class="dv">0</span>, <span class="st">'char'</span>, <span class="dv">100</span>, pi, <span class="cn">NaN</span>)</span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="cf">for</span> (val <span class="cf">in</span> input) {</span>
+<span id="cb20-3"><a href="#cb20-3"></a>  (<span class="fu">paste0</span>(<span class="st">'Log of '</span>, val, <span class="st">'is '</span>, <span class="fu">log10</span>(val)))</span>
+<span id="cb20-4"><a href="#cb20-4"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in log10(val): non-numeric argument to mathematical function</code></pre>
 </div>
@@ -598,11 +603,11 @@ IMHO those are the hardest 💀 to debug!</p>
 <h2>Handling Errors – <code>try</code></h2>
 <p><br><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">try</span>(</span>
-<span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">print</span>(</span>
-<span id="cb21-3"><a href="#cb21-3"></a>    <span class="fu">paste0</span>(<span class="st">'Log of '</span>, input, <span class="st">' is '</span>, <span class="fu">log10</span>(<span class="fu">as.numeric</span>(input)))</span>
-<span id="cb21-4"><a href="#cb21-4"></a>  )</span>
-<span id="cb21-5"><a href="#cb21-5"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">try</span>(</span>
+<span id="cb22-2"><a href="#cb22-2"></a>  <span class="fu">print</span>(</span>
+<span id="cb22-3"><a href="#cb22-3"></a>    <span class="fu">paste0</span>(<span class="st">'Log of '</span>, input, <span class="st">' is '</span>, <span class="fu">log10</span>(<span class="fu">as.numeric</span>(input)))</span>
+<span id="cb22-4"><a href="#cb22-4"></a>  )</span>
+<span id="cb22-5"><a href="#cb22-5"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <div class="cell">
@@ -623,15 +628,15 @@ IMHO those are the hardest 💀 to debug!</p>
 <section id="handling-errors-trycatch-block" class="slide level2">
 <h2>Handling Errors – <code>tryCatch</code> block:</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>result <span class="ot">&lt;-</span> <span class="fu">tryCatch</span>(<span class="fu">log10</span>(val), </span>
-<span id="cb23-2"><a href="#cb23-2"></a>            <span class="at">warning =</span> <span class="cf">function</span>(w) { </span>
-<span id="cb23-3"><a href="#cb23-3"></a>              <span class="fu">print</span>(<span class="st">'Warning! Negative argument supplied. Negating.'</span>) </span>
-<span id="cb23-4"><a href="#cb23-4"></a>              <span class="fu">log10</span>(<span class="sc">-</span>val) }, </span>
-<span id="cb23-5"><a href="#cb23-5"></a>            <span class="at">error =</span> <span class="cf">function</span>(e) { </span>
-<span id="cb23-6"><a href="#cb23-6"></a>              <span class="fu">print</span>(<span class="st">'ERROR! Not a number!'</span>)</span>
-<span id="cb23-7"><a href="#cb23-7"></a>              <span class="cn">NaN</span></span>
-<span id="cb23-8"><a href="#cb23-8"></a>            }</span>
-<span id="cb23-9"><a href="#cb23-9"></a>          )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>result <span class="ot">&lt;-</span> <span class="fu">tryCatch</span>(<span class="fu">log10</span>(val), </span>
+<span id="cb24-2"><a href="#cb24-2"></a>            <span class="at">warning =</span> <span class="cf">function</span>(w) { </span>
+<span id="cb24-3"><a href="#cb24-3"></a>              <span class="fu">print</span>(<span class="st">'Warning! Negative argument supplied. Negating.'</span>) </span>
+<span id="cb24-4"><a href="#cb24-4"></a>              <span class="fu">log10</span>(<span class="sc">-</span>val) }, </span>
+<span id="cb24-5"><a href="#cb24-5"></a>            <span class="at">error =</span> <span class="cf">function</span>(e) { </span>
+<span id="cb24-6"><a href="#cb24-6"></a>              <span class="fu">print</span>(<span class="st">'ERROR! Not a number!'</span>)</span>
+<span id="cb24-7"><a href="#cb24-7"></a>              <span class="cn">NaN</span></span>
+<span id="cb24-8"><a href="#cb24-8"></a>            }</span>
+<span id="cb24-9"><a href="#cb24-9"></a>          )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <div class="cell">
@@ -668,7 +673,7 @@ IMHO those are the hardest 💀 to debug!</p>
 <li>Global parameter <code>error</code> defines what R should do when an error occurs.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">options</span>(<span class="at">error =</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">options</span>(<span class="at">error =</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
@@ -676,13 +681,13 @@ IMHO those are the hardest 💀 to debug!</p>
 <li>You can use <code>simpleError()</code> and <code>simpleWarning()</code> to generate errors and warnings in your code:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb26-2"><a href="#cb26-2"></a>  <span class="cf">if</span> (x <span class="sc">&lt;</span> <span class="dv">0</span>) {</span>
-<span id="cb26-3"><a href="#cb26-3"></a>    x <span class="ot">&lt;-</span> <span class="fu">abs</span>(x)</span>
-<span id="cb26-4"><a href="#cb26-4"></a>    w <span class="ot">&lt;-</span> <span class="fu">simpleWarning</span>(<span class="st">"Value less than 0. Taking abs(x)"</span>)</span>
-<span id="cb26-5"><a href="#cb26-5"></a>    w</span>
-<span id="cb26-6"><a href="#cb26-6"></a>  }</span>
-<span id="cb26-7"><a href="#cb26-7"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb27-2"><a href="#cb27-2"></a>  <span class="cf">if</span> (x <span class="sc">&lt;</span> <span class="dv">0</span>) {</span>
+<span id="cb27-3"><a href="#cb27-3"></a>    x <span class="ot">&lt;-</span> <span class="fu">abs</span>(x)</span>
+<span id="cb27-4"><a href="#cb27-4"></a>    w <span class="ot">&lt;-</span> <span class="fu">simpleWarning</span>(<span class="st">"Value less than 0. Taking abs(x)"</span>)</span>
+<span id="cb27-5"><a href="#cb27-5"></a>    w</span>
+<span id="cb27-6"><a href="#cb27-6"></a>  }</span>
+<span id="cb27-7"><a href="#cb27-7"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -727,25 +732,25 @@ IMHO those are the hardest 💀 to debug!</p>
 <section id="option-1-dumping-frames" class="slide level2">
 <h2>Option 1: dumping frames</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27" data-code-line-numbers="2|4-6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) { <span class="fu">sin</span>(x) }</span>
-<span id="cb27-2"><a href="#cb27-2"></a><span class="fu">options</span>(<span class="at">error =</span> <span class="fu">quote</span>(<span class="fu">dump.frames</span>(<span class="at">dumpto =</span> <span class="st">"assets/testdump"</span>, <span class="at">to.file =</span> T)))</span>
-<span id="cb27-3"><a href="#cb27-3"></a><span class="fu">f</span>(<span class="st">'test'</span>)</span>
-<span id="cb27-4"><a href="#cb27-4"></a><span class="fu">options</span>(<span class="at">error =</span> <span class="cn">NULL</span>) <span class="co"># reset the behavior</span></span>
-<span id="cb27-5"><a href="#cb27-5"></a><span class="fu">load</span>(<span class="st">'assets/testdump.rda'</span>)</span>
-<span id="cb27-6"><a href="#cb27-6"></a><span class="co"># debugger(testdump)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28" data-code-line-numbers="2|4-6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) { <span class="fu">sin</span>(x) }</span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="fu">options</span>(<span class="at">error =</span> <span class="fu">quote</span>(<span class="fu">dump.frames</span>(<span class="at">dumpto =</span> <span class="st">"assets/testdump"</span>, <span class="at">to.file =</span> T)))</span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="fu">f</span>(<span class="st">'test'</span>)</span>
+<span id="cb28-4"><a href="#cb28-4"></a><span class="fu">options</span>(<span class="at">error =</span> <span class="cn">NULL</span>) <span class="co"># reset the behavior</span></span>
+<span id="cb28-5"><a href="#cb28-5"></a><span class="fu">load</span>(<span class="st">'assets/testdump.rda'</span>)</span>
+<span id="cb28-6"><a href="#cb28-6"></a><span class="co"># debugger(testdump)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Hint: Last empty line brings you back to the environments menu.</p>
 </section>
 <section id="option-2-traceback" class="slide level2">
 <h2>Option 2: traceback</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) { </span>
-<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">log10</span>(x) </span>
-<span id="cb28-3"><a href="#cb28-3"></a>}</span>
-<span id="cb28-4"><a href="#cb28-4"></a>g <span class="ot">&lt;-</span> <span class="cf">function</span>(x) { </span>
-<span id="cb28-5"><a href="#cb28-5"></a>  <span class="fu">f</span>(x) </span>
-<span id="cb28-6"><a href="#cb28-6"></a>}</span>
-<span id="cb28-7"><a href="#cb28-7"></a><span class="fu">g</span>(<span class="st">'test'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) { </span>
+<span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">log10</span>(x) </span>
+<span id="cb29-3"><a href="#cb29-3"></a>}</span>
+<span id="cb29-4"><a href="#cb29-4"></a>g <span class="ot">&lt;-</span> <span class="cf">function</span>(x) { </span>
+<span id="cb29-5"><a href="#cb29-5"></a>  <span class="fu">f</span>(x) </span>
+<span id="cb29-6"><a href="#cb29-6"></a>}</span>
+<span id="cb29-7"><a href="#cb29-7"></a><span class="fu">g</span>(<span class="st">'test'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in log10(x): non-numeric argument to mathematical function</code></pre>
 </div>
@@ -761,16 +766,16 @@ IMHO those are the hardest 💀 to debug!</p>
 <h2>Option 3: step-by-step debugging</h2>
 <p>Let us define a new function <code>h(x, y)</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>h <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) { </span>
-<span id="cb31-2"><a href="#cb31-2"></a>  <span class="fu">f</span>(x) </span>
-<span id="cb31-3"><a href="#cb31-3"></a>  <span class="fu">f</span>(y) </span>
-<span id="cb31-4"><a href="#cb31-4"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>h <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) { </span>
+<span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">f</span>(x) </span>
+<span id="cb32-3"><a href="#cb32-3"></a>  <span class="fu">f</span>(y) </span>
+<span id="cb32-4"><a href="#cb32-4"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now, we can use <code>debug()</code> to debug the function in a step-by-step manner:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">debug</span>(h)</span>
-<span id="cb32-2"><a href="#cb32-2"></a><span class="fu">h</span>(<span class="st">'text'</span>, <span class="dv">7</span>)</span>
-<span id="cb32-3"><a href="#cb32-3"></a><span class="fu">undebug</span>(h)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">debug</span>(h)</span>
+<span id="cb33-2"><a href="#cb33-2"></a><span class="fu">h</span>(<span class="st">'text'</span>, <span class="dv">7</span>)</span>
+<span id="cb33-3"><a href="#cb33-3"></a><span class="fu">undebug</span>(h)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p><img src="assets/debug.png" style="width: 100%"></p>
@@ -780,10 +785,10 @@ IMHO those are the hardest 💀 to debug!</p>
 <h2>Profiling – <code>proc.time()</code></h2>
 <p>Profiling is the process of <strong>identifying memory</strong> and time <strong>bottlenecks</strong> 🍾 in your code.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">proc.time</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">proc.time</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  2.089   0.664   1.798 </code></pre>
+  2.073   0.206   2.342 </code></pre>
 </div>
 </div>
 <ul>
@@ -793,13 +798,13 @@ IMHO those are the hardest 💀 to debug!</p>
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>pt1 <span class="ot">&lt;-</span> <span class="fu">proc.time</span>()</span>
-<span id="cb35-2"><a href="#cb35-2"></a>tmp <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n =</span>  <span class="fl">10e5</span>)</span>
-<span id="cb35-3"><a href="#cb35-3"></a>pt2 <span class="ot">&lt;-</span> <span class="fu">proc.time</span>()</span>
-<span id="cb35-4"><a href="#cb35-4"></a>pt2 <span class="sc">-</span> pt1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>pt1 <span class="ot">&lt;-</span> <span class="fu">proc.time</span>()</span>
+<span id="cb36-2"><a href="#cb36-2"></a>tmp <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n =</span>  <span class="fl">10e5</span>)</span>
+<span id="cb36-3"><a href="#cb36-3"></a>pt2 <span class="ot">&lt;-</span> <span class="fu">proc.time</span>()</span>
+<span id="cb36-4"><a href="#cb36-4"></a>pt2 <span class="sc">-</span> pt1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.029   0.000   0.031 </code></pre>
+  0.016   0.002   0.019 </code></pre>
 </div>
 </div>
 </div>
@@ -807,24 +812,24 @@ IMHO those are the hardest 💀 to debug!</p>
 <section id="profiling-system.time" class="slide level2">
 <h2>Profiling – <code>system.time()</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="fu">system.time</span>(<span class="fu">runif</span>(<span class="at">n =</span> <span class="fl">10e6</span>))</span>
-<span id="cb37-2"><a href="#cb37-2"></a><span class="fu">system.time</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="fl">10e6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="fu">system.time</span>(<span class="fu">runif</span>(<span class="at">n =</span> <span class="fl">10e6</span>))</span>
+<span id="cb38-2"><a href="#cb38-2"></a><span class="fu">system.time</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="fl">10e6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.323   0.019   0.343 
+  0.224   0.020   0.243 
    user  system elapsed 
-  0.535   0.020   0.556 </code></pre>
+  0.413   0.001   0.415 </code></pre>
 </div>
 </div>
 <div class="fragment">
 <p>An alternative approach is to use <code>tic</code> and <code>toc</code> statements from the <code>tictoc</code> package.</p>
 <div class="cell" data-hash="index_cache/revealjs/tictoc_72a3f602576354fdfe74e911e58cf8a5">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">library</span>(tictoc)</span>
-<span id="cb39-2"><a href="#cb39-2"></a><span class="fu">tic</span>()</span>
-<span id="cb39-3"><a href="#cb39-3"></a>tmp1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n =</span> <span class="fl">10e6</span>)</span>
-<span id="cb39-4"><a href="#cb39-4"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="fu">library</span>(tictoc)</span>
+<span id="cb40-2"><a href="#cb40-2"></a><span class="fu">tic</span>()</span>
+<span id="cb40-3"><a href="#cb40-3"></a>tmp1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n =</span> <span class="fl">10e6</span>)</span>
+<span id="cb40-4"><a href="#cb40-4"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.272 sec elapsed</code></pre>
+<pre><code>0.21 sec elapsed</code></pre>
 </div>
 </div>
 </div>
@@ -835,25 +840,25 @@ IMHO those are the hardest 💀 to debug!</p>
 <div class="fragment">
 <p>1 – loop without memory allocation.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41" data-code-line-numbers="2|3-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>fun_fill_loop1 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="fl">10e6</span>, f) {</span>
-<span id="cb41-2"><a href="#cb41-2"></a>  result <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb41-3"><a href="#cb41-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
-<span id="cb41-4"><a href="#cb41-4"></a>    result <span class="ot">&lt;-</span> <span class="fu">c</span>(result, <span class="fu">eval</span>(<span class="fu">call</span>(f, <span class="dv">1</span>)))</span>
-<span id="cb41-5"><a href="#cb41-5"></a>  }</span>
-<span id="cb41-6"><a href="#cb41-6"></a>  <span class="fu">return</span>(result)</span>
-<span id="cb41-7"><a href="#cb41-7"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42" data-code-line-numbers="2|3-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>fun_fill_loop1 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="fl">10e6</span>, f) {</span>
+<span id="cb42-2"><a href="#cb42-2"></a>  result <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb42-3"><a href="#cb42-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
+<span id="cb42-4"><a href="#cb42-4"></a>    result <span class="ot">&lt;-</span> <span class="fu">c</span>(result, <span class="fu">eval</span>(<span class="fu">call</span>(f, <span class="dv">1</span>)))</span>
+<span id="cb42-5"><a href="#cb42-5"></a>  }</span>
+<span id="cb42-6"><a href="#cb42-6"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb42-7"><a href="#cb42-7"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
 <p>2 – loop with memory allocation.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42" data-code-line-numbers="2|3-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>fun_fill_loop2 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="fl">10e6</span>, f) {</span>
-<span id="cb42-2"><a href="#cb42-2"></a>  result <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">length =</span> n)</span>
-<span id="cb42-3"><a href="#cb42-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
-<span id="cb42-4"><a href="#cb42-4"></a>    result[i] <span class="ot">&lt;-</span> <span class="fu">eval</span>(<span class="fu">call</span>(f, <span class="dv">1</span>))</span>
-<span id="cb42-5"><a href="#cb42-5"></a>  }</span>
-<span id="cb42-6"><a href="#cb42-6"></a>  <span class="fu">return</span>(result)</span>
-<span id="cb42-7"><a href="#cb42-7"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43" data-code-line-numbers="2|3-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>fun_fill_loop2 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="fl">10e6</span>, f) {</span>
+<span id="cb43-2"><a href="#cb43-2"></a>  result <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">length =</span> n)</span>
+<span id="cb43-3"><a href="#cb43-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
+<span id="cb43-4"><a href="#cb43-4"></a>    result[i] <span class="ot">&lt;-</span> <span class="fu">eval</span>(<span class="fu">call</span>(f, <span class="dv">1</span>))</span>
+<span id="cb43-5"><a href="#cb43-5"></a>  }</span>
+<span id="cb43-6"><a href="#cb43-6"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb43-7"><a href="#cb43-7"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -866,21 +871,21 @@ IMHO those are the hardest 💀 to debug!</p>
 <div class="fragment">
 <p>3 – vectorized loop without memory allocation.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43" data-code-line-numbers="2|3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>fun_fill_vec1 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="fl">10e6</span>, f) {</span>
-<span id="cb43-2"><a href="#cb43-2"></a>  result <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb43-3"><a href="#cb43-3"></a>  result <span class="ot">&lt;-</span> <span class="fu">eval</span>(<span class="fu">call</span>(f, n))</span>
-<span id="cb43-4"><a href="#cb43-4"></a>  <span class="fu">return</span>(result)</span>
-<span id="cb43-5"><a href="#cb43-5"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44" data-code-line-numbers="2|3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>fun_fill_vec1 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="fl">10e6</span>, f) {</span>
+<span id="cb44-2"><a href="#cb44-2"></a>  result <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb44-3"><a href="#cb44-3"></a>  result <span class="ot">&lt;-</span> <span class="fu">eval</span>(<span class="fu">call</span>(f, n))</span>
+<span id="cb44-4"><a href="#cb44-4"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb44-5"><a href="#cb44-5"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
 <p>4 – vectorized with memory allocation.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44" data-code-line-numbers="2|3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>fun_fill_vec2 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="fl">10e6</span>, f) {</span>
-<span id="cb44-2"><a href="#cb44-2"></a>  result <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">length =</span> n)</span>
-<span id="cb44-3"><a href="#cb44-3"></a>  result <span class="ot">&lt;-</span> <span class="fu">eval</span>(<span class="fu">call</span>(f, n))</span>
-<span id="cb44-4"><a href="#cb44-4"></a>  <span class="fu">return</span>(result)</span>
-<span id="cb44-5"><a href="#cb44-5"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45" data-code-line-numbers="2|3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>fun_fill_vec2 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="fl">10e6</span>, f) {</span>
+<span id="cb45-2"><a href="#cb45-2"></a>  result <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">length =</span> n)</span>
+<span id="cb45-3"><a href="#cb45-3"></a>  result <span class="ot">&lt;-</span> <span class="fu">eval</span>(<span class="fu">call</span>(f, n))</span>
+<span id="cb45-4"><a href="#cb45-4"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb45-5"><a href="#cb45-5"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -888,10 +893,10 @@ IMHO those are the hardest 💀 to debug!</p>
 <h2>Profiling our functions</h2>
 <p><br></p>
 <div class="cell" data-hash="index_cache/revealjs/profile_loop_62a0eec983b04050bb879573c12d6cee">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">system.time</span>(<span class="fu">fun_fill_loop1</span>(<span class="at">n =</span> <span class="fl">10e4</span>, <span class="st">"runif"</span>)) <span class="co"># 1 - loop, no alloc</span></span>
-<span id="cb45-2"><a href="#cb45-2"></a>p2 <span class="ot">&lt;-</span> <span class="fu">system.time</span>(<span class="fu">fun_fill_loop2</span>(<span class="at">n =</span> <span class="fl">10e4</span>, <span class="st">"runif"</span>)) <span class="co"># 2 - loop, alloc </span></span>
-<span id="cb45-3"><a href="#cb45-3"></a>p3 <span class="ot">&lt;-</span> <span class="fu">system.time</span>(<span class="fu">fun_fill_vec1</span>(<span class="at">n =</span> <span class="fl">10e4</span>, <span class="st">"runif"</span>))  <span class="co"># 3 - vector, no alloc</span></span>
-<span id="cb45-4"><a href="#cb45-4"></a>p4 <span class="ot">&lt;-</span> <span class="fu">system.time</span>(<span class="fu">fun_fill_vec2</span>(<span class="at">n =</span> <span class="fl">10e4</span>, <span class="st">"runif"</span>))  <span class="co"># 4 - vector, alloc</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">system.time</span>(<span class="fu">fun_fill_loop1</span>(<span class="at">n =</span> <span class="fl">10e4</span>, <span class="st">"runif"</span>)) <span class="co"># 1 - loop, no alloc</span></span>
+<span id="cb46-2"><a href="#cb46-2"></a>p2 <span class="ot">&lt;-</span> <span class="fu">system.time</span>(<span class="fu">fun_fill_loop2</span>(<span class="at">n =</span> <span class="fl">10e4</span>, <span class="st">"runif"</span>)) <span class="co"># 2 - loop, alloc </span></span>
+<span id="cb46-3"><a href="#cb46-3"></a>p3 <span class="ot">&lt;-</span> <span class="fu">system.time</span>(<span class="fu">fun_fill_vec1</span>(<span class="at">n =</span> <span class="fl">10e4</span>, <span class="st">"runif"</span>))  <span class="co"># 3 - vector, no alloc</span></span>
+<span id="cb46-4"><a href="#cb46-4"></a>p4 <span class="ot">&lt;-</span> <span class="fu">system.time</span>(<span class="fu">fun_fill_vec2</span>(<span class="at">n =</span> <span class="fl">10e4</span>, <span class="st">"runif"</span>))  <span class="co"># 4 - vector, alloc</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -907,21 +912,21 @@ IMHO those are the hardest 💀 to debug!</p>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">fn1</td>
-<td style="text-align: right;">8.335</td>
-<td style="text-align: right;">0.064</td>
-<td style="text-align: right;">8.400</td>
+<td style="text-align: right;">14.887</td>
+<td style="text-align: right;">9.326</td>
+<td style="text-align: right;">24.465</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">fn2</td>
-<td style="text-align: right;">0.530</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.534</td>
+<td style="text-align: right;">0.558</td>
+<td style="text-align: right;">0.021</td>
+<td style="text-align: right;">0.580</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">fn3</td>
-<td style="text-align: right;">0.002</td>
+<td style="text-align: right;">0.001</td>
 <td style="text-align: right;">0.000</td>
-<td style="text-align: right;">0.002</td>
+<td style="text-align: right;">0.001</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">fn4</td>
@@ -939,17 +944,17 @@ IMHO those are the hardest 💀 to debug!</p>
 <h2>More advanced profiling</h2>
 <p>We can also do a bit more advanced profiling, including the memory profiling, using, e.g.&nbsp;<code>Rprof()</code> function.</p>
 <div class="cell" data-hash="index_cache/revealjs/Rprof_e8b4d11518ed18303ac57ba2e951b9bd">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="fu">Rprof</span>(<span class="st">'profiler_test.out'</span>, <span class="at">interval =</span> <span class="fl">0.01</span>, <span class="at">memory.profiling =</span> T)</span>
-<span id="cb46-2"><a href="#cb46-2"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
-<span id="cb46-3"><a href="#cb46-3"></a>  result <span class="ot">&lt;-</span> <span class="fu">fun_fill_loop2</span>(<span class="at">n =</span> <span class="fl">10e4</span>, <span class="st">"runif"</span>)</span>
-<span id="cb46-4"><a href="#cb46-4"></a>  <span class="fu">print</span>(result)</span>
-<span id="cb46-5"><a href="#cb46-5"></a>}</span>
-<span id="cb46-6"><a href="#cb46-6"></a><span class="fu">Rprof</span>(<span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="fu">Rprof</span>(<span class="st">'profiler_test.out'</span>, <span class="at">interval =</span> <span class="fl">0.01</span>, <span class="at">memory.profiling =</span> T)</span>
+<span id="cb47-2"><a href="#cb47-2"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb47-3"><a href="#cb47-3"></a>  result <span class="ot">&lt;-</span> <span class="fu">fun_fill_loop2</span>(<span class="at">n =</span> <span class="fl">10e4</span>, <span class="st">"runif"</span>)</span>
+<span id="cb47-4"><a href="#cb47-4"></a>  <span class="fu">print</span>(result)</span>
+<span id="cb47-5"><a href="#cb47-5"></a>}</span>
+<span id="cb47-6"><a href="#cb47-6"></a><span class="fu">Rprof</span>(<span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And let us summarise:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>summary <span class="ot">&lt;-</span> <span class="fu">summaryRprof</span>(<span class="st">'profiler_test.out'</span>, <span class="at">memory=</span><span class="st">'both'</span>)</span>
-<span id="cb47-2"><a href="#cb47-2"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(summary<span class="sc">$</span>by.self)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>summary <span class="ot">&lt;-</span> <span class="fu">summaryRprof</span>(<span class="st">'profiler_test.out'</span>, <span class="at">memory=</span><span class="st">'both'</span>)</span>
+<span id="cb48-2"><a href="#cb48-2"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(summary<span class="sc">$</span>by.self)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table>
 <colgroup>
@@ -1060,11 +1065,11 @@ IMHO those are the hardest 💀 to debug!</p>
 <h2>Profiling – <code>profr</code> package</h2>
 <p>There are also packages available that enable even more advanced profiling:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="fu">library</span>(profr)</span>
-<span id="cb48-2"><a href="#cb48-2"></a><span class="fu">Rprof</span>(<span class="st">"profiler_test2.out"</span>, <span class="at">interval =</span> <span class="fl">0.01</span>)</span>
-<span id="cb48-3"><a href="#cb48-3"></a>tmp <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="fu">sort</span>(<span class="fu">rnorm</span>(<span class="fl">1e5</span>)))</span>
-<span id="cb48-4"><a href="#cb48-4"></a><span class="fu">Rprof</span>(<span class="cn">NULL</span>)</span>
-<span id="cb48-5"><a href="#cb48-5"></a>profile_df <span class="ot">&lt;-</span> <span class="fu">parse_rprof</span>(<span class="st">'profiler_test2.out'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a><span class="fu">library</span>(profr)</span>
+<span id="cb49-2"><a href="#cb49-2"></a><span class="fu">Rprof</span>(<span class="st">"profiler_test2.out"</span>, <span class="at">interval =</span> <span class="fl">0.01</span>)</span>
+<span id="cb49-3"><a href="#cb49-3"></a>tmp <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="fu">sort</span>(<span class="fu">rnorm</span>(<span class="fl">1e5</span>)))</span>
+<span id="cb49-4"><a href="#cb49-4"></a><span class="fu">Rprof</span>(<span class="cn">NULL</span>)</span>
+<span id="cb49-5"><a href="#cb49-5"></a>profile_df <span class="ot">&lt;-</span> <span class="fu">parse_rprof</span>(<span class="st">'profiler_test2.out'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This returns a table that can be visualised:</p>
 <div class="cell">
@@ -1670,10 +1675,10 @@ IMHO those are the hardest 💀 to debug!</p>
 <h2>Profiling – <code>profr</code> package cted.</h2>
 <p>We can also plot the results using – <code>proftools</code> package-</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a><span class="fu">library</span>(Rgraphviz)</span>
-<span id="cb49-2"><a href="#cb49-2"></a><span class="fu">library</span>(proftools) <span class="co"># depends on "graph" and "Rgraphviz" packages</span></span>
-<span id="cb49-3"><a href="#cb49-3"></a>profile_df2 <span class="ot">&lt;-</span> <span class="fu">readProfileData</span>(<span class="st">"profiler_test2.out"</span>)</span>
-<span id="cb49-4"><a href="#cb49-4"></a><span class="fu">plotProfileCallGraph</span>(profile_df2, <span class="at">style =</span> google.style, <span class="at">score =</span> <span class="st">"total"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="fu">library</span>(Rgraphviz)</span>
+<span id="cb50-2"><a href="#cb50-2"></a><span class="fu">library</span>(proftools) <span class="co"># depends on "graph" and "Rgraphviz" packages</span></span>
+<span id="cb50-3"><a href="#cb50-3"></a>profile_df2 <span class="ot">&lt;-</span> <span class="fu">readProfileData</span>(<span class="st">"profiler_test2.out"</span>)</span>
+<span id="cb50-4"><a href="#cb50-4"></a><span class="fu">plotProfileCallGraph</span>(profile_df2, <span class="at">style =</span> google.style, <span class="at">score =</span> <span class="st">"total"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="index_files/figure-revealjs/show_profr_result_plot-1.png" width="384" class="r-stretch quarto-figure-center"></section>
@@ -1681,18 +1686,18 @@ IMHO those are the hardest 💀 to debug!</p>
 <h2>Profiling with <code>profvis</code></h2>
 <p>Yet another nice way to profile your code is by using Hadley Wickham’s <code>profvis</code> package:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="fu">library</span>(profvis)</span>
-<span id="cb50-2"><a href="#cb50-2"></a><span class="fu">profvis</span>({<span class="fu">fun_fill_loop2</span>(<span class="fl">1e4</span>, <span class="st">'runif'</span>)</span>
-<span id="cb50-3"><a href="#cb50-3"></a>  <span class="fu">fun_fill_vec2</span>(<span class="fl">1e4</span>, <span class="st">'runif'</span>)</span>
-<span id="cb50-4"><a href="#cb50-4"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="fu">library</span>(profvis)</span>
+<span id="cb51-2"><a href="#cb51-2"></a><span class="fu">profvis</span>({<span class="fu">fun_fill_loop2</span>(<span class="fl">1e4</span>, <span class="st">'runif'</span>)</span>
+<span id="cb51-3"><a href="#cb51-3"></a>  <span class="fu">fun_fill_vec2</span>(<span class="fl">1e4</span>, <span class="st">'runif'</span>)</span>
+<span id="cb51-4"><a href="#cb51-4"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="profiling-with-profvis-cted." class="slide level2">
 <h2>Profiling with <code>profvis</code> cted.</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div class="profvis html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-10a9c9a0f7bd8bf7391f" style="width:100%;height:600px;"></div>
-<script type="application/json" data-for="htmlwidget-10a9c9a0f7bd8bf7391f">{"x":{"message":{"prof":{"time":[1,1,1,2,2,2,2,3,3,3,4,4,4],"depth":[3,2,1,4,3,2,1,3,2,1,3,2,1],"label":["runif","fun_fill_loop2",".main","force","eval","fun_fill_loop2",".main","eval","fun_fill_loop2",".main","runif","fun_fill_loop2",".main"],"filenum":[null,1,null,null,null,1,null,null,1,null,null,1,null],"linenum":[null,2,null,null,null,2,null,null,2,null,null,2,null],"memalloc":[32.9371032714844,32.9371032714844,32.9371032714844,37.5450210571289,37.5450210571289,37.5450210571289,37.5450210571289,44.0564956665039,44.0564956665039,44.0564956665039,47.771354675293,47.771354675293,47.771354675293],"meminc":[0,0,0,4.60791778564453,0,0,0,6.511474609375,0,0,3.71485900878906,0,0],"filename":[null,"<expr>",null,null,null,"<expr>",null,null,"<expr>",null,null,"<expr>",null]},"interval":10,"files":[{"filename":"<expr>","content":"library(profvis)\nprofvis({fun_fill_loop2(1e4, 'runif') \n  c()\n})","normpath":"<expr>"}],"prof_output":"/tmp/RtmpQ7y8Ts/file29b4dc83249.prof","highlight":{"output":["^output\\$"],"gc":["^<GC>$"],"stacktrace":["^\\.\\.stacktraceo(n|ff)\\.\\.$"]},"split":"h"}},"evals":[],"jsHooks":[]}</script>
+<div class="profvis html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-d7bf6ef72a42c69424b3" style="width:100%;height:600px;"></div>
+<script type="application/json" data-for="htmlwidget-d7bf6ef72a42c69424b3">{"x":{"message":{"prof":{"time":[1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,8],"depth":[2,1,2,1,2,1,2,1,2,1,2,1,2,1,3,2,1],"label":["runif","fun_fill_loop2","eval","fun_fill_loop2","runif","fun_fill_loop2","runif","fun_fill_loop2","runif","fun_fill_loop2","runif","fun_fill_loop2","runif","fun_fill_loop2","force","eval","fun_fill_loop2"],"filenum":[null,1,null,1,null,1,null,1,null,1,null,1,null,1,null,null,1],"linenum":[null,2,null,2,null,2,null,2,null,2,null,2,null,2,null,null,2],"memalloc":[29.76533508300781,29.76533508300781,33.50765228271484,33.50765228271484,37.67898559570312,37.67898559570312,41.78284454345703,41.78284454345703,44.12807464599609,44.12807464599609,46.16373443603516,46.16373443603516,49.27736663818359,49.27736663818359,52.72509002685547,52.72509002685547,52.72509002685547],"meminc":[0,0,3.742317199707031,0,4.171333312988281,0,4.103858947753906,0,2.345230102539062,0,2.035659790039062,0,3.113632202148438,0,3.447723388671875,0,0],"filename":[null,"<expr>",null,"<expr>",null,"<expr>",null,"<expr>",null,"<expr>",null,"<expr>",null,"<expr>",null,null,"<expr>"]},"interval":10,"files":[{"filename":"<expr>","content":"library(profvis)\nprofvis({fun_fill_loop2(1e4, 'runif') \n  c()\n})","normpath":"<expr>"}],"prof_output":"/var/folders/4z/yq4wnq596qg_8q0vq1ntxzyr0000gp/T//Rtmp3ItUcr/file13e8e7457afcd.prof","highlight":{"output":["^output\\$"],"gc":["^<GC>$"],"stacktrace":["^\\.\\.stacktraceo(n|ff)\\.\\.$"]},"split":"h"}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -1730,21 +1735,21 @@ IMHO those are the hardest 💀 to debug!</p>
 <section id="copy-on-modify" class="slide level2">
 <h2>Copy-on-modify</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="fu">library</span>(pryr)</span>
-<span id="cb51-2"><a href="#cb51-2"></a>order <span class="ot">&lt;-</span> <span class="dv">1024</span></span>
-<span id="cb51-3"><a href="#cb51-3"></a>matrix_A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(order<span class="sc">^</span><span class="dv">2</span>), <span class="at">nrow =</span> order)</span>
-<span id="cb51-4"><a href="#cb51-4"></a>matrix_B <span class="ot">&lt;-</span> matrix_A</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="fu">library</span>(pryr)</span>
+<span id="cb52-2"><a href="#cb52-2"></a>order <span class="ot">&lt;-</span> <span class="dv">1024</span></span>
+<span id="cb52-3"><a href="#cb52-3"></a>matrix_A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(order<span class="sc">^</span><span class="dv">2</span>), <span class="at">nrow =</span> order)</span>
+<span id="cb52-4"><a href="#cb52-4"></a>matrix_B <span class="ot">&lt;-</span> matrix_A</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p>Check where the objects are in the memory:</p>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="fu">address</span>(matrix_A)</span>
-<span id="cb52-2"><a href="#cb52-2"></a><span class="fu">address</span>(matrix_B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="fu">address</span>(matrix_A)</span>
+<span id="cb53-2"><a href="#cb53-2"></a><span class="fu">address</span>(matrix_B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "0x7feb9f674010"
-[1] "0x7feb9f674010"</code></pre>
+<pre><code>[1] "0x7f87bd306000"
+[1] "0x7f87bd306000"</code></pre>
 </div>
 </div>
 </div>
@@ -1753,12 +1758,12 @@ IMHO those are the hardest 💀 to debug!</p>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>matrix_B[<span class="dv">1</span>,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb54-2"><a href="#cb54-2"></a><span class="fu">address</span>(matrix_A)</span>
-<span id="cb54-3"><a href="#cb54-3"></a><span class="fu">address</span>(matrix_B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a>matrix_B[<span class="dv">1</span>,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb55-2"><a href="#cb55-2"></a><span class="fu">address</span>(matrix_A)</span>
+<span id="cb55-3"><a href="#cb55-3"></a><span class="fu">address</span>(matrix_B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "0x7feb9f674010"
-[1] "0x55e6e6e691a0"</code></pre>
+<pre><code>[1] "0x7f87bd306000"
+[1] "0x7f87bdb07000"</code></pre>
 </div>
 </div>
 </div>
@@ -1767,20 +1772,20 @@ IMHO those are the hardest 💀 to debug!</p>
 <h2>Avoid copying by allocating memory</h2>
 <p>No memory allocation</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56" data-code-line-numbers="2|5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a>f1 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">to =</span> <span class="dv">3</span>, <span class="at">silent=</span>F) {</span>
-<span id="cb56-2"><a href="#cb56-2"></a>  tmp <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
-<span id="cb56-3"><a href="#cb56-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>to) {</span>
-<span id="cb56-4"><a href="#cb56-4"></a>    a1 <span class="ot">&lt;-</span> <span class="fu">address</span>(tmp)</span>
-<span id="cb56-5"><a href="#cb56-5"></a>    tmp <span class="ot">&lt;-</span> <span class="fu">c</span>(tmp, i)</span>
-<span id="cb56-6"><a href="#cb56-6"></a>    a2 <span class="ot">&lt;-</span> <span class="fu">address</span>(tmp)</span>
-<span id="cb56-7"><a href="#cb56-7"></a>    <span class="cf">if</span> (<span class="sc">!</span>silent) { <span class="fu">print</span>(<span class="fu">paste0</span>(a1, <span class="st">" --&gt; "</span>, a2)) } </span>
-<span id="cb56-8"><a href="#cb56-8"></a>  }</span>
-<span id="cb56-9"><a href="#cb56-9"></a>}</span>
-<span id="cb56-10"><a href="#cb56-10"></a><span class="fu">f1</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57" data-code-line-numbers="2|5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a>f1 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">to =</span> <span class="dv">3</span>, <span class="at">silent=</span>F) {</span>
+<span id="cb57-2"><a href="#cb57-2"></a>  tmp <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb57-3"><a href="#cb57-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>to) {</span>
+<span id="cb57-4"><a href="#cb57-4"></a>    a1 <span class="ot">&lt;-</span> <span class="fu">address</span>(tmp)</span>
+<span id="cb57-5"><a href="#cb57-5"></a>    tmp <span class="ot">&lt;-</span> <span class="fu">c</span>(tmp, i)</span>
+<span id="cb57-6"><a href="#cb57-6"></a>    a2 <span class="ot">&lt;-</span> <span class="fu">address</span>(tmp)</span>
+<span id="cb57-7"><a href="#cb57-7"></a>    <span class="cf">if</span> (<span class="sc">!</span>silent) { <span class="fu">print</span>(<span class="fu">paste0</span>(a1, <span class="st">" --&gt; "</span>, a2)) } </span>
+<span id="cb57-8"><a href="#cb57-8"></a>  }</span>
+<span id="cb57-9"><a href="#cb57-9"></a>}</span>
+<span id="cb57-10"><a href="#cb57-10"></a><span class="fu">f1</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "0x55e6dab30b70 --&gt; 0x55e6e3fa2798"
-[1] "0x55e6e3fa2798 --&gt; 0x55e6e3fa2b50"
-[1] "0x55e6e3fa2b50 --&gt; 0x55e6ddd21708"</code></pre>
+<pre><code>[1] "0x7f87ca80ece0 --&gt; 0x7f87d64ed2a8"
+[1] "0x7f87d64ed2a8 --&gt; 0x7f87d64ed628"
+[1] "0x7f87d64ed628 --&gt; 0x7f87d5f82fc8"</code></pre>
 </div>
 </div>
 </section>
@@ -1788,65 +1793,64 @@ IMHO those are the hardest 💀 to debug!</p>
 <h2>Avoid copying by allocating memory cted.</h2>
 <p>With memory allocation</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58" data-code-line-numbers="2|5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a>f2 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">to =</span> <span class="dv">3</span>, <span class="at">silent =</span> <span class="cn">FALSE</span>) {</span>
-<span id="cb58-2"><a href="#cb58-2"></a>  tmp <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">length =</span> to, <span class="at">mode=</span><span class="st">'numeric'</span>)</span>
-<span id="cb58-3"><a href="#cb58-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>to) {</span>
-<span id="cb58-4"><a href="#cb58-4"></a>    a1 <span class="ot">&lt;-</span> <span class="fu">address</span>(tmp)</span>
-<span id="cb58-5"><a href="#cb58-5"></a>    tmp[i] <span class="ot">&lt;-</span> i</span>
-<span id="cb58-6"><a href="#cb58-6"></a>    a2 <span class="ot">&lt;-</span> <span class="fu">address</span>(tmp)</span>
-<span id="cb58-7"><a href="#cb58-7"></a>    <span class="cf">if</span>(<span class="sc">!</span>silent) { <span class="fu">print</span>(<span class="fu">paste0</span>(a1, <span class="st">" --&gt; "</span>, a2)) }</span>
-<span id="cb58-8"><a href="#cb58-8"></a>  }</span>
-<span id="cb58-9"><a href="#cb58-9"></a>}</span>
-<span id="cb58-10"><a href="#cb58-10"></a><span class="fu">f2</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59" data-code-line-numbers="2|5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a>f2 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">to =</span> <span class="dv">3</span>, <span class="at">silent =</span> <span class="cn">FALSE</span>) {</span>
+<span id="cb59-2"><a href="#cb59-2"></a>  tmp <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">length =</span> to, <span class="at">mode=</span><span class="st">'numeric'</span>)</span>
+<span id="cb59-3"><a href="#cb59-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>to) {</span>
+<span id="cb59-4"><a href="#cb59-4"></a>    a1 <span class="ot">&lt;-</span> <span class="fu">address</span>(tmp)</span>
+<span id="cb59-5"><a href="#cb59-5"></a>    tmp[i] <span class="ot">&lt;-</span> i</span>
+<span id="cb59-6"><a href="#cb59-6"></a>    a2 <span class="ot">&lt;-</span> <span class="fu">address</span>(tmp)</span>
+<span id="cb59-7"><a href="#cb59-7"></a>    <span class="cf">if</span>(<span class="sc">!</span>silent) { <span class="fu">print</span>(<span class="fu">paste0</span>(a1, <span class="st">" --&gt; "</span>, a2)) }</span>
+<span id="cb59-8"><a href="#cb59-8"></a>  }</span>
+<span id="cb59-9"><a href="#cb59-9"></a>}</span>
+<span id="cb59-10"><a href="#cb59-10"></a><span class="fu">f2</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "0x55e6e10691b8 --&gt; 0x55e6e10691b8"
-[1] "0x55e6e10691b8 --&gt; 0x55e6e10691b8"
-[1] "0x55e6e10691b8 --&gt; 0x55e6e10691b8"</code></pre>
+<pre><code>[1] "0x7f87d4cfa888 --&gt; 0x7f87d4cfa888"
+[1] "0x7f87d4cfa888 --&gt; 0x7f87d4cfa888"
+[1] "0x7f87d4cfa888 --&gt; 0x7f87d4cfa888"</code></pre>
 </div>
 </div>
 </section>
 <section id="allocating-memory-benchmark." class="slide level2">
 <h2>Allocating memory – benchmark.</h2>
 <div class="cell" data-layout-align="center" data-hash="index_cache/revealjs/unnamed-chunk-9_eb12fc3d2f33b23bce082811171a5391">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a><span class="fu">library</span>(microbenchmark)</span>
-<span id="cb60-2"><a href="#cb60-2"></a>benchmrk <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(<span class="fu">f1</span>(<span class="at">to =</span> <span class="fl">1e3</span>, <span class="at">silent =</span> T), </span>
-<span id="cb60-3"><a href="#cb60-3"></a>                           <span class="fu">f2</span>(<span class="at">to =</span> <span class="fl">1e3</span>, <span class="at">silent =</span> T), </span>
-<span id="cb60-4"><a href="#cb60-4"></a>                           <span class="at">times =</span> 100L)</span>
-<span id="cb60-5"><a href="#cb60-5"></a>ggplot2<span class="sc">::</span><span class="fu">autoplot</span>(benchmrk)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a><span class="fu">library</span>(microbenchmark)</span>
+<span id="cb61-2"><a href="#cb61-2"></a>benchmrk <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(<span class="fu">f1</span>(<span class="at">to =</span> <span class="fl">1e3</span>, <span class="at">silent =</span> T), </span>
+<span id="cb61-3"><a href="#cb61-3"></a>                           <span class="fu">f2</span>(<span class="at">to =</span> <span class="fl">1e3</span>, <span class="at">silent =</span> T), </span>
+<span id="cb61-4"><a href="#cb61-4"></a>                           <span class="at">times =</span> 100L)</span>
+<span id="cb61-5"><a href="#cb61-5"></a>ggplot2<span class="sc">::</span><span class="fu">autoplot</span>(benchmrk)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="gpu" class="slide level2">
 <h2>GPU</h2>
-<div class="cell" data-hash="index_cache/revealjs/gpu_R_5a85af7c0cc5e9b06d469f37a38d51a6">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a><span class="fu">library</span>(gpuR)</span>
-<span id="cb61-2"><a href="#cb61-2"></a><span class="fu">library</span>(microbenchmark)</span>
-<span id="cb61-3"><a href="#cb61-3"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span><span class="sc">^</span><span class="dv">2</span>), <span class="at">nrow=</span><span class="dv">1000</span>) <span class="co"># stored: RAM, computed: CPU</span></span>
-<span id="cb61-4"><a href="#cb61-4"></a>B <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span><span class="sc">^</span><span class="dv">2</span>), <span class="at">nrow=</span><span class="dv">1000</span>) </span>
-<span id="cb61-5"><a href="#cb61-5"></a>gpuA <span class="ot">=</span> <span class="fu">gpuMatrix</span>(A, <span class="at">type =</span> <span class="st">"float"</span>) <span class="co"># stored: RAM, computed: GPU</span></span>
-<span id="cb61-6"><a href="#cb61-6"></a>gpuB <span class="ot">=</span> <span class="fu">gpuMatrix</span>(B, <span class="at">type =</span> <span class="st">"float"</span>)</span>
-<span id="cb61-7"><a href="#cb61-7"></a>vclA <span class="ot">=</span> <span class="fu">vclMatrix</span>(A, <span class="at">type =</span> <span class="st">"float"</span>) <span class="co"># stored: GPU, computed: GPU</span></span>
-<span id="cb61-8"><a href="#cb61-8"></a>vclB <span class="ot">=</span> <span class="fu">vclMatrix</span>(B, <span class="at">type =</span> <span class="st">"float"</span>)</span>
-<span id="cb61-9"><a href="#cb61-9"></a>bch <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(</span>
-<span id="cb61-10"><a href="#cb61-10"></a>  <span class="at">cpu_ram =</span> A <span class="sc">%*%</span> B,</span>
-<span id="cb61-11"><a href="#cb61-11"></a>  <span class="at">gpu_ram =</span> gpuA <span class="sc">%*%</span> gpuB,</span>
-<span id="cb61-12"><a href="#cb61-12"></a>  <span class="at">gpu_vcl =</span> vclA <span class="sc">%*%</span> vclB, </span>
-<span id="cb61-13"><a href="#cb61-13"></a>  <span class="at">times =</span> 10L) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/revealjs/gpu_R_58518106e2af5254539de9fdb20baa27">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span><span class="sc">^</span><span class="dv">2</span>), <span class="at">nrow=</span><span class="dv">1000</span>) <span class="co"># stored: RAM, computed: CPU</span></span>
+<span id="cb62-2"><a href="#cb62-2"></a>B <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span><span class="sc">^</span><span class="dv">2</span>), <span class="at">nrow=</span><span class="dv">1000</span>) </span>
+<span id="cb62-3"><a href="#cb62-3"></a>gpuA <span class="ot">=</span> <span class="fu">gpuMatrix</span>(A, <span class="at">type =</span> <span class="st">"float"</span>) <span class="co"># stored: RAM, computed: GPU</span></span>
+<span id="cb62-4"><a href="#cb62-4"></a>gpuB <span class="ot">=</span> <span class="fu">gpuMatrix</span>(B, <span class="at">type =</span> <span class="st">"float"</span>)</span>
+<span id="cb62-5"><a href="#cb62-5"></a>vclA <span class="ot">=</span> <span class="fu">vclMatrix</span>(A, <span class="at">type =</span> <span class="st">"float"</span>) <span class="co"># stored: GPU, computed: GPU</span></span>
+<span id="cb62-6"><a href="#cb62-6"></a>vclB <span class="ot">=</span> <span class="fu">vclMatrix</span>(B, <span class="at">type =</span> <span class="st">"float"</span>)</span>
+<span id="cb62-7"><a href="#cb62-7"></a>bch <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(</span>
+<span id="cb62-8"><a href="#cb62-8"></a>  <span class="at">cpu_ram =</span> A <span class="sc">%*%</span> B,</span>
+<span id="cb62-9"><a href="#cb62-9"></a>  <span class="at">gpu_ram =</span> gpuA <span class="sc">%*%</span> gpuB,</span>
+<span id="cb62-10"><a href="#cb62-10"></a>  <span class="at">gpu_vcl =</span> vclA <span class="sc">%*%</span> vclB, </span>
+<span id="cb62-11"><a href="#cb62-11"></a>  <span class="at">times =</span> 10L) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><span class="smaller">More on <a href="https://www.r-bloggers.com/r-gpu-programming-for-all-with-gpur/">Charles Determan’s Blog</a>.</span></p>
 </section>
 <section id="gpu-cted." class="slide level2">
 <h2>GPU cted.</h2>
-<div class="cell" data-layout-align="center" data-hash="index_cache/revealjs/unnamed-chunk-10_2330654fe948488f84e8535a72d6423d">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a>ggplot2<span class="sc">::</span><span class="fu">autoplot</span>(bch)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-hash="index_cache/revealjs/unnamed-chunk-10_f079e4d5c7202173568239fc5277924b">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a>ggplot2<span class="sc">::</span><span class="fu">autoplot</span>(bch)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
 </div>
-</section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-10-1.png" width="384" class="r-stretch quarto-figure-center"></section>
 <section id="parallelization-using-package-parallel" class="slide level2">
 <h2>Parallelization using package <code>parallel</code></h2>
 <p>Easiest to parallelize is <code>lapply</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a>result <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="cf">function</span>(x) { <span class="fu">c</span>(x, x<span class="sc">^</span><span class="dv">2</span>, x<span class="sc">^</span><span class="dv">3</span>) })</span>
-<span id="cb63-2"><a href="#cb63-2"></a>result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a>result <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="cf">function</span>(x) { <span class="fu">c</span>(x, x<span class="sc">^</span><span class="dv">2</span>, x<span class="sc">^</span><span class="dv">3</span>) })</span>
+<span id="cb64-2"><a href="#cb64-2"></a>result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 [1] 1 1 1
@@ -1856,11 +1860,11 @@ IMHO those are the hardest 💀 to debug!</p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a><span class="fu">library</span>(parallel)</span>
-<span id="cb65-2"><a href="#cb65-2"></a>num_cores <span class="ot">&lt;-</span> <span class="fu">detectCores</span>() <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb65-3"><a href="#cb65-3"></a>cl <span class="ot">&lt;-</span> <span class="fu">makeCluster</span>(num_cores) <span class="co"># Init cluster</span></span>
-<span id="cb65-4"><a href="#cb65-4"></a><span class="fu">parLapply</span>(cl, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="cf">function</span>(x) { <span class="fu">c</span>(x, x<span class="sc">^</span><span class="dv">2</span>, x<span class="sc">^</span><span class="dv">3</span>)} )</span>
-<span id="cb65-5"><a href="#cb65-5"></a><span class="fu">stopCluster</span>(cl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a><span class="fu">library</span>(parallel)</span>
+<span id="cb66-2"><a href="#cb66-2"></a>num_cores <span class="ot">&lt;-</span> <span class="fu">detectCores</span>() <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb66-3"><a href="#cb66-3"></a>cl <span class="ot">&lt;-</span> <span class="fu">makeCluster</span>(num_cores) <span class="co"># Init cluster</span></span>
+<span id="cb66-4"><a href="#cb66-4"></a><span class="fu">parLapply</span>(cl, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="cf">function</span>(x) { <span class="fu">c</span>(x, x<span class="sc">^</span><span class="dv">2</span>, x<span class="sc">^</span><span class="dv">3</span>)} )</span>
+<span id="cb66-5"><a href="#cb66-5"></a><span class="fu">stopCluster</span>(cl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 [1] 1 1 1
@@ -1875,11 +1879,11 @@ IMHO those are the hardest 💀 to debug!</p>
 <h3 id="thank-you-questions">Thank you! Questions?</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>         _                     
-platform x86_64-conda-linux-gnu
-os       linux-gnu             
-major    4                     
-minor    2.2                   </code></pre>
+<pre><code>         _                    
+platform x86_64-apple-darwin20
+os       darwin20             
+major    4                    
+minor    3.0                  </code></pre>
 </div>
 </div>
 <p><span class="smaller">2023 • <a href="https://www.scilifelab.se/">SciLifeLab</a> • <a href="https://nbis.se/">NBIS</a> • <a href="https://nbisweden.github.io/workshop-RaukR-2306/">RaukR</a></span></p>
