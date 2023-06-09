@@ -32,6 +32,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -344,34 +409,45 @@ Sebastian DiLorenzo
 </div>
 </div>
 
-  <p class="date">07-Jun-2023</p>
+  <p class="date">09-Jun-2023</p>
 </section>
 <section id="overview" class="slide level2">
 <h2>Overview</h2>
-<!-- 
-Outline:
-What is git and what is it good for?
-Set-up (do together or leave for lab? Many people probably already have git setup on their machines...)
-Using git for yourself
-Using git with Rstudio
-Using git with others
-Using github actions
--->
 <div class="columns">
 <div class="column" style="width:60%;">
 <ul>
-<li>git basics</li>
-<li>git and Rstudio</li>
+<li>What is git and why should I use it?</li>
+<li>git set-up</li>
 <li>git for yourself</li>
-<li>git with github and others people</li>
+<li>git and Rstudio</li>
+<li>git with github and collaborators</li>
 <li>github actions</li>
 </ul>
 </div><div class="column" style="width:40%;">
-<p><img data-src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="300"></p>
+<p><img data-src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="300"> <img data-src="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png" width="300"></p>
+</div>
+</div>
+</section>
+<section id="what-is-git-and-why-should-i-use-it" class="slide level2">
+<h2>What is git and why should I use it?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="assets/tree.png" style="width:80.0%"></p>
+</div><div class="column" style="width:50%;">
+<p><br></p>
+<ul>
+<li>Track changes</li>
+<li>Revert changes</li>
+<li>Reproducibility</li>
+<li>Backups</li>
+<li>Working with others</li>
+</ul>
 </div>
 </div>
 <aside class="notes">
-
+<p>Basically, say you have a folder with a bunch of files. And you want to track what changes you have made to every file, kind of like a word or google slide document with track changes. As you are tracking these changes you also have the possibility to revert these changes and go back in time to an earlier state of the files.</p>
+<p>Why would you want to do this? It is very useful for working reproducibly to have a complete log of what you have done, it is good for backup, especially if you are also connecting and synchronizing your collection of files with some service such as github, more on that later. It is also very good when you want to work with others in a highly structured way, making sure that many people can work on the same thing without messing it up.</p>
+<p>There are other advantages of course but I do not want to overload you, so in this lecture we will be focusing on basic git usage and there are loads of online resources to take you further than that.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -384,26 +460,171 @@ Using github actions
           display:block!important;
       }</style></aside>
 </section>
-<section id="overview-1" class="slide level2">
-<h2>Overview</h2>
-<div class="columns">
-<div class="column" style="width:60%;">
-<ul>
-<li>git basics</li>
-<li>git and Rstudio</li>
-<li>git for yourself</li>
-<li>git with github and others people</li>
-<li>github actions</li>
-</ul>
-</div><div class="column" style="width:40%;">
-<p><img data-src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="300"> <img data-src="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png" width="300"></p>
-</div>
-</div>
-</section>
-<section id="title" class="slide level2">
-<h2>Title</h2>
+<section id="what-is-git-and-why-should-i-use-it-1" class="slide level2">
+<h2>What is git and why should I use it?</h2>
+<p><br></p>
+<h4 id="version-control">Version control</h4>
+<blockquote>
+<p>In software development, version control is a class of systems responsible for managing changes to computer programs or other collections of information such that revisions have a logical and consistent organization.</p>
+<p>https://en.wikipedia.org/wiki/Comparison_of_version-control_software</p>
+</blockquote>
+<p><br></p>
+<h4 id="repository">Repository</h4>
+<blockquote>
+<p>A collection of files under version control.</p>
+</blockquote>
 <aside class="notes">
-
+<p>Git is version control system, tracking changes for all files in a repository. This is not the only way to get version control of your files.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="git-set-up" class="slide level2">
+<h2>git set-up</h2>
+<p><br></p>
+<h4 id="checking-configuration">Checking configuration</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>usethis<span class="sc">::</span><span class="fu">git_sitrep</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes">
+<p>Before the course started you received an email that asked you to have a github account and git available on commandline. Since this is an R focused course we will use Rstudio to check, and in some cases set, some of your configurations.</p>
+<p>You do not have to do this in R or Rstudio, you can also do this with other git commands from terminal.</p>
+<p>To do this we will use the usethis library. git_sitrep() is a great tool for checking what configurations you have set.</p>
+<p><strong>Demo git_sitrep</strong></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="git-set-up-1" class="slide level2">
+<h2>git set-up</h2>
+<p><br></p>
+<h4 id="checking-configuration-1">Checking configuration</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2" data-code-line-numbers="2-4,8,10-15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>usethis<span class="sc">::</span><span class="fu">git_sitrep</span>()</span>
+<span id="cb2-2"><a href="#cb2-2"></a>Git <span class="fu">config</span> (global)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>• Name<span class="sc">:</span> <span class="st">'Sebastian-D'</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>• Email<span class="sc">:</span> <span class="st">'dilorenzo.sebastian@gmail.com'</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>• <span class="fu">Global</span> (user<span class="sc">-</span>level) gitignore file<span class="sc">:</span> <span class="er">&lt;</span>unset<span class="sc">&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>• Vaccinated<span class="sc">:</span> <span class="cn">FALSE</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>ℹ See <span class="st">`</span><span class="at">?git_vaccinate</span><span class="st">`</span> to learn more</span>
+<span id="cb2-8"><a href="#cb2-8"></a>• Default Git protocol<span class="sc">:</span> <span class="st">'https'</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>• Default initial branch name<span class="sc">:</span> <span class="er">&lt;</span>unset<span class="sc">&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>GitHub</span>
+<span id="cb2-11"><a href="#cb2-11"></a>• Default GitHub host<span class="sc">:</span> <span class="st">'https://github.com'</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>• Personal access token <span class="cf">for</span> <span class="st">'https://github.com'</span><span class="sc">:</span> <span class="st">'&lt;discovered&gt;'</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a>• GitHub user<span class="sc">:</span> <span class="st">'Sebastian-D'</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a>• Token scopes<span class="sc">:</span> <span class="st">'repo, user, workflow'</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a>• <span class="fu">Email</span>(s)<span class="sc">:</span> <span class="st">'dilorenzo.sebastian@gmail.com (primary)'</span>, <span class="st">'sebastian.dilorenzo@scilifelab.uu.se'</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a>Git repo <span class="cf">for</span> current project</span>
+<span id="cb2-17"><a href="#cb2-17"></a>• Active usethis project<span class="sc">:</span> <span class="st">'/Users/sd/Library/CloudStorage/Box-Box/Work/NBIS_CommMan'</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a>ℹ Active project is not a Git repo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes">
+<p>Looking at the information here we lets forcus on that our git global config has a name, which should be the same as the github username, an email associated with both my local git and my github, you can see your default protocol which is usually https unless you have some great reason for having SSH.</p>
+<p>In the github section we can also see that we have a personal access token or PAT, and that token has certain scopes related to it. I will get back to this in a moment.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="git-set-up-2" class="slide level2">
+<h2>git set-up</h2>
+<p><br></p>
+<h4 id="setting-global-configuration">Setting global configuration</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>usethis<span class="sc">::</span><span class="fu">use_git_config</span>(<span class="at">user.name =</span> <span class="st">"Jane Doe"</span>, <span class="at">user.email =</span> <span class="st">"jane@example.com"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes">
+<p>use_git_config(user.name = “Jane Doe”, user.email = “jane@example.com”)</p>
+<p>If you want to use commandline: git config –global –list git config –global user.name ‘Jane Doe’ git config –global user.email ‘jane@example.com’</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="git-set-up-3" class="slide level2">
+<h2>git set-up</h2>
+<p><br></p>
+<h4 id="personal-access-token-pat">Personal Access Token (PAT)</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>usethis<span class="sc">::</span><span class="fu">use_git_config</span>(<span class="at">user.name =</span> <span class="st">"Jane Doe"</span>, <span class="at">user.email =</span> <span class="st">"jane@example.com"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes">
+<p>When we interact with a remote Git server, such as GitHub, we have to include credentials in the request. This proves we are a specific GitHub user, who’s allowed to do whatever we’re asking to do. What we are allowed to do with a certain PAT is the <strong>scope</strong> of the PAT. Now that your git PAT usethis::create_github_token() gitcreds::gitcreds_set() credentials::set_github_pat(“my_pat”)</p>
+<p>change commit add status</p>
+<p>diff</p>
+<p>later, push/pull with github. clone</p>
+<p>Git and Rstudio: Clone a repo using rstudio File &gt; New Project &gt; Version Control &gt; Git</p>
+<p>Connect existing code to new github repo: usethis::use_git() usethis::use_github()</p>
+<p>Mention branches? Mention merge conflicts? Mention remotes? Maybe “What is a remote and why is it useful”, and then do the “how” in lab? Could just teach them the github way of sync instead… easier. mention github actions, what it does, but not how to set it up? Maybe add as advanced topic for lab. Git clients. Mentioned here but not taught.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="project-setup" class="slide level2">
+<h2>Project setup</h2>
+<aside class="notes">
+<ol type="1">
+<li>Create a folder.</li>
+<li>Make it a Rstudio project.</li>
+<li>Make it a git repository</li>
+<li>Connect it to github</li>
+</ol>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="github" class="slide level2">
+<h2>Github</h2>
+<aside class="notes">
+<p>Github is the hosting service that allows for syncing your work with other people, in private work groups or in open access collaboration. The nice thing about having work on github is also that if something really breaks in your local git repo you can always delete it and download a fresh copy off github.</p>
+<p>By pushing to GitHub, you make your work and all your accumulated progress accessible to others.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -421,11 +642,11 @@ Using github actions
 <h3 id="thank-you-questions">Thank you! Questions?</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>         _                        
-platform x86_64-apple-darwin22.4.0
-os       darwin22.4.0             
-major    4                        
-minor    3.0                      </code></pre>
+<pre><code>         _                     
+platform aarch64-apple-darwin20
+os       darwin20              
+major    4                     
+minor    2.2                   </code></pre>
 </div>
 </div>
 <p><span class="smaller">2023 • <a href="https://www.scilifelab.se/">SciLifeLab</a> • <a href="https://nbis.se/">NBIS</a> • <a href="https://nbisweden.github.io/workshop-RaukR-2306/">RaukR</a></span></p>

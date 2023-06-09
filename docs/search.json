@@ -3525,7 +3525,7 @@
     "href": "slides/git/index.html#overview",
     "title": "git and R",
     "section": "Overview",
-    "text": "Overview\n\n\n\n\ngit basics\ngit and Rstudio\ngit for yourself\ngit with github and others people\ngithub actions"
+    "text": "Overview\n\n\n\nWhat is git and why should I use it?\ngit set-up\ngit for yourself\ngit and Rstudio\ngit with github and collaborators\ngithub actions"
   },
   {
     "objectID": "slides/git/index.html#title",
@@ -3546,7 +3546,7 @@
     "href": "slides/git/index.html#section",
     "title": "git and R",
     "section": "",
-    "text": "Thank you! Questions?\n\n\n         _                        \nplatform x86_64-apple-darwin22.4.0\nos       darwin22.4.0             \nmajor    4                        \nminor    3.0                      \n\n\n2023 • SciLifeLab • NBIS • RaukR"
+    "text": "Thank you! Questions?\n\n\n         _                     \nplatform aarch64-apple-darwin20\nos       darwin20              \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
   },
   {
     "objectID": "slides/git/index.html#overview-1",
@@ -3554,5 +3554,68 @@
     "title": "git and R",
     "section": "Overview",
     "text": "Overview\n\n\n\ngit basics\ngit and Rstudio\ngit for yourself\ngit with github and others people\ngithub actions"
+  },
+  {
+    "objectID": "slides/git/index.html#git",
+    "href": "slides/git/index.html#git",
+    "title": "git and R",
+    "section": "Git",
+    "text": "Git\n\nGit is version control. What does that mean? It means it tracks changes for all files in a repository, which you can think of as a collection of files. This is not the only way to get version control of your files.\nCheck your git config. git config –global –list git config –global user.name ‘Jane Doe’ git config –global user.email ‘jane@example.com’"
+  },
+  {
+    "objectID": "slides/git/index.html#project-setup",
+    "href": "slides/git/index.html#project-setup",
+    "title": "git and R",
+    "section": "Project setup",
+    "text": "Project setup\n\n\nCreate a folder.\nMake it a Rstudio project.\nMake it a git repository\nConnect it to github"
+  },
+  {
+    "objectID": "slides/git/index.html#github",
+    "href": "slides/git/index.html#github",
+    "title": "git and R",
+    "section": "Github",
+    "text": "Github\n\nGithub is the hosting service that allows for syncing your work with other people, in private work groups or in open access collaboration. The nice thing about having work on github is also that if something really breaks in your local git repo you can always delete it and download a fresh copy off github.\nBy pushing to GitHub, you make your work and all your accumulated progress accessible to others."
+  },
+  {
+    "objectID": "slides/git/index.html#what-is-git-and-why-should-i-use-it",
+    "href": "slides/git/index.html#what-is-git-and-why-should-i-use-it",
+    "title": "git and R",
+    "section": "What is git and why should I use it?",
+    "text": "What is git and why should I use it?\n\n\n\n\n\n\nTrack changes\nRevert changes\nReproducibility\nBackups\nWorking with others\n\n\n\n\nBasically, say you have a folder with a bunch of files. And you want to track what changes you have made to every file, kind of like a word or google slide document with track changes. As you are tracking these changes you also have the possibility to revert these changes and go back in time to an earlier state of the files.\nWhy would you want to do this? It is very useful for working reproducibly to have a complete log of what you have done, it is good for backup, especially if you are also connecting and synchronizing your collection of files with some service such as github, more on that later. It is also very good when you want to work with others in a highly structured way, making sure that many people can work on the same thing without messing it up.\nThere are other advantages of course but I do not want to overload you, so in this lecture we will be focusing on basic git usage and there are loads of online resources to take you further than that."
+  },
+  {
+    "objectID": "slides/git/index.html#what-is-git-and-why-should-i-use-it-1",
+    "href": "slides/git/index.html#what-is-git-and-why-should-i-use-it-1",
+    "title": "git and R",
+    "section": "What is git and why should I use it?",
+    "text": "What is git and why should I use it?\n\nVersion control\n\nIn software development, version control is a class of systems responsible for managing changes to computer programs or other collections of information such that revisions have a logical and consistent organization.\nhttps://en.wikipedia.org/wiki/Comparison_of_version-control_software\n\n\nRepository\n\nA collection of files under version control.\n\n\nGit is version control system, tracking changes for all files in a repository. This is not the only way to get version control of your files."
+  },
+  {
+    "objectID": "slides/git/index.html#git-set-up",
+    "href": "slides/git/index.html#git-set-up",
+    "title": "git and R",
+    "section": "git set-up",
+    "text": "git set-up\n\nChecking configuration\n\nusethis::git_sitrep()\n\n\nBefore the course started you received an email that asked you to have a github account and git available on commandline. Since this is an R focused course we will use Rstudio to check, and in some cases set, some of your configurations.\nYou do not have to do this in R or Rstudio, you can also do this with other git commands from terminal.\nTo do this we will use the usethis library. git_sitrep() is a great tool for checking what configurations you have set.\nDemo git_sitrep"
+  },
+  {
+    "objectID": "slides/git/index.html#git-set-up-1",
+    "href": "slides/git/index.html#git-set-up-1",
+    "title": "git and R",
+    "section": "git set-up",
+    "text": "git set-up\n\nChecking configuration\n\nusethis::git_sitrep()\nGit config (global)\n• Name: 'Sebastian-D'\n• Email: 'dilorenzo.sebastian@gmail.com'\n• Global (user-level) gitignore file: &lt;unset&gt;\n• Vaccinated: FALSE\nℹ See `?git_vaccinate` to learn more\n• Default Git protocol: 'https'\n• Default initial branch name: &lt;unset&gt;\nGitHub\n• Default GitHub host: 'https://github.com'\n• Personal access token for 'https://github.com': '&lt;discovered&gt;'\n• GitHub user: 'Sebastian-D'\n• Token scopes: 'repo, user, workflow'\n• Email(s): 'dilorenzo.sebastian@gmail.com (primary)', 'sebastian.dilorenzo@scilifelab.uu.se'\nGit repo for current project\n• Active usethis project: '/Users/sd/Library/CloudStorage/Box-Box/Work/NBIS_CommMan'\nℹ Active project is not a Git repo\n\n\nLooking at the information here we lets forcus on that our git global config has a name, which should be the same as the github username, an email associated with both my local git and my github, you can see your default protocol which is usually https unless you have some great reason for having SSH.\nIn the github section we can also see that we have a personal access token or PAT, and that token has certain scopes related to it. I will get back to this in a moment."
+  },
+  {
+    "objectID": "slides/git/index.html#git-set-up-2",
+    "href": "slides/git/index.html#git-set-up-2",
+    "title": "git and R",
+    "section": "git set-up",
+    "text": "git set-up\n\nSetting global configuration\n\nusethis::use_git_config(user.name = \"Jane Doe\", user.email = \"jane@example.com\")\n\n\nuse_git_config(user.name = “Jane Doe”, user.email = “jane@example.com”)\nIf you want to use commandline: git config –global –list git config –global user.name ‘Jane Doe’ git config –global user.email ‘jane@example.com’"
+  },
+  {
+    "objectID": "slides/git/index.html#git-set-up-3",
+    "href": "slides/git/index.html#git-set-up-3",
+    "title": "git and R",
+    "section": "git set-up",
+    "text": "git set-up\n\nPersonal Access Token (PAT)\n\nusethis::use_git_config(user.name = \"Jane Doe\", user.email = \"jane@example.com\")\n\n\nWhen we interact with a remote Git server, such as GitHub, we have to include credentials in the request. This proves we are a specific GitHub user, who’s allowed to do whatever we’re asking to do. What we are allowed to do with a certain PAT is the scope of the PAT. Now that your git PAT usethis::create_github_token() gitcreds::gitcreds_set() credentials::set_github_pat(“my_pat”)\nchange commit add status\ndiff\nlater, push/pull with github. clone\nGit and Rstudio: Clone a repo using rstudio File &gt; New Project &gt; Version Control &gt; Git\nConnect existing code to new github repo: usethis::use_git() usethis::use_github()\nMention branches? Mention merge conflicts? Mention remotes? Maybe “What is a remote and why is it useful”, and then do the “how” in lab? Could just teach them the github way of sync instead… easier. mention github actions, what it does, but not how to set it up? Maybe add as advanced topic for lab. Git clients. Mentioned here but not taught."
   }
 ]

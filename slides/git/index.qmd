@@ -7,42 +7,19 @@ format: revealjs
 
 ## Overview
 
-<!-- 
-Outline:
-What is git and what is it good for?
-Set-up (do together or leave for lab? Many people probably already have git setup on their machines...)
-Using git for yourself
-Using git with Rstudio
-Using git with others
-Using github actions
--->
+```{r}
+#| echo: false
+library(usethis)
+
+```
 
 :::: {.columns}
 ::: {.column width="60%"}
-- git basics
-- git and Rstudio
+- What is git and why should I use it?
+- git set-up
 - git for yourself
-- git with github and others people
-- github actions
-:::
-
-::: {.column width="40%"}
-![](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png){width="300px"}
-:::
-::::
-
-::: notes
-:::
-
-
-## Overview
-
-:::: {.columns}
-::: {.column width="60%"}
-- git basics
 - git and Rstudio
-- git for yourself
-- git with github and others people
+- git with github and collaborators
 - github actions
 :::
 
@@ -52,15 +29,209 @@ Using github actions
 :::
 ::::
 
-## Git
+## What is git and why should I use it?
+
+:::: {.columns}
+::: {.column width="50%"}
+![](assets/tree.png){width="80%"}
+:::
+
+::: {.column width="50%"}
+
+<br>
+
+- Track changes
+- Revert changes
+- Reproducibility
+- Backups
+- Working with others
+:::
+:::: 
+
+::: notes
+Basically, say you have a folder with a bunch of files. And you want to track what changes you have made to every file, kind of like a word or google slide document with track changes. As you are tracking these changes you also have the possibility to revert these changes and go back in time to an earlier state of the files.
+
+Why would you want to do this? It is very useful for working reproducibly to have a complete log of what you have done, it is good for backup, especially if you are also connecting and synchronizing your collection of files with some service such as github, more on that later. It is also very good when you want to work with others in a highly structured way, making sure that many people can work on the same thing without messing it up. 
+
+There are other advantages of course but I do not want to overload you, so in this lecture we will be focusing on basic git usage and there are loads of online resources to take you further than that.
+:::
+
+## What is git and why should I use it?
+
+<br>
+
+#### Version control
+> In software development, version control is a class of systems responsible for managing changes to computer programs or other collections of information such that revisions have a logical and consistent organization.
+>
+> https://en.wikipedia.org/wiki/Comparison_of_version-control_software
+
+<br>
+
+#### Repository
+> A collection of files under version control.
+
+
+
+::: notes
+Git is version control system, tracking changes for all files in a repository.
+This is not the only way to get version control of your files.
+:::
+
+## git set-up
+<br>
+
+#### Checking configuration
 
 ```{r}
+#| eval: false
+
+usethis::git_sitrep()
 
 ```
 
 ::: notes
-Git is version control. What does that mean? It means it tracks changes for all files in a repository, which you can think of as a collection of files.
-This is not the only way to get version control of your files.
+Before the course started you received an email that asked you to have a github account and git available on commandline. Since this is an R focused course we will use Rstudio to check, and in some cases set, some of your configurations.
+
+You do not have to do this in R or Rstudio, you can also do this with other git commands from terminal.
+
+To do this we will use the usethis library. git_sitrep() is a great tool for checking what configurations you have set.
+
+**Demo git_sitrep**
+:::
+
+## git set-up
+<br>
+
+#### Checking configuration
+
+```{r}
+#| eval: false
+#| code-line-numbers: "2-4,8,10-15"
+usethis::git_sitrep()
+Git config (global)
+• Name: 'Sebastian-D'
+• Email: 'dilorenzo.sebastian@gmail.com'
+• Global (user-level) gitignore file: <unset>
+• Vaccinated: FALSE
+ℹ See `?git_vaccinate` to learn more
+• Default Git protocol: 'https'
+• Default initial branch name: <unset>
+GitHub
+• Default GitHub host: 'https://github.com'
+• Personal access token for 'https://github.com': '<discovered>'
+• GitHub user: 'Sebastian-D'
+• Token scopes: 'repo, user, workflow'
+• Email(s): 'dilorenzo.sebastian@gmail.com (primary)', 'sebastian.dilorenzo@scilifelab.uu.se'
+Git repo for current project
+• Active usethis project: '/Users/sd/Library/CloudStorage/Box-Box/Work/NBIS_CommMan'
+ℹ Active project is not a Git repo
+```
+
+::: notes
+Looking at the information here we lets forcus on that our git global config has a name, which should be the same as the github username, an email associated with both my local git and my github, you can see your default protocol which is usually https unless you have some great reason for having SSH.
+
+In the github section we can also see that we have a personal access token or PAT, and that token has certain scopes related to it. I will get back to this in a moment.
+:::
+
+## git set-up
+<br>
+
+#### Setting global configuration
+```{r}
+#| eval: false
+
+usethis::use_git_config(user.name = "Jane Doe", user.email = "jane@example.com")
+
+```
+
+
+::: notes
+use_git_config(user.name = "Jane Doe", user.email = "jane@example.com")
+
+If you want to use commandline:
+git config --global --list
+git config --global user.name 'Jane Doe'
+git config --global user.email 'jane@example.com'
+:::
+
+## git set-up
+<br>
+
+#### Personal Access Token (PAT)
+
+- Credentials
+- Scope
+    - "What is this PAT allowed to modify?"
+- No password prompt when uploading/downloading data.
+
+```{r}
+#| eval: false
+
+#Takes you to github.com create new token.
+usethis::create_github_token()
+
+#Use to set your new token in your configuration
+gitcreds::gitcreds_set()
+
+```
+
+::: notes
+When we interact with a remote Git server, such as GitHub, we have to include credentials in the request. This proves we are a specific GitHub user, who’s allowed to do whatever we’re asking to do. What we are allowed to do with a certain PAT is the **scope** of the PAT.
+
+**DEMO create_github_token**
+
+Once we have created our token we can save it in a password manager if you are using that. Then set it with our configuration with gitcreds_set(). Let's do this now, then check out gitcreds_sitrep().
+
+usethis::create_github_token()
+gitcreds::gitcreds_set()
+credentials::set_github_pat("my_pat")
+:::
+
+## git for yourself
+
+:::: {.columns}
+::: {.column width="25%"}
+
+<br>
+
+- Track changes
+- Revert changes
+- Reproducibility
+- Backups
+- Working with others
+:::
+
+::: {.column width="75%"}
+![](assets/tree.png){width="80%"}
+:::
+:::: 
+
+
+::: notes
+Now that we hopefully are all set-up, lets finally take a look at actually working with git.
+
+change
+commit
+add
+status
+
+diff
+
+later, push/pull with github.
+clone
+
+Git and Rstudio:
+Clone a repo using rstudio File > New Project > Version Control > Git
+
+Connect existing code to new github repo:
+usethis::use_git()
+usethis::use_github()
+
+Mention branches?
+Mention merge conflicts?
+Mention remotes? Maybe "What is a remote and why is it useful", and then do the "how" in lab? Could just teach them the github way of sync instead... easier.
+mention github actions, what it does, but not how to set it up? Maybe add as advanced topic for lab.
+Git clients. Mentioned here but not taught.
 :::
 
 ## Project setup
@@ -69,6 +240,7 @@ This is not the only way to get version control of your files.
 1. Create a folder.
 2. Make it a Rstudio project.
 3. Make it a git repository
+4. Connect it to github
 :::
 
 ## Github
@@ -76,6 +248,8 @@ This is not the only way to get version control of your files.
 ::: notes
 Github is the hosting service that allows for syncing your work with other people, in private work groups or in open access collaboration.
 The nice thing about having work on github is also that if something really breaks in your local git repo you can always delete it and download a fresh copy off github.
+
+By pushing to GitHub, you make your work and all your accumulated progress accessible to others.
 :::
 
 ##  {background-image="../../assets/images/cover.jpg"}
