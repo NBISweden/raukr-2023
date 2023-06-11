@@ -99,7 +99,68 @@ The point here being that starting from scratch or starting from a bunch of work
 ## Additional topics and exercises
 
 ### Branches
+
+Branches in git are a way to create a separate version controlled instance of your repository. Think of `add`ing and `commit`ing as a tree trunk, growing as you create more changes but always possible to `reset` and go back down to a lower point on the trunk.  Then `branch`ing is the equivalent of a branch shooting out at a certain point on that trunk with the possibility to grow as you develop that `branch`. This permits you or someone else to work on a separate idea at the same time as you continue to develop the trunk. Say for example that you have a situation where there is a stable release of your R package and you do not want to push changes to this. So you create a `branch` called "development" and when you are happy with it you merge that branch back into the trunk!
+
+![](assets/git_branch.png)
+
+Useful commands for branches from terminal:
+
+- `git branch <name of branch>` : Create a new branch.
+- `git branch` : See list of branches. Current branch marked with *.
+- `git checkout <name of branch>` : Move to branch.
+- `git merge <name of branch>` : Merge the branch you are currently on with the branch named in command.
+
+However, you can work with branches from RStudio as well! To do this you can use the purpleish button in *git pane* that looks like two squares connected with a diamond. Once you have created a new branch you can switch branches to the right of the branch button in the *git pane*.
+
+Exercise:
+
+1. Either create a new git version controlled R project in Rstudio, or continue from your last one.
+2. Create a new branch using RStudio. Make sure you are on that branch afterwards.
+3. Introduce some changes in your R script. `commit` them. In our mental model, this is you developing something experimental until you are satisfied with it.
+4. Switch back to the main branch.
+5. To `merge` the new branch with our main branch we will use the terminal again. In the RStudio terminal perform the `merge`. In the mental model this you being satisfied with the development branch and calling it a stable release, a part of the main body of code!
+
+Congratulations, you now know how to create a branch, switch between branches, and merge the branch back into main. 
+
 ### Merge conflicts
+
+Earlier we thought about the issue of working changes being introduces in your local copy of a repository and in the github version of the repository at the same time. A so called "merge conflict". This can also happen if you are working on two branches, introduce chances in the same places and then try to merge! But you should try not to worry too much about merge conflicts, they can be solved if you know what you are doing.
+
+1. Create a merge conflict by introducing changes in the same part of your code on your main and new branch and then using `git merge <name of branch>`. You will need to switch branches, make changes and commit changes to do this.
+
+The output you should get from the `merge` is similar to:
+```{bash}
+#| eval: false
+Auto-merging file.R
+CONFLICT (content): Merge conflict in file.R
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+You can also use `git status` from terminal to check which file is modified and why.
+
+Once a merge conflict occurs the file effected is modified to reflect the conflicting areas. It can look something like this:
+``` {bash}
+#| eval: FALSE
+
+#Hello world!"
+
+<<<<<<< HEAD
+a <- 2
+
+b <- 2
+=======
+a <- 3
+>>>>>>> test
+```
+
+In this instance it is telling us that in branch named "test" `a <- 3`but on our main branch `a <- 2` and `b <- 2` has also been added. To pick which one you want to go with simply delete the `>>,<<,==` notifiers and whichever piece rows of code that you do not want.
+Once you have done this, finalize the merge by `commit`ing the changed files.
+
+2. Fix your merge conflict and finalize the merge.
+
+Good job! You know know how to resolve merge conflicts!
+
 ### Forks
 ### pull requests
 ### github actions

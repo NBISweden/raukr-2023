@@ -313,9 +313,60 @@ Note
 <h2 data-number="3" class="anchored" data-anchor-id="additional-topics-and-exercises"><span class="header-section-number">3</span> Additional topics and exercises</h2>
 <section id="branches" class="level3" data-number="3.1">
 <h3 data-number="3.1" class="anchored" data-anchor-id="branches"><span class="header-section-number">3.1</span> Branches</h3>
+<p>Branches in git are a way to create a separate version controlled instance of your repository. Think of <code>add</code>ing and <code>commit</code>ing as a tree trunk, growing as you create more changes but always possible to <code>reset</code> and go back down to a lower point on the trunk. Then <code>branch</code>ing is the equivalent of a branch shooting out at a certain point on that trunk with the possibility to grow as you develop that <code>branch</code>. This permits you or someone else to work on a separate idea at the same time as you continue to develop the trunk. Say for example that you have a situation where there is a stable release of your R package and you do not want to push changes to this. So you create a <code>branch</code> called “development” and when you are happy with it you merge that branch back into the trunk!</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="assets/git_branch.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="assets/git_branch.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<p>Useful commands for branches from terminal:</p>
+<ul>
+<li><code>git branch &lt;name of branch&gt;</code> : Create a new branch.</li>
+<li><code>git branch</code> : See list of branches. Current branch marked with *.</li>
+<li><code>git checkout &lt;name of branch&gt;</code> : Move to branch.</li>
+<li><code>git merge &lt;name of branch&gt;</code> : Merge the branch you are currently on with the branch named in command.</li>
+</ul>
+<p>However, you can work with branches from RStudio as well! To do this you can use the purpleish button in <em>git pane</em> that looks like two squares connected with a diamond. Once you have created a new branch you can switch branches to the right of the branch button in the <em>git pane</em>.</p>
+<p>Exercise:</p>
+<ol type="1">
+<li>Either create a new git version controlled R project in Rstudio, or continue from your last one.</li>
+<li>Create a new branch using RStudio. Make sure you are on that branch afterwards.</li>
+<li>Introduce some changes in your R script. <code>commit</code> them. In our mental model, this is you developing something experimental until you are satisfied with it.</li>
+<li>Switch back to the main branch.</li>
+<li>To <code>merge</code> the new branch with our main branch we will use the terminal again. In the RStudio terminal perform the <code>merge</code>. In the mental model this you being satisfied with the development branch and calling it a stable release, a part of the main body of code!</li>
+</ol>
+<p>Congratulations, you now know how to create a branch, switch between branches, and merge the branch back into main.</p>
 </section>
 <section id="merge-conflicts" class="level3" data-number="3.2">
 <h3 data-number="3.2" class="anchored" data-anchor-id="merge-conflicts"><span class="header-section-number">3.2</span> Merge conflicts</h3>
+<p>Earlier we thought about the issue of working changes being introduces in your local copy of a repository and in the github version of the repository at the same time. A so called “merge conflict”. This can also happen if you are working on two branches, introduce chances in the same places and then try to merge! But you should try not to worry too much about merge conflicts, they can be solved if you know what you are doing.</p>
+<ol type="1">
+<li>Create a merge conflict by introducing changes in the same part of your code on your main and new branch and then using <code>git merge &lt;name of branch&gt;</code>. You will need to switch branches, make changes and commit changes to do this.</li>
+</ol>
+<p>The output you should get from the <code>merge</code> is similar to:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Auto-merging</span> file.R</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">CONFLICT</span> <span class="er">(</span><span class="ex">content</span><span class="kw">)</span><span class="bu">:</span> Merge conflict in file.R</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Automatic</span> merge failed<span class="kw">;</span> <span class="ex">fix</span> conflicts and then commit the result.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can also use <code>git status</code> from terminal to check which file is modified and why.</p>
+<p>Once a merge conflict occurs the file effected is modified to reflect the conflicting areas. It can look something like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Hello world!"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span> HEAD</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">a</span> <span class="op">&lt;</span>- 2</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">b</span> <span class="op">&lt;</span>- 2</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ex">=======</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">a</span> <span class="op">&lt;</span>- 3</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> test</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this instance it is telling us that in branch named “test” <code>a &lt;- 3</code>but on our main branch <code>a &lt;- 2</code> and <code>b &lt;- 2</code> has also been added. To pick which one you want to go with simply delete the <code>&gt;&gt;,&lt;&lt;,==</code> notifiers and whichever piece rows of code that you do not want. Once you have done this, finalize the merge by <code>commit</code>ing the changed files.</p>
+<ol start="2" type="1">
+<li>Fix your merge conflict and finalize the merge.</li>
+</ol>
+<p>Good job! You know know how to resolve merge conflicts!</p>
 </section>
 <section id="forks" class="level3" data-number="3.3">
 <h3 data-number="3.3" class="anchored" data-anchor-id="forks"><span class="header-section-number">3.3</span> Forks</h3>
@@ -574,7 +625,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-right">Published with <a href="https://quarto.org/">Quarto</a> v1.3.361</div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","loop":true,"openEffect":"zoom","closeEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","openEffect":"zoom","selector":".lightbox","loop":true,"closeEffect":"zoom"});</script>
 
 
 
