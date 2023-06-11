@@ -47,7 +47,7 @@ vec <- c(1:5)
 vec + 1
 ```
 
-Which is better than? `r emo::ji('confused')`
+Which is better? `r emo::ji('confused')`
 
 ## Repeating actions &mdash; vectorization
 
