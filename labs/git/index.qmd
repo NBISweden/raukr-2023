@@ -50,19 +50,51 @@ This is the lab on using git and github with R. It will take you through some ba
 This lab assumes that you have a github account, commandline git and correct git configurations. If you do not and need help, please contact a TA.
 :::
 
-## Install & set-up
+## Install packages
 
 The first thing we want to do is install the package required for the exercise.
 
 ```{r}
 #| eval: false
+install.packages("usethis")
 
 ```
 
-## Exercises
+## Working with git and github starting from RStudio
+Let's go through the common situation of starting a new project and connecting it to git and github. Let's create a mental model for this: Hypothetically, you have just been asked to perform some data analysis, produce some plots, and now it is time to start!
 
-### Working with git and github starting from RStudio
-### Working with git and RStudio starting from github
+1. In RStudio, create a new project in a new directory. You can initialize it as a git repository upon creation or you can do that after using `usethis::use_git()`.
+
+2. Connect it to github using `usethis::use_github()`.
+
+3. Create an R script in your project and write some code. You are free to do whatever you want here. Write a function, create a plot, use a public dataset. Go crazy!
+
+4. Use the RStudio *git pane* to `commit` your code including a commit message.
+
+![](assets/git_pane.png)
+
+5. `push` the changes to your github repository. Then go to github and check that you can see your changes there. In your mental model, this is you sharing your code with your collaborators or users.
+
+6. Now introduce some changes to your script from github and `commit` them. At this point, your github repository is one `commit` ahead of your local repository. In the mental model, this can be your collaborators making changes in their local repository and `push`ing it to your shared github project, or a user suggesting a change in your publicly available R-package, used by millions. For now, lets ignore thinking about who has access to `commit` to your repository, but do not worry, there are ways to safeguard this. Your code can be open on github without other people being able to ruin it so you have to constantly go back to a previous unruined `commit`!
+
+7. To transfer the changes in the github repository to your local repository, go back to RStudio and use the blue arrow in the *git pane* to `pull` the changes. In the mental model this is you updating your code with the code contributed by your collaborators. Notice here that if if you had in the meantime made some changes to the local repository in the same R script and position as you had on github, there would be what is called a "merge conflict" when you tried to `pull`. We will get to those later in the exercise.
+
+8. Let's look at the `diff` operation. Make some changes in your local repository R script again, both removing and adding something, then press the `diff` button in the *git pane*. This should bring up a new window that is similar to the image below. As you can see it clearly shows you what has been added and what has been removed, what the `diff`erence is since your last `commit`.
+
+![](assets/diff.png)
+
+9. Go ahead and `commit` the changes you made. No need to `push` them to github. Now lets go into our mental model and say that you did not like those changes. You have done something you regret, or broken something, and you want to go back. One of the main points of version control after all is the ability to go back. For this you will have to use the *terminal pane* in RStudio. In essence, what you are doing now is using git from the terminal in your local repository, this is because the git operations necessary to go back are not currently built into RStudio. Here are the commands we will be using:
+```{bash}
+#| eval: false
+git reset HEAD~1
+git restore <our R script>
+```
+
+`git reset HEAD~n` steps you back in your `commit` history `n` `commit`s. In this case `HEAD~1` means *go one `commit` back*. Look at your R script, are the changes you made still there? They should be. You have gone back one `commit`, not removed the changes you made during that `commit`. But now that we are on this `commit` you can `git restore` your R script file to take it back to the way it was at the start of current `commit`. Go ahead and try it out and make sure it works as you would expect it to!
+
+Now you should have all the tools you need to work with git in a basic capacity, starting from a new project on your device. Notice that you do not need to start from a new project, you can also take a folder with lots of work you have already performed and make it an R project and initialize git in it. It will of course only track changes from that point, not what you have done previously, but it is still a good idea!
+
+The point here being that starting from scratch or starting from a bunch of work that you have already done, or starting by creating a github repository and pulling that into github using *File > New Project > Version Control > Git* , there are tools for any situation and it is not too late to start working reproducibly, collaboratively and with backups using git!
 
 ## Additional topics and exercises
 
