@@ -17,6 +17,7 @@ execute:
 |[**WEEK 1**]{.highlight style="display:block;"}                                |||
 |[**12-Jun-2023 (Mon)**]{.highlight}    |                                       ||
 |Introduction to RaukR                  |Marcin Kierczak & Sebastian DiLorenzo  ||
+|Functions and scripts                  |Sebastian DiLorenzo                    |[Slides](slides/scripting/index.html), [Lab](labs/scripting/index.html)|
 |Documentation & Publishing with Quarto |Roy Francis                            |[Slides](slides/publishing/index.html), [Lab](labs/publishing/index.html)|
 |Best Coding Practices in R             |Marcin Kierczak                        |[Slides](slides/coding/index.html), [Lab](labs/coding/index.html)|
 |Debugging, Profiling and Optimisation  |Marcin Kierczak                        |[Slides](slides/debugging/index.html), [Lab](labs/debugging/index.html)|
