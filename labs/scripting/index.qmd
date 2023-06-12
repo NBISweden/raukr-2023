@@ -25,11 +25,7 @@ In this exercise we will write a few functions and execute R scripts from the co
 
 ## R Functions
 
-<<<<<<< HEAD
-Let's jump right in and create a function. Your function should have it's own *function_name*, at least two *arguments* one of which with a default value, code that performs some *operations* on the input and a *return* value. I do encourage you to think about it and make your own function, rather than copying the examples. Examples should be seen more as explanatory, semantic and inspirational.
-=======
 Let's jump right in and create a function. Your function should have it's own *function_name*, atleast two *parameters* one of which with a default argument, code that performs some *operations* on the input and a *return* value. I do encourage you to think about it and make your own function, rather than copying the examples. Examples should be seen more as explanatory, semantic and inspirational.
->>>>>>> seb
 
 Example:
 
