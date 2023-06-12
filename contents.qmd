@@ -26,7 +26,6 @@ execute:
 |Parallelization                        |Sebastian DiLorenzo & Marcin Kierczak  |[Slides](slides/parallelization/index.html), [Lab](labs/parallelization/index.html)|
 |Object-oriented programming            |Marcin Kierczak                        |[Slides](slides/oop/index.html), [Lab](labs/oop/index.html)|
 |Quarto                                 |Chris Dervieux & Yihui Xie, Posit      ||
-|Functions & Scripts                    |Sebastian DiLorenzo                    |[Slides](slides/scripting/index.html), [Lab](labs/scripting/index.html)|
 |[**14-Jun-2023 (Wed)**]{.highlight}    |                                       ||
 |Tidyverse                              |Marcin Kierczak & Roy Francis          |[Slides](slides/tidyverse/index.html), [Lab](labs/tidyverse/index.html)|
 |reticulate: Combining R with Python    |Nina Norgren                           |[Slides](slides/reticulate/index.html), [Lab](labs/reticulate/index.html)|
