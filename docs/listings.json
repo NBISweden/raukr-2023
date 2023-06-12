@@ -16,6 +16,7 @@
       "/labs/tidyverse/index.html",
       "/labs/vectorization/index.html",
       "/labs/shiny/index.html",
+      "/labs/git/index.html",
       "/labs/reticulate/index.html"
     ]
   },
@@ -36,7 +37,8 @@
       "/slides/rr/index.html",
       "/slides/reticulate/index.html",
       "/slides/tidyverse/index.html",
-      "/slides/vectorization/index.html"
+      "/slides/vectorization/index.html",
+      "/slides/git/index.html"
     ]
   }
 ]
