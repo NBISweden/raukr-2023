@@ -6,7 +6,11 @@
   </url>
   <url>
     <loc>https://nbisweden.github.io/raukr-2023/contents.html</loc>
+<<<<<<< HEAD
     <lastmod>2023-06-11T12:20:47.455Z</lastmod>
+=======
+    <lastmod>2023-06-05T14:16:42.931Z</lastmod>
+>>>>>>> seb
   </url>
   <url>
     <loc>https://nbisweden.github.io/raukr-2023/index.html</loc>
@@ -46,7 +50,11 @@
   </url>
   <url>
     <loc>https://nbisweden.github.io/raukr-2023/labs/parallelization/index.html</loc>
+<<<<<<< HEAD
     <lastmod>2023-06-09T09:22:12.130Z</lastmod>
+=======
+    <lastmod>2023-06-09T20:50:56.563Z</lastmod>
+>>>>>>> seb
   </url>
   <url>
     <loc>https://nbisweden.github.io/raukr-2023/labs/publishing/index.html</loc>
@@ -62,7 +70,11 @@
   </url>
   <url>
     <loc>https://nbisweden.github.io/raukr-2023/labs/scripting/index.html</loc>
+<<<<<<< HEAD
     <lastmod>2023-06-11T14:31:33.985Z</lastmod>
+=======
+    <lastmod>2023-06-04T11:19:35.790Z</lastmod>
+>>>>>>> seb
   </url>
   <url>
     <loc>https://nbisweden.github.io/raukr-2023/labs/shiny/index.html</loc>
@@ -114,7 +126,11 @@
   </url>
   <url>
     <loc>https://nbisweden.github.io/raukr-2023/slides/parallelization/index.html</loc>
+<<<<<<< HEAD
     <lastmod>2023-06-09T09:22:35.494Z</lastmod>
+=======
+    <lastmod>2023-06-04T20:22:58.250Z</lastmod>
+>>>>>>> seb
   </url>
   <url>
     <loc>https://nbisweden.github.io/raukr-2023/slides/publishing/index.html</loc>
@@ -130,7 +146,11 @@
   </url>
   <url>
     <loc>https://nbisweden.github.io/raukr-2023/slides/scripting/index.html</loc>
+<<<<<<< HEAD
     <lastmod>2023-06-09T09:22:38.418Z</lastmod>
+=======
+    <lastmod>2023-06-04T10:21:32.073Z</lastmod>
+>>>>>>> seb
   </url>
   <url>
     <loc>https://nbisweden.github.io/raukr-2023/slides/shiny/index.html</loc>
@@ -143,5 +163,13 @@
   <url>
     <loc>https://nbisweden.github.io/raukr-2023/slides/vectorization/index.html</loc>
     <lastmod>2023-06-11T14:31:55.326Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nbisweden.github.io/raukr-2023/slides/git/index.html</loc>
+    <lastmod>2023-06-09T20:38:01.130Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nbisweden.github.io/raukr-2023/labs/git/index.html</loc>
+    <lastmod>2023-06-11T21:00:43.170Z</lastmod>
   </url>
 </urlset>

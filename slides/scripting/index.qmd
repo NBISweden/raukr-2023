@@ -23,9 +23,10 @@ library(optparse)
 
 :::: {.columns}
 ::: {.column width="50%"}
-Without a function
+<div style="background-color:#f2d7d5">Without a function</div>
 
 ```{r}
+#| code-line-numbers: "1|2"
 a <- 5
 a + a
 ```
@@ -43,9 +44,10 @@ An R function is something you have probably used many times already.. Functions
 :::
 
 ::: {.column width="50%"}
-With a function
+<div style="background-color:#d0ece7">With a function</div>
 
 ```{r}
+#| code-line-numbers: "1-3|5-6|9"
 doubleUp <- function(x){
   x + x
 }
@@ -67,26 +69,33 @@ z <- doubleUp(3)
 The pieces that make a function
 
 ```{r}
-function_name <- function(arg1, arg2 = 20, ...){
-  arg1*2 # operational space
-  arg1+arg2 # What is returned. Alt, use return(arg1+arg2)
+function_name <- function(param1, param2 = 20, ...){
+  param1*2 # Operational space
+  param1+param2 # What is returned. Alt, use return(param1+param2)
 }
 ```
 
 - `function_name` : Name of the function
-- `function(){}` : The function body
-- `arguments` : User input
-  - `arg1` : No default value. Required.
-  - `arg2 = 20` : Default value
+- `function()` : Parameters. User input
+  - `param1` : No default value. Required.
+  - `param2 = 20` : Default value
   - `...`  : ellipses pass other arguments into function
+- `function(){}` : The function body
 - `return` : the last line or invoked with `return()` function.
+
+::: {.notes}
+A parameter is a variable in the declaration of the function.
+An argument is the actual value of the variable that gets passed to the function.
+:::
 
 . . .
 
-Add a function to workspace
+::: {.callout-tip}
+How to a function to workspace
 
 - copy paste
 - `source()` / `library()`
+:::
 
 ## R scripts as standalone tools
 
@@ -101,25 +110,19 @@ McIlroy is best known for having originally proposed Unix pipelines and develope
 . . .
 
 - Data analysis with R is usually performed interactively using e.g. RStudio
-
-::: {.notes}
-Usually when you are **analyzing data** you will use the **interactive view** and try different things going forward. But say that you have figured out something that you want to **do** for **multiple numbers** of datasets?
-:::
-
-. . .
-
-- Routine tasks can be executed from the terminal using R scripts
-
-::: {.notes}
-In this case it might be **efficient** to use an **Rscript**.
-:::
-
-. . .
-
+- Tasks can be executed from the terminal using R scripts
 - R scripts can form powerful standalone tools
 
 ::: {.notes}
+Usually when you are **analyzing data** you will use the **interactive view** and try different things going forward. But say that you have figured out something that you want to **do** for **multiple numbers** of datasets?
+
 And like the quote it should do **one** thing and do it well. Because of the **power** in that an **R script** can contain **multiple functions**, or "programs", this one thing can be quite **simple**, or quite **advanced**. And like the textstream mentioned here Rscripts often take input, something we will look more at now.
+
+In this case it might be **efficient** to use an **Rscript**.
+
+So USUALLY an rscript is something that is executable, can take some inputs and arguments, and returns something.
+
+Now lets look at those pieces starting with how an rscript can be executed.
 :::
 
 ## Executing an R script
@@ -170,7 +173,7 @@ If you want to run it without giving path, its folder must be in you $PATH varia
 
 ::: {.notes}
 
-Here for example we are using the Rscript as an **executable** file, giving it an **inputfile** and specifying what we want the **outputfile** to be named.
+Here for example we are using the Rscript as an **executable** file, giving it an **inputfile** and specifying what we want the **outputfile** to be named. Notice that the only way the R script knows what is what is positionally.
 :::
 
 . . .
@@ -211,7 +214,10 @@ A part of the **flexibility** of this is that you can give the flags in **any or
 And you can also *mix* the *long/short flag order and styles*. It is the coding in the script that determines how it handles this input.
 :::
 
-## Parsing arguments
+## Parsing arguments - Positional {.small}
+
+Example: `./myscript.R inputfile.vcf outputfile.vcf`
+
 
 - `commandArgs()`
 
@@ -224,7 +230,7 @@ Use **commandArgs()** to capture whatever was **passed** into R as it was **exec
 Add `trailingOnly = TRUE` to suppress the first few items and get the arguments **you** passed to the script.
 
 ::: {.notes}
-A **standard parameter**, but **not default**, that you can use when invoking `commandArgs()` is `trailingOnly = TRUE`, which basically tells it to start counting the input from **after** the **Rscript arguments**. As you can see here when we invoke it without this parameter it returns the script itself, in this case R studio. But with it the invocation is clear, there were no trailing command line arguments.
+A **standard arg**, but **not default**, that you can use when invoking `commandArgs()` is `trailingOnly = TRUE`, which basically tells it to start counting the input from **after** the **Rscript arguments**. As you can see here when we invoke it without this parameter it returns the script itself, in this case R studio. But with it the invocation is clear, there were no trailing command line arguments.
 :::
 
 . . .
@@ -237,12 +243,11 @@ commandArgs()
 commandArgs(trailingOnly = TRUE)
 ```
 
-## Parsing arguments
+## Parsing arguments - Flags {.small}
 
-The flexible way: short and long flags
+Example: `./myscript.R --input inputfile.vcf --output outputfile.vcf`
 
 ::: {.notes}
-
 So how do we do it with **flags**?
 :::
 
@@ -252,8 +257,7 @@ So how do we do it with **flags**?
 
 . . .
 
-- Define set of possible arguments at start of script:
-
+Define set of possible arguments at start of script:
 ```{r}
 library(optparse)
 my_options = list(
@@ -262,12 +266,13 @@ my_options = list(
 )
 ```
 
+::: {.notes}
 If we use **optparse** as an example you **create** your options using the **make_option** command, and can set default values. We see also that you can give both long and short form here.
+:::
 
 . . .
 
-- Parse arguments using your definition:
-
+Parse arguments using your definition:
 ```{r}
 parse_args(OptionParser(option_list=my_options))
 ```
@@ -306,37 +311,27 @@ oneline=readLines(input_con, n = 1)
 close(input_con)
 ```
 
-::: {.notes}
-What we do is **open** a connection from **standard input** and then read this **text stream** for **n** number of lines at a time. It is also good to close this connection afterwards.
-:::
-
-. . .
-
 - Tidyverse can read a `tibble` from text stream: `read_csv(file("stdin"))`
 
 ::: {.notes}
+What we do is **open** a connection from **standard input** and then read this **text stream** for **n** number of lines at a time. It is also good to close this connection afterwards.
+
 Alternatively you can read a text stream into a **tibble** from tidyverse by using **read_csv**, note that it isnt **read.csv** the generic R command, which can take our **input connection** and create the tibble in R.
 :::
 
 ## Text streams
 
-### Writing
+#### Writing
 
-- Any `stdout` produced by the code (`print()`, `cat()`, etc) can be piped to a new process: `...myRscript.R | myNewScript`
+- Any `stdout` produced by the code (`print()`, `cat()`, etc) can be piped to a new process: `./myRscript.R | myNewScript`
 
-::: {.notes}
-What about **piping from** your R script to something else? Continuing the stream? So just writing these commands. print, cat etc, can be piped to a new process.
-:::
-
-. . .
-
-- or written to a file: `...myRscript.R > output.csv`
-
-. . .
+- or written to a file: `./myRscript.R > output.csv`
 
 - To write a `tibble` as a text stream: `cat(format_csv(my_tibble))`
 
 ::: {.notes}
+What about **piping from** your R script to something else? Continuing the stream? So just writing these commands. print, cat etc, can be piped to a new process.
+
 If you already have a tibble, you can stream it out of R using this command.
 :::
 

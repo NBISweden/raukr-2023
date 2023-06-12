@@ -11,7 +11,7 @@
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/reveal-header-1.0.0/add_header.js" defer="true"></script>
 <link href="../../site_libs/quarto-contrib/reveal-header-1.0.0/add_header.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.340">
+  <meta name="generator" content="quarto-1.3.361">
 
   <meta name="author" content="Sebastian DiLorenzo">
   <title>Parallelization in R</title>
@@ -98,7 +98,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -409,7 +409,7 @@ Sebastian DiLorenzo
 </div>
 </div>
 
-  <p class="date">13-Mar-2023</p>
+  <p class="date">04-Jun-2023</p>
 </section>
 
 <section id="overview" class="slide level2">
@@ -433,7 +433,7 @@ Sebastian DiLorenzo
 </div>
 <aside class="notes">
 <p>Future package has backup packages, for example <strong>future.batchtools</strong> which provides access to cluster functions, like slurm, torque, SGE and LSF. Futures are evaluated in a local environment, meaning that you cant change variables in there. Like in functions.</p>
-<p>Recently published article. The big thing about futures is that it seems to support most infrastructures and it is written in a way where you are not deciding which infrastructure the user has, which parallel and foreach did. Finish with info that he has described this in detail for those that want to know more.</p>
+<p>The big thing about futures is that it seems to support most infrastructures and it is written in a way where you are not deciding which infrastructure the user has, which parallel and foreach did. Finish with info that he has described this in detail for those that want to know more.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -527,7 +527,7 @@ Sebastian DiLorenzo
 <p>Building block: <code>variable %&lt;-% {expression(s)}</code></p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>future<span class="sc">::</span><span class="fu">plan</span>(sequential)</span>
+<div class="sourceCode cell-code" id="cb1" data-code-line-numbers="1|3-6|7-10|12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>future<span class="sc">::</span><span class="fu">plan</span>(sequential)</span>
 <span id="cb1-2"><a href="#cb1-2"></a></span>
 <span id="cb1-3"><a href="#cb1-3"></a>a <span class="sc">%&lt;-%</span> {</span>
 <span id="cb1-4"><a href="#cb1-4"></a>  <span class="fu">Sys.sleep</span>(<span class="dv">3</span>)</span>
@@ -559,7 +559,7 @@ Sebastian DiLorenzo
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3
    user  system elapsed 
-  0.048   0.002   6.052 </code></pre>
+  0.022   0.002   6.042 </code></pre>
 </div>
 </div>
 </div>
@@ -586,7 +586,7 @@ Sebastian DiLorenzo
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3
    user  system elapsed 
-  0.075   0.025   3.090 </code></pre>
+  0.034   0.060   3.063 </code></pre>
 </div>
 </div>
 <aside class="notes">
@@ -607,7 +607,7 @@ Sebastian DiLorenzo
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">availableCores</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>system 
-    12 </code></pre>
+    10 </code></pre>
 </div>
 </div>
 </div>
@@ -630,21 +630,20 @@ Sebastian DiLorenzo
 <span id="cb7-12"><a href="#cb7-12"></a>  <span class="fu">Sys.sleep</span>(<span class="dv">3</span>)</span>
 <span id="cb7-13"><a href="#cb7-13"></a>  c <span class="ot">&lt;-</span> <span class="dv">3</span></span>
 <span id="cb7-14"><a href="#cb7-14"></a>}</span>
-<span id="cb7-15"><a href="#cb7-15"></a></span>
-<span id="cb7-16"><a href="#cb7-16"></a><span class="er">}</span></span>
-<span id="cb7-17"><a href="#cb7-17"></a>k <span class="sc">%&lt;-%</span> {</span>
-<span id="cb7-18"><a href="#cb7-18"></a>  <span class="fu">Sys.sleep</span>(<span class="dv">3</span>)</span>
-<span id="cb7-19"><a href="#cb7-19"></a>  e <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb7-20"><a href="#cb7-20"></a>}</span>
-<span id="cb7-21"><a href="#cb7-21"></a></span>
-<span id="cb7-22"><a href="#cb7-22"></a>a <span class="sc">+</span> b <span class="sc">+</span> c <span class="sc">+</span> d <span class="sc">+</span> e <span class="sc">+</span> f <span class="sc">+</span> g <span class="sc">+</span> h <span class="sc">+</span> j <span class="sc">+</span> k</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-15"><a href="#cb7-15"></a>...</span>
+<span id="cb7-16"><a href="#cb7-16"></a>k <span class="sc">%&lt;-%</span> {</span>
+<span id="cb7-17"><a href="#cb7-17"></a>  <span class="fu">Sys.sleep</span>(<span class="dv">3</span>)</span>
+<span id="cb7-18"><a href="#cb7-18"></a>  e <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb7-19"><a href="#cb7-19"></a>}</span>
+<span id="cb7-20"><a href="#cb7-20"></a></span>
+<span id="cb7-21"><a href="#cb7-21"></a>a <span class="sc">+</span> b <span class="sc">+</span> c <span class="sc">+</span> d <span class="sc">+</span> e <span class="sc">+</span> f <span class="sc">+</span> g <span class="sc">+</span> h <span class="sc">+</span> i <span class="sc">+</span> j <span class="sc">+</span> k</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 60
    user  system elapsed 
-  0.232   0.187   3.162 </code></pre>
+  0.207   0.295   6.102 </code></pre>
 </div>
 </div>
 </div>
@@ -663,9 +662,9 @@ Sebastian DiLorenzo
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">plan</span>(cluster, <span class="at">workers =</span> <span class="fu">c</span>(<span class="st">"n1"</span>, <span class="st">"n2"</span>, <span class="st">"n3"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
-<p>Specialized r package for interfacing with common HPC job schedulers exists: <code>future.batchtools</code></p>
+<p>Specialized R package for interfacing with common HPC job schedulers exists: <code>future.batchtools</code></p>
 <aside class="notes">
-<p>Work in progress. Say you have access to three nodes, <code>n1:n3</code>. This will then create a set of copies of R running in parallel and communicating over sockets between them.</p>
+<p>Still not release 1.0.0, but work afaik. Say you have access to three nodes, <code>n1:n3</code>. This will then create a set of copies of R running in parallel and communicating over sockets between them.</p>
 <p>I have not tried this yet, as it is one thing to need to work in parallel with for example 8 or 16 cores on the HPC, but another use case to need 3 whole nodes for example.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -686,8 +685,8 @@ Sebastian DiLorenzo
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>         _                     
-platform x86_64-conda-linux-gnu
-os       linux-gnu             
+platform aarch64-apple-darwin20
+os       darwin20              
 major    4                     
 minor    2.2                   </code></pre>
 </div>

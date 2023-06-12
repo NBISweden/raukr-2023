@@ -33,7 +33,7 @@ library(future)
 ::: notes
 Future package has backup packages, for example **future.batchtools** which provides access to cluster functions, like slurm, torque, SGE and LSF. Futures are evaluated in a local environment, meaning that you cant change variables in there. Like in functions.
 
-Recently published article. The big thing about futures is that it seems to support most infrastructures and it is written in a way where you are not deciding which infrastructure the user has, which parallel and foreach did. Finish with info that he has described this in detail for those that want to know more.
+The big thing about futures is that it seems to support most infrastructures and it is written in a way where you are not deciding which infrastructure the user has, which parallel and foreach did. Finish with info that he has described this in detail for those that want to know more.
 :::
 
 ## parallelization
@@ -112,6 +112,7 @@ Building block: `variable %<-% {expression(s)}`
 
 ```{r}
 #| eval: false
+#| code-line-numbers: "1|3-6|7-10|12"
 future::plan(sequential)
 
 a %<-% {
@@ -228,14 +229,13 @@ c %<-% {
   Sys.sleep(3)
   c <- 3
 }
-
-}
+...
 k %<-% {
   Sys.sleep(3)
   e <- 5
 }
 
-a + b + c + d + e + f + g + h + j + k
+a + b + c + d + e + f + g + h + i + j + k
 ```
 
 . . .
@@ -319,10 +319,10 @@ plan(cluster, workers = c("n1", "n2", "n3"))
 
 . . .
 
-Specialized r package for interfacing with common HPC job schedulers exists: `future.batchtools`
+Specialized R package for interfacing with common HPC job schedulers exists: `future.batchtools`
 
 ::: {.notes}
-Work in progress. Say you have access to three nodes, `n1:n3`. This will then create a set of copies of R running in parallel and communicating over sockets between them.
+Still not release 1.0.0, but work afaik. Say you have access to three nodes, `n1:n3`. This will then create a set of copies of R running in parallel and communicating over sockets between them.
 
 I have not tried this yet, as it is one thing to need to work in parallel with for example 8 or 16 cores on the HPC, but another use case to need 3 whole nodes for example.
 :::

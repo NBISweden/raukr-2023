@@ -14,7 +14,7 @@
   <meta name="generator" content="quarto-1.3.361">
 
   <meta name="author" content="Sebastian DiLorenzo">
-  <title>Functions and scripts</title>
+  <title>git and R</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -398,7 +398,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="../../assets/images/cover.jpg" data-background-opacity="1" data-background-size="cover" class="quarto-title-block center">
-  <h1 class="title">Functions and scripts</h1>
+  <h1 class="title">git and R</h1>
   <p class="subtitle">RaukR 2023 • Advanced R for Bioinformatics</p>
 
 <div class="quarto-title-authors">
@@ -409,506 +409,255 @@ Sebastian DiLorenzo
 </div>
 </div>
 
-  <p class="date">04-Jun-2023</p>
+  <p class="date">09-Jun-2023</p>
 </section>
-
-<section id="r-functions" class="slide level2">
-<h2>R Functions</h2>
+<section id="overview" class="slide level2">
+<h2>Overview</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
 <ul>
-<li>Organised, human readable code</li>
-<li>Any code that will be repeated</li>
-<li>Add less objects to workspace</li>
-<li>Perform a set task, preferably that task is not “this whole analysis”</li>
+<li>What is git and why should I use it?</li>
+<li>git set-up</li>
+<li>git for yourself</li>
+<li>git with github</li>
+<li>Summary</li>
 </ul>
+</div><div class="column" style="width:40%;">
+<p><img data-src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="300"> <img data-src="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png" width="300"></p>
+</div>
+</div>
+<aside class="notes">
+<p>Maybe start with a show of hands. “How many have heard the word git before?” “How many have used git before?” “How many had a github account before the course?”</p>
+<p>Throughout I will show how to do things from RStudio, since this is an R course. In git with github I will not only show how to integrate github for yourself but also with collaborators.</p>
+<p>Github actions I will only talk briefly about what it is because it is good to know, not how to set it up. This is an advanced exercise in the lab later.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
-<section id="r-functions-1" class="slide level2">
-<h2>R Functions</h2>
+<section id="what-is-git-and-why-should-i-use-it" class="slide level2">
+<h2>What is git and why should I use it?</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div style="background-color:#f2d7d5">
-Without a function
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1" data-code-line-numbers="1|2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>a <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>a <span class="sc">+</span> a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 10</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>b <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>b <span class="sc">+</span> b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 6</code></pre>
-</div>
-</div>
-<ul>
-<li>User is performing the operation each time</li>
-</ul>
-<aside class="notes">
-<p>An R function is something you have probably used many times already.. Functions perform a set task within R. Lets looks at a quick example.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
+<p><img data-src="assets/tree.png" style="width:70.0%"></p>
 </div><div class="column" style="width:50%;">
-<div style="background-color:#d0ece7">
-With a function
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="1-3|5-6|9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>doubleUp <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
-<span id="cb5-2"><a href="#cb5-2"></a>  x <span class="sc">+</span> x</span>
-<span id="cb5-3"><a href="#cb5-3"></a>}</span>
-<span id="cb5-4"><a href="#cb5-4"></a></span>
-<span id="cb5-5"><a href="#cb5-5"></a>a <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="fu">doubleUp</span>(a)</span>
-<span id="cb5-7"><a href="#cb5-7"></a>b <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="fu">doubleUp</span>(b)</span>
-<span id="cb5-9"><a href="#cb5-9"></a>z <span class="ot">&lt;-</span> <span class="fu">doubleUp</span>(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 10
-[1] 6</code></pre>
-</div>
-</div>
+<p><br></p>
 <ul>
-<li>Function is performing the operation each time</li>
+<li>Track changes</li>
+<li>Revert changes</li>
+<li>Reproducibility</li>
+<li>Backups</li>
+<li>Working with others</li>
 </ul>
 </div>
 </div>
+<aside class="notes">
+<p>Basically, say you have a folder with a bunch of files. And you want to track what changes you have made to every file, kind of like a word or google slide document with track changes. As you are tracking these changes you also have the possibility to revert these changes and go back in time to an earlier state of the files.</p>
+<p>Why would you want to do this? It is very useful for working reproducibly to have a complete log of what you have done, it is good for backup, especially if you are also connecting and synchronizing your collection of files with some service such as github, more on that later. It is also very good when you want to work with others in a highly structured way, making sure that many people can work on the same thing without messing it up.</p>
+<p>There are other advantages of course but I do not want to overload you, so in this lecture we will be focusing on basic git usage and there are loads of online resources to take you further than that.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
-<section id="r-functions-2" class="slide level2">
-<h2>R Functions</h2>
-<p>The pieces that make a function</p>
+<section id="what-is-git-and-why-should-i-use-it-1" class="slide level2">
+<h2>What is git and why should I use it?</h2>
+<p><br></p>
+<h4 id="version-control">Version control</h4>
+<blockquote>
+<p>In software development, version control is a class of systems responsible for managing changes to computer programs or other collections of information such that revisions have a logical and consistent organization.</p>
+<p>https://en.wikipedia.org/wiki/Comparison_of_version-control_software</p>
+</blockquote>
+<p><br></p>
+<h4 id="repository">Repository</h4>
+<blockquote>
+<p>A collection of files under version control.</p>
+</blockquote>
+<aside class="notes">
+<p>Git is version control system, tracking changes for all files in a repository. This is not the only way to get version control of your files.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="git-set-up" class="slide level2">
+<h2>git set-up</h2>
+<p><br></p>
+<h4 id="checking-configuration">Checking configuration</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>function_name <span class="ot">&lt;-</span> <span class="cf">function</span>(param1, <span class="at">param2 =</span> <span class="dv">20</span>, ...){</span>
-<span id="cb7-2"><a href="#cb7-2"></a>  param1<span class="sc">*</span><span class="dv">2</span> <span class="co"># Operational space</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a>  param1<span class="sc">+</span>param2 <span class="co"># What is returned. Alt, use return(param1+param2)</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>usethis<span class="sc">::</span><span class="fu">git_sitrep</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<aside class="notes">
+<p>Before the course started you received an email that asked you to have a github account and git available on commandline. Since this is an R focused course we will use Rstudio to check, and in some cases set, some of your configurations.</p>
+<p>You do not have to do this in R or Rstudio, you can also do this with other git commands from terminal.</p>
+<p>To do this we will use the usethis library. git_sitrep() is a great tool for checking what configurations you have set.</p>
+<p><strong>Demo git_sitrep</strong></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="git-set-up-1" class="slide level2">
+<h2>git set-up</h2>
+<p><br></p>
+<h4 id="checking-configuration-1">Checking configuration</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2" data-code-line-numbers="2-4,8,10-15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>usethis<span class="sc">::</span><span class="fu">git_sitrep</span>()</span>
+<span id="cb2-2"><a href="#cb2-2"></a>Git <span class="fu">config</span> (global)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>• Name<span class="sc">:</span> <span class="st">'Sebastian-D'</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>• Email<span class="sc">:</span> <span class="st">'dilorenzo.sebastian@gmail.com'</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>• <span class="fu">Global</span> (user<span class="sc">-</span>level) gitignore file<span class="sc">:</span> <span class="er">&lt;</span>unset<span class="sc">&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>• Vaccinated<span class="sc">:</span> <span class="cn">FALSE</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>ℹ See <span class="st">`</span><span class="at">?git_vaccinate</span><span class="st">`</span> to learn more</span>
+<span id="cb2-8"><a href="#cb2-8"></a>• Default Git protocol<span class="sc">:</span> <span class="st">'https'</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>• Default initial branch name<span class="sc">:</span> <span class="er">&lt;</span>unset<span class="sc">&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>GitHub</span>
+<span id="cb2-11"><a href="#cb2-11"></a>• Default GitHub host<span class="sc">:</span> <span class="st">'https://github.com'</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>• Personal access token <span class="cf">for</span> <span class="st">'https://github.com'</span><span class="sc">:</span> <span class="st">'&lt;discovered&gt;'</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a>• GitHub user<span class="sc">:</span> <span class="st">'Sebastian-D'</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a>• Token scopes<span class="sc">:</span> <span class="st">'repo, user, workflow'</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a>• <span class="fu">Email</span>(s)<span class="sc">:</span> <span class="st">'dilorenzo.sebastian@gmail.com (primary)'</span>, <span class="st">'sebastian.dilorenzo@scilifelab.uu.se'</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a>Git repo <span class="cf">for</span> current project</span>
+<span id="cb2-17"><a href="#cb2-17"></a>• Active usethis project<span class="sc">:</span> <span class="st">'/Users/sd/Library/CloudStorage/Box-Box/Work/NBIS_CommMan'</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a>ℹ Active project is not a Git repo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes">
+<p>Looking at the information here we lets forcus on that our git global config has a name, which should be the same as the github username, an email associated with both my local git and my github, you can see your default protocol which is usually https unless you have some great reason for having SSH.</p>
+<p>In the github section we can also see that we have a personal access token or PAT, and that token has certain scopes related to it. I will get back to this in a moment.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="git-set-up-2" class="slide level2">
+<h2>git set-up</h2>
+<p><br></p>
+<h4 id="setting-global-configuration">Setting global configuration</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>usethis<span class="sc">::</span><span class="fu">use_git_config</span>(<span class="at">user.name =</span> <span class="st">"Jane Doe"</span>, <span class="at">user.email =</span> <span class="st">"jane@example.com"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes">
+<p>use_git_config(user.name = “Jane Doe”, user.email = “jane@example.com”)</p>
+<p>If you want to use commandline: git config –global –list git config –global user.name ‘Jane Doe’ git config –global user.email ‘jane@example.com’</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="git-set-up-3" class="slide level2">
+<h2>git set-up</h2>
+<p><br></p>
+<h4 id="personal-access-token-pat">Personal Access Token (PAT)</h4>
 <ul>
-<li><code>function_name</code> : Name of the function</li>
-<li><code>function()</code> : Parameters. User input
+<li>Credentials</li>
+<li>Scope
 <ul>
-<li><code>param1</code> : No default value. Required.</li>
-<li><code>param2 = 20</code> : Default value</li>
-<li><code>...</code> : ellipses pass other arguments into function</li>
+<li>“What is this PAT allowed to modify?”</li>
 </ul></li>
-<li><code>function(){}</code> : The function body</li>
-<li><code>return</code> : the last line or invoked with <code>return()</code> function.</li>
-</ul>
-<aside class="notes">
-<p>A parameter is a variable in the declaration of the function. An argument is the actual value of the variable that gets passed to the function.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-<div class="fragment">
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Tip</strong></p>
-</div>
-<div class="callout-content">
-<p>How to a function to workspace</p>
-<ul>
-<li>copy paste</li>
-<li><code>source()</code> / <code>library()</code></li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="r-scripts-as-standalone-tools" class="slide level2">
-<h2>R scripts as standalone tools</h2>
-
-<img data-src="http://www.azquotes.com/picture-quotes/quote-this-is-the-unix-philosophy-write-programs-that-do-one-thing-and-do-it-well-write-programs-douglas-mcilroy-81-95-07.jpg" class="r-stretch"><aside class="notes">
-<p>In many ways this quote about the UNIX philosophy relates to the philosophy you should have for an R script.</p>
-<p>McIlroy is best known for having originally proposed Unix pipelines and developed several Unix tools, such as spell, diff, sort, join, graph, speak, and tr.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-<div class="fragment">
-<ul>
-<li>Data analysis with R is usually performed interactively using e.g.&nbsp;RStudio</li>
-<li>Tasks can be executed from the terminal using R scripts</li>
-<li>R scripts can form powerful standalone tools</li>
-</ul>
-<aside class="notes">
-<p>Usually when you are <strong>analyzing data</strong> you will use the <strong>interactive view</strong> and try different things going forward. But say that you have figured out something that you want to <strong>do</strong> for <strong>multiple numbers</strong> of datasets?</p>
-<p>And like the quote it should do <strong>one</strong> thing and do it well. Because of the <strong>power</strong> in that an <strong>R script</strong> can contain <strong>multiple functions</strong>, or “programs”, this one thing can be quite <strong>simple</strong>, or quite <strong>advanced</strong>. And like the textstream mentioned here Rscripts often take input, something we will look more at now.</p>
-<p>In this case it might be <strong>efficient</strong> to use an <strong>Rscript</strong>.</p>
-<p>So USUALLY an rscript is something that is executable, can take some inputs and arguments, and returns something.</p>
-<p>Now lets look at those pieces starting with how an rscript can be executed.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</div>
-</section>
-<section id="executing-an-r-script" class="slide level2">
-<h2>Executing an R script</h2>
-<ul>
-<li>Interactively: <code>source("myscript.R")</code> in R console</li>
-</ul>
-<aside class="notes">
-<p>One way to execute an Rscript is to use “source myscript.R” from an interactive session which <strong>runs</strong> whatever code is in the R script. So if it has <strong>functions</strong> or wether it <strong>reads</strong> a separate file and creates some new <strong>object</strong>, these will be in your <strong>R environment</strong> after sourcing the script.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-<div class="fragment">
-<ul>
-<li>Command line: <code>Rscript myscript.R</code></li>
-</ul>
-<aside class="notes">
-<p>You can also run the Rscript from the command line, or terminal. Then we use the command <strong>Rscript</strong>. It used to be not long ago that people used <strong>R CMD batch</strong>, but nowadays people usually use Rscript. Like the source, this will <strong>execute</strong> whichever code is in <strong>myscript.R</strong> but there is <strong>no environment</strong> for the <strong>objects or functions</strong> to pop into so the <strong>code</strong> in this Rscript is probably <strong>different</strong> than one that is intended for <strong>source</strong>.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</div>
-<div class="fragment">
-<ul>
-<li>As executable file: <code>path/myscript.R</code> if:
-<ul>
-<li>Script is executable: <code>chmod +x myscript.R</code></li>
-<li>First line in script is a hashbang e.g.&nbsp;<code>#!/usr/bin/env Rscript</code></li>
-<li>Script’s path is included in call or <code>$PATH</code></li>
-</ul></li>
-</ul>
-<aside class="notes">
-<p>You can also execute the Rscript <strong>itself</strong>, from terminal. To execute an R script it must <em>meet three requirements</em>. It must be <strong>executable</strong>. It must start with this <strong>special line</strong>, specifying how it is executed if run on its own. If you want to run it without giving path, its folder must be in you $PATH variable.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</div>
-</section>
-<section id="providing-arguments-to-an-r-script" class="slide level2">
-<h2>Providing arguments to an R script</h2>
-<ul>
-<li>Passing arguments to the script allows for flexibility in settings and input data</li>
-</ul>
-<aside class="notes">
-<p><strong>Often</strong> when we use an R script, like I mentioned in the <strong>beginning</strong>, we want to <strong>pass multiple files/samples</strong> through it for efficiency reasons. It <strong>doesnt</strong> just have to be <strong>files</strong>, like <strong>functions</strong> it can also be <strong>argument settings.</strong></p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-<div class="fragment">
-<p><code>./myscript.R inputfile.vcf outputfile.vcf</code></p>
-<aside class="notes">
-<p>Here for example we are using the Rscript as an <strong>executable</strong> file, giving it an <strong>inputfile</strong> and specifying what we want the <strong>outputfile</strong> to be named. Notice that the only way the R script knows what is what is positionally.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</div>
-<div class="fragment">
-<ul>
-<li>Packages are available that support long and short flags</li>
-</ul>
-<p><code>./myscript.R -i inputfile.vcf -o outputfile.vcf</code></p>
-<aside class="notes">
-<p><strong>Short flags</strong> are when you give a single dash and usually a shortened version of the keyword, here <em>i for input</em> and <em>o for output</em> for example.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</div>
-<div class="fragment">
-<p><code>./myscript.R --input inputfile.vcf --output outputfile.vcf</code></p>
-<aside class="notes">
-<p>And here <strong>long flags</strong> with <em>two dashes</em></p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</div>
-<div class="fragment">
-<p><code>./myscript.R --output inputfile.vcf --input outputfile.vcf</code></p>
-<aside class="notes">
-<p>A part of the <strong>flexibility</strong> of this is that you can give the flags in <strong>any order</strong>.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</div>
-<div class="fragment">
-<p><code>./myscript.R --output inputfile.vcf -i inputfile.vcf</code></p>
-<aside class="notes">
-<p>And you can also <em>mix</em> the <em>long/short flag order and styles</em>. It is the coding in the script that determines how it handles this input.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</div>
-</section>
-<section id="parsing-arguments---positional" class="slide level2 small">
-<h2>Parsing arguments - Positional</h2>
-<p>Example: <code>./myscript.R inputfile.vcf outputfile.vcf</code></p>
-<ul>
-<li><code>commandArgs()</code></li>
-</ul>
-<p>Use <strong>commandArgs()</strong> to capture whatever was <strong>passed</strong> into R as it was <strong>executed</strong>. To be <strong>clear</strong>; this is a command that is <strong>within the Rscript file.</strong></p>
-<div class="fragment">
-<ul>
-<li><code>trailingOnly = TRUE</code></li>
-</ul>
-<p>Add <code>trailingOnly = TRUE</code> to suppress the first few items and get the arguments <strong>you</strong> passed to the script.</p>
-<aside class="notes">
-<p>A <strong>standard arg</strong>, but <strong>not default</strong>, that you can use when invoking <code>commandArgs()</code> is <code>trailingOnly = TRUE</code>, which basically tells it to start counting the input from <strong>after</strong> the <strong>Rscript arguments</strong>. As you can see here when we invoke it without this parameter it returns the script itself, in this case R studio. But with it the invocation is clear, there were no trailing command line arguments.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</div>
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">commandArgs</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "/Library/Frameworks/R.framework/Resources/bin/exec/R"
-[2] "--no-echo"                                           
-[3] "--no-restore"                                        
-[4] "--file=/Applications/quarto/share/rmd/rmd.R"         </code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">commandArgs</span>(<span class="at">trailingOnly =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>character(0)</code></pre>
-</div>
-</div>
-</div>
-</section>
-<section id="parsing-arguments---flags" class="slide level2 small">
-<h2>Parsing arguments - Flags</h2>
-<p>Example: <code>./myscript.R --input inputfile.vcf --output outputfile.vcf</code></p>
-<aside class="notes">
-<p>So how do we do it with <strong>flags</strong>?</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-<div class="fragment">
-<ul>
-<li>Several packages are available: <code>getopt</code>, <code>optparse</code>, <code>argparser</code>, …</li>
-</ul>
-</div>
-<div class="fragment">
-<p>Define set of possible arguments at start of script:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">library</span>(optparse)</span>
-<span id="cb12-2"><a href="#cb12-2"></a>my_options <span class="ot">=</span> <span class="fu">list</span>(</span>
-<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">make_option</span>(<span class="fu">c</span>(<span class="st">"-i"</span>, <span class="st">"--inputfile"</span>), <span class="at">default=</span><span class="st">'variants.vcf'</span>),</span>
-<span id="cb12-4"><a href="#cb12-4"></a>  <span class="fu">make_option</span>(<span class="fu">c</span>(<span class="st">"-o"</span>, <span class="st">"--outputfile"</span>), <span class="at">default=</span><span class="st">'variants_filtered.vcf'</span>)</span>
-<span id="cb12-5"><a href="#cb12-5"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<aside class="notes">
-<p>If we use <strong>optparse</strong> as an example you <strong>create</strong> your options using the <strong>make_option</strong> command, and can set default values. We see also that you can give both long and short form here.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</div>
-<div class="fragment">
-<p>Parse arguments using your definition:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">parse_args</span>(<span class="fu">OptionParser</span>(<span class="at">option_list=</span>my_options))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$inputfile
-[1] "variants.vcf"
-
-$outputfile
-[1] "variants_filtered.vcf"
-
-$help
-[1] FALSE</code></pre>
-</div>
-</div>
-<aside class="notes">
-<p>And then you use the <strong>my_options</strong> object we defined together with <strong>parse_args and OptionParser</strong> to <strong>check our input</strong> for those <strong>flags</strong> We also see an option, <strong>help</strong>, that we did not make, this is a <strong>standard flag</strong> that optparse always looks for and can generate what arguments it is looking for.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</div>
-</section>
-<section id="text-streams" class="slide level2">
-<h2>Text streams</h2>
-<ul>
-<li>Text streams allow for piping of data through a set of applications without writing intermediate files.</li>
-</ul>
-<aside class="notes">
-<p>What I am sure most of you will think of when you read this is the bash pipe sign.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-<div class="fragment">
-<p><code>samtools mpileup -uf ref.fa aln.bam | bcftools call -mv | myPythonscript.py | myRscript.R &gt; variants.vcf</code></p>
-<aside class="notes">
-<p>So how does R handle taking input piped to it. And the answer is that we have to write some special code if this is the use case.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</div>
-<div class="fragment">
-<h3 id="reading">Reading</h3>
-<ul>
-<li>To define and open a connection, read one line, and close it:</li>
+<li>No password prompt when uploading/downloading data.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>input_con  <span class="ot">&lt;-</span> <span class="fu">file</span>(<span class="st">"stdin"</span>)</span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">open</span>(input_con)</span>
-<span id="cb15-3"><a href="#cb15-3"></a>oneline<span class="ot">=</span><span class="fu">readLines</span>(input_con, <span class="at">n =</span> <span class="dv">1</span>)</span>
-<span id="cb15-4"><a href="#cb15-4"></a><span class="fu">close</span>(input_con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#Takes you to github.com create new token.</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>usethis<span class="sc">::</span><span class="fu">create_github_token</span>()</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#Use to set your new token in your configuration</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>gitcreds<span class="sc">::</span><span class="fu">gitcreds_set</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<aside class="notes">
+<p>When we interact with a remote Git server, such as GitHub, we have to include credentials in the request. This proves we are a specific GitHub user, who’s allowed to do whatever we’re asking to do. What we are allowed to do with a certain PAT is the <strong>scope</strong> of the PAT.</p>
+<p><strong>DEMO create_github_token</strong></p>
+<p>Once we have created our token we can save it in a password manager if you are using that. Then set it with our configuration with gitcreds_set(). Let’s do this now, then check out gitcreds_sitrep().</p>
+<p>usethis::create_github_token() gitcreds::gitcreds_set() credentials::set_github_pat(“my_pat”)</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="git-for-yourself" class="slide level2">
+<h2>git for yourself</h2>
+<p><span class="center"><img data-src="assets/git_text.png" height="400"></span></p>
+<aside class="notes">
+<p>Now that we hopefully are all set-up, lets finally take a look at actually working with git. As a user, git is a folder and collection of files on your computer that you have initiated git version control on. A repository.</p>
+<p>To revert: git reset HEAD~</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="git-for-yourself-1" class="slide level2">
+<h2>git for yourself</h2>
+<p><span class="center"><img data-src="assets/git_text.png" height="400"></span></p>
+<p>Workflow:</p>
 <ul>
-<li>Tidyverse can read a <code>tibble</code> from text stream: <code>read_csv(file("stdin"))</code></li>
+<li>Make some changes.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><code>git add</code> the new or changed files.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><code>git commit</code> the current state of repository.</li>
 </ul>
 <aside class="notes">
-<p>What we do is <strong>open</strong> a connection from <strong>standard input</strong> and then read this <strong>text stream</strong> for <strong>n</strong> number of lines at a time. It is also good to close this connection afterwards.</p>
-<p>Alternatively you can read a text stream into a <strong>tibble</strong> from tidyverse by using <strong>read_csv</strong>, note that it isnt <strong>read.csv</strong> the generic R command, which can take our <strong>input connection</strong> and create the tibble in R.</p>
+<p>As you make changes to the files you can save the current state of the files. This is called a <strong>commit</strong>. You can and should give the commit some message describing what you have done. “Fixed bug A”, “Created function B”, “Added a bunch of new images”. It is these commits then that you can revert to as necessary. <strong>DEMO RSTUDIO</strong></p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -922,17 +671,99 @@ $help
       }</style></aside>
 </div>
 </section>
-<section id="text-streams-1" class="slide level2">
-<h2>Text streams</h2>
-<h4 id="writing">Writing</h4>
+<section id="git-for-yourself-2" class="slide level2">
+<h2>git for yourself</h2>
+<p><span class="center"><img data-src="assets/git_text.png" height="400"></span></p>
+<p>Useful commands:</p>
 <ul>
-<li><p>Any <code>stdout</code> produced by the code (<code>print()</code>, <code>cat()</code>, etc) can be piped to a new process: <code>./myRscript.R | myNewScript</code></p></li>
-<li><p>or written to a file: <code>./myRscript.R &gt; output.csv</code></p></li>
-<li><p>To write a <code>tibble</code> as a text stream: <code>cat(format_csv(my_tibble))</code></p></li>
+<li><code>git status</code> lists changes in your repository.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><code>git diff</code> shows the difference between a file and its last commit state.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><code>git reset</code> go to a previous commit state.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><code>usethis::use_git()</code>, initialize git in a project that did not have git activated.</li>
 </ul>
 <aside class="notes">
-<p>What about <strong>piping from</strong> your R script to something else? Continuing the stream? So just writing these commands. print, cat etc, can be piped to a new process.</p>
-<p>If you already have a tibble, you can stream it out of R using this command.</p>
+<p>git diff git status git reset HEAD~ usethis::use_git()</p>
+<p><strong>DEMO</strong></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="git-with-github" class="slide level2">
+<h2>git with github</h2>
+<p><span class="center"><img data-src="assets/github_text.png" height="400"></span></p>
+<div class="fragment">
+<ul>
+<li><code>git clone</code>, copy the github repository to a local repository.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Create a repository on github from your current RStudio git repository: <code>usethis::use_github()</code></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><code>git push</code> your local file changes to the github repository.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><code>git pull</code> the github repositories file changes to your local repository.</li>
+</ul>
+<aside class="notes">
+<p>So what is github? In its very essence, github is a hosting service, a place where you can have your git repositories. By having them on github many people can collaborate on one code project at the same time. It also functions as a backup of your repository, so if something goes amiss with your local repository, you can always delete it and grab the backup from github.</p>
+<p>You can go many ways about connecting your local git repository to github. You can create the repository on github first and then create a local copy repository. You can also take a local repository and create a github repository from it.</p>
+<p>Lets look at that as an example.</p>
+<p>Connect existing repository to a new github repo: usethis::use_github()</p>
+<p>Clone a repo using rstudio File &gt; New Project &gt; Version Control &gt; Git</p>
+<p>push/pull with github</p>
+<p><strong>DEMO</strong></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="git-with-github-1" class="slide level2">
+<h2>git with github</h2>
+<p><span class="center"><img data-src="assets/github_text.png" height="400"></span></p>
+<p>Working with others workflow</p>
+<p><span class="small">1. <code>pull</code> changes made by others from github repo.</span><br>
+<span class="small">2. Settle eventual merge conflicts.</span><br>
+<span class="small">3. Make own changes.</span><br>
+<span class="small">4. <code>add</code> and <code>commit</code> changes.</span><br>
+<span class="small">5. Repeat 3 and 4 as necessary.</span><br>
+<span class="small">6. <code>push</code> changes to github, sharing them with others.</span><br>
+</p>
+<aside class="notes">
+<p>Assuming you already have a github repository and a cloned local repository.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -947,14 +778,24 @@ $help
 </section>
 <section id="summary" class="slide level2">
 <h2>Summary</h2>
-<!-- ![](http://www.azquotes.com/picture-quotes/quote-this-is-the-unix-philosophy-write-programs-that-do-one-thing-and-do-it-well-write-programs-douglas-mcilroy-81-95-07.jpg) -->
-<ul>
-<li>Functions are great for organizing code and repeating tasks.</li>
-<li>R scripts are great for performing tasks from command line.</li>
-<li>R scripts can be built in different ways to take arguments or text streams</li>
-</ul>
+<p><br></p>
+<blockquote>
+<p>git and github are great for structured, reproducible, collaborative work.</p>
+</blockquote>
+<p><br></p>
+<ol type="1">
+<li>Create a folder.</li>
+<li>Make it a RStudio project.</li>
+<li>Make it a git repository.</li>
+<li>Connect it to github.</li>
+<li>Profit.</li>
+</ol>
+<p><br></p>
+<blockquote>
+<p><code>commit</code> often, <code>push</code>/<code>pull</code> less often.</p>
+</blockquote>
 <aside class="notes">
-<p>So to summarize, R scripts are powerful tools to solve a specific problem that you define, and often fit well together with other tools. And now you have learned to execute them in different ways, with inputs and outputs and with other programs. All that is left is to actually write the content.</p>
+<p>I wasn’t going to tell you more than this right now, but there is a lot more to say. But I think you need to go in and get your hands dirty with this before adding more topics or you will be overburdened. Because of this and because I imagine the level of prior git knowledge can vary greatly in class I have put a lot of extra exercises with explanatory information in the lab.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -967,7 +808,7 @@ $help
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-1" class="slide level2" data-background-image="../../assets/images/cover.jpg">
+<section id="section" class="slide level2" data-background-image="../../assets/images/cover.jpg">
 <h2></h2>
 <h3 id="thank-you-questions">Thank you! Questions?</h3>
 <div class="cell">
