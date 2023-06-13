@@ -37,21 +37,16 @@ library(ggplot2)
 S4 classes are more advanced as you actually define the structure of the data within the object of your particular class:
 
 ```{r S4}
-setClass('gene', 
-         representation(name='character', 
-                        coords='numeric')
-         )
+# declare class
+setClass('gene', representation(name='character', coords='numeric'))
+# instantiate class
+my.gene <- new("gene", name = "ANK3", coords = c(1.4e6, 1.412e6))
 
+# declare class
 .intragenic_region <- setClass(Class = 'intragenic_region', 
-                               slots = c(
-                                 name='character', 
-                                 coords='numeric'
-                               )
-                              )
+                               slots = c(name='character', coords='numeric'))
 
-my.gene <- new('gene', name = 'ANK3', 
-               coords = c(1.4e6, 1.412e6))
-
+# instantiate class
 # but since SetClass returns a low-level constructor
 my.intra1 <- .intragenic_region(name = 'int1', 
                   coords = c(1.7e6, 1.717e6))
@@ -60,18 +55,11 @@ my.intra1 <- .intragenic_region(name = 'int1',
 ## Inheritance in S4
 
 ```{r}
-.ext_gene <- setClass(Class = 'ext_gene',
-                      contains = "gene",
-                      slots = c(
-                        gene = 'gene',
-                        feature_name = 'character',
-                        feature_value = 'character'
-                      ))
-
-ANK3 <- .ext_gene(name = 'ANK3', 
-                  coords = c(1.4e6, 1.412e6),
-                  feature_name = 'num_introns',
-                  feature_value = '5')
+.ext_gene <- setClass(Class = 'ext_gene',contains = "gene",
+  slots = c(gene = 'gene', feature_name = 'character', feature_value = 'character')
+)
+ANK3 <- .ext_gene(name = 'ANK3', coords = c(1.4e6, 1.412e6),
+                  feature_name = 'num_introns', feature_value = '5')
 str(ANK3)
 ```
 
@@ -128,18 +116,23 @@ An S3 class object is one of R base types (e.g. integer) with `class` attribute 
 obj <- factor(c("a", "b", "c"))
 typeof(obj)
 ```
+
 ```{r}
 class(obj)
 ```
+
 :::
 
 ::: {.column width="50%"}
+
 ```{r}
 attributes(obj)
 ```
+
 ```{r}
 str(obj)
 ```
+
 :::
 ::::
 
@@ -299,7 +292,6 @@ my_plot <- function(...) {
 Even more patterns [here](https://github.com/tidylab/R6P).
 
 ## Safe S3 -- Constructor 
-
 
 ```{r}
 new_Animal <- function(species, age) {

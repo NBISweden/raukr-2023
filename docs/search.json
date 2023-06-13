@@ -2048,14 +2048,14 @@
     "href": "slides/oop/index.html#s4-classes",
     "title": "Object-Oriented Programming Models in R",
     "section": "S4 classes",
-    "text": "S4 classes\nS4 classes are more advanced as you actually define the structure of the data within the object of your particular class:\n\nsetClass('gene', \n         representation(name='character', \n                        coords='numeric')\n         )\n\n.intragenic_region &lt;- setClass(Class = 'intragenic_region', \n                               slots = c(\n                                 name='character', \n                                 coords='numeric'\n                               )\n                              )\n\nmy.gene &lt;- new('gene', name = 'ANK3', \n               coords = c(1.4e6, 1.412e6))\n\n# but since SetClass returns a low-level constructor\nmy.intra1 &lt;- .intragenic_region(name = 'int1', \n                  coords = c(1.7e6, 1.717e6))"
+    "text": "S4 classes\nS4 classes are more advanced as you actually define the structure of the data within the object of your particular class:\n\n# declare class\nsetClass('gene', representation(name='character', coords='numeric'))\n# instantiate class\nmy.gene &lt;- new(\"gene\", name = \"ANK3\", coords = c(1.4e6, 1.412e6))\n\n# declare class\n.intragenic_region &lt;- setClass(Class = 'intragenic_region', \n                               slots = c(name='character', coords='numeric'))\n\n# instantiate class\n# but since SetClass returns a low-level constructor\nmy.intra1 &lt;- .intragenic_region(name = 'int1', \n                  coords = c(1.7e6, 1.717e6))"
   },
   {
     "objectID": "slides/oop/index.html#inheritance-in-s4",
     "href": "slides/oop/index.html#inheritance-in-s4",
     "title": "Object-Oriented Programming Models in R",
     "section": "Inheritance in S4",
-    "text": "Inheritance in S4\n\n.ext_gene &lt;- setClass(Class = 'ext_gene',\n                      contains = \"gene\",\n                      slots = c(\n                        gene = 'gene',\n                        feature_name = 'character',\n                        feature_value = 'character'\n                      ))\n\nANK3 &lt;- .ext_gene(name = 'ANK3', \n                  coords = c(1.4e6, 1.412e6),\n                  feature_name = 'num_introns',\n                  feature_value = '5')\nstr(ANK3)\n\nFormal class 'ext_gene' [package \".GlobalEnv\"] with 5 slots\n  ..@ gene         :Formal class 'gene' [package \".GlobalEnv\"] with 2 slots\n  .. .. ..@ name  : chr(0) \n  .. .. ..@ coords: num(0) \n  ..@ feature_name : chr \"num_introns\"\n  ..@ feature_value: chr \"5\"\n  ..@ name         : chr \"ANK3\"\n  ..@ coords       : num [1:2] 1400000 1412000"
+    "text": "Inheritance in S4\n\n.ext_gene &lt;- setClass(Class = 'ext_gene',contains = \"gene\",\n  slots = c(gene = 'gene', feature_name = 'character', feature_value = 'character')\n)\nANK3 &lt;- .ext_gene(name = 'ANK3', coords = c(1.4e6, 1.412e6),\n                  feature_name = 'num_introns', feature_value = '5')\nstr(ANK3)\n\nFormal class 'ext_gene' [package \".GlobalEnv\"] with 5 slots\n  ..@ gene         :Formal class 'gene' [package \".GlobalEnv\"] with 2 slots\n  .. .. ..@ name  : chr(0) \n  .. .. ..@ coords: num(0) \n  ..@ feature_name : chr \"num_introns\"\n  ..@ feature_value: chr \"5\"\n  ..@ name         : chr \"ANK3\"\n  ..@ coords       : num [1:2] 1400000 1412000"
   },
   {
     "objectID": "slides/oop/index.html#sealed-class",
@@ -2132,7 +2132,7 @@
     "href": "slides/oop/index.html#r-and-design-pattern",
     "title": "Object-Oriented Programming Models in R",
     "section": "R and Design Pattern",
-    "text": "R and Design Pattern\n\nstrategy — apply()\ndecorator — system_time()\n\n\nsystem.time(x &lt;- runif(n = 100000))\nx[1:5]\n\n   user  system elapsed \n  0.003   0.000   0.003 \n[1] 0.9460947 0.5561148 0.2958971 0.4107320 0.8727889\n\n\n\nwrapper\n\n\nmy_plot &lt;- function(...) {\n  plot(..., col = 'blue', las = 1, cex = .5, pch = 19, cex.axis = .7)\n}\n\n\nSingleton see this gist\nFluent function interface — tidyverse functions take data x as the very first argument and return object similar to x so that they can be chained by %&gt;%\n\nEven more patterns here."
+    "text": "R and Design Pattern\n\nstrategy — apply()\ndecorator — system_time()\n\n\nsystem.time(x &lt;- runif(n = 100000))\nx[1:5]\n\n   user  system elapsed \n  0.002   0.000   0.002 \n[1] 0.04409963 0.41315999 0.85541047 0.33540768 0.90221173\n\n\n\nwrapper\n\n\nmy_plot &lt;- function(...) {\n  plot(..., col = 'blue', las = 1, cex = .5, pch = 19, cex.axis = .7)\n}\n\n\nSingleton see this gist\nFluent function interface — tidyverse functions take data x as the very first argument and return object similar to x so that they can be chained by %&gt;%\n\nEven more patterns here."
   },
   {
     "objectID": "slides/oop/index.html#safe-s3-constructor",
