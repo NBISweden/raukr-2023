@@ -25,7 +25,7 @@ execute:
 |Vectorization                          |Sebastian DiLorenzo & Marcin Kierczak  |[Slides](slides/vectorization/index.html), [Lab](labs/vectorization/index.html)|
 |Parallelization                        |Sebastian DiLorenzo & Marcin Kierczak  |[Slides](slides/parallelization/index.html), [Lab](labs/parallelization/index.html)|
 |Object-oriented programming            |Marcin Kierczak                        |[Slides](slides/oop/index.html), [Lab](labs/oop/index.html)|
-|Tables with **gt** package in Quarto    |Rich Lannone / Chris Dervieux / Yihui Xie, Posit||
+|Tables with **gt** package in Quarto    |Rich Lannone / Chris Dervieux / Yihui Xie, Posit|[Slides](https://cderv.github.io/raukr-2023-quarto)|
 |[**14-Jun-2023 (Wed)**]{.highlight}    |                                       ||
 |Tidyverse                              |Marcin Kierczak                        |[Slides](slides/tidyverse/index.html), [Lab](labs/tidyverse/index.html)|
 |reticulate: Combining R with Python    |Nina Norgren                           |[Slides](slides/reticulate/index.html), [Lab](labs/reticulate/index.html)|
