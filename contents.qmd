@@ -18,14 +18,14 @@ execute:
 |[**12-Jun-2023 (Mon)**]{.highlight}    |                                       ||
 |Introduction to RaukR                  |Marcin Kierczak & Sebastian DiLorenzo  ||
 |Functions and scripts                  |Sebastian DiLorenzo                    |[Slides](slides/scripting/index.html), [Lab](labs/scripting/index.html)|
-|Documentation & Publishing with Quarto |Roy Francis                            |[Slides](slides/publishing/index.html), [Lab](labs/publishing/index.html)|
 |Best Coding Practices in R             |Marcin Kierczak                        |[Slides](slides/coding/index.html), [Lab](labs/coding/index.html)|
+|Documentation & Publishing with Quarto |Roy Francis                            |[Slides](slides/publishing/index.html), [Lab](labs/publishing/index.html)|
 |Debugging, Profiling and Optimisation  |Marcin Kierczak                        |[Slides](slides/debugging/index.html), [Lab](labs/debugging/index.html)|
 |[**13-Jun-2023 (Tue)**]{.highlight}    |                                       ||
 |Vectorization                          |Sebastian DiLorenzo & Marcin Kierczak  |[Slides](slides/vectorization/index.html), [Lab](labs/vectorization/index.html)|
 |Parallelization                        |Sebastian DiLorenzo & Marcin Kierczak  |[Slides](slides/parallelization/index.html), [Lab](labs/parallelization/index.html)|
 |Object-oriented programming            |Marcin Kierczak                        |[Slides](slides/oop/index.html), [Lab](labs/oop/index.html)|
-|Quarto                                 |Chris Dervieux & Yihui Xie, Posit      ||
+|Tables with **gt** package in Quarto    |Rich Lannone / Chris Dervieux / Yihui Xie, Posit||
 |[**14-Jun-2023 (Wed)**]{.highlight}    |                                       ||
 |Tidyverse                              |Marcin Kierczak & Roy Francis          |[Slides](slides/tidyverse/index.html), [Lab](labs/tidyverse/index.html)|
 |reticulate: Combining R with Python    |Nina Norgren                           |[Slides](slides/reticulate/index.html), [Lab](labs/reticulate/index.html)|
