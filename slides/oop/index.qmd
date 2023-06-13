@@ -14,34 +14,6 @@ library(purrr)
 library(ggplot2)
 ```
 
-## OOP example
-
-![](assets/oop_ex_1_object.jpg){width="450px"}
-
-## OOP example
-
-![](assets/oop_ex_2_data.jpg){width="450px"}
-
-## OOP example
-
-![](assets/oop_ex_3_data.jpg){width="450px"}
-
-## OOP example
-
-![](assets/oop_ex_4_data.jpg){width="450px"}
-
-## OOP example
-
-![](assets/oop_ex_5_getter.jpg){width="450px"}
-
-## OOP example
-
-![](assets/oop_ex_7_getters.jpg){width="450px"}
-
-## OOP example
-
-![](assets/oop_ex_8_setters.jpg){width="450px"}
-
 ## Object Oriented Programming
 
 - A programming paradigm.
