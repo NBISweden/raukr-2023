@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.340">
+<meta name="generator" content="quarto-1.3.361">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -92,7 +92,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
@@ -182,7 +183,7 @@ background-size: cover;
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">12-Jun-2023</p>
+        <p class="date">13-Jun-2023</p>
       </div>
     </div>
     
@@ -249,7 +250,7 @@ Note
 </div>
 <p>Evaluating the computation time on my machine, it comes out taking about 5.4 seconds to run.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>({<span class="fu">sample</span>(<span class="dv">100</span>,<span class="dv">200000000</span>,<span class="at">replace=</span>T)})</span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">sample</span>(<span class="dv">100</span>,<span class="dv">200000000</span>,<span class="at">replace=</span>T))</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>   user  system elapsed </span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fl">5.173</span>   <span class="fl">0.160</span>   <span class="fl">5.369</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -258,9 +259,19 @@ Note
 <ul>
 <li>Use the future package with <code>plan(sequential)</code>,which is the default, and run the supplied <code>sample()</code> inside a future.</li>
 </ul>
-<!--
-- Due to a recent change in future, there is a warning message when generating random numbers without seed. We can ignore this by changing our options: `options(future.rng.onMisuse="ignore")`.
--->
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There is a warning message when generating random numbers without seed. We can ignore this by changing our options: <code>options(future.rng.onMisuse="ignore")</code>.</p>
+</div>
+</div>
 <ul>
 <li>Add an approach from yesterdays lecture on benchmarking or some other way that you are comfortable with to calculate the time it takes to complete the operation of simply assigning the future. Do not evaluate the future yet by asking for the outcome value.</li>
 </ul>
@@ -595,7 +606,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-center">
       &nbsp;
     </div>
-    <div class="nav-footer-right">Published with <a href="https://quarto.org/">Quarto</a> v1.3.340</div>
+    <div class="nav-footer-right">Published with <a href="https://quarto.org/">Quarto</a> v1.3.361</div>
   </div>
 </footer>
 

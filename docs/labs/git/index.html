@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.340">
+<meta name="generator" content="quarto-1.3.361">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -95,7 +95,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
@@ -185,7 +186,7 @@ background-size: cover;
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">12-Jun-2023</p>
+        <p class="date">13-Jun-2023</p>
       </div>
     </div>
     
@@ -202,14 +203,12 @@ background-size: cover;
    
   <ul>
   <li><a href="#install-packages" id="toc-install-packages" class="nav-link active" data-scroll-target="#install-packages"><span class="header-section-number">1</span> Install packages</a></li>
-  <li><a href="#working-with-git-and-github-starting-from-rstudio" id="toc-working-with-git-and-github-starting-from-rstudio" class="nav-link" data-scroll-target="#working-with-git-and-github-starting-from-rstudio"><span class="header-section-number">2</span> Working with git and github starting from RStudio</a></li>
+  <li><a href="#working-with-git-and-github-starting-from-rstudio" id="toc-working-with-git-and-github-starting-from-rstudio" class="nav-link" data-scroll-target="#working-with-git-and-github-starting-from-rstudio"><span class="header-section-number">2</span> Working with git and GitHub starting from RStudio</a></li>
   <li><a href="#additional-topics-and-exercises" id="toc-additional-topics-and-exercises" class="nav-link" data-scroll-target="#additional-topics-and-exercises"><span class="header-section-number">3</span> Additional topics and exercises</a>
   <ul>
   <li><a href="#branches" id="toc-branches" class="nav-link" data-scroll-target="#branches"><span class="header-section-number">3.1</span> Branches</a></li>
   <li><a href="#merge-conflicts" id="toc-merge-conflicts" class="nav-link" data-scroll-target="#merge-conflicts"><span class="header-section-number">3.2</span> Merge conflicts</a></li>
-  <li><a href="#forks" id="toc-forks" class="nav-link" data-scroll-target="#forks"><span class="header-section-number">3.3</span> Forks</a></li>
-  <li><a href="#pull-requests" id="toc-pull-requests" class="nav-link" data-scroll-target="#pull-requests"><span class="header-section-number">3.4</span> pull requests</a></li>
-  <li><a href="#github-actions" id="toc-github-actions" class="nav-link" data-scroll-target="#github-actions"><span class="header-section-number">3.5</span> github actions</a></li>
+  <li><a href="#forks-and-pull-requests" id="toc-forks-and-pull-requests" class="nav-link" data-scroll-target="#forks-and-pull-requests"><span class="header-section-number">3.3</span> Forks and pull requests</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -261,8 +260,8 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This is the lab on using git and github with R. It will take you through some basic steps to start using git with your R code and how to work with others on the same code. When you are comfortable there are some more exercises showing good to know functionalities of git and github.</p>
-<p>This lab assumes that you have a github account, commandline git and correct git configurations. If you do not and need help, please contact a TA.</p>
+<p>This is the lab on using git and GitHub with R. It will take you through some basic steps to start using git with your R code and how to work with others on the same code. When you are comfortable there are some more exercises showing good to know functionalities of git and GitHub.</p>
+<p>This lab assumes that you have a GitHub account, commandline git and correct git configurations. If you do not and need help, please contact a TA.</p>
 </div>
 </div>
 <section id="install-packages" class="level2" data-number="1">
@@ -273,11 +272,11 @@ Note
 </div>
 </section>
 <section id="working-with-git-and-github-starting-from-rstudio" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="working-with-git-and-github-starting-from-rstudio"><span class="header-section-number">2</span> Working with git and github starting from RStudio</h2>
-<p>Let’s go through the common situation of starting a new project and connecting it to git and github. Let’s create a mental model for this: Hypothetically, you have just been asked to perform some data analysis, produce some plots, and now it is time to start!</p>
+<h2 data-number="2" class="anchored" data-anchor-id="working-with-git-and-github-starting-from-rstudio"><span class="header-section-number">2</span> Working with git and GitHub starting from RStudio</h2>
+<p>Let’s go through the common situation of starting a new project and connecting it to git and GitHub. Let’s create a mental model for this: Hypothetically, you have just been asked to perform some data analysis, produce some plots, and now it is time to start!</p>
 <ol type="1">
 <li><p>In RStudio, create a new project in a new directory. You can initialize it as a git repository upon creation or you can do that after using <code>usethis::use_git()</code>.</p></li>
-<li><p>Connect it to github using <code>usethis::use_github()</code>.</p></li>
+<li><p>Connect it to GitHub using <code>usethis::use_github()</code>.</p></li>
 <li><p>Create an R script in your project and write some code. You are free to do whatever you want here. Write a function, create a plot, use a public dataset. Go crazy!</p></li>
 <li><p>Use the RStudio <em>git pane</em> to <code>commit</code> your code including a commit message.</p></li>
 </ol>
@@ -287,9 +286,9 @@ Note
 </figure>
 </div>
 <ol start="5" type="1">
-<li><p><code>push</code> the changes to your github repository. Then go to github and check that you can see your changes there. In your mental model, this is you sharing your code with your collaborators or users.</p></li>
-<li><p>Now introduce some changes to your script from github and <code>commit</code> them. At this point, your github repository is one <code>commit</code> ahead of your local repository. In the mental model, this can be your collaborators making changes in their local repository and <code>push</code>ing it to your shared github project, or a user suggesting a change in your publicly available R-package, used by millions. For now, lets ignore thinking about who has access to <code>commit</code> to your repository, but do not worry, there are ways to safeguard this. Your code can be open on github without other people being able to ruin it so you have to constantly go back to a previous unruined <code>commit</code>!</p></li>
-<li><p>To transfer the changes in the github repository to your local repository, go back to RStudio and use the blue arrow in the <em>git pane</em> to <code>pull</code> the changes. In the mental model this is you updating your code with the code contributed by your collaborators. Notice here that if if you had in the meantime made some changes to the local repository in the same R script and position as you had on github, there would be what is called a “merge conflict” when you tried to <code>pull</code>. We will get to those later in the exercise.</p></li>
+<li><p><code>push</code> the changes to your GitHub repository. Then go to GitHub and check that you can see your changes there. In your mental model, this is you sharing your code with your collaborators or users.</p></li>
+<li><p>Now introduce some changes to your script from GitHub and <code>commit</code> them. At this point, your GitHub repository is one <code>commit</code> ahead of your local repository. In the mental model, this can be your collaborators making changes in their local repository and <code>push</code>ing it to your shared GitHub project, or a user suggesting a change, that you accept, in your publicly available R-package, used by millions. For now, lets ignore thinking about who has access to <code>commit</code> to your repository, but do not worry, there are ways to safeguard this. Your code can be open on GitHub without other people being able to ruin it so you have to constantly go back to a previous unruined <code>commit</code>!</p></li>
+<li><p>To transfer the changes in the GitHub repository to your local repository, go back to RStudio and use the blue arrow in the <em>git pane</em> to <code>pull</code> the changes. In the mental model this is you updating your code with the code contributed by your collaborators. Notice here that if if you had in the meantime made some changes to the local repository in the same R script and position as you had on GitHub, there would be what is called a “merge conflict” when you tried to <code>pull</code>. We will get to those later.</p></li>
 <li><p>Let’s look at the <code>diff</code> operation. Make some changes in your local repository R script again, both removing and adding something, then press the <code>diff</code> button in the <em>git pane</em>. This should bring up a new window that is similar to the image below. As you can see it clearly shows you what has been added and what has been removed, what the <code>diff</code>erence is since your last <code>commit</code>.</p></li>
 </ol>
 <div class="quarto-figure quarto-figure-left">
@@ -298,7 +297,7 @@ Note
 </figure>
 </div>
 <ol start="9" type="1">
-<li>Go ahead and <code>commit</code> the changes you made. No need to <code>push</code> them to github. Now lets go into our mental model and say that you did not like those changes. You have done something you regret, or broken something, and you want to go back. One of the main points of version control after all is the ability to go back. For this you will have to use the <em>terminal pane</em> in RStudio. In essence, what you are doing now is using git from the terminal in your local repository, this is because the git operations necessary to go back are not currently built into RStudio. Here are the commands we will be using:</li>
+<li>Go ahead and <code>commit</code> the changes you made. No need to <code>push</code> them to GitHub. Now lets go into our mental model and say that you did not like those changes. You have done something you regret, or broken something, and you want to go back. One of the main points of version control after all is the ability to go back. For this you will have to use the <em>terminal pane</em> in RStudio. In essence, what you are doing now is using git from the terminal in your local repository, this is because the git operations necessary to go back are not currently built into RStudio. Here are the commands we will be using:</li>
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> reset HEAD~1</span>
@@ -306,13 +305,13 @@ Note
 </div>
 <p><code>git reset HEAD~n</code> steps you back in your <code>commit</code> history <code>n</code> <code>commit</code>s. In this case <code>HEAD~1</code> means <em>go one <code>commit</code> back</em>. Look at your R script, are the changes you made still there? They should be. You have gone back one <code>commit</code>, not removed the changes you made during that <code>commit</code>. But now that we are on this <code>commit</code> you can <code>git restore</code> your R script file to take it back to the way it was at the start of current <code>commit</code>. Go ahead and try it out and make sure it works as you would expect it to!</p>
 <p>Now you should have all the tools you need to work with git in a basic capacity, starting from a new project on your device. Notice that you do not need to start from a new project, you can also take a folder with lots of work you have already performed and make it an R project and initialize git in it. It will of course only track changes from that point, not what you have done previously, but it is still a good idea!</p>
-<p>The point here being that starting from scratch or starting from a bunch of work that you have already done, or starting by creating a github repository and pulling that into github using <em>File &gt; New Project &gt; Version Control &gt; Git</em> , there are tools for any situation and it is not too late to start working reproducibly, collaboratively and with backups using git!</p>
+<p>The point here being that starting from scratch or starting from a bunch of work that you have already done, or starting by creating a GitHub repository and pulling that into RStudio using <em>File &gt; New Project &gt; Version Control &gt; Git</em> , there are tools for any situation and it is not too late to start working reproducibly, collaboratively and with backups using git!</p>
 </section>
 <section id="additional-topics-and-exercises" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="additional-topics-and-exercises"><span class="header-section-number">3</span> Additional topics and exercises</h2>
 <section id="branches" class="level3" data-number="3.1">
 <h3 data-number="3.1" class="anchored" data-anchor-id="branches"><span class="header-section-number">3.1</span> Branches</h3>
-<p>Branches in git are a way to create a separate version controlled instance of your repository. Think of <code>add</code>ing and <code>commit</code>ing as a tree trunk, growing as you create more changes but always possible to <code>reset</code> and go back down to a lower point on the trunk. Then <code>branch</code>ing is the equivalent of a branch shooting out at a certain point on that trunk with the possibility to grow as you develop that <code>branch</code>. This permits you or someone else to work on a separate idea at the same time as you continue to develop the trunk. Say for example that you have a situation where there is a stable release of your R package and you do not want to push changes to this. So you create a <code>branch</code> called “development” and when you are happy with it you merge that branch back into the trunk!</p>
+<p>Branches in git are a way to create a separate version controlled instance of your repository. Think of your git changes as a tree trunk, growing as you <code>add</code> and <code>commit</code>, but always possible to <code>reset</code> and go back down to a lower point on the trunk. Then <code>branch</code>ing is the equivalent of a <code>branch</code> shooting out at a certain point on that trunk with the possibility to grow as you develop that <code>branch</code>. This permits you or someone else to work on a separate idea at the same time as you continue to develop the trunk. Say for example that you have a situation where there is a stable release of your R package and you do not want to <code>push</code> changes to this. So you create a <code>branch</code> called “development” and when you are happy with it you merge that <code>branch</code> back into the trunk!</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
 <p><a href="assets/git_branch.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="assets/git_branch.png" class="img-fluid figure-img"></a></p>
@@ -338,9 +337,10 @@ Note
 </section>
 <section id="merge-conflicts" class="level3" data-number="3.2">
 <h3 data-number="3.2" class="anchored" data-anchor-id="merge-conflicts"><span class="header-section-number">3.2</span> Merge conflicts</h3>
-<p>Earlier we thought about the issue of working changes being introduces in your local copy of a repository and in the github version of the repository at the same time. A so called “merge conflict”. This can also happen if you are working on two branches, introduce chances in the same places and then try to merge! But you should try not to worry too much about merge conflicts, they can be solved if you know what you are doing.</p>
+<p>Earlier we thought about the issue of changes being introduces in the same file and position in your local copy of a repository and in the GitHub version of the repository at the same time. A so called “merge conflict”. This can also happen if you are working on two branches, introduce changes in the same places, and then try to merge! But you should try not to worry too much about merge conflicts, they can be solved if you know what you are doing.</p>
 <ol type="1">
-<li>Create a merge conflict by introducing changes in the same part of your code on your main and new branch and then using <code>git merge &lt;name of branch&gt;</code>. You will need to switch branches, make changes and commit changes to do this.</li>
+<li><p>Introducing changes in the same part of your code on your main and new branch. <code>commit</code> the changes.</p></li>
+<li><p>Use <code>git merge &lt;name of branch&gt;</code> from the main branch. This should result in the merge conflict.</p></li>
 </ol>
 <p>The output you should get from the <code>merge</code> is similar to:</p>
 <div class="cell">
@@ -361,20 +361,47 @@ Note
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">a</span> <span class="op">&lt;</span>- 3</span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> test</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In this instance it is telling us that in branch named “test” <code>a &lt;- 3</code>but on our main branch <code>a &lt;- 2</code> and <code>b &lt;- 2</code> has also been added. To pick which one you want to go with simply delete the <code>&gt;&gt;,&lt;&lt;,==</code> notifiers and whichever piece rows of code that you do not want. Once you have done this, finalize the merge by <code>commit</code>ing the changed files.</p>
-<ol start="2" type="1">
+<p>In this instance it is telling us that in branch named “test” <code>a &lt;- 3</code>but on our main branch <code>a &lt;- 2</code> and <code>b &lt;- 2</code> has also been added. To pick which one you want to go with simply delete the <code>&gt;&gt;,&lt;&lt;,==</code> notifiers and whichever rows of code that you do not want. Once you have done this, finalize the merge by <code>commit</code>ing the changed files.</p>
+<ol start="3" type="1">
 <li>Fix your merge conflict and finalize the merge.</li>
 </ol>
 <p>Good job! You know know how to resolve merge conflicts!</p>
 </section>
-<section id="forks" class="level3" data-number="3.3">
-<h3 data-number="3.3" class="anchored" data-anchor-id="forks"><span class="header-section-number">3.3</span> Forks</h3>
-</section>
-<section id="pull-requests" class="level3" data-number="3.4">
-<h3 data-number="3.4" class="anchored" data-anchor-id="pull-requests"><span class="header-section-number">3.4</span> pull requests</h3>
-</section>
-<section id="github-actions" class="level3" data-number="3.5">
-<h3 data-number="3.5" class="anchored" data-anchor-id="github-actions"><span class="header-section-number">3.5</span> github actions</h3>
+<section id="forks-and-pull-requests" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="forks-and-pull-requests"><span class="header-section-number">3.3</span> Forks and pull requests</h3>
+<p>Forking a repository on GitHub means creating a local copy of the repository on your GitHub user. This can be very useful if you want to make some changes to a repository that you do not have <code>push</code> access to, for example. It is also a great way collaborate because it adds more backups of the repository and because of “pull requests”, which are a way of implementing your local changes to the source repository where the owner of the repository has the power to review and choose whether to accept them or not.</p>
+<p>For example, in this RaukR course we have a repository for all the teaching materials that all teachers have forked, made changes to and then submitted a pull request back to the source repository.</p>
+<p>To fork a repository you can either use the GitHub website of the repository you want to fork, or you can use <code>usethis</code>. If you are using RStudio it will also automatically create a R project for the local repository.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">create_from_github</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://github.com/&lt;user name of owner&gt;/&lt;repository name&gt;"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">destdir =</span> <span class="st">"~/path/to/place/repo/"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">fork =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This command does a lot of things, from <a href="https://happygitwithr.com/fork-and-clone.html">happygitwithr</a></p>
+<blockquote class="blockquote">
+<ul>
+<li>Forks the source repo on GitHub.</li>
+<li>Clones your fork to a new local repo (and RStudio Project). This configures your fork as the origin remote.</li>
+<li>Configures the source repo as the upstream remote.</li>
+<li>Sets the upstream tracking branch for main (or whatever the default branch is) to upstream/main.</li>
+<li>Opens a new RStudio instance in the new local repo (and RStudio Project).</li>
+</ul>
+</blockquote>
+<p>We have not covered “upstream” and “remote” in our git vocabulary yet. Basically remotes are connections for your repository, and being upstream means being a repository closer to the source than your repository, which is downstream (as it is a fork). So the sentence “Configures the source repo as the upstream remote” translates to adding a connection specifying that the source repository is where your repository came from. This connection is used update your fork with any future changes that occur in the source repository.</p>
+<ol type="1">
+<li>Fork the repository <a href="https://github.com/Sebastian-D/testgit">https://github.com/Sebastian-D/testgit</a> using one of the methods described. Also clone a local copy of it. Make sure you can find your fork on GitHub.</li>
+</ol>
+<p>Now we are ready to make some changes to the code in the our local repository. But before this we should create a new branch for the pull request. For this we can use <code>usethis::pr_init(branch = "branchName")</code>. This will also automatically switch to the branch.</p>
+<ol start="2" type="1">
+<li>Create a branch then make some changes to the repository. In the mental model you are implementing some feature or fixing some bug.</li>
+</ol>
+<p>To submit a pull request you can use <code>pr_push()</code>. This should open a browser where you can submit the pull request. If the maintainer of the source repository wants to modify the pull request he can either do this himself or suggest some changes to you, whereupon you make the changes the run <code>pr_push()</code> again.</p>
+<ol start="3" type="1">
+<li>Submit the pull request! Go ahead and view it on GitHub.</li>
+</ol>
+<p>There is a whole family of pr-* functions for both the person submitting the pull the request and the maintainer of the source repository that will review and accept/decline the pull request. I really recommend you read <a href="https://usethis.r-lib.org/articles/pr-functions.html">here</a> if you think this is of interest!</p>
+<p>Good job completing the exercises! git and GitHub are big topics, but know a little gets you a long way and then you discover the rest when you need it!</p>
 
 
 </section>
@@ -621,10 +648,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-center">
       &nbsp;
     </div>
-    <div class="nav-footer-right">Published with <a href="https://quarto.org/">Quarto</a> v1.3.340</div>
+    <div class="nav-footer-right">Published with <a href="https://quarto.org/">Quarto</a> v1.3.361</div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","loop":true,"descPosition":"bottom","closeEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","loop":true,"openEffect":"zoom","descPosition":"bottom","closeEffect":"zoom"});</script>
 
 
 

@@ -91,7 +91,7 @@ An argument is the actual value of the variable that gets passed to the function
 . . .
 
 ::: {.callout-tip}
-How to a function to workspace
+How to add a function to your workspace
 
 - copy paste
 - `source()` / `library()`

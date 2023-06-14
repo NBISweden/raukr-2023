@@ -11,7 +11,7 @@
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/reveal-header-1.0.0/add_header.js" defer="true"></script>
 <link href="../../site_libs/quarto-contrib/reveal-header-1.0.0/add_header.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.340">
+  <meta name="generator" content="quarto-1.3.361">
 
   <meta name="author" content="Sebastian DiLorenzo">
   <title>git and R</title>
@@ -98,7 +98,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -409,7 +409,7 @@ Sebastian DiLorenzo
 </div>
 </div>
 
-  <p class="date">12-Jun-2023</p>
+  <p class="date">13-Jun-2023</p>
 </section>
 <section id="overview" class="slide level2">
 <h2>Overview</h2>
@@ -429,7 +429,6 @@ Sebastian DiLorenzo
 <aside class="notes">
 <p>Maybe start with a show of hands. “How many have heard the word git before?” “How many have used git before?” “How many had a github account before the course?”</p>
 <p>Throughout I will show how to do things from RStudio, since this is an R course. In git with github I will not only show how to integrate github for yourself but also with collaborators.</p>
-<p>Github actions I will only talk briefly about what it is because it is good to know, not how to set it up. This is an advanced exercise in the lab later.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -550,7 +549,7 @@ Sebastian DiLorenzo
 <span id="cb2-18"><a href="#cb2-18"></a>ℹ Active project is not a Git repo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <aside class="notes">
-<p>Looking at the information here we lets forcus on that our git global config has a name, which should be the same as the github username, an email associated with both my local git and my github, you can see your default protocol which is usually https unless you have some great reason for having SSH.</p>
+<p>Lets forcus on that our git global config has a name, which should be the same as the github username, an email associated with both my local git and my github, you can see your default protocol which is usually https unless you have some great reason for having SSH.</p>
 <p>In the github section we can also see that we have a personal access token or PAT, and that token has certain scopes related to it. I will get back to this in a moment.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -814,10 +813,10 @@ Sebastian DiLorenzo
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>         _                     
-platform x86_64-conda-linux-gnu
-os       linux-gnu             
+platform aarch64-apple-darwin20
+os       darwin20              
 major    4                     
-minor    2.2                   </code></pre>
+minor    3.0                   </code></pre>
 </div>
 </div>
 <p><span class="smaller">2023 • <a href="https://www.scilifelab.se/">SciLifeLab</a> • <a href="https://nbis.se/">NBIS</a> • <a href="https://nbisweden.github.io/workshop-RaukR-2306/">RaukR</a></span></p>

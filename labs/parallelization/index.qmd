@@ -49,7 +49,7 @@ Evaluating the computation time on my machine, it comes out taking about 5.4 sec
 ```{r}
 #| eval: false
 
-system.time({sample(100,200000000,replace=T)})
+system.time(sample(100,200000000,replace=T))
    user  system elapsed 
   5.173   0.160   5.369 
 ```
@@ -58,9 +58,9 @@ system.time({sample(100,200000000,replace=T)})
 
 - Use the future package with `plan(sequential)`,which is the default, and run the supplied `sample()` inside a future.
 
-<!--
-- Due to a recent change in future, there is a warning message when generating random numbers without seed. We can ignore this by changing our options: `options(future.rng.onMisuse="ignore")`.
--->
+::: {.callout-note}
+There is a warning message when generating random numbers without seed. We can ignore this by changing our options: `options(future.rng.onMisuse="ignore")`.
+:::
 
 - Add an approach from yesterdays lecture on benchmarking or some other way that you are comfortable with to calculate the time it takes to complete the operation of simply assigning the future. Do not evaluate the future yet by asking for the outcome value.
 

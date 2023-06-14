@@ -35,8 +35,6 @@ Maybe start with a show of hands.
 "How many had a github account before the course?"
 
 Throughout I will show how to do things from RStudio, since this is an R course. In git with github I will not only show how to integrate github for yourself but also with collaborators.
-
-Github actions I will only talk briefly about what it is because it is good to know, not how to set it up. This is an advanced exercise in the lab later.
 :::
 
 ## What is git and why should I use it?
@@ -138,7 +136,7 @@ Git repo for current project
 ```
 
 ::: notes
-Looking at the information here we lets forcus on that our git global config has a name, which should be the same as the github username, an email associated with both my local git and my github, you can see your default protocol which is usually https unless you have some great reason for having SSH.
+Lets forcus on that our git global config has a name, which should be the same as the github username, an email associated with both my local git and my github, you can see your default protocol which is usually https unless you have some great reason for having SSH.
 
 In the github section we can also see that we have a personal access token or PAT, and that token has certain scopes related to it. I will get back to this in a moment.
 :::
