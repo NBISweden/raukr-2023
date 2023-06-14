@@ -3175,7 +3175,7 @@
     "href": "slides/shiny/index.html#interactive-documents",
     "title": "Interactive web apps with Shiny",
     "section": "Interactive documents",
-    "text": "Interactive documents\n\nShiny can run in RMarkdown documents. Set YAML runtime: shiny.\n\n---\ntitle: Interactive document\noutput: html_document\nruntime: shiny\n---\n\nShiny widgets can be included directly\n\n```{r}\nselectInput('n_breaks',label='Number of bins:',choices=c(10,20,35,50),selected=20)\n```"
+    "text": "Interactive documents\n\nWhole shiny apps can be included directly\n\n```{r}\nshinyApp(\n  ui=fluidPage(),\n  server=function(input,output) {}\n)\n```\n\nHosted shiny apps can be embedded using &lt;iframe&gt;\n\n&lt;iframe src=\"https://user.shinyapps.io/app\"&gt;&lt;/iframe&gt;"
   },
   {
     "objectID": "slides/shiny/index.html#interactive-documents-1",
@@ -3196,7 +3196,7 @@
     "href": "slides/shiny/index.html#help",
     "title": "Interactive web apps with Shiny",
     "section": "Help",
-    "text": "Help\n\nMastering Shiny Book\nShiny Interfaces\nRStudio Shiny home\nRStudio Shiny tutorial\nRStudio Shiny articles\n\nOther topics\n\nApplications of action buttons\n\nProgress indicators\n\nShiny modules\nShiny profiling\nShiny unit tests\n…"
+    "text": "Help\n\nMastering Shiny Book\nShiny Interfaces\nRStudio Shiny home\nRStudio Shiny tutorial\nRStudio Shiny articles\n\nOther topics\n\nShiny modules\nShiny profiling\nShiny unit tests\nApplications of action buttons\n\nProgress indicators\n\n…"
   },
   {
     "objectID": "slides/shiny/index.html#section-2",
@@ -3694,5 +3694,19 @@
     "title": "Vectorization in R",
     "section": "Recursion == iteration, really?",
     "text": "Recursion == iteration, really?\nMore writing for the iterative version, right? What about the time efficiency?\nThe recursive version:\n\npeakRAM::peakRAM(factorial_rec(1000))\n\n        Function_Call Elapsed_Time_sec Total_RAM_Used_MiB Peak_RAM_Used_MiB\n1 factorial_rec(1000)            0.003                  0               0.1\n\n\nAnd the iterative one:\n\npeakRAM::peakRAM(factorial_iter(1000))\n\n         Function_Call Elapsed_Time_sec Total_RAM_Used_MiB Peak_RAM_Used_MiB\n1 factorial_iter(1000)            0.003                  0               0.1"
+  },
+  {
+    "objectID": "slides/shiny/index.html#interactive-documents-quarto",
+    "href": "slides/shiny/index.html#interactive-documents-quarto",
+    "title": "Interactive web apps with Shiny",
+    "section": "Interactive documents • Quarto",
+    "text": "Interactive documents • Quarto\n---\ntitle: \"Old Faithful\"\nformat: html\nserver: shiny\n---\n\n```{r}\nsliderInput(\"bins\", \"Number of bins:\", min = 1, max = 50, value = 30)\nplotOutput(\"distPlot\")\n```\n\n```{r}\n#| context: server\noutput$distPlot &lt;- renderPlot({\n  x &lt;- faithful[, 2]\n  bins &lt;- seq(min(x), max(x), length.out = input$bins + 1)\n  hist(x, breaks = bins, col = 'darkgray', border = 'white')\n})\n```"
+  },
+  {
+    "objectID": "slides/shiny/index.html#interactive-documents-rmarkdown",
+    "href": "slides/shiny/index.html#interactive-documents-rmarkdown",
+    "title": "Interactive web apps with Shiny",
+    "section": "Interactive documents • Rmarkdown",
+    "text": "Interactive documents • Rmarkdown\n\nShiny can run in RMarkdown documents. Set YAML runtime: shiny.\n\n---\ntitle: Interactive document\noutput: html_document\nruntime: shiny\n---\n\nShiny widgets can be included directly\n\n```{r}\nselectInput('n_breaks',label='Number of bins:',choices=c(10,20,35,50),selected=20)\n```"
   }
 ]

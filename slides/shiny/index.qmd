@@ -629,7 +629,31 @@ deployApp(appName="name")
 - [Shiny apps user guide](https://docs.rstudio.com/shinyapps.io/index.html)
 - [Shiny server guide](https://docs.rstudio.com/shiny-server/)
 
-## Interactive documents
+## Interactive documents • Quarto
+
+````
+---
+title: "Old Faithful"
+format: html
+server: shiny
+---
+
+```{{r}}
+sliderInput("bins", "Number of bins:", min = 1, max = 50, value = 30)
+plotOutput("distPlot")
+```
+
+```{{r}}
+#| context: server
+output$distPlot <- renderPlot({
+  x <- faithful[, 2]
+  bins <- seq(min(x), max(x), length.out = input$bins + 1)
+  hist(x, breaks = bins, col = 'darkgray', border = 'white')
+})
+```
+````
+
+## Interactive documents • Rmarkdown
 
 - Shiny can run in RMarkdown documents. Set YAML `runtime: shiny`.  
 
@@ -689,11 +713,11 @@ shinyApp(
 
 ### Other topics
 
-- [Applications of action buttons](http://shiny.rstudio.com/articles/action-buttons.html)  
-- [Progress indicators](http://shiny.rstudio.com/articles/progress.html)  
 - [Shiny modules](https://shiny.rstudio.com/articles/modules.html)
 - [Shiny profiling](https://shiny.rstudio.com/articles/profiling.html)
 - [Shiny unit tests](https://shiny.rstudio.com/articles/testing-overview.html)
+- [Applications of action buttons](http://shiny.rstudio.com/articles/action-buttons.html)  
+- [Progress indicators](http://shiny.rstudio.com/articles/progress.html)  
 - ...
 
 ## {background-image="../../assets/images/cover.jpg"}
