@@ -1705,7 +1705,7 @@
     "href": "slides/git/index.html#overview",
     "title": "git and R",
     "section": "Overview",
-    "text": "Overview\n\n\n\nWhat is git and why should I use it?\ngit set-up\ngit for yourself\ngit with github\nSummary\n\n\n \n\n\n\nMaybe start with a show of hands. “How many have heard the word git before?” “How many have used git before?” “How many had a github account before the course?”\nThroughout I will show how to do things from RStudio, since this is an R course. In git with github I will not only show how to integrate github for yourself but also with collaborators.\nGithub actions I will only talk briefly about what it is because it is good to know, not how to set it up. This is an advanced exercise in the lab later."
+    "text": "Overview\n\n\n\nWhat is git and why should I use it?\ngit set-up\ngit for yourself\ngit with github\nSummary\n\n\n \n\n\n\nMaybe start with a show of hands. “How many have heard the word git before?” “How many have used git before?” “How many had a github account before the course?”\nThroughout I will show how to do things from RStudio, since this is an R course. In git with github I will not only show how to integrate github for yourself but also with collaborators."
   },
   {
     "objectID": "slides/git/index.html#what-is-git-and-why-should-i-use-it",
@@ -1733,7 +1733,7 @@
     "href": "slides/git/index.html#git-set-up-1",
     "title": "git and R",
     "section": "git set-up",
-    "text": "git set-up\n\nChecking configuration\n\nusethis::git_sitrep()\nGit config (global)\n• Name: 'Sebastian-D'\n• Email: 'dilorenzo.sebastian@gmail.com'\n• Global (user-level) gitignore file: &lt;unset&gt;\n• Vaccinated: FALSE\nℹ See `?git_vaccinate` to learn more\n• Default Git protocol: 'https'\n• Default initial branch name: &lt;unset&gt;\nGitHub\n• Default GitHub host: 'https://github.com'\n• Personal access token for 'https://github.com': '&lt;discovered&gt;'\n• GitHub user: 'Sebastian-D'\n• Token scopes: 'repo, user, workflow'\n• Email(s): 'dilorenzo.sebastian@gmail.com (primary)', 'sebastian.dilorenzo@scilifelab.uu.se'\nGit repo for current project\n• Active usethis project: '/Users/sd/Library/CloudStorage/Box-Box/Work/NBIS_CommMan'\nℹ Active project is not a Git repo\n\n\nLooking at the information here we lets forcus on that our git global config has a name, which should be the same as the github username, an email associated with both my local git and my github, you can see your default protocol which is usually https unless you have some great reason for having SSH.\nIn the github section we can also see that we have a personal access token or PAT, and that token has certain scopes related to it. I will get back to this in a moment."
+    "text": "git set-up\n\nChecking configuration\n\nusethis::git_sitrep()\nGit config (global)\n• Name: 'Sebastian-D'\n• Email: 'dilorenzo.sebastian@gmail.com'\n• Global (user-level) gitignore file: &lt;unset&gt;\n• Vaccinated: FALSE\nℹ See `?git_vaccinate` to learn more\n• Default Git protocol: 'https'\n• Default initial branch name: &lt;unset&gt;\nGitHub\n• Default GitHub host: 'https://github.com'\n• Personal access token for 'https://github.com': '&lt;discovered&gt;'\n• GitHub user: 'Sebastian-D'\n• Token scopes: 'repo, user, workflow'\n• Email(s): 'dilorenzo.sebastian@gmail.com (primary)', 'sebastian.dilorenzo@scilifelab.uu.se'\nGit repo for current project\n• Active usethis project: '/Users/sd/Library/CloudStorage/Box-Box/Work/NBIS_CommMan'\nℹ Active project is not a Git repo\n\n\nLets forcus on that our git global config has a name, which should be the same as the github username, an email associated with both my local git and my github, you can see your default protocol which is usually https unless you have some great reason for having SSH.\nIn the github section we can also see that we have a personal access token or PAT, and that token has certain scopes related to it. I will get back to this in a moment."
   },
   {
     "objectID": "slides/git/index.html#git-set-up-2",
@@ -1796,7 +1796,7 @@
     "href": "slides/git/index.html#section",
     "title": "git and R",
     "section": "",
-    "text": "Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
+    "text": "Thank you! Questions?\n\n\n         _                     \nplatform aarch64-apple-darwin20\nos       darwin20              \nmajor    4                     \nminor    3.0                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
   },
   {
     "objectID": "slides/index.html",
