@@ -35,7 +35,7 @@ execute:
 |Plotting with ggplot2                  |Roy Francis & Lokesh Manoharan         |[Slides](slides/ggplot/index.html), [Lab](labs/ggplot/index.html)|
 |Purrr                                  |Jenny Bryan, Posit                     ||
 |[**16-Jun-2023 (Fri)**]{.highlight}    |                                       ||
-|R Packages                             |Sebastian DiLorenzo                    |[Slides](slides/packages/index.html), [Lab](labs/packages/index.html)|
+|R Packages                             |Jenny Bryan, Posit                    ||
 |Web apps with Shiny                    |Roy Francis & Lokesh Manoharan         |[Slides](slides/shiny/index.html), [Lab](labs/shiny/index.html)|
 |[**WEEK 2**]{.highlight style="display:block;"}                                |||
 |[**19-Jun-2023 (Mon)**]{.highlight}    |                                       ||
