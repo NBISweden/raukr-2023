@@ -29,6 +29,7 @@ execute:
 |Tables with **gt** package             |Richard Iannone, Posit|[Repo](https://github.com/rich-iannone/presentations)|
 |[**14-Jun-2023 (Wed)**]{.highlight}    |                                       ||
 |Tidyverse                              |Marcin Kierczak                        |[Slides](slides/tidyverse/index.html), [Lab](labs/tidyverse/index.html)|
+|git with R                             |Sebastian DiLorenzo                    |[Slides](slides/git/index.html), [Lab](labs/git/index.html)|
 |reticulate: Combining R with Python    |Nina Norgren                           |[Slides](slides/reticulate/index.html), [Lab](labs/reticulate/index.html)|
 |[**15-Jun-2023 (Thu)**]{.highlight}    |                                       ||
 |Plotting with ggplot2                  |Roy Francis & Lokesh Manoharan         |[Slides](slides/ggplot/index.html), [Lab](labs/ggplot/index.html)|
