@@ -409,37 +409,9 @@ Marcin Kierczak
 </div>
 </div>
 
-  <p class="date">12-Jun-2023</p>
+  <p class="date">13-Jun-2023</p>
 </section>
 
-<section id="oop-example" class="slide level2">
-<h2>OOP example</h2>
-
-<img data-src="assets/oop_ex_1_object.jpg" width="450" class="r-stretch"></section>
-<section id="oop-example-1" class="slide level2">
-<h2>OOP example</h2>
-
-<img data-src="assets/oop_ex_2_data.jpg" width="450" class="r-stretch"></section>
-<section id="oop-example-2" class="slide level2">
-<h2>OOP example</h2>
-
-<img data-src="assets/oop_ex_3_data.jpg" width="450" class="r-stretch"></section>
-<section id="oop-example-3" class="slide level2">
-<h2>OOP example</h2>
-
-<img data-src="assets/oop_ex_4_data.jpg" width="450" class="r-stretch"></section>
-<section id="oop-example-4" class="slide level2">
-<h2>OOP example</h2>
-
-<img data-src="assets/oop_ex_5_getter.jpg" width="450" class="r-stretch"></section>
-<section id="oop-example-5" class="slide level2">
-<h2>OOP example</h2>
-
-<img data-src="assets/oop_ex_7_getters.jpg" width="450" class="r-stretch"></section>
-<section id="oop-example-6" class="slide level2">
-<h2>OOP example</h2>
-
-<img data-src="assets/oop_ex_8_setters.jpg" width="450" class="r-stretch"></section>
 <section id="object-oriented-programming" class="slide level2">
 <h2>Object Oriented Programming</h2>
 <ul>
@@ -465,42 +437,30 @@ Marcin Kierczak
 <h2>S4 classes</h2>
 <p>S4 classes are more advanced as you actually define the structure of the data within the object of your particular class:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">setClass</span>(<span class="st">'gene'</span>, </span>
-<span id="cb1-2"><a href="#cb1-2"></a>         <span class="fu">representation</span>(<span class="at">name=</span><span class="st">'character'</span>, </span>
-<span id="cb1-3"><a href="#cb1-3"></a>                        <span class="at">coords=</span><span class="st">'numeric'</span>)</span>
-<span id="cb1-4"><a href="#cb1-4"></a>         )</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># declare class</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">setClass</span>(<span class="st">'gene'</span>, <span class="fu">representation</span>(<span class="at">name=</span><span class="st">'character'</span>, <span class="at">coords=</span><span class="st">'numeric'</span>))</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># instantiate class</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>my.gene <span class="ot">&lt;-</span> <span class="fu">new</span>(<span class="st">"gene"</span>, <span class="at">name =</span> <span class="st">"ANK3"</span>, <span class="at">coords =</span> <span class="fu">c</span>(<span class="fl">1.4e6</span>, <span class="fl">1.412e6</span>))</span>
 <span id="cb1-5"><a href="#cb1-5"></a></span>
-<span id="cb1-6"><a href="#cb1-6"></a>.intragenic_region <span class="ot">&lt;-</span> <span class="fu">setClass</span>(<span class="at">Class =</span> <span class="st">'intragenic_region'</span>, </span>
-<span id="cb1-7"><a href="#cb1-7"></a>                               <span class="at">slots =</span> <span class="fu">c</span>(</span>
-<span id="cb1-8"><a href="#cb1-8"></a>                                 <span class="at">name=</span><span class="st">'character'</span>, </span>
-<span id="cb1-9"><a href="#cb1-9"></a>                                 <span class="at">coords=</span><span class="st">'numeric'</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a>                               )</span>
-<span id="cb1-11"><a href="#cb1-11"></a>                              )</span>
-<span id="cb1-12"><a href="#cb1-12"></a></span>
-<span id="cb1-13"><a href="#cb1-13"></a>my.gene <span class="ot">&lt;-</span> <span class="fu">new</span>(<span class="st">'gene'</span>, <span class="at">name =</span> <span class="st">'ANK3'</span>, </span>
-<span id="cb1-14"><a href="#cb1-14"></a>               <span class="at">coords =</span> <span class="fu">c</span>(<span class="fl">1.4e6</span>, <span class="fl">1.412e6</span>))</span>
-<span id="cb1-15"><a href="#cb1-15"></a></span>
-<span id="cb1-16"><a href="#cb1-16"></a><span class="co"># but since SetClass returns a low-level constructor</span></span>
-<span id="cb1-17"><a href="#cb1-17"></a>my.intra1 <span class="ot">&lt;-</span> <span class="fu">.intragenic_region</span>(<span class="at">name =</span> <span class="st">'int1'</span>, </span>
-<span id="cb1-18"><a href="#cb1-18"></a>                  <span class="at">coords =</span> <span class="fu">c</span>(<span class="fl">1.7e6</span>, <span class="fl">1.717e6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># declare class</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>.intragenic_region <span class="ot">&lt;-</span> <span class="fu">setClass</span>(<span class="at">Class =</span> <span class="st">'intragenic_region'</span>, </span>
+<span id="cb1-8"><a href="#cb1-8"></a>                               <span class="at">slots =</span> <span class="fu">c</span>(<span class="at">name=</span><span class="st">'character'</span>, <span class="at">coords=</span><span class="st">'numeric'</span>))</span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co"># instantiate class</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co"># but since SetClass returns a low-level constructor</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>my.intra1 <span class="ot">&lt;-</span> <span class="fu">.intragenic_region</span>(<span class="at">name =</span> <span class="st">'int1'</span>, </span>
+<span id="cb1-13"><a href="#cb1-13"></a>                  <span class="at">coords =</span> <span class="fu">c</span>(<span class="fl">1.7e6</span>, <span class="fl">1.717e6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="inheritance-in-s4" class="slide level2">
 <h2>Inheritance in S4</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>.ext_gene <span class="ot">&lt;-</span> <span class="fu">setClass</span>(<span class="at">Class =</span> <span class="st">'ext_gene'</span>,</span>
-<span id="cb2-2"><a href="#cb2-2"></a>                      <span class="at">contains =</span> <span class="st">"gene"</span>,</span>
-<span id="cb2-3"><a href="#cb2-3"></a>                      <span class="at">slots =</span> <span class="fu">c</span>(</span>
-<span id="cb2-4"><a href="#cb2-4"></a>                        <span class="at">gene =</span> <span class="st">'gene'</span>,</span>
-<span id="cb2-5"><a href="#cb2-5"></a>                        <span class="at">feature_name =</span> <span class="st">'character'</span>,</span>
-<span id="cb2-6"><a href="#cb2-6"></a>                        <span class="at">feature_value =</span> <span class="st">'character'</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a>                      ))</span>
-<span id="cb2-8"><a href="#cb2-8"></a></span>
-<span id="cb2-9"><a href="#cb2-9"></a>ANK3 <span class="ot">&lt;-</span> <span class="fu">.ext_gene</span>(<span class="at">name =</span> <span class="st">'ANK3'</span>, </span>
-<span id="cb2-10"><a href="#cb2-10"></a>                  <span class="at">coords =</span> <span class="fu">c</span>(<span class="fl">1.4e6</span>, <span class="fl">1.412e6</span>),</span>
-<span id="cb2-11"><a href="#cb2-11"></a>                  <span class="at">feature_name =</span> <span class="st">'num_introns'</span>,</span>
-<span id="cb2-12"><a href="#cb2-12"></a>                  <span class="at">feature_value =</span> <span class="st">'5'</span>)</span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="fu">str</span>(ANK3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>.ext_gene <span class="ot">&lt;-</span> <span class="fu">setClass</span>(<span class="at">Class =</span> <span class="st">'ext_gene'</span>,<span class="at">contains =</span> <span class="st">"gene"</span>,</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="at">slots =</span> <span class="fu">c</span>(<span class="at">gene =</span> <span class="st">'gene'</span>, <span class="at">feature_name =</span> <span class="st">'character'</span>, <span class="at">feature_value =</span> <span class="st">'character'</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>)</span>
+<span id="cb2-4"><a href="#cb2-4"></a>ANK3 <span class="ot">&lt;-</span> <span class="fu">.ext_gene</span>(<span class="at">name =</span> <span class="st">'ANK3'</span>, <span class="at">coords =</span> <span class="fu">c</span>(<span class="fl">1.4e6</span>, <span class="fl">1.412e6</span>),</span>
+<span id="cb2-5"><a href="#cb2-5"></a>                  <span class="at">feature_name =</span> <span class="st">'num_introns'</span>, <span class="at">feature_value =</span> <span class="st">'5'</span>)</span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="fu">str</span>(ANK3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Formal class 'ext_gene' [package ".GlobalEnv"] with 5 slots
   ..@ gene         :Formal class 'gene' [package ".GlobalEnv"] with 2 slots
@@ -783,8 +743,8 @@ Coefficients:
 <span id="cb40-2"><a href="#cb40-2"></a>x[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.003   0.000   0.003 
-[1] 0.6988659 0.8619141 0.2510353 0.7397809 0.6836911</code></pre>
+  0.002   0.000   0.002 
+[1] 0.04409963 0.41315999 0.85541047 0.33540768 0.90221173</code></pre>
 </div>
 </div>
 <ul>
