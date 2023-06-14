@@ -1120,7 +1120,6 @@ dev.off()
 ggsave("plot.png",p,height=5,width=7,units="cm",dpi=200,type="cairo")
 ```
 
-- Use `type="cairo"` for nicer anti-aliasing  
 - Note that default units in `png` is pixels while in `ggsave` it's inches  
 
 ## Combining Plots

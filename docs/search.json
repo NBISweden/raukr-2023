@@ -1663,7 +1663,7 @@
     "href": "slides/ggplot/index.html#saving-plots",
     "title": "Plotting with ggplot2",
     "section": "Saving plots",
-    "text": "Saving plots\n\np &lt;- ggplot(iris,aes(Petal.Length,Sepal.Length,color=Species))+\n  geom_point()\n\n\nggplot2 plots can be saved just like base plots\n\n\npng(\"plot.png\",height=5,width=7,units=\"cm\",res=200)\nprint(p)\ndev.off()\n\n\nggplot2 package offers a convenient function\n\n\nggsave(\"plot.png\",p,height=5,width=7,units=\"cm\",dpi=200,type=\"cairo\")\n\n\nUse type=\"cairo\" for nicer anti-aliasing\n\nNote that default units in png is pixels while in ggsave it’s inches"
+    "text": "Saving plots\n\np &lt;- ggplot(iris,aes(Petal.Length,Sepal.Length,color=Species))+\n  geom_point()\n\n\nggplot2 plots can be saved just like base plots\n\n\npng(\"plot.png\",height=5,width=7,units=\"cm\",res=200)\nprint(p)\ndev.off()\n\n\nggplot2 package offers a convenient function\n\n\nggsave(\"plot.png\",p,height=5,width=7,units=\"cm\",dpi=200,type=\"cairo\")\n\n\nNote that default units in png is pixels while in ggsave it’s inches"
   },
   {
     "objectID": "slides/ggplot/index.html#combining-plots",
