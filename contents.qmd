@@ -26,7 +26,7 @@ execute:
 |Parallelization                        |Sebastian DiLorenzo & Marcin Kierczak  |[Slides](slides/parallelization/index.html), [Lab](labs/parallelization/index.html)|
 |Object-oriented programming            |Marcin Kierczak                        |[Slides](slides/oop/index.html), [Lab](labs/oop/index.html)|
 |Introduction to Quarto                 |Chris Dervieux, Posit                  |[Slides](https://cderv.github.io/raukr-2023-quarto)|
-|Tables with **gt** package             |Richard Iannone, Posit|[Repo](https://github.com/rich-iannone/presentations)|
+|Tables with **gt** package             |Richard Iannone, Posit|[Repo](https://github.com/rich-iannone/presentations/tree/main/2023-06-13-Raukr_gt), [Slides](slides/gt.pdf)|
 |[**14-Jun-2023 (Wed)**]{.highlight}    |                                       ||
 |Tidyverse                              |Marcin Kierczak                        |[Slides](slides/tidyverse/index.html), [Lab](labs/tidyverse/index.html)|
 |git with R                             |Sebastian DiLorenzo                    |[Slides](slides/git/index.html), [Lab](labs/git/index.html)|
