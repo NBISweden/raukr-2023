@@ -33,7 +33,7 @@ execute:
 |reticulate: Combining R with Python    |Nina Norgren                           |[Slides](slides/reticulate/index.html), [Lab](labs/reticulate/index.html)|
 |[**15-Jun-2023 (Thu)**]{.highlight}    |                                       ||
 |Plotting with ggplot2                  |Roy Francis & Lokesh Manoharan         |[Slides](slides/ggplot/index.html), [Lab](labs/ggplot/index.html)|
-|Purrr                                  |Jenny Bryan, Posit                     ||
+|How to repeat yourself with Purrr      |Jenny Bryan, Posit                     |[Repo](https://github.com/jennybc/2023_raukr-purrr-pkg-dev)|
 |[**16-Jun-2023 (Fri)**]{.highlight}    |                                       ||
 |R Packages                             |Jenny Bryan, Posit                    ||
 |Web apps with Shiny                    |Roy Francis & Lokesh Manoharan         |[Slides](slides/shiny/index.html), [Lab](labs/shiny/index.html)|
