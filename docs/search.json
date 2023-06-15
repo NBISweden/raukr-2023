@@ -3042,14 +3042,14 @@
     "href": "slides/shiny/index.html#what-is-shiny",
     "title": "Interactive web apps with Shiny",
     "section": "What is shiny?",
-    "text": "What is shiny?\n\n\n\nInteractive documents & web applications\nCompletely created using R\nNeeds a live environment\n\nUsage\n\nStandalone web applications\nDashboard/Flexboard\nInteractive RMarkdown\nGadgets/RStudio extensions\n\n\nApp structure\n\nUI Layout\nUI Inputs (Widgets)\nUI Outputs\nRenderer\nBuilder\nFunction reference"
+    "text": "What is shiny?\n\n\n\nWeb applications & interactive documents\nCompletely created using R\nNeeds a live environment\n\nUsage\n\nStandalone web applications\nDashboard/Flexboard\nInteractive RMarkdown\nGadgets/RStudio extensions\n\n\nApp structure\n\nUI Layout\nUI Inputs (Widgets)\nUI Outputs\nRenderer\nBuilder\nFunction reference"
   },
   {
     "objectID": "slides/shiny/index.html#code-structure",
     "href": "slides/shiny/index.html#code-structure",
     "title": "Interactive web apps with Shiny",
     "section": "Code structure",
-    "text": "Code structure\n\n\nOne file format\napp.R\nui &lt;- fluidPage()\nserver &lt;- function(input,output) {}\nshinyApp(ui=ui,server=server)\n\nTwo file format\nui.R\nui &lt;- fluidPage()\nserver.R\nserver &lt;- function(input,output) {}"
+    "text": "Code structure\n\n\nOne file format\napp.R\nui &lt;- fluidPage()\nserver &lt;- function(input,output) {}\nshinyApp(ui=ui,server=server)\n\nTwo file format\nui.R\nui &lt;- fluidPage()\nserver.R\nserver &lt;- function(input,output) {}\nshiny::runApp(\"path/to/folder\")"
   },
   {
     "objectID": "slides/shiny/index.html#running-the-app",
@@ -3098,21 +3098,21 @@
     "href": "slides/shiny/index.html#reactivity",
     "title": "Interactive web apps with Shiny",
     "section": "Reactivity",
-    "text": "Reactivity\n\nshinyApp(\n  ui=fluidPage(\n    numericInput(\"num_input\",label=\"Observations\",value=50),\n    textOutput(\"text_output\")),\n  \n  server=function(input,output) {\n    output$text_output &lt;- renderText({\n        mean(rnorm(input$num_input))\n    })\n  })"
+    "text": "Reactivity\n\nshinyApp(\n  ui=fluidPage(\n    numericInput(\"num_input\",label=\"Observations\",value=50),\n    textOutput(\"text_output\")),\n  server=function(input,output) {\n    output$text_output &lt;- renderText({\n        mean(rnorm(input$num_input))\n    })\n  })"
   },
   {
     "objectID": "slides/shiny/index.html#reactivity-1",
     "href": "slides/shiny/index.html#reactivity-1",
     "title": "Interactive web apps with Shiny",
     "section": "Reactivity",
-    "text": "Reactivity\n\nshinyApp(\n  \n  ui=fluidPage(\n    numericInput(\"num_input\",label=\"Observations\",value=50),\n    textOutput(\"text_output1\"), textOutput(\"text_output2\")\n    ),\n  server=function(input,output) {\n    output$text_output1 &lt;- renderText({\n        mean(rnorm(input$num_input))\n    })\n    output$text_output2 &lt;- renderText({\n      mean(rnorm(input$num_input))\n    })\n  })"
+    "text": "Reactivity\n\nshinyApp(\n  ui=fluidPage(\n    numericInput(\"num_input\",label=\"Observations\",value=50),\n    textOutput(\"text_output\"), plotOutput(\"plot_output\")\n    ),\n  server=function(input,output) {\n    output$text_output &lt;- renderText({\n        mean(rnorm(input$num_input))\n    })\n    output$plot_output &lt;- renderPlot({\n      x &lt;- rnorm(input$num_input)\n      hist(x,main=mean(x))\n    })\n  })"
   },
   {
     "objectID": "slides/shiny/index.html#reactivity-2",
     "href": "slides/shiny/index.html#reactivity-2",
     "title": "Interactive web apps with Shiny",
     "section": "Reactivity",
-    "text": "Reactivity\n\nshinyApp(\n  \n  ui=fluidPage(\n    numericInput(\"num_input\",label=\"Observations\",value=50),\n    textOutput(\"text_output1\"), textOutput(\"text_output2\")\n    ),\n  server=function(input,output) {\n    rand &lt;- reactive({ rnorm(input$num_input) })\n    output$text_output1 &lt;- renderText({\n      mean(rand())\n    })\n    output$text_output2 &lt;- renderText({\n      mean(rand())\n    })\n  })\n\n\n\nReactive functions can be use to share output from a common source. They can be used to reduce computation for demanding functions. Reactive values cannot be accessed from outside the reactive environment.\nTry changing the reactive function\nrand &lt;- reactive({ rnorm(input$num_input) })\nto a regular function\nrand &lt;- function(){ rnorm(input$num_input) }"
+    "text": "Reactivity\n\nshinyApp(\n  ui=fluidPage(\n    numericInput(\"num_input\",label=\"Observations\",value=50),\n    textOutput(\"text_output\"), plotOutput(\"plot_output\")\n    ),\n  server=function(input,output) {\n    rand &lt;- reactive({ rnorm(input$num_input) })\n    output$text_output &lt;- renderText({\n      mean(rand())\n    })\n    output$plot_output &lt;- renderPlot({\n      x &lt;- rand()\n      hist(x,main=mean(x))\n    })\n  })\n\n\n\nReactive functions can be use to share output from a common source. They can be used to reduce computation for demanding functions. Reactive values cannot be accessed from outside the reactive environment.\nTry changing the reactive function\nrand &lt;- reactive({ rnorm(input$num_input) })\nto a regular function\nrand &lt;- function(){ rnorm(input$num_input) }"
   },
   {
     "objectID": "slides/shiny/index.html#updating-widgets",
@@ -3140,14 +3140,14 @@
     "href": "slides/shiny/index.html#error-validation-1",
     "title": "Interactive web apps with Shiny",
     "section": "Error validation",
-    "text": "Error validation\n\nErrors can be handled in a controlled manner\n\n\n\nvalidate() can be used to check input\nvalidate() using need()\n\n\n\n\nshinyApp(\nui=fluidPage(\n  selectInput(\"data_input\",label=\"Select data\",\n              choices=c(\"\",\"mtcars\",\"faithful\",\"iris\")),\n  tableOutput(\"table_output\")\n),\n\nserver=function(input, output) {\n  getdata &lt;- reactive({ \n  validate(need(try(input$data_input),\"Please select a data set\"))\n    get(input$data_input,'package:datasets') \n    })\n  output$table_output &lt;- renderTable({head(getdata())})\n})"
+    "text": "Error validation\n\nErrors can be handled in a controlled manner\n\n\n\nvalidate() can be used to check input\nvalidate() using need()\n\n\n\n\nshinyApp(\nui=fluidPage(\n  selectInput(\"data_input\",label=\"Select data\",\n              choices=c(\"\",\"unknown\",\"mtcars\",\"faithful\",\"iris\")),\n  tableOutput(\"table_output\")\n),\n\nserver=function(input, output) {\n  getdata &lt;- reactive({ \n  validate(need(try(input$data_input),\"Please select a data set\"))\n    get(input$data_input,'package:datasets') \n    })\n  output$table_output &lt;- renderTable({head(getdata())})\n})"
   },
   {
     "objectID": "slides/shiny/index.html#error-validation-2",
     "href": "slides/shiny/index.html#error-validation-2",
     "title": "Interactive web apps with Shiny",
     "section": "Error validation",
-    "text": "Error validation\n\n\n\nvalidate() using custom function\n\n\nvalfn &lt;- function(x) if(is.null(x) | is.na(x) | x==\"\") return(\"Input data is incorrect.\")\n\nshinyApp(\nui=fluidPage(\n  selectInput(\"data_input\",label=\"Select data\",\n              choices=c(\"\",\"mtcars\",\"faithful\",\"iris\")),\n  tableOutput(\"table_output\")\n),\n\nserver=function(input,output) {\n  getdata &lt;- reactive({ \n  validate(valfn(try(input$data_input)))\n    get(input$data_input,'package:datasets')\n    })\n  output$table_output &lt;- renderTable({head(getdata())})\n})\n\n\n\n\n\n\n\nshiny::req() checks input variable and silently stops execution"
+    "text": "Error validation\n\n\n\nvalidate() using custom function\n\n\nvalfn &lt;- function(x) if(is.null(x) | is.na(x) | x==\"\") return(\"Input data is incorrect.\")\n\nshinyApp(\nui=fluidPage(\n  selectInput(\"data_input\",label=\"Select data\",\n              choices=c(\"\",\"unknown\",\"mtcars\",\"faithful\",\"iris\")),\n  tableOutput(\"table_output\")\n),\n\nserver=function(input,output) {\n  getdata &lt;- reactive({ \n  validate(valfn(try(input$data_input)))\n    get(input$data_input,'package:datasets')\n    })\n  output$table_output &lt;- renderTable({head(getdata())})\n})\n\n\n\n\n\n\n\nshiny::req() checks input variable and silently stops execution"
   },
   {
     "objectID": "slides/shiny/index.html#download-data",
@@ -3196,7 +3196,7 @@
     "href": "slides/shiny/index.html#help",
     "title": "Interactive web apps with Shiny",
     "section": "Help",
-    "text": "Help\n\nMastering Shiny Book\nShiny Interfaces\nRStudio Shiny home\nRStudio Shiny tutorial\nRStudio Shiny articles\n\nOther topics\n\nShiny modules\nShiny profiling\nShiny unit tests\nApplications of action buttons\n\nProgress indicators\n\n…"
+    "text": "Help\n\nMastering Shiny Book\nShiny Interfaces\nPosit Shiny home\nPosit Shiny articles\n\nOther topics\n\nShiny modules\nShiny profiling\nShiny unit tests\nApplications of action buttons\n\nProgress indicators\n\n…"
   },
   {
     "objectID": "slides/shiny/index.html#section-2",
@@ -3708,5 +3708,12 @@
     "title": "Interactive web apps with Shiny",
     "section": "Interactive documents • Rmarkdown",
     "text": "Interactive documents • Rmarkdown\n\nShiny can run in RMarkdown documents. Set YAML runtime: shiny.\n\n---\ntitle: Interactive document\noutput: html_document\nruntime: shiny\n---\n\nShiny widgets can be included directly\n\n```{r}\nselectInput('n_breaks',label='Number of bins:',choices=c(10,20,35,50),selected=20)\n```"
+  },
+  {
+    "objectID": "slides/shiny/index.html#section-1",
+    "href": "slides/shiny/index.html#section-1",
+    "title": "Interactive web apps with Shiny",
+    "section": "",
+    "text": "https://shiny.rstudio.com/gallery/"
   }
 ]

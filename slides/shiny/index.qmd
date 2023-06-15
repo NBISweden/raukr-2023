@@ -38,14 +38,15 @@ library(shiny)
 
 ## 
 
-[![](assets/gallery.png)](https://shiny.rstudio.com/gallery/)
+![](assets/gallery.png){width="95%"}
+[https://shiny.rstudio.com/gallery/](https://shiny.rstudio.com/gallery/)
 
 ## What is shiny?
 
 :::: {.columns}
 ::: {.column width="50%"}
 
-- Interactive documents & web applications
+- Web applications & interactive documents
 - Completely created using R
 - Needs a live environment
 
@@ -100,6 +101,10 @@ ui <- fluidPage()
 
 ```         
 server <- function(input,output) {}
+```
+
+```
+shiny::runApp("path/to/folder")
 ```
 :::
 ::::
@@ -318,7 +323,6 @@ shinyApp(
   ui=fluidPage(
     numericInput("num_input",label="Observations",value=50),
     textOutput("text_output")),
-  
   server=function(input,output) {
     output$text_output <- renderText({
         mean(rnorm(input$num_input))
@@ -333,17 +337,17 @@ shinyApp(
 ```{r}
 #| eval: false
 shinyApp(
-  
   ui=fluidPage(
     numericInput("num_input",label="Observations",value=50),
-    textOutput("text_output1"), textOutput("text_output2")
+    textOutput("text_output"), plotOutput("plot_output")
     ),
   server=function(input,output) {
-    output$text_output1 <- renderText({
+    output$text_output <- renderText({
         mean(rnorm(input$num_input))
     })
-    output$text_output2 <- renderText({
-      mean(rnorm(input$num_input))
+    output$plot_output <- renderPlot({
+      x <- rnorm(input$num_input)
+      hist(x,main=mean(x))
     })
   })
 ```
@@ -355,18 +359,18 @@ shinyApp(
 ```{r}
 #| eval: false
 shinyApp(
-  
   ui=fluidPage(
     numericInput("num_input",label="Observations",value=50),
-    textOutput("text_output1"), textOutput("text_output2")
+    textOutput("text_output"), plotOutput("plot_output")
     ),
   server=function(input,output) {
     rand <- reactive({ rnorm(input$num_input) })
-    output$text_output1 <- renderText({
+    output$text_output <- renderText({
       mean(rand())
     })
-    output$text_output2 <- renderText({
-      mean(rand())
+    output$plot_output <- renderPlot({
+      x <- rand()
+      hist(x,main=mean(x))
     })
   })
 ```
@@ -484,7 +488,7 @@ server=function(input, output) {
 shinyApp(
 ui=fluidPage(
   selectInput("data_input",label="Select data",
-              choices=c("","mtcars","faithful","iris")),
+              choices=c("","unknown","mtcars","faithful","iris")),
   tableOutput("table_output")
 ),
 
@@ -517,7 +521,7 @@ valfn <- function(x) if(is.null(x) | is.na(x) | x=="") return("Input data is inc
 shinyApp(
 ui=fluidPage(
   selectInput("data_input",label="Select data",
-              choices=c("","mtcars","faithful","iris")),
+              choices=c("","unknown","mtcars","faithful","iris")),
   tableOutput("table_output")
 ),
 
@@ -707,17 +711,16 @@ shinyApp(
 
 - [**Mastering Shiny Book**](https://mastering-shiny.org/index.html)
 - [**Shiny Interfaces**](https://unleash-shiny.rinterface.com/index.html)
-- [**RStudio Shiny home**](https://shiny.rstudio.com/) 
-- [**RStudio Shiny tutorial**](http://shiny.rstudio.com/tutorial/)
-- [**RStudio Shiny articles**](https://shiny.rstudio.com/articles/)
+- [**Posit Shiny home**](https://shiny.posit.co/) 
+- [**Posit Shiny articles**](https://shiny.posit.co/r/articles/)
 
 ### Other topics
 
-- [Shiny modules](https://shiny.rstudio.com/articles/modules.html)
-- [Shiny profiling](https://shiny.rstudio.com/articles/profiling.html)
-- [Shiny unit tests](https://shiny.rstudio.com/articles/testing-overview.html)
-- [Applications of action buttons](http://shiny.rstudio.com/articles/action-buttons.html)  
-- [Progress indicators](http://shiny.rstudio.com/articles/progress.html)  
+- [Shiny modules](https://shiny.posit.co/r/articles/improve/modules/)
+- [Shiny profiling](https://shiny.posit.co/r/articles/improve/profiling/)
+- [Shiny unit tests](https://shiny.posit.co/r/articles/improve/testing-overview/)
+- [Applications of action buttons](https://shiny.posit.co/r/articles/build/action-buttons/)  
+- [Progress indicators](https://shiny.posit.co/r/articles/build/progress/)  
 - ...
 
 ## {background-image="../../assets/images/cover.jpg"}
