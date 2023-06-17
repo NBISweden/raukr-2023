@@ -1,0 +1,552 @@
+---
+title: "tidymodels - What makes a model?"
+author: "Max Kuhn"
+
+format:
+  revealjs:
+    slide-number: true
+    code-line-numbers: true
+    footer: <https://nbisweden.github.io/raukr-2023>
+    include-before-body: styles/header.html
+    include-after-body: styles/footer-annotations.html
+    theme: [default, styles/tidymodels.scss]
+    width: 1280
+    height: 720
+knitr:
+  opts_chunk:
+    echo: true
+    collapse: true
+    comment: "#>"
+    fig.align: "center"
+
+fig-format: svg
+---
+
+
+```{r}
+#| label: startup
+#| include: false
+
+library(mixOmics)
+library(tidymodels)
+library(probably)
+library(doParallel)
+
+# ------------------------------------------------------------------------------
+
+tidymodels_prefer()
+theme_set(theme_bw())
+options(pillar.advice = FALSE, pillar.min_title_chars = Inf)
+cl <- makePSOCKcluster(parallel::detectCores(logical = FALSE))
+registerDoParallel(cl)
+
+# ------------------------------------------------------------------------------
+
+data(cells, package = "modeldata")
+cells$case <- NULL
+
+```
+
+
+## The Data
+
+```{r}
+#| label: startup-show
+
+library(tidymodels)
+
+tidymodels_prefer()
+theme_set(theme_bw())
+options(pillar.advice = FALSE, pillar.min_title_chars = Inf)
+
+data(cells, package = "modeldata")
+cells$case <- NULL
+
+set.seed(123)
+cell_split <- initial_split(cells, prop = 0.8, strata = class)
+cell_tr <- training(cell_split)
+cell_te <- testing(cell_split)
+```
+
+## Logistic Regresion
+
+*How do you fit a logistic model in R?*
+
+*How many different ways can you think of?*
+
+. . .
+
+
+-   `glm` for generalized linear model (e.g. logistic regression)
+
+-   `glmnet` for regularized regression
+
+-   `keras` for regression using TensorFlow
+
+-   `stan` for Bayesian regression
+
+-   `spark` for large data sets
+
+. . .
+
+These all have the _same model equation_. 
+
+## To specify a model 
+
+. . .
+
+-   Choose a [model type]{.underline}
+-   Specify an engine
+-   Set the mode
+
+## To specify a model - choose a model type
+
+
+```{r}
+logistic_reg()
+```
+
+. . .
+
+<br><br>
+
+A different model type (= different equation)
+
+. . .
+
+<br><br>
+
+```{r}
+rand_forest()
+```
+
+:::notes
+Models have default engines
+:::
+
+## To specify a model 
+
+-   Choose a model type
+-   Specify an [engine]{.underline}
+-   Set the mode
+
+## To specify a model - set the engine
+
+```{r}
+logistic_reg() %>%
+  set_engine("glmnet")
+```
+
+## To specify a model - set the engine
+
+```{r}
+logistic_reg() %>%
+  set_engine("stan")
+```
+
+## To specify a model 
+
+-   Choose a model type
+-   Specify an engine
+-   Set the [mode]{.underline}
+
+
+## To specify a model - set the mode
+
+```{r}
+decision_tree()
+```
+
+
+## To specify a model - set the mode
+
+```{r}
+decision_tree() %>% 
+  set_mode("classification")
+```
+
+. . .
+
+<br></br>
+
+Other modes are "regression" and "censored regresion". 
+
+. . .
+
+<br></br>
+
+
+
+
+::: r-fit-text
+All available models are listed at <https://www.tidymodels.org/find/parsnip/> 
+:::
+
+##  {background-iframe="https://www.tidymodels.org/find/parsnip/"}
+
+::: footer
+:::
+
+
+## Models we'll be using today
+
+* Logistic regression
+* Decision trees
+
+## A single predictor
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+#| out-width: "60%"
+rates <- function(x) {
+  require(rlang)
+  y <- x[["outcome"]]
+  lvls <- levels(y)
+  events <- sum(y == lvls[2]) # to be consistent with glm()
+  total <- nrow(x)
+  res <- tidy(prop.test(events, total))
+  res %>% 
+    dplyr::select(rate = estimate, lower = conf.low, upper = conf.high) %>% 
+    mutate(value = median(x$predictor))
+}
+
+plot_rates <- function(data, outcome, var, num_cuts = 20, ...) {
+  require(rlang)
+  x_lab <- enexpr(var) %>% expr_deparse()
+  bind_cols(
+    data %>% select({{var}}) %>% setNames("predictor"),
+    data %>% select({{outcome}}) %>% setNames("outcome")
+  ) %>% 
+    mutate(
+      bin = cut(
+        predictor,
+        breaks = quantile(predictor, probs = (0:num_cuts) / num_cuts),
+        include.lowest = TRUE
+      )
+    ) %>% 
+    group_nest(bin) %>% 
+    mutate(stats = map(data, rates)) %>% 
+    dplyr::select(stats) %>% 
+    unnest(stats) %>% 
+    ggplot(aes(value, rate)) + 
+    geom_point() + 
+    geom_errorbar(aes(ymin = lower, ymax = upper)) +
+    labs(x = x_lab) +
+    lims(y = 0:1)
+}
+
+plot_rates(cell_tr, class, fiber_width_ch_1)
+```
+
+
+## Logistic regression - a single predictor
+
+::: columns
+::: {.column width="60%"}
+```{r}
+#| label: logistic-line-1
+#| echo: false
+#| fig.width: 5
+#| fig.height: 5
+logistic_preds <- 
+  logistic_reg() %>%
+  fit(class ~ fiber_width_ch_1, data = cell_tr) %>%
+  augment(new_data = cell_tr)
+
+logistic_preds %>% 
+  ggplot(aes(fiber_width_ch_1)) + 
+  geom_line(aes(y = .pred_WS)) +
+  geom_rug(data = logistic_preds %>% filter(class == "PS"), col = "blue")+
+  geom_rug(data = logistic_preds %>% filter(class != "PS"), col = "red", sides = "t")
+```
+:::
+
+::: {.column width="40%"}
+:::
+:::
+
+## Logistic regression - a single predictor
+
+::: columns
+::: {.column width="60%"}
+```{r}
+#| label: logistic-line-2
+#| echo: false
+#| fig.width: 5
+#| fig.height: 5
+
+logistic_preds %>% 
+  ggplot(aes(fiber_width_ch_1)) + 
+  geom_line(aes(y = .pred_WS)) +
+  geom_rug(data = logistic_preds %>% filter(class == "PS"), col = "blue")+
+  geom_rug(data = logistic_preds %>% filter(class != "PS"), col = "red", sides = "t") +
+  labs(y = "Probability of Poor Segmentation")
+```
+:::
+
+::: {.column width="40%"}
+
+-   Outcome modeled as linear combination of predictors:
+
+$log\left(\frac{\pi}{1-\pi}\right) = \beta_0 + \beta_1x + \epsilon$
+
+- Find a line that maximizes the binomial (log-)likelihood function. 
+
+:::
+:::
+
+## Decision trees - a single predictor
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: false
+tot_rng <- range(cell_tr$fiber_width_ch_1)
+tot_grid <- tibble(fiber_width_ch_1 = seq(tot_rng[1], tot_rng[2], length.out = 500))
+
+tree_fit <-
+  decision_tree(cost_complexity = 0.0, min_n = 100) %>%
+  set_mode("classification") %>% 
+  fit(class ~ fiber_width_ch_1, data = cell_tr)
+
+tree_preds <- 
+  tree_fit %>%
+  augment(new_data = cell_tr)
+
+tree_line <- 
+  tree_fit %>%
+  augment(new_data = tot_grid)
+```
+
+```{r}
+#| echo: false
+#| fig-align: center
+library(partykit)
+tree_fit %>%
+  extract_fit_engine() %>%
+  as.party() %>% 
+  plot()
+```
+
+:::
+
+::: {.column width="50%"}
+:::
+:::
+
+## Decision trees - a single predictor
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| fig-align: center
+library(partykit)
+tree_fit %>%
+  extract_fit_engine() %>%
+  as.party() %>% 
+  plot()
+```
+:::
+
+::: {.column width="50%"}
+-   Series of splits or if/then statements based on predictors
+
+-   First the tree *grows* until some condition is met (maximum depth, no more data)
+
+-   Then the tree is *pruned* to reduce its complexity
+:::
+:::
+
+## Decision trees - a single predictor
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| fig-align: center
+library(partykit)
+tree_fit %>%
+  extract_fit_engine() %>%
+  as.party() %>% 
+  plot()
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| label: tree-line-1
+#| echo: false
+#| fig.width: 5
+#| fig.height: 5
+
+tree_preds %>% 
+  ggplot(aes(fiber_width_ch_1)) + 
+  geom_line(aes(y = .pred_WS)) +
+  geom_rug(data = logistic_preds %>% filter(class == "PS"), col = "blue")+
+  geom_rug(data = logistic_preds %>% filter(class != "PS"), col = "red", sides = "t") +
+  labs(y = "Probability of Poor Segmentation") +
+  lims(y = 0:1)
+```
+:::
+:::
+
+## All models are wrong, but some are useful!
+
+::: columns
+::: {.column width="50%"}
+### Logistic regression
+```{r}
+#| label: logistic-line-3
+#| echo: false
+#| fig.width: 5
+#| fig.height: 5
+
+logistic_preds %>% 
+  ggplot(aes(fiber_width_ch_1)) + 
+  geom_line(aes(y = .pred_WS)) +
+  geom_rug(data = logistic_preds %>% filter(class == "PS"), col = "blue") +
+  geom_rug(data = logistic_preds %>% filter(class != "PS"), col = "red", sides = "t") +
+  labs(y = "Probability of Poor Segmentation")
+```
+:::
+
+::: {.column width="50%"}
+### Decision trees
+```{r}
+#| label: tree-line-2
+#| echo: false
+#| fig.width: 5
+#| fig.height: 5
+tree_preds %>% 
+  ggplot(aes(fiber_width_ch_1)) + 
+  geom_line(aes(y = .pred_WS)) +
+  geom_rug(data = logistic_preds %>% filter(class == "PS"), col = "blue") +
+  geom_rug(data = logistic_preds %>% filter(class != "PS"), col = "red", sides = "t") +
+  labs(y = "Probability of Poor Segmentation") +
+  lims(y = 0:1)
+```
+:::
+:::
+
+# A model workflow
+
+## Workflows bind preprocessors and models
+
+```{r good-workflow}
+#| echo: false
+#| out-width: '70%'
+#| fig-align: 'center'
+knitr::include_graphics("images/good_workflow.png")
+```
+
+:::notes
+Explain that PCA that is a preprocessor / dimensionality reduction, used to decorrelate data
+:::
+
+
+## What is wrong with this? {.annotation}
+
+```{r bad-workflow}
+#| echo: false
+#| out-width: '70%'
+#| fig-align: 'center'
+knitr::include_graphics("images/bad_workflow.png")
+```
+
+## Why a `workflow()`? 
+
+. . .
+
+-   Workflows handle new data better than base R tools in terms of new factor levels
+
+. . .
+
+-   You can use other preprocessors besides formulas (more on feature engineering)
+
+. . .
+
+-   They can help organize your work when working with multiple models
+
+. . .
+
+-   [Most importantly]{.underline}, a workflow captures the entire modeling process: `fit()` and `predict()` apply to the preprocessing steps in addition to the actual model fit
+
+::: notes
+Two ways workflows handle levels better than base R:
+
+-   Enforces that new levels are not allowed at prediction time (this is an optional check that can be turned off)
+
+-   Restores missing levels that were present at fit time, but happen to be missing at prediction time (like, if your "new" data just doesn't have an instance of that level)
+:::
+
+## A model workflow 
+
+```{r}
+tree_spec <-
+  decision_tree() %>% 
+  set_mode("classification")
+
+tree_spec %>% 
+  fit(class ~ ., data = cell_tr) 
+```
+
+## A model workflow 
+
+```{r}
+tree_spec <-
+  decision_tree() %>% 
+  set_mode("classification")
+
+workflow() %>%
+  add_formula(class ~ .) %>%
+  add_model(tree_spec) %>%
+  fit(data = cell_tr) 
+```
+
+## A model workflow 
+
+```{r}
+tree_spec <-
+  decision_tree() %>% 
+  set_mode("classification")
+
+workflow(class ~ ., tree_spec) %>% 
+  fit(data = cell_tr) 
+```
+
+
+## Predict with your model 
+
+How do you use your new `tree_fit` model?
+
+```{r}
+tree_spec <-
+  decision_tree() %>% 
+  set_mode("classification")
+
+tree_fit <-
+  workflow(class ~ ., tree_spec) %>% 
+  fit(data = cell_tr) 
+
+predict(tree_fit, cell_te %>% slice(1:6), type = "prob")
+```
+
+
+# The tidymodels prediction guarantee!
+
+. . .
+
+-   The predictions will always be inside a **tibble**
+-   The column names and types are **unsurprising** and **predictable**
+-   The number of rows in `new_data` and the output **are the same**
+
+
+```{r}
+#| label: teardown
+#| include: false
+
+stopCluster(cl)
+```

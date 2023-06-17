@@ -1,0 +1,401 @@
+---
+title: "tidymodels - Evaluating models"
+author: "Max Kuhn"
+
+format:
+  revealjs:
+    slide-number: true
+    code-line-numbers: true
+    footer: <https://nbisweden.github.io/raukr-2023>
+    include-before-body: styles/header.html
+    include-after-body: styles/footer-annotations.html
+    theme: [default, styles/tidymodels.scss]
+    width: 1280
+    height: 720
+knitr:
+  opts_chunk:
+    echo: true
+    collapse: true
+    comment: "#>"
+    fig.align: "center"
+
+fig-format: svg
+---
+
+
+## Previously...
+
+```{r}
+#| label: startup
+
+library(tidymodels)
+library(doParallel)
+
+tidymodels_prefer()
+theme_set(theme_bw())
+options(pillar.advice = FALSE, pillar.min_title_chars = Inf)
+cl <- makePSOCKcluster(parallel::detectCores(logical = FALSE))
+registerDoParallel(cl)
+
+data(cells, package = "modeldata")
+cells$case <- NULL
+
+set.seed(123)
+cell_split <- initial_split(cells, prop = 0.8, strata = class)
+cell_tr <- training(cell_split)
+cell_te <- testing(cell_split)
+
+tree_spec <- decision_tree() %>%  set_mode("classification")
+
+tree_wflow <- workflow(class ~ ., tree_spec)
+
+tree_fit <- tree_wflow %>% fit(data = cell_tr) 
+```
+
+
+## Metrics for model performance 
+
+```{r}
+augment(tree_fit, new_data = cell_te) %>%
+  metrics(class, estimate = .pred_class, .pred_PS)
+```
+
+. . .
+
+-   `kap`: is Cohen's Kappa (maximize)
+-   `mn_log_loss`: "log loss" aka negaive binomial likelihood (minimize)
+-   `roc_auc`: area under the ROC curve (maximize)
+
+## Metrics for model performance - hard predictions
+
+```{r}
+augment(tree_fit, new_data = cell_te) %>%
+  # You should name the 'estimate' column:
+  accuracy(class, estimate = .pred_class)
+```
+
+. . .
+
+<br>
+
+```{r}
+augment(tree_fit, new_data = cell_te) %>%
+  conf_mat(class, estimate = .pred_class)
+```
+
+A nice `autoplot()` method exists for `conf_mat()`. 
+
+## Metrics for model performance - soft predictions
+
+```{r}
+augment(tree_fit, new_data = cell_te) %>%
+  # no 'estimate' argument
+  roc_auc(class, .pred_PS)
+```
+
+<br>
+
+. . .
+
+
+```{r}
+augment(tree_fit, new_data = cell_te) %>%
+  roc_curve(class, .pred_PS) %>% 
+  slice(1:5)
+```
+
+Also an `autoplot()` method for ROC curves 
+
+## Make your own combination
+
+```{r}
+cls_metrics <- metric_set(brier_class, roc_auc, kap)
+
+augment(tree_fit, new_data = cell_te) %>%
+  cls_metrics(class, estimate = .pred_class, .pred_PS)
+```
+
+There are _a lot_ of performance measures for each mode...
+
+##  {background-iframe="https://yardstick.tidymodels.org/reference/index.html"}
+
+::: footer
+:::
+
+
+# ⚠️ DANGERS OF OVERFITTING ⚠️
+
+## Dangers of overfitting ⚠️
+
+![](https://raw.githubusercontent.com/topepo/2022-nyr-workshop/main/images/tuning-overfitting-train-1.svg)
+
+## Dangers of overfitting ⚠️
+
+![](https://raw.githubusercontent.com/topepo/2022-nyr-workshop/main/images/tuning-overfitting-test-1.svg)
+
+
+
+# The testing data are precious 💎
+
+# How can we use the *training* data to compare and evaluate different models? 🤔
+
+##  {background-color="white" background-image="https://www.tmwr.org/premade/resampling.svg" background-size="80%"}
+
+## Cross-validation
+
+![](https://www.tmwr.org/premade/three-CV.svg)
+
+## Cross-validation
+
+![](https://www.tmwr.org/premade/three-CV-iter.svg)
+
+
+## Cross-validation cell_tr
+
+```{r}
+vfold_cv(cell_tr) # v = 10 is default
+```
+
+## Cross-validation cell_tr
+
+What is in this?
+
+```{r}
+cell_rs <- vfold_cv(cell_tr)
+cell_rs$splits[1:3]
+```
+
+::: notes
+Talk about a list column, storing non-atomic types in dataframe
+:::
+
+## Cross-validation cell_tr
+
+```{r}
+vfold_cv(cell_tr, v = 5)
+```
+
+## Cross-validation cell_tr
+
+```{r}
+vfold_cv(cell_tr, strata = class)
+```
+
+. . .
+
+Stratification often helps, with very little downside
+
+## Cross-validation cell_tr
+
+We'll use this setup:
+
+```{r}
+set.seed(123)
+cell_rs <- vfold_cv(cell_tr, v = 10, strata = class)
+cell_rs
+```
+
+. . .
+
+Set the seed when creating resamples
+
+# We are equipped with metrics and resamples!
+
+## Fit our model to the resamples
+
+```{r}
+tree_res <- fit_resamples(tree_wflow, cell_rs, metrics = cls_metrics)
+tree_res
+```
+
+## Evaluating model performance 
+
+```{r}
+tree_res %>% collect_metrics()
+```
+
+. . .
+
+We can reliably measure performance using only the **training** data 🎉
+
+
+## Evaluating model performance 
+
+```{r}
+# Save the assessment set results
+ctrl_frog <- control_resamples(save_pred = TRUE)
+tree_res <- fit_resamples(tree_wflow, cell_rs, metrics = cls_metrics, control = ctrl_frog)
+
+tree_preds <- collect_predictions(tree_res)
+tree_preds
+```
+
+## 
+
+```{r}
+tree_preds %>% 
+  ggplot(aes(.pred_PS)) + 
+  geom_histogram(col = "white", bins = 30) + 
+  facet_wrap(~ class, ncol = 1)
+```
+
+## Where are the fitted models?   {.annotation}
+
+```{r}
+tree_res
+```
+
+. . .
+
+🗑️
+
+# Alternate resampling schemes
+
+## Bootstrapping
+
+![](https://www.tmwr.org/premade/bootstraps.svg)
+
+## Bootstrapping cell_tr
+
+```{r}
+set.seed(3214)
+bootstraps(cell_tr)
+```
+
+##  {background-iframe="https://rsample.tidymodels.org/reference/index.html"}
+
+::: footer
+:::
+
+## Validation sets
+
+```{r}
+set.seed(853)
+validation_split(cell_tr, strata = class)
+```
+
+. . .
+
+A validation set is just another type of resample.
+
+. . . 
+
+This function will not go away but we have a better interface for validation 
+in the next rsample release. 
+
+# Decision tree 🌳
+
+# Random forest 🌳🌲🌴🌵🌴🌳🌳🌴🌲🌵🌴🌲🌳🌴🌳🌵🌵🌴🌲🌲🌳🌴🌳🌴🌲🌴🌵🌴🌲🌴🌵🌲🌵🌴🌲🌳🌴🌵🌳🌴🌳
+
+## Random forest 🌳🌲🌴🌵🌳🌳🌴🌲🌵🌴🌳🌵
+
+- Ensemble many decision tree models
+
+- All the trees vote! 🗳️
+
+- Bootstrap aggregating + random predictor sampling
+
+. . .
+
+- Often works well without tuning hyperparameters (more on this), as long as there are enough trees
+
+## Create a random forest model 
+
+```{r}
+rf_spec <- rand_forest(trees = 1000, mode = "classification")
+rf_spec
+```
+
+## Create a random forest model 
+
+```{r}
+rf_wflow <- workflow(class ~ ., rf_spec)
+rf_wflow
+```
+
+
+## Evaluating model performance 
+
+```{r}
+#| cache: true
+ctrl_frog <- control_resamples(save_pred = TRUE)
+
+# Random forest uses random numbers so set the seed first
+
+set.seed(2)
+rf_res <- fit_resamples(rf_wflow, cell_rs, control = ctrl_frog, metrics = cls_metrics)
+collect_metrics(rf_res)
+```
+
+## 
+
+```{r}
+collect_predictions(rf_res) %>% 
+  ggplot(aes(.pred_PS)) + 
+    geom_histogram(col = "white", bins = 30) + 
+    facet_wrap(~ class, ncol = 1)
+```
+
+## The final fit   {.annotation}
+
+Suppose that we are happy with our random forest model.
+
+Let's fit the model on the training set and verify our performance using the test set.
+
+. . .
+
+We've shown you `fit()` and `predict()` (+ `augment()`) but there is a shortcut:
+
+```{r}
+# frog_split has train + test info
+final_fit <- last_fit(rf_wflow, cell_split, metrics = cls_metrics) 
+
+final_fit
+```
+
+## What is in `final_fit`? 
+
+```{r}
+collect_metrics(final_fit)
+```
+
+. . .
+
+These are metrics computed with the **test** set
+
+## What is in `final_fit`? 
+
+```{r}
+collect_predictions(final_fit)
+```
+
+. . .
+
+These are predictions for the **test** set
+
+## 
+
+```{r}
+collect_predictions(final_fit) %>%
+  ggplot(aes(.pred_PS)) + 
+    geom_histogram(col = "white", bins = 30) + 
+    facet_wrap(~ class, ncol = 1)
+```
+
+## What is in `final_fit`? 
+
+```{r}
+extract_workflow(final_fit)
+```
+
+. . .
+
+Use this for **prediction** on new data, like for deploying
+
+
+```{r}
+#| label: teardown
+#| include: false
+
+stopCluster(cl)
+```

@@ -6,11 +6,11 @@
   </url>
   <url>
     <loc>https://nbisweden.github.io/raukr-2023/contents.html</loc>
-    <lastmod>2023-06-15T11:36:18.587Z</lastmod>
+    <lastmod>2023-06-17T16:01:52.795Z</lastmod>
   </url>
   <url>
     <loc>https://nbisweden.github.io/raukr-2023/index.html</loc>
-    <lastmod>2023-06-12T07:58:43.612Z</lastmod>
+    <lastmod>2023-06-13T18:51:53.651Z</lastmod>
   </url>
   <url>
     <loc>https://nbisweden.github.io/raukr-2023/labs/coding/index.html</loc>
@@ -142,7 +142,7 @@
   </url>
   <url>
     <loc>https://nbisweden.github.io/raukr-2023/slides/shiny/index.html</loc>
-    <lastmod>2023-06-15T21:23:01.611Z</lastmod>
+    <lastmod>2023-06-17T15:58:54.297Z</lastmod>
   </url>
   <url>
     <loc>https://nbisweden.github.io/raukr-2023/slides/tidyverse/index.html</loc>
@@ -151,5 +151,9 @@
   <url>
     <loc>https://nbisweden.github.io/raukr-2023/slides/vectorization/index.html</loc>
     <lastmod>2023-06-12T07:59:16.301Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nbisweden.github.io/raukr-2023/slides/tidymodels/index.html</loc>
+    <lastmod>2023-06-17T15:24:42.950Z</lastmod>
   </url>
 </urlset>
