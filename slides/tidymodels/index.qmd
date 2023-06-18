@@ -1,0 +1,20 @@
+---
+title: "tidymodels workshop"
+format:
+  html:
+    toc: false
+---
+
+
+- [Part 1](part_1.html): Introduction
+- [Part 2](part_2.html): Your data budget
+- [Part 3](part_3.html): What makes a model?
+- [Part 4](part_4.html): Evaluating models
+- [Part 5](part_5.html): Feature Engineering
+
+We use `renv` to manage package dependencies. Start by opening `tidymodels.Rproj` and you can use `renv::restore()` to get the correct pacakges loaded. 
+
+Other resources to learn more: 
+
+- [`tidymodels.org`](https://www.tidymodels.org): Lots of articles and getting started resources.
+- [_Tidy Models with R_](https://www.tmwr.org): Long-form documentation and examples in book form.

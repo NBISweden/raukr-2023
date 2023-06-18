@@ -32,14 +32,14 @@
     "href": "contents.html",
     "title": "Course Materials",
     "section": "",
-    "text": "Topic\nAuthor\nLinks\n\n\n\n\nWEEK 1\n\n\n\n\n12-Jun-2023 (Mon)\n\n\n\n\nIntroduction to RaukR\nMarcin Kierczak & Sebastian DiLorenzo\n\n\n\nFunctions and scripts\nSebastian DiLorenzo\nSlides, Lab\n\n\nBest Coding Practices in R\nMarcin Kierczak\nSlides, Lab\n\n\nDocumentation & Publishing with Quarto\nRoy Francis\nSlides, Lab\n\n\nDebugging, Profiling and Optimisation\nMarcin Kierczak\nSlides, Lab\n\n\n13-Jun-2023 (Tue)\n\n\n\n\nVectorization\nSebastian DiLorenzo & Marcin Kierczak\nSlides, Lab\n\n\nParallelization\nSebastian DiLorenzo & Marcin Kierczak\nSlides, Lab\n\n\nObject-oriented programming\nMarcin Kierczak\nSlides, Lab\n\n\nIntroduction to Quarto\nChris Dervieux, Posit\nSlides\n\n\nTables with gt package\nRichard Iannone, Posit\nRepo, Slides\n\n\n14-Jun-2023 (Wed)\n\n\n\n\nTidyverse\nMarcin Kierczak\nSlides, Lab\n\n\ngit with R\nSebastian DiLorenzo\nSlides, Lab\n\n\nreticulate: Combining R with Python\nNina Norgren\nSlides, Lab\n\n\n15-Jun-2023 (Thu)\n\n\n\n\nPlotting with ggplot2\nRoy Francis & Lokesh Manoharan\nSlides, Lab\n\n\nHow to repeat yourself with Purrr\nJenny Bryan, Posit\nRepo\n\n\n16-Jun-2023 (Fri)\n\n\n\n\nR Packages\nJenny Bryan, Posit\n\n\n\nWeb apps with Shiny\nRoy Francis & Lokesh Manoharan\nSlides, Lab\n\n\nWEEK 2\n\n\n\n\n19-Jun-2023 (Mon)\n\n\n\n\nStatistics and machine learning in R\nNikolay Oskolkov\nSlides, Lab\n\n\nTidymodels\nMax Kuhn, Posit"
+    "text": "Topic\nAuthor\nLinks\n\n\n\n\nWEEK 1\n\n\n\n\n12-Jun-2023 (Mon)\n\n\n\n\nIntroduction to RaukR\nMarcin Kierczak & Sebastian DiLorenzo\n\n\n\nFunctions and scripts\nSebastian DiLorenzo\nSlides, Lab\n\n\nBest Coding Practices in R\nMarcin Kierczak\nSlides, Lab\n\n\nDocumentation & Publishing with Quarto\nRoy Francis\nSlides, Lab\n\n\nDebugging, Profiling and Optimisation\nMarcin Kierczak\nSlides, Lab\n\n\n13-Jun-2023 (Tue)\n\n\n\n\nVectorization\nSebastian DiLorenzo & Marcin Kierczak\nSlides, Lab\n\n\nParallelization\nSebastian DiLorenzo & Marcin Kierczak\nSlides, Lab\n\n\nObject-oriented programming\nMarcin Kierczak\nSlides, Lab\n\n\nIntroduction to Quarto\nChris Dervieux, Posit\nSlides\n\n\nTables with gt package\nRichard Iannone, Posit\nRepo, Slides\n\n\n14-Jun-2023 (Wed)\n\n\n\n\nTidyverse\nMarcin Kierczak\nSlides, Lab\n\n\ngit with R\nSebastian DiLorenzo\nSlides, Lab\n\n\nreticulate: Combining R with Python\nNina Norgren\nSlides, Lab\n\n\n15-Jun-2023 (Thu)\n\n\n\n\nPlotting with ggplot2\nRoy Francis & Lokesh Manoharan\nSlides, Lab\n\n\nHow to repeat yourself with Purrr\nJenny Bryan, Posit\nRepo\n\n\n16-Jun-2023 (Fri)\n\n\n\n\nR Packages\nJenny Bryan, Posit\n\n\n\nWeb apps with Shiny\nRoy Francis & Lokesh Manoharan\nSlides, Lab\n\n\nWEEK 2\n\n\n\n\n19-Jun-2023 (Mon)\n\n\n\n\nStatistics and machine learning in R\nNikolay Oskolkov\nSlides, Lab\n\n\nTidymodels\nMax Kuhn, Posit\nSlides"
   },
   {
     "objectID": "index.html#raukr-summer-school-2023",
     "href": "index.html#raukr-summer-school-2023",
     "title": "",
     "section": "RaukR • Summer School 2023",
-    "text": "RaukR • Summer School 2023\n\nAdvanced R for Bioinformatics\n\n11-22 June 2023, Visby, Gotland, Sweden.\n\nIn Life Sciences and Bioinformatics, R programming language is increasingly being used to transform and analyse data, perform statistical analysis and produce publication-ready visualisations. This workshop aims to take the participants beyond the basics of R to a deeper and comprehensive understanding of the R ecosystem.\nThis workshop aims to take the participants beyond the basics of R to a deeper and comprehensive understanding of the R ecosystem.\n   \n\n\nUpdated: 12-06-2023 at 09:58:43."
+    "text": "RaukR • Summer School 2023\n\nAdvanced R for Bioinformatics\n\n11-22 June 2023, Visby, Gotland, Sweden.\n\nIn Life Sciences and Bioinformatics, R programming language is increasingly being used to transform and analyse data, perform statistical analysis and produce publication-ready visualisations. This workshop aims to take the participants beyond the basics of R to a deeper and comprehensive understanding of the R ecosystem.\nThis workshop aims to take the participants beyond the basics of R to a deeper and comprehensive understanding of the R ecosystem.\n   \n\n\nUpdated: 17-06-2023 at 18:01:19."
   },
   {
     "objectID": "labs/coding/index.html",
@@ -3203,7 +3203,7 @@
     "href": "slides/shiny/index.html#section-2",
     "title": "Interactive web apps with Shiny",
     "section": "",
-    "text": "Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
+    "text": "Thank you! Questions?\n\n\n         _                      \nplatform x86_64-apple-darwin17.0\nos       darwin17.0             \nmajor    4                      \nminor    2.3                    \n\n\n2023 • SciLifeLab • NBIS • RaukR"
   },
   {
     "objectID": "slides/tidyverse/index.html#learning-outcomes",
@@ -3715,5 +3715,12 @@
     "title": "Interactive web apps with Shiny",
     "section": "",
     "text": "https://shiny.rstudio.com/gallery/"
+  },
+  {
+    "objectID": "slides/tidymodels/index.html",
+    "href": "slides/tidymodels/index.html",
+    "title": "tidymodels workshop",
+    "section": "",
+    "text": "Part 1: Introduction\nPart 2: Your data budget\nPart 3: What makes a model?\nPart 4: Evaluating models\nPart 5: Feature Engineering\n\nWe use renv to manage package dependencies. Start by opening tidymodels.Rproj and you can use renv::restore() to get the correct pacakges loaded.\nOther resources to learn more:\n\ntidymodels.org: Lots of articles and getting started resources.\nTidy Models with R: Long-form documentation and examples in book form."
   }
 ]

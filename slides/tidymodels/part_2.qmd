@@ -1,0 +1,215 @@
+---
+title: "tidymodels - Your data budget"
+author: "Max Kuhn"
+
+format:
+  revealjs:
+    slide-number: true
+    code-line-numbers: true
+    footer: <https://nbisweden.github.io/raukr-2023>
+    include-before-body: styles/header.html
+    include-after-body: styles/footer-annotations.html
+    theme: [default, styles/tidymodels.scss]
+    width: 1280
+    height: 720
+knitr:
+  opts_chunk:
+    echo: true
+    collapse: true
+    comment: "#>"
+    fig.align: "center"
+
+fig-format: svg
+---
+
+```{r}
+#| label: startup
+#| include: false
+
+library(mixOmics)
+library(tidymodels)
+library(probably)
+library(doParallel)
+
+# ------------------------------------------------------------------------------
+
+tidymodels_prefer()
+theme_set(theme_bw())
+options(pillar.advice = FALSE, pillar.min_title_chars = Inf)
+cl <- makePSOCKcluster(parallel::detectCores(logical = FALSE))
+registerDoParallel(cl)
+
+# ------------------------------------------------------------------------------
+
+data(cells, package = "modeldata")
+cells$case <- NULL
+
+```
+
+## The Data
+
+
+```{r}
+#| label: startup-show
+
+library(tidymodels)
+
+tidymodels_prefer()
+theme_set(theme_bw())
+options(pillar.advice = FALSE, pillar.min_title_chars = Inf)
+
+data(cells, package = "modeldata")
+cells$case <- NULL
+```
+
+
+## Data splitting and spending
+
+For machine learning, we typically split data into training and test sets:
+
+. . .
+
+-   The **training set** is used to estimate model parameters.
+-   The **test set** is used to find an independent assessment of model performance.
+
+. . .
+
+Do not 🚫 use the test set during training.
+
+## Data splitting and spending
+
+```{r}
+#| echo: false
+#| fig.width: 12
+#| fig.height: 3
+#| 
+set.seed(123)
+library(forcats)
+one_split <- slice(cells, 1:30) %>% 
+  initial_split() %>% 
+  tidy() %>% 
+  add_row(Row = 1:30, Data = "Original") %>% 
+  mutate(Data = case_when(
+    Data == "Analysis" ~ "Training",
+    Data == "Assessment" ~ "Testing",
+    TRUE ~ Data
+  )) %>% 
+  mutate(Data = factor(Data, levels = c("Original", "Training", "Testing")))
+all_split <-
+  ggplot(one_split, aes(x = Row, y = fct_rev(Data), fill = Data)) + 
+  geom_tile(color = "white",
+            size = 1) + 
+  theme_minimal() +
+  theme(axis.text.y = element_text(size = rel(2)),
+        axis.text.x = element_blank(),
+        legend.position = "top",
+        panel.grid = element_blank()) +
+  coord_equal(ratio = 1) +
+  labs(x = NULL, y = NULL)
+all_split
+```
+
+# The more data<br>we spend 🤑<br><br>the better estimates<br>we'll get.
+
+## Data splitting and spending
+
+-   Spending too much data in **training** prevents us from computing a good assessment of predictive **performance**.
+
+. . .
+
+-   Spending too much data in **testing** prevents us from computing a good estimate of model **parameters**.
+
+# The testing data is precious 💎
+
+## Data splitting and spending 
+
+```{r}
+set.seed(123)
+cell_split <- initial_split(cells)
+cell_split
+```
+
+
+## Accessing the data 
+
+```{r}
+cell_tr <- training(cell_split)
+cell_te <- testing(cell_split)
+```
+
+## The training set
+
+```{r}
+cell_tr
+```
+
+## The test set 
+
+```{r}
+cell_te
+```
+
+
+## Data splitting and spending 
+
+```{r}
+set.seed(123)
+cell_split <- initial_split(cells, prop = 0.8)
+cell_tr <- training(cell_split)
+cell_te <- testing(cell_split)
+
+nrow(cell_tr)
+nrow(cell_te)
+```
+
+# What about a validation set?
+
+##  {background-color="white" background-image="https://www.tmwr.org/premade/validation.svg" background-size="50%"}
+
+:::notes
+We will use this tomorrow
+:::
+
+##  {background-color="white" background-image="https://www.tmwr.org/premade/validation-alt.svg" background-size="40%"}
+
+
+## Class imbalance
+
+```{r}
+#| fig-align: 'center'
+ggplot(cell_tr, aes(class)) +
+  geom_bar()
+```
+
+
+## Split smarter
+
+We can conduct the splitting within groups to preserve the outcome distirbtion. 
+
+For classification models, we can use the outcome as a strata. 
+
+For regression, stratified sampling would split within each quartile.
+
+
+
+## Stratification
+
+Use `strata = class`
+
+```{r}
+set.seed(123)
+cell_split <- initial_split(cells, prop = 0.8, strata = class)
+cell_split
+```
+
+. . .
+
+Stratification often helps, with very little downside
+
+
+```{r}
+#| label: teardown
+#| include: false
+
+stopCluster(cl)
+```

@@ -1,0 +1,451 @@
+---
+title: "tidymodels - introduction"
+author: "Max Kuhn"
+
+format:
+  revealjs:
+    slide-number: true
+    code-line-numbers: true
+    footer: <https://nbisweden.github.io/raukr-2023/>
+    include-before-body: styles/header.html
+    include-after-body: styles/footer-annotations.html
+    theme: [default, styles/tidymodels.scss]
+    width: 1280
+    height: 720
+knitr:
+  opts_chunk:
+    echo: true
+    collapse: true
+    comment: "#>"
+    fig.align: "center"
+
+fig-format: svg
+---
+
+
+## About me
+
+ - Becton-Dickinson (6y): molecular diagnostics for infectious diseases, non-clinical and clinical
+ - Pfizer (12y): nonclinical, Med chem, Comp {bio,chem} support
+ - <span style="color:LightGray;"><strike>RStudio</strike></span> posit PBC (>= 2016): modeling packages
+ 
+Selected R packages: [`caret`](https://topepo.github.io/caret/), [`C50`](https://topepo.github.io/C5.0/), [`Cubist`](https://topepo.github.io/Cubist/), a lot of [tidymodels](https://github.com/orgs/tidymodels/repositories)
+
+ - [_Applied Predictive Modeling_](http://appliedpredictivemodeling.com)
+ - [_Feature Engineering and Selection_](https://bookdown.org/max/FES)
+ - [_Tidy Models with R_](http://tmwr.org)
+ - [_Nonclinical Statistics for Pharmaceutical and Biotechnology Industries_](https://link.springer.com/book/10.1007/978-3-319-23558-5) (ed, auth) 
+ 
+## Some basic advice
+
+ - ML models are really bad at determining/quantifying associations and evaluating hypotheses
+ - You almost certainly don't need deep learning unless you have a ton of images. 
+ - Basic statistic (e.g. ANOVA, linear regression, etc) go a long way. 
+ - Clustering is over-rated and over-used. 
+ - Analyze your measurement systems. 
+ - Always have a data set that _could_ contradict what you think that you know. 
+ - The only way to be comfortable with your data is to never look at them. 
+ 
+## The Whole Game
+
+We often begin with a very high-level view of a data analysis project from start to finish. 
+
+The goal is to give you a sense of strategy instead of a series of tactics. 
+
+I'll focus on predictive modeling (aka machine learning) on some biological data. 
+
+## Cell Segmentation Data
+
+```{r}
+#| label: startup
+#| include: false
+
+library(mixOmics)
+library(tidymodels)
+library(probably)
+library(doParallel)
+
+# ------------------------------------------------------------------------------
+
+tidymodels_prefer()
+theme_set(theme_bw())
+options(pillar.advice = FALSE, pillar.min_title_chars = Inf)
+cl <- makePSOCKcluster(parallel::detectCores(logical = FALSE))
+registerDoParallel(cl)
+
+# ------------------------------------------------------------------------------
+
+data(cells, package = "modeldata")
+cells$case <- NULL
+
+```
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+[Hill, LaPan, Li and Haney (2007)](http://www.biomedcentral.com/1471-2105/8/340) develop models to predict which cells in a high content screen were well segmented. 
+
+The data consists of `r ncol(cells) - 1` imaging measurements on `r nrow(cells)` cells.
+
+The outcome class is contained in a factor variable called `class` with levels `PS` for poorly segmented and `WS` for well segmented.
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| label: cell-ex
+#| echo: false
+#| out-width: "80%"
+
+knitr::include_graphics("images/cells.png")
+```
+
+:::
+
+::::
+
+## What is the goal
+
+The authors ran a high-content screening lab and were looking for a tool to: 
+
+ * validate/characterize different image analysis parameters. 
+ * pre-filter cells prior to analysis/modeling. 
+ 
+So their goal is to do their best to predict bad image data. 
+
+There's not much inference/understanding that is required; be as accurate as possible.
+
+
+```{r}
+#| label: cell-split
+#| include: false
+
+set.seed(5935)
+cell_split <- initial_split(cells, strata = class)
+cell_tr <- training(cell_split)
+cell_te <- testing(cell_split)
+cell_rs <- vfold_cv(cell_tr, strata = class)
+
+```
+
+## Data Usage
+
+We will immediately split the data into _training_ and _testing_ sets (75% / 25%). 
+
+What are some interesting features of these data? We'll only use our training set to investigate. 
+
+## Some key features
+
+:::: {.columns}
+
+
+::: {.column width="50%"}
+
+class imbalance
+
+```{r}
+#| label: cell-imbal
+#| echo: false
+#| out-width: 90%
+#| fig-width: 6
+#| fig-height: 4
+
+cell_tr %>% ggplot(aes(class)) + geom_bar()
+```
+
+:::
+
+::: {.column width="50%"}
+
+Clusters of highly correlated features
+
+```{r}
+#| label: cell-cor
+#| echo: false
+#| out-width: 90%
+#| fig-width: 6
+#| fig-height: 4
+
+cell_tr %>% 
+  select(-class) %>% 
+  cor() %>% 
+  corrplot::corrplot(addgrid.col = rgb(0, 0, 0, .05),
+                     order = "hclust",
+                     tl.pos = "n")
+```
+
+:::
+
+::::
+
+
+## Feature Engineering
+
+This describes the process of having good representations of your predictors so that the model has the easiest possible time fitting the data. 
+
+For the multicollinearity, we could: 
+
+* Do nothing and see how that works
+* Maybe try feature extraction (e.g. [PCA, PLS, and similar](https://bookdown.org/max/FES/numeric-many-to-many.html))
+* Filter out predictions to reduce correlations
+* Use a model that is resistant to multicollinearity. 
+
+## How will we measure performance
+
+We have to classes; there are [a lot of options](https://bookdown.org/max/FES/measuring-performance.html#class-metrics):
+
+* Accuracy and similar.
+* ROC and PR curves
+* Brier scores
+
+We'll compute all of these but will focus on Brier scores
+
+## The process of building a model
+
+```{r}
+#| label: process
+#| echo: false
+#| out-width: "80%"
+
+knitr::include_graphics("images/process.svg")
+```
+
+## Logistic regression
+
+I usually start simple. Logistic regression is a commonly used model (both for prediction and inference). 
+
+We'll try different versions of logistic regression as well as with different feature representations. 
+
+To get good measures of performance, we will use [resampling methods](https://bookdown.org/max/FES/resampling.html) to compute our results. 
+
+```{r}
+#| label: cell-comps
+#| include: false
+#| cache: true
+
+cls_metrics <- metric_set(brier_class, roc_auc, accuracy)
+cell_rec <- 
+  recipe(class ~ ., data = cell_tr) %>% 
+  step_YeoJohnson(all_predictors())
+pca_rec <- 
+  cell_rec %>% 
+  step_normalize(all_predictors()) %>% 
+  step_pca(all_predictors(), num_comp = tune())
+pls_rec <- 
+  cell_rec %>% 
+  step_normalize(all_predictors()) %>% 
+  step_pls(all_predictors(), outcome = vars(class), num_comp = tune())
+filter_rec <- 
+  cell_rec %>% 
+  step_corr(all_predictors(), threshold = tune()) 
+
+# ------------------------------------------------------------------------------
+
+glmn_spec <- logistic_reg(penalty = tune(), mixture = tune()) %>% set_engine("glmnet")
+
+# ------------------------------------------------------------------------------
+
+lr_set <- 
+  workflow_set(
+    preproc = list(plain = cell_rec, pca = pca_rec, pls = pls_rec, 
+                   filtering = filter_rec),
+    models  = list(logistic = logistic_reg())
+  ) %>% 
+  bind_rows(
+    workflow_set(
+      preproc = list(plain = cell_rec),
+      models = list(glmnet = glmn_spec)
+    )
+  ) %>% 
+  option_add_parameters("pca_logistic") %>%   
+  option_add_parameters("pls_logistic") %>% 
+  option_add_parameters("filtering_logistic")
+
+lr_set$option[[2]]$param_info <- 
+  update(lr_set$option[[2]]$param_info, num_comp = num_comp(c(1, 50)))
+
+lr_set$option[[3]]$param_info <- 
+  update(lr_set$option[[3]]$param_info, num_comp = num_comp(c(1, 50)))
+
+
+lr_set$option[[4]]$param_info <- 
+  update(lr_set$option[[4]]$param_info, threshold = threshold(c(.9, .9999)))
+
+lr_res <- 
+  lr_set %>% 
+  workflow_map(
+    resamples = cell_rs, 
+    grid = 25, 
+    metrics = cls_metrics,
+    control = control_grid(save_pred = TRUE),
+    seed = 182
+  )
+
+model_labels <- 
+  tibble(
+    wflow_id = c("plain_glmnet", "filtering_logistic", "plain_logistic", 
+                 "pca_logistic", "pls_logistic"),
+    label = c("glmnet", "corr filter", "plain logistic", "PCA", "PLS")
+  )
+
+```
+
+## Logistic regression results
+
+
+```{r}
+#| label: cell-logistic-ranking
+#| echo: false
+#| out-width: 90%
+#| fig-width: 10
+#| fig-height: 5
+
+rank_results(lr_res) %>% 
+  full_join(model_labels, by = "wflow_id") %>% 
+  filter(.metric == "brier_class") %>% 
+  mutate(
+    lower = mean - qnorm(0.95) * std_err, 
+    upper = mean + qnorm(0.95) * std_err
+  ) %>% 
+  ggplot(aes(x = rank, y = mean, col = label)) + 
+  geom_point() +
+  geom_errorbar(aes(ymin = lower, ymax = upper)) +
+  labs(x = "Model Rank", y = "Brier Score") +
+  scale_color_brewer(palette = "Dark2")
+```
+
+## Filtering results
+
+
+```{r}
+#| label: cell-logistic-filters
+#| echo: false
+#| out-width: 70%
+#| fig-width: 8
+#| fig-height: 4
+
+filter_lr_res  <- 
+  lr_res%>% 
+  extract_workflow_set_result("filtering_logistic")
+
+best_thresh <- 
+  filter_lr_res %>% 
+  select_best(metric = "brier_class")
+
+filter_res <- 
+  lr_res %>% 
+  extract_workflow("filtering_logistic") %>% 
+  finalize_workflow(best_thresh) %>% 
+  last_fit(cell_split, metrics = cls_metrics)
+
+filter_wflow <- 
+  filter_res %>% 
+  extract_workflow()
+
+filter_p <- 
+  filter_wflow %>% 
+  extract_fit_engine() %>% 
+  coef() %>% 
+  length()
+
+test_metrics <- 
+  filter_res %>% 
+  collect_metrics()
+
+filter_lr_res %>% 
+  autoplot(metric = "brier_class") +
+  labs(y = "Brier Score (mean)")
+```
+The best model retained `r filter_p` predictors out of `r ncol(cells) - 1`. 
+
+## Partial Least Squares Results
+
+```{r}
+#| label: cell-logistic-pls
+#| echo: false
+#| out-width: 70%
+#| fig-width: 8
+#| fig-height: 4
+
+pls_lr_res  <- 
+  lr_res%>% 
+  extract_workflow_set_result("pls_logistic")
+
+best_pls <- 
+  pls_lr_res %>% 
+  select_best(metric = "brier_class")
+
+pls_res <- 
+  lr_res %>% 
+  extract_workflow("pls_logistic") %>% 
+  finalize_workflow(best_pls) %>% 
+  last_fit(cell_split, metrics = cls_metrics)
+
+pls_wflow <- 
+  pls_res %>% 
+  extract_workflow()
+
+test_metrics <- 
+  pls_res %>% 
+  collect_metrics()
+
+pls_lr_res %>% 
+  autoplot(metric = "brier_class") +
+  labs(y = "Brier Score (mean)")
+
+```
+
+
+## Evaluating More Models
+
+At this point we would try different models too (e.g. boosting, etc). 
+
+From brevity, we'll stop here to illustrate what occurs next. 
+
+Let's choose a PLS logistic model as our "final model."
+
+How does this fit work with the test set? 
+
+. . .
+
+The Brier score was `r round(test_metrics$.estimate[test_metrics$.metric == "brier_class"], 3)`. 
+
+## Test Set Predictions
+
+```{r}
+#| label: cell-logistic-hist
+#| echo: false
+#| out-width: 50%
+#| fig-width: 5
+#| fig-height: 5
+
+pls_res %>% 
+  collect_predictions() %>% 
+  ggplot(aes(.pred_PS)) + 
+  geom_histogram(col = "white", bins = 30) + 
+  facet_wrap(~ class, ncol = 1) +
+  labs(x = "Probability of Poor Segmentation (PS)")
+```
+
+
+## Test Set Calibration
+
+```{r}
+#| label: cell-logistic-cal
+#| echo: false
+#| out-width: 50%
+#| fig-width: 5
+#| fig-height: 5
+
+pls_res %>% 
+  collect_predictions() %>% 
+  cal_plot_windowed(class, .pred_PS, step_size = 0.03)
+```
+
+```{r}
+#| label: teardown
+#| include: false
+
+stopCluster(cl)
+```

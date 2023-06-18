@@ -40,6 +40,6 @@ execute:
 |[**WEEK 2**]{.highlight style="display:block;"}                                |||
 |[**19-Jun-2023 (Mon)**]{.highlight}    |                                       ||
 |Statistics and machine learning in R   |Nikolay Oskolkov                       |[Slides](slides/ml/index.html), [Lab](labs/ml/index.html)|
-|Tidymodels                             |Max Kuhn, Posit                        ||
+|Tidymodels                             |Max Kuhn, Posit                        |[Slides](slides/tidymodels/index.html)
 
 :::
