@@ -1,5 +1,6 @@
 ---
 title: "tidymodels workshop"
+image: "images/featured.png"
 format:
   html:
     toc: false

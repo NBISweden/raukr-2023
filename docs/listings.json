@@ -23,11 +23,6 @@
   {
     "listing": "/slides/index.html",
     "items": [
-      "/slides/tidymodels/part_1.html",
-      "/slides/tidymodels/part_2.html",
-      "/slides/tidymodels/part_3.html",
-      "/slides/tidymodels/part_4.html",
-      "/slides/tidymodels/part_5.html",
       "/slides/coding/index.html",
       "/slides/debugging/index.html",
       "/slides/demo/index.html",
@@ -44,6 +39,11 @@
       "/slides/tidyverse/index.html",
       "/slides/vectorization/index.html",
       "/slides/git/index.html",
+      "/slides/tidymodels/part_4.html",
+      "/slides/tidymodels/part_5.html",
+      "/slides/tidymodels/part_3.html",
+      "/slides/tidymodels/part_2.html",
+      "/slides/tidymodels/part_1.html",
       "/slides/tidymodels/index.html"
     ]
   }

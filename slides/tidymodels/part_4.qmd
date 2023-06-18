@@ -1,7 +1,7 @@
 ---
 title: "tidymodels - Evaluating models"
 author: "Max Kuhn"
-
+image: "images/featured.png"
 format:
   revealjs:
     slide-number: true
