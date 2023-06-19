@@ -3721,6 +3721,6 @@
     "href": "slides/tidymodels/index.html",
     "title": "tidymodels workshop",
     "section": "",
-    "text": "Part 1: Introduction\nPart 2: Your data budget\nPart 3: What makes a model?\nPart 4: Evaluating models\nPart 5: Feature Engineering\n\nWe use renv to manage package dependencies. Start by opening tidymodels.Rproj and you can use renv::restore() to get the correct pacakges loaded.\n raukr-tidymodels.zip\nOther resources to learn more:\n\ntidymodels.org: Lots of articles and getting started resources.\nTidy Models with R: Long-form documentation and examples in book form."
+    "text": "Part 1: Introduction\nPart 2: Your data budget\nPart 3: What makes a model?\nPart 4: Evaluating models\nPart 5: Feature Engineering\n\nWe use renv to manage package dependencies. Start by opening tidymodels.Rproj and you can use renv::restore() to get the correct pacakges loaded.\n raukr-tidymodels.zip (Rproj currently unavailable. To be updated)\nOther resources to learn more:\n\ntidymodels.org: Lots of articles and getting started resources.\nTidy Models with R: Long-form documentation and examples in book form."
   }
 ]
