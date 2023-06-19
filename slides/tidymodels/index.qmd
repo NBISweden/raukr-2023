@@ -14,7 +14,7 @@ format:
 - [Part 4](part_4.html): Evaluating models
 - [Part 5](part_5.html): Feature Engineering
 
-We use `renv` to manage package dependencies. Start by opening `tidymodels.Rproj` and you can use `renv::restore()` to get the correct pacakges loaded. 
+We use `renv` to manage package dependencies. Start by opening `tidymodels.Rproj` and you can use `renv::restore()` to get the correct packages loaded. 
 
 <a class="btn btn-secondary btn-sm" href="https://xferticket.nbis.se/tickets/-JLSF0YySV3VV0_YoZV5n43VRHJfKF1QiiSoS9rysMo/raukr-tidymodels.zip/download" role="button">{{< fa download >}} raukr-tidymodels.zip</a>
 
