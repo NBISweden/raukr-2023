@@ -1,5 +1,6 @@
 ---
 title: "tidymodels workshop"
+author: "Max Kuhn"
 image: "images/featured.png"
 format:
   html:
@@ -14,6 +15,8 @@ format:
 - [Part 5](part_5.html): Feature Engineering
 
 We use `renv` to manage package dependencies. Start by opening `tidymodels.Rproj` and you can use `renv::restore()` to get the correct pacakges loaded. 
+
+<a class="btn btn-secondary btn-sm" href="https://xferticket.nbis.se/tickets/-JLSF0YySV3VV0_YoZV5n43VRHJfKF1QiiSoS9rysMo/renv.zip/download" role="button">{{< fa download >}} raukr-tidymodels.zip</a>
 
 Other resources to learn more: 
 
