@@ -1,0 +1,434 @@
+---
+title: "tidymodels - Tuning Hyperparameters"
+author: "Max Kuhn"
+
+format:
+  revealjs:
+    slide-number: true
+    code-line-numbers: true
+    footer: <https://nbisweden.github.io/raukr-2023>
+    include-before-body: styles/header.html
+    include-after-body: styles/footer-annotations.html
+    theme: [default, styles/tidymodels.scss]
+    width: 1280
+    height: 720
+knitr:
+  opts_chunk:
+    echo: true
+    collapse: true
+    comment: "#>"
+    fig.align: "center"
+
+fig-format: svg
+---
+
+## Previously...
+
+```{r}
+#| label: startup
+
+library(tidymodels)
+library(doParallel)
+
+tidymodels_prefer()
+theme_set(theme_bw())
+options(pillar.advice = FALSE, pillar.min_title_chars = Inf)
+cl <- makePSOCKcluster(parallel::detectCores(logical = FALSE))
+registerDoParallel(cl)
+
+data(cells, package = "modeldata")
+cells$case <- NULL
+
+set.seed(123)
+cell_split <- initial_split(cells, prop = 0.8, strata = class)
+cell_tr <- training(cell_split)
+cell_te <- testing(cell_split)
+
+set.seed(123)
+cell_rs <- vfold_cv(cell_tr, v = 10, strata = class)
+
+cls_metrics <- metric_set(brier_class, roc_auc, kap)
+```
+
+
+## Tuning parameters
+
+Some model or preprocessing parameters cannot be estimated directly from the data.
+
+. . .
+
+Some examples:
+
+-   Tree depth in decision trees
+-   Number of neighbors in a K-nearest neighbor model
+
+# Activation function in neural networks?
+
+Sigmoidal functions, ReLu, etc.
+
+::: fragment
+Yes, it is a tuning parameter.
+✅
+:::
+
+# Number of PCA components to retain?
+
+::: fragment
+Yes, it is a tuning parameter.
+✅
+:::
+
+# Bayesian priors for model parameters?
+
+::: fragment
+Hmmmm, probably not.
+These are based on prior belief.
+❌
+:::
+
+
+
+# Is the random seed a tuning parameter?
+
+::: fragment
+Nope. It is not. 
+❌
+:::
+
+## Optimize tuning parameters
+
+-   Try different values and measure their performance.
+
+. . .
+
+-   Find good values for these parameters.
+
+. . .
+
+-   Once the value(s) of the parameter(s) are determined, a model can be finalized by fitting the model to the entire training set.
+
+## Optimize tuning parameters
+
+The main two strategies for optimization are:
+
+. . .
+
+-   **Grid search** 💠 which tests a pre-defined set of candidate values ([_TMwR_](https://www.tmwr.org/grid-search.html))
+
+-   **Iterative search** 🌀 which suggests/estimates new values of candidate parameters to evaluate ([_TMwR_](https://www.tmwr.org/iterative-search.html))
+
+## Choosing tuning parameters
+
+```{r}
+#| label: glmnet
+#| code-line-numbers: "4,7"
+
+cell_rec <- 
+  recipe(class ~ ., data = cell_tr) %>% 
+  step_YeoJohnson(all_predictors()) %>% 
+  step_normalize(all_predictors())
+
+glmn_spec <- 
+  logistic_reg(penalty = tune(), mixture = tune()) %>% 
+  set_engine("glmnet")
+
+glmn_wflow <- workflow(cell_rec, glmn_spec)
+```
+
+
+## Grid search
+
+#### Parameters
+
+-   The tidymodels framework provides pre-defined information on tuning parameters (such as their type, range, transformations, etc).
+
+-   The `extract_parameter_set_dials()` function extracts these tuning parameters and the info.
+
+::: fragment
+#### Grids
+
+-   Create your grid manually or automatically.
+
+-   The `grid_*()` functions can make a grid.
+:::
+
+::: notes
+Most basic (but very effective) way to tune models
+:::
+
+## Create a grid 
+
+```{r get-param}
+#| tidy: false
+glmn_wflow %>% 
+  extract_parameter_set_dials()
+```
+
+. . .
+
+A parameter set can be updated (e.g. to change the ranges).
+
+. . .
+
+There are also functions for each parameter:
+
+```{r}
+#| label: params
+penalty()
+```
+
+## Create a grid 
+
+::: columns
+::: {.column width="50%"}
+```{r get-grid}
+set.seed(99)
+glmn_grid <- 
+  glmn_wflow %>% 
+  extract_parameter_set_dials() %>% 
+  grid_latin_hypercube(size = 25)
+
+glmn_grid
+```
+:::
+
+::: {.column width="50%"}
+::: fragment
+-   A *space-filling design* like this tends to perform better than random grids.
+-   Space-filling designs are also usually more efficient than regular grids.
+:::
+:::
+:::
+
+## Create a grid
+
+```{r get-regular-grid}
+#| code-line-numbers: "5"
+set.seed(99)
+glmn_grid <- 
+  glmn_wflow %>% 
+  extract_parameter_set_dials() %>% 
+  grid_regular(levels = c(4, 4))
+
+glmn_grid
+```
+
+## Update parameter ranges
+
+
+```{r mod-grid-code}
+#| code-line-numbers: "5-6"
+set.seed(99)
+glmn_grid <- 
+  glmn_wflow %>% 
+  extract_parameter_set_dials() %>% 
+  update(penalty = penalty(c(-5, -1))) %>% 
+  grid_latin_hypercube(size = 25)
+
+glmn_grid
+```
+
+## The results 
+
+```{r show-grid-code}
+#| output-location: column
+#| fig-width: 5
+#| fig-height: 5.1
+#| fig-align: 'center'
+glmn_grid %>% 
+  ggplot(aes(penalty, mixture)) +
+  geom_point(size = 4) +
+  scale_x_log10()
+```
+
+# Use the `tune_*()` functions to tune models
+
+## glmnet grid search 
+
+```{r tuning} 
+ctrl <- control_grid(save_pred = TRUE, parallel_over = "everything")
+
+glmn_res <-
+  glmn_wflow %>%
+  tune_grid(
+    resamples = cell_rs,
+    grid = glmn_grid,
+    control = ctrl,
+    metrics = cls_metrics
+  )
+```
+
+::: notes
+-   `tune_grid()` is representative of tuning function syntax
+-   similar to `fit_resamples()`
+:::
+
+
+## glmnet grid search 
+
+```{r tuning-res} 
+glmn_res
+```
+
+
+## Grid results 
+
+```{r autoplot}
+#| fig-align: 'center'
+#| dev-args: list(bg = "transparent")
+autoplot(glmn_res)
+```
+
+## Tuning results 
+
+```{r}
+collect_metrics(glmn_res)
+```
+
+## Tuning results 
+
+```{r}
+collect_metrics(glmn_res, summarize = FALSE)
+```
+
+## Choose a parameter combination 
+
+```{r}
+show_best(glmn_res, metric = "brier_class")
+```
+
+## Tuning a recipe
+
+Now let's fit an "ordinary" logistic regression and tune the number of PLS components. 
+
+Let's update the recipe: 
+
+```{r}
+#| label: update-rec
+#| code-line-numbers: "3"
+
+pls_rec <- 
+  cell_rec %>% 
+  step_pls(all_predictors(), outcome = vars(class), num_comp = tune())
+
+pls_wflow <- workflow(pls_rec, logistic_reg())
+```
+
+## Tuning PLS preprocessing
+
+```{r}
+#| label: tune-pls
+
+pls_grid <- tibble(num_comp = 1:50)
+
+pls_res <-
+  pls_wflow %>%
+  tune_grid(
+    resamples = cell_rs,
+    grid = pls_grid,
+    control = ctrl,
+    metrics = cls_metrics
+  )
+```
+
+## Tuning PLS preprocessing
+
+```{r}
+#| label: pls-plot
+
+autoplot(pls_res, metric = "brier_class")
+```
+
+## Updating our recipe
+
+If we are happy with this model, can can substitute a real value into the workflow (instead of `tune()`). 
+
+```{r}
+#| label: finalize-pls
+
+best_pls <- select_best(pls_res, metric = "brier_class")
+best_pls
+
+pls_wflow <- 
+  pls_wflow %>% 
+  finalize_workflow(best_pls)
+```
+
+
+## The final fit   {.annotation}
+
+Suppose that we are happy with our PLS/logistic model.
+
+Let's fit the model on the training set and verify our performance using the test set.
+
+. . .
+
+We've shown you `fit()` and `predict()` (+ `augment()`) but there is a shortcut:
+
+```{r}
+# cell_split has train + test info
+final_fit <- last_fit(pls_wflow, cell_split, metrics = cls_metrics) 
+
+final_fit
+```
+
+## Test set statistics
+
+```{r}
+collect_metrics(final_fit)
+```
+
+. . .
+
+These are metrics computed with the **test** set
+
+## Test set predictions
+
+```{r}
+collect_predictions(final_fit)
+```
+
+. . .
+
+These are predictions for the **test** set
+
+## 
+
+```{r}
+collect_predictions(final_fit) %>%
+  ggplot(aes(.pred_PS)) + 
+    geom_histogram(col = "white", bins = 30) + 
+    facet_wrap(~ class, ncol = 1)
+```
+
+## What is in `final_fit`? 
+
+```{r}
+extract_workflow(final_fit)
+```
+
+. . .
+
+Use this for **prediction** on new data, like for deploying
+
+
+
+
+
+## Next steps
+
+
+-   [Document the model](https://vetiver.rstudio.com/learn-more/model-card.html).
+
+. . .
+
+-   [Deploy the model](https://vetiver.rstudio.com/get-started/).
+
+. . .
+
+-   Create an [applicability domain model](https://applicable.tidymodels.org/) to help monitor our data over time.
+
+. . .
+
+-   Use [explainers](https://www.tmwr.org/explain.html) to characterize the model and the predictions.
+

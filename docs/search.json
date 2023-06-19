@@ -3722,5 +3722,502 @@
     "title": "tidymodels workshop",
     "section": "",
     "text": "Part 1: Introduction\nPart 2: Your data budget\nPart 3: What makes a model?\nPart 4: Evaluating models\nPart 5: Feature Engineering\n\nWe use renv to manage package dependencies. Start by opening tidymodels.Rproj and you can use renv::restore() to get the correct packages loaded.\n raukr-tidymodels.zip\nOther resources to learn more:\n\ntidymodels.org: Lots of articles and getting started resources.\nTidy Models with R: Long-form documentation and examples in book form."
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#previously",
+    "href": "slides/tidymodels/part_6.html#previously",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "Previously…",
+    "text": "Previously…\n\nlibrary(tidymodels)\nlibrary(doParallel)\n\ntidymodels_prefer()\ntheme_set(theme_bw())\noptions(pillar.advice = FALSE, pillar.min_title_chars = Inf)\ncl &lt;- makePSOCKcluster(parallel::detectCores(logical = FALSE))\nregisterDoParallel(cl)\n\ndata(cells, package = \"modeldata\")\ncells$case &lt;- NULL\n\nset.seed(123)\ncell_split &lt;- initial_split(cells, prop = 0.8, strata = class)\ncell_tr &lt;- training(cell_split)\ncell_te &lt;- testing(cell_split)\n\nset.seed(123)\ncell_rs &lt;- vfold_cv(cell_tr, v = 10, strata = class)\n\ncls_metrics &lt;- metric_set(brier_class, roc_auc, kap)"
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#tuning-parameters",
+    "href": "slides/tidymodels/part_6.html#tuning-parameters",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "Tuning parameters",
+    "text": "Tuning parameters\nSome model or preprocessing parameters cannot be estimated directly from the data.\n\nSome examples:\n\nTree depth in decision trees\nNumber of neighbors in a K-nearest neighbor model"
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#optimize-tuning-parameters",
+    "href": "slides/tidymodels/part_6.html#optimize-tuning-parameters",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "Optimize tuning parameters",
+    "text": "Optimize tuning parameters\n\nTry different values and measure their performance.\n\n\n\nFind good values for these parameters.\n\n\n\n\nOnce the value(s) of the parameter(s) are determined, a model can be finalized by fitting the model to the entire training set."
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#optimize-tuning-parameters-1",
+    "href": "slides/tidymodels/part_6.html#optimize-tuning-parameters-1",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "Optimize tuning parameters",
+    "text": "Optimize tuning parameters\nThe main two strategies for optimization are:\n\n\nGrid search 💠 which tests a pre-defined set of candidate values (TMwR)\nIterative search 🌀 which suggests/estimates new values of candidate parameters to evaluate (TMwR)"
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#choosing-tuning-parameters",
+    "href": "slides/tidymodels/part_6.html#choosing-tuning-parameters",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "Choosing tuning parameters",
+    "text": "Choosing tuning parameters\n\ncell_rec &lt;- \n  recipe(class ~ ., data = cell_tr) %&gt;% \n  step_YeoJohnson(all_predictors()) %&gt;% \n  step_normalize(all_predictors())\n\nglmn_spec &lt;- \n  logistic_reg(penalty = tune(), mixture = tune()) %&gt;% \n  set_engine(\"glmnet\")\n\nglmn_wflow &lt;- workflow(cell_rec, glmn_spec)"
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#grid-search",
+    "href": "slides/tidymodels/part_6.html#grid-search",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "Grid search",
+    "text": "Grid search\nParameters\n\nThe tidymodels framework provides pre-defined information on tuning parameters (such as their type, range, transformations, etc).\nThe extract_parameter_set_dials() function extracts these tuning parameters and the info.\n\n\n\nGrids\n\nCreate your grid manually or automatically.\nThe grid_*() functions can make a grid.\n\n\n\nMost basic (but very effective) way to tune models"
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#create-a-grid",
+    "href": "slides/tidymodels/part_6.html#create-a-grid",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "Create a grid",
+    "text": "Create a grid\n\nglmn_wflow %&gt;% \n  extract_parameter_set_dials()\n#&gt; Collection of 2 parameters for tuning\n#&gt; \n#&gt;  identifier    type    object\n#&gt;     penalty penalty nparam[+]\n#&gt;     mixture mixture nparam[+]\n\n\nA parameter set can be updated (e.g. to change the ranges).\n\n\nThere are also functions for each parameter:\n\npenalty()\n#&gt; Amount of Regularization (quantitative)\n#&gt; Transformer: log-10 [1e-100, Inf]\n#&gt; Range (transformed scale): [-10, 0]"
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#create-a-grid-1",
+    "href": "slides/tidymodels/part_6.html#create-a-grid-1",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "Create a grid",
+    "text": "Create a grid\n\n\n\nset.seed(99)\nglmn_grid &lt;- \n  glmn_wflow %&gt;% \n  extract_parameter_set_dials() %&gt;% \n  grid_latin_hypercube(size = 25)\n\nglmn_grid\n#&gt; # A tibble: 25 × 2\n#&gt;          penalty mixture\n#&gt;            &lt;dbl&gt;   &lt;dbl&gt;\n#&gt;  1 0.00000000644  0.544 \n#&gt;  2 0.000404       0.336 \n#&gt;  3 0.000832       0.691 \n#&gt;  4 0.0000000293   0.226 \n#&gt;  5 0.0114         0.836 \n#&gt;  6 0.855          0.120 \n#&gt;  7 0.00705        0.537 \n#&gt;  8 0.0000604      0.362 \n#&gt;  9 0.0000000216   0.0548\n#&gt; 10 0.0000320      0.290 \n#&gt; # ℹ 15 more rows\n\n\n\n\nA space-filling design like this tends to perform better than random grids.\nSpace-filling designs are also usually more efficient than regular grids."
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#create-a-grid-2",
+    "href": "slides/tidymodels/part_6.html#create-a-grid-2",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "Create a grid",
+    "text": "Create a grid\n\nset.seed(99)\nglmn_grid &lt;- \n  glmn_wflow %&gt;% \n  extract_parameter_set_dials() %&gt;% \n  grid_regular(levels = c(4, 4))\n\nglmn_grid\n#&gt; # A tibble: 16 × 2\n#&gt;         penalty mixture\n#&gt;           &lt;dbl&gt;   &lt;dbl&gt;\n#&gt;  1 0.0000000001   0.05 \n#&gt;  2 0.000000215    0.05 \n#&gt;  3 0.000464       0.05 \n#&gt;  4 1              0.05 \n#&gt;  5 0.0000000001   0.367\n#&gt;  6 0.000000215    0.367\n#&gt;  7 0.000464       0.367\n#&gt;  8 1              0.367\n#&gt;  9 0.0000000001   0.683\n#&gt; 10 0.000000215    0.683\n#&gt; 11 0.000464       0.683\n#&gt; 12 1              0.683\n#&gt; 13 0.0000000001   1    \n#&gt; 14 0.000000215    1    \n#&gt; 15 0.000464       1    \n#&gt; 16 1              1"
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#update-parameter-ranges",
+    "href": "slides/tidymodels/part_6.html#update-parameter-ranges",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "Update parameter ranges",
+    "text": "Update parameter ranges\n\nset.seed(99)\nglmn_grid &lt;- \n  glmn_wflow %&gt;% \n  extract_parameter_set_dials() %&gt;% \n  update(penalty = penalty(c(-5, -1))) %&gt;% \n  grid_latin_hypercube(size = 25)\n\nglmn_grid\n#&gt; # A tibble: 25 × 2\n#&gt;      penalty mixture\n#&gt;        &lt;dbl&gt;   &lt;dbl&gt;\n#&gt;  1 0.0000529  0.544 \n#&gt;  2 0.00439    0.336 \n#&gt;  3 0.00586    0.691 \n#&gt;  4 0.0000970  0.226 \n#&gt;  5 0.0167     0.836 \n#&gt;  6 0.0939     0.120 \n#&gt;  7 0.0138     0.537 \n#&gt;  8 0.00205    0.362 \n#&gt;  9 0.0000858  0.0548\n#&gt; 10 0.00159    0.290 \n#&gt; # ℹ 15 more rows"
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#the-results",
+    "href": "slides/tidymodels/part_6.html#the-results",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "The results",
+    "text": "The results\n\n\nglmn_grid %&gt;% \n  ggplot(aes(penalty, mixture)) +\n  geom_point(size = 4) +\n  scale_x_log10()"
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#glmnet-grid-search",
+    "href": "slides/tidymodels/part_6.html#glmnet-grid-search",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "glmnet grid search",
+    "text": "glmnet grid search\n\nctrl &lt;- control_grid(save_pred = TRUE, parallel_over = \"everything\")\n\nglmn_res &lt;-\n  glmn_wflow %&gt;%\n  tune_grid(\n    resamples = cell_rs,\n    grid = glmn_grid,\n    control = ctrl,\n    metrics = cls_metrics\n  )\n\n\n\ntune_grid() is representative of tuning function syntax\nsimilar to fit_resamples()"
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#glmnet-grid-search-1",
+    "href": "slides/tidymodels/part_6.html#glmnet-grid-search-1",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "glmnet grid search",
+    "text": "glmnet grid search\n\nglmn_res\n#&gt; # Tuning results\n#&gt; # 10-fold cross-validation using stratification \n#&gt; # A tibble: 10 × 5\n#&gt;    splits             id     .metrics          .notes           .predictions\n#&gt;    &lt;list&gt;             &lt;chr&gt;  &lt;list&gt;            &lt;list&gt;           &lt;list&gt;      \n#&gt;  1 &lt;split [1453/162]&gt; Fold01 &lt;tibble [75 × 6]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n#&gt;  2 &lt;split [1453/162]&gt; Fold02 &lt;tibble [75 × 6]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n#&gt;  3 &lt;split [1453/162]&gt; Fold03 &lt;tibble [75 × 6]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n#&gt;  4 &lt;split [1453/162]&gt; Fold04 &lt;tibble [75 × 6]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n#&gt;  5 &lt;split [1453/162]&gt; Fold05 &lt;tibble [75 × 6]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n#&gt;  6 &lt;split [1454/161]&gt; Fold06 &lt;tibble [75 × 6]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n#&gt;  7 &lt;split [1454/161]&gt; Fold07 &lt;tibble [75 × 6]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n#&gt;  8 &lt;split [1454/161]&gt; Fold08 &lt;tibble [75 × 6]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n#&gt;  9 &lt;split [1454/161]&gt; Fold09 &lt;tibble [75 × 6]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n#&gt; 10 &lt;split [1454/161]&gt; Fold10 &lt;tibble [75 × 6]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;"
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#grid-results",
+    "href": "slides/tidymodels/part_6.html#grid-results",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "Grid results",
+    "text": "Grid results\n\nautoplot(glmn_res)"
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#tuning-results",
+    "href": "slides/tidymodels/part_6.html#tuning-results",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "Tuning results",
+    "text": "Tuning results\n\ncollect_metrics(glmn_res)\n#&gt; # A tibble: 75 × 8\n#&gt;      penalty mixture .metric     .estimator  mean     n std_err .config         \n#&gt;        &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;           \n#&gt;  1 0.0000858  0.0548 brier_class binary     0.127    10 0.00310 Preprocessor1_M…\n#&gt;  2 0.0000858  0.0548 kap         binary     0.596    10 0.0137  Preprocessor1_M…\n#&gt;  3 0.0000858  0.0548 roc_auc     binary     0.892    10 0.00533 Preprocessor1_M…\n#&gt;  4 0.0939     0.120  brier_class binary     0.138    10 0.00322 Preprocessor1_M…\n#&gt;  5 0.0939     0.120  kap         binary     0.559    10 0.0157  Preprocessor1_M…\n#&gt;  6 0.0939     0.120  roc_auc     binary     0.875    10 0.00738 Preprocessor1_M…\n#&gt;  7 0.0376     0.152  brier_class binary     0.134    10 0.00332 Preprocessor1_M…\n#&gt;  8 0.0376     0.152  kap         binary     0.562    10 0.0122  Preprocessor1_M…\n#&gt;  9 0.0376     0.152  roc_auc     binary     0.880    10 0.00697 Preprocessor1_M…\n#&gt; 10 0.000793   0.180  brier_class binary     0.127    10 0.00309 Preprocessor1_M…\n#&gt; # ℹ 65 more rows"
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#tuning-results-1",
+    "href": "slides/tidymodels/part_6.html#tuning-results-1",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "Tuning results",
+    "text": "Tuning results\n\ncollect_metrics(glmn_res, summarize = FALSE)\n#&gt; # A tibble: 750 × 7\n#&gt;    id       penalty mixture .metric     .estimator .estimate .config            \n#&gt;    &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;              \n#&gt;  1 Fold01 0.0000858  0.0548 kap         binary         0.517 Preprocessor1_Mode…\n#&gt;  2 Fold01 0.0000858  0.0548 brier_class binary         0.143 Preprocessor1_Mode…\n#&gt;  3 Fold01 0.0000858  0.0548 roc_auc     binary         0.867 Preprocessor1_Mode…\n#&gt;  4 Fold02 0.0000858  0.0548 kap         binary         0.541 Preprocessor1_Mode…\n#&gt;  5 Fold02 0.0000858  0.0548 brier_class binary         0.130 Preprocessor1_Mode…\n#&gt;  6 Fold02 0.0000858  0.0548 roc_auc     binary         0.892 Preprocessor1_Mode…\n#&gt;  7 Fold03 0.0000858  0.0548 kap         binary         0.618 Preprocessor1_Mode…\n#&gt;  8 Fold03 0.0000858  0.0548 brier_class binary         0.118 Preprocessor1_Mode…\n#&gt;  9 Fold03 0.0000858  0.0548 roc_auc     binary         0.908 Preprocessor1_Mode…\n#&gt; 10 Fold04 0.0000858  0.0548 kap         binary         0.621 Preprocessor1_Mode…\n#&gt; # ℹ 740 more rows"
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#choose-a-parameter-combination",
+    "href": "slides/tidymodels/part_6.html#choose-a-parameter-combination",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "Choose a parameter combination",
+    "text": "Choose a parameter combination\n\nshow_best(glmn_res, metric = \"brier_class\")\n#&gt; # A tibble: 5 × 8\n#&gt;     penalty mixture .metric     .estimator  mean     n std_err .config          \n#&gt;       &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;            \n#&gt; 1 0.0000529   0.544 brier_class binary     0.126    10 0.00317 Preprocessor1_Mo…\n#&gt; 2 0.000183    0.948 brier_class binary     0.126    10 0.00313 Preprocessor1_Mo…\n#&gt; 3 0.0000177   0.477 brier_class binary     0.126    10 0.00317 Preprocessor1_Mo…\n#&gt; 4 0.0000388   0.404 brier_class binary     0.126    10 0.00315 Preprocessor1_Mo…\n#&gt; 5 0.0000227   0.633 brier_class binary     0.126    10 0.00318 Preprocessor1_Mo…"
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#tuning-a-recipe",
+    "href": "slides/tidymodels/part_6.html#tuning-a-recipe",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "Tuning a recipe",
+    "text": "Tuning a recipe\nNow let’s fit an “ordinary” logistic regression and tune the number of PLS components.\nLet’s update the recipe:\n\npls_rec &lt;- \n  cell_rec %&gt;% \n  step_pls(all_predictors(), outcome = vars(class), num_comp = tune())\n\npls_wflow &lt;- workflow(pls_rec, logistic_reg())"
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#tuning-pls-preprocessing",
+    "href": "slides/tidymodels/part_6.html#tuning-pls-preprocessing",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "Tuning PLS preprocessing",
+    "text": "Tuning PLS preprocessing\n\npls_grid &lt;- tibble(num_comp = 1:50)\n\npls_res &lt;-\n  pls_wflow %&gt;%\n  tune_grid(\n    resamples = cell_rs,\n    grid = pls_grid,\n    control = ctrl,\n    metrics = cls_metrics\n  )"
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#tuning-pls-preprocessing-1",
+    "href": "slides/tidymodels/part_6.html#tuning-pls-preprocessing-1",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "Tuning PLS preprocessing",
+    "text": "Tuning PLS preprocessing\n\nautoplot(pls_res, metric = \"brier_class\")"
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#updating-our-recipe",
+    "href": "slides/tidymodels/part_6.html#updating-our-recipe",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "Updating our recipe",
+    "text": "Updating our recipe\nIf we are happy with this model, can can substitute a real value into the workflow (instead of tune()).\n\nbest_pls &lt;- select_best(pls_res, metric = \"brier_class\")\nbest_pls\n\npls_wflow &lt;- \n  pls_wflow %&gt;% \n  finalize_workflow(best_pls)\n#&gt; # A tibble: 1 × 2\n#&gt;   num_comp .config              \n#&gt;      &lt;int&gt; &lt;chr&gt;                \n#&gt; 1       39 Preprocessor39_Model1"
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#the-final-fit",
+    "href": "slides/tidymodels/part_6.html#the-final-fit",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "The final fit",
+    "text": "The final fit\nSuppose that we are happy with our PLS/logistic model.\nLet’s fit the model on the training set and verify our performance using the test set.\n\nWe’ve shown you fit() and predict() (+ augment()) but there is a shortcut:\n\n# cell_split has train + test info\nfinal_fit &lt;- last_fit(pls_wflow, cell_split, metrics = cls_metrics) \n\nfinal_fit\n#&gt; # Resampling results\n#&gt; # Manual resampling \n#&gt; # A tibble: 1 × 6\n#&gt;   splits             id               .metrics .notes   .predictions .workflow \n#&gt;   &lt;list&gt;             &lt;chr&gt;            &lt;list&gt;   &lt;list&gt;   &lt;list&gt;       &lt;list&gt;    \n#&gt; 1 &lt;split [1615/404]&gt; train/test split &lt;tibble&gt; &lt;tibble&gt; &lt;tibble&gt;     &lt;workflow&gt;"
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#test-set-statistics",
+    "href": "slides/tidymodels/part_6.html#test-set-statistics",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "Test set statistics",
+    "text": "Test set statistics\n\ncollect_metrics(final_fit)\n#&gt; # A tibble: 3 × 4\n#&gt;   .metric     .estimator .estimate .config             \n#&gt;   &lt;chr&gt;       &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;               \n#&gt; 1 kap         binary         0.615 Preprocessor1_Model1\n#&gt; 2 brier_class binary         0.123 Preprocessor1_Model1\n#&gt; 3 roc_auc     binary         0.902 Preprocessor1_Model1\n\n\nThese are metrics computed with the test set"
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#test-set-predictions",
+    "href": "slides/tidymodels/part_6.html#test-set-predictions",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "Test set predictions",
+    "text": "Test set predictions\n\ncollect_predictions(final_fit)\n#&gt; # A tibble: 404 × 7\n#&gt;    id               .pred_PS .pred_WS  .row .pred_class class .config           \n#&gt;    &lt;chr&gt;               &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt; &lt;fct&gt;       &lt;fct&gt; &lt;chr&gt;             \n#&gt;  1 train/test split   0.994   0.00622     1 PS          PS    Preprocessor1_Mod…\n#&gt;  2 train/test split   0.0193  0.981       6 WS          WS    Preprocessor1_Mod…\n#&gt;  3 train/test split   0.0229  0.977       7 WS          WS    Preprocessor1_Mod…\n#&gt;  4 train/test split   0.617   0.383      10 PS          WS    Preprocessor1_Mod…\n#&gt;  5 train/test split   0.0146  0.985      11 WS          WS    Preprocessor1_Mod…\n#&gt;  6 train/test split   0.669   0.331      14 PS          PS    Preprocessor1_Mod…\n#&gt;  7 train/test split   0.0557  0.944      18 WS          WS    Preprocessor1_Mod…\n#&gt;  8 train/test split   0.995   0.00549    24 PS          PS    Preprocessor1_Mod…\n#&gt;  9 train/test split   0.979   0.0207     28 PS          PS    Preprocessor1_Mod…\n#&gt; 10 train/test split   0.981   0.0192     32 PS          WS    Preprocessor1_Mod…\n#&gt; # ℹ 394 more rows\n\n\nThese are predictions for the test set"
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#section",
+    "href": "slides/tidymodels/part_6.html#section",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "",
+    "text": "collect_predictions(final_fit) %&gt;%\n  ggplot(aes(.pred_PS)) + \n    geom_histogram(col = \"white\", bins = 30) + \n    facet_wrap(~ class, ncol = 1)"
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#what-is-in-final_fit",
+    "href": "slides/tidymodels/part_6.html#what-is-in-final_fit",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "What is in final_fit?",
+    "text": "What is in final_fit?\n\nextract_workflow(final_fit)\n#&gt; ══ Workflow [trained] ══════════════════════════════════════════════════════════\n#&gt; Preprocessor: Recipe\n#&gt; Model: logistic_reg()\n#&gt; \n#&gt; ── Preprocessor ────────────────────────────────────────────────────────────────\n#&gt; 3 Recipe Steps\n#&gt; \n#&gt; • step_YeoJohnson()\n#&gt; • step_normalize()\n#&gt; • step_pls()\n#&gt; \n#&gt; ── Model ───────────────────────────────────────────────────────────────────────\n#&gt; \n#&gt; Call:  stats::glm(formula = ..y ~ ., family = stats::binomial, data = data)\n#&gt; \n#&gt; Coefficients:\n#&gt; (Intercept)        PLS01        PLS02        PLS03        PLS04        PLS05  \n#&gt;   -1.151505     0.629591     0.272728     0.147008     0.142539     0.516826  \n#&gt;       PLS06        PLS07        PLS08        PLS09        PLS10        PLS11  \n#&gt;   -0.235048    -0.154358    -0.344322     0.329816     0.347405     0.446255  \n#&gt;       PLS12        PLS13        PLS14        PLS15        PLS16        PLS17  \n#&gt;   -0.543208     0.061578     0.029988    -0.121318    -0.155766     0.164601  \n#&gt;       PLS18        PLS19        PLS20        PLS21        PLS22        PLS23  \n#&gt;   -0.135477    -0.014923    -0.180127     0.154311     0.432299    -0.070286  \n#&gt;       PLS24        PLS25        PLS26        PLS27        PLS28        PLS29  \n#&gt;    0.443569    -0.086953     0.295322    -0.279665     0.443832     0.394397  \n#&gt;       PLS30        PLS31        PLS32        PLS33        PLS34        PLS35  \n#&gt;   -0.653353    -0.593635     0.695435    -0.467769    -0.284499     0.348176  \n#&gt;       PLS36        PLS37        PLS38        PLS39  \n#&gt;    0.000507    -0.141687     0.151696     1.134896  \n#&gt; \n#&gt; Degrees of Freedom: 1614 Total (i.e. Null);  1575 Residual\n#&gt; Null Deviance:       2103 \n#&gt; Residual Deviance: 1171  AIC: 1251\n\n\nUse this for prediction on new data, like for deploying"
+  },
+  {
+    "objectID": "slides/tidymodels/part_6.html#next-steps",
+    "href": "slides/tidymodels/part_6.html#next-steps",
+    "title": "tidymodels - Tuning Hyperparameters",
+    "section": "Next steps",
+    "text": "Next steps\n\nDocument the model.\n\n\n\nDeploy the model.\n\n\n\n\nCreate an applicability domain model to help monitor our data over time.\n\n\n\n\nUse explainers to characterize the model and the predictions.\n\n\n\nhttps://nbisweden.github.io/raukr-2023"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#previously",
+    "href": "slides/tidymodels/part_4.html#previously",
+    "title": "tidymodels - Evaluating models",
+    "section": "Previously…",
+    "text": "Previously…\n\nlibrary(tidymodels)\nlibrary(doParallel)\n\ntidymodels_prefer()\ntheme_set(theme_bw())\noptions(pillar.advice = FALSE, pillar.min_title_chars = Inf)\ncl &lt;- makePSOCKcluster(parallel::detectCores(logical = FALSE))\nregisterDoParallel(cl)\n\ndata(cells, package = \"modeldata\")\ncells$case &lt;- NULL\n\nset.seed(123)\ncell_split &lt;- initial_split(cells, prop = 0.8, strata = class)\ncell_tr &lt;- training(cell_split)\ncell_te &lt;- testing(cell_split)\n\ntree_spec &lt;- decision_tree() %&gt;%  set_mode(\"classification\")\n\ntree_wflow &lt;- workflow(class ~ ., tree_spec)\n\ntree_fit &lt;- tree_wflow %&gt;% fit(data = cell_tr)"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#metrics-for-model-performance",
+    "href": "slides/tidymodels/part_4.html#metrics-for-model-performance",
+    "title": "tidymodels - Evaluating models",
+    "section": "Metrics for model performance",
+    "text": "Metrics for model performance\n\naugment(tree_fit, new_data = cell_te) %&gt;%\n  metrics(class, estimate = .pred_class, .pred_PS)\n#&gt; # A tibble: 4 × 3\n#&gt;   .metric     .estimator .estimate\n#&gt;   &lt;chr&gt;       &lt;chr&gt;          &lt;dbl&gt;\n#&gt; 1 accuracy    binary         0.807\n#&gt; 2 kap         binary         0.583\n#&gt; 3 mn_log_loss binary         0.522\n#&gt; 4 roc_auc     binary         0.851\n\n\n\nkap: is Cohen’s Kappa (maximize)\nmn_log_loss: “log loss” aka negaive binomial likelihood (minimize)\nroc_auc: area under the ROC curve (maximize)"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#metrics-for-model-performance---hard-predictions",
+    "href": "slides/tidymodels/part_4.html#metrics-for-model-performance---hard-predictions",
+    "title": "tidymodels - Evaluating models",
+    "section": "Metrics for model performance - hard predictions",
+    "text": "Metrics for model performance - hard predictions\n\naugment(tree_fit, new_data = cell_te) %&gt;%\n  # You should name the 'estimate' column:\n  accuracy(class, estimate = .pred_class)\n#&gt; # A tibble: 1 × 3\n#&gt;   .metric  .estimator .estimate\n#&gt;   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;\n#&gt; 1 accuracy binary         0.807\n\n\n\n\naugment(tree_fit, new_data = cell_te) %&gt;%\n  conf_mat(class, estimate = .pred_class)\n#&gt;           Truth\n#&gt; Prediction  PS  WS\n#&gt;         PS 218  36\n#&gt;         WS  42 108\n\nA nice autoplot() method exists for conf_mat()."
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#metrics-for-model-performance---soft-predictions",
+    "href": "slides/tidymodels/part_4.html#metrics-for-model-performance---soft-predictions",
+    "title": "tidymodels - Evaluating models",
+    "section": "Metrics for model performance - soft predictions",
+    "text": "Metrics for model performance - soft predictions\n\naugment(tree_fit, new_data = cell_te) %&gt;%\n  # no 'estimate' argument\n  roc_auc(class, .pred_PS)\n#&gt; # A tibble: 1 × 3\n#&gt;   .metric .estimator .estimate\n#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;\n#&gt; 1 roc_auc binary         0.851\n\n\n\n\naugment(tree_fit, new_data = cell_te) %&gt;%\n  roc_curve(class, .pred_PS) %&gt;% \n  slice(1:5)\n#&gt; # A tibble: 5 × 3\n#&gt;   .threshold specificity sensitivity\n#&gt;        &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;\n#&gt; 1   -Inf          0            1    \n#&gt; 2      0.156      0            1    \n#&gt; 3      0.221      0.0833       0.988\n#&gt; 4      0.270      0.646        0.862\n#&gt; 5      0.657      0.75         0.838\n\nAlso an autoplot() method for ROC curves"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#make-your-own-combination",
+    "href": "slides/tidymodels/part_4.html#make-your-own-combination",
+    "title": "tidymodels - Evaluating models",
+    "section": "Make your own combination",
+    "text": "Make your own combination\n\ncls_metrics &lt;- metric_set(brier_class, roc_auc, kap)\n\naugment(tree_fit, new_data = cell_te) %&gt;%\n  cls_metrics(class, estimate = .pred_class, .pred_PS)\n#&gt; # A tibble: 3 × 3\n#&gt;   .metric     .estimator .estimate\n#&gt;   &lt;chr&gt;       &lt;chr&gt;          &lt;dbl&gt;\n#&gt; 1 kap         binary         0.583\n#&gt; 2 brier_class binary         0.143\n#&gt; 3 roc_auc     binary         0.851\n\nThere are a lot of performance measures for each mode…"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#dangers-of-overfitting-1",
+    "href": "slides/tidymodels/part_4.html#dangers-of-overfitting-1",
+    "title": "tidymodels - Evaluating models",
+    "section": "Dangers of overfitting ⚠️",
+    "text": "Dangers of overfitting ⚠️"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#dangers-of-overfitting-2",
+    "href": "slides/tidymodels/part_4.html#dangers-of-overfitting-2",
+    "title": "tidymodels - Evaluating models",
+    "section": "Dangers of overfitting ⚠️",
+    "text": "Dangers of overfitting ⚠️"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#cross-validation",
+    "href": "slides/tidymodels/part_4.html#cross-validation",
+    "title": "tidymodels - Evaluating models",
+    "section": "Cross-validation",
+    "text": "Cross-validation"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#cross-validation-1",
+    "href": "slides/tidymodels/part_4.html#cross-validation-1",
+    "title": "tidymodels - Evaluating models",
+    "section": "Cross-validation",
+    "text": "Cross-validation"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#cross-validation-cell_tr",
+    "href": "slides/tidymodels/part_4.html#cross-validation-cell_tr",
+    "title": "tidymodels - Evaluating models",
+    "section": "Cross-validation cell_tr",
+    "text": "Cross-validation cell_tr\n\nvfold_cv(cell_tr) # v = 10 is default\n#&gt; #  10-fold cross-validation \n#&gt; # A tibble: 10 × 2\n#&gt;    splits             id    \n#&gt;    &lt;list&gt;             &lt;chr&gt; \n#&gt;  1 &lt;split [1453/162]&gt; Fold01\n#&gt;  2 &lt;split [1453/162]&gt; Fold02\n#&gt;  3 &lt;split [1453/162]&gt; Fold03\n#&gt;  4 &lt;split [1453/162]&gt; Fold04\n#&gt;  5 &lt;split [1453/162]&gt; Fold05\n#&gt;  6 &lt;split [1454/161]&gt; Fold06\n#&gt;  7 &lt;split [1454/161]&gt; Fold07\n#&gt;  8 &lt;split [1454/161]&gt; Fold08\n#&gt;  9 &lt;split [1454/161]&gt; Fold09\n#&gt; 10 &lt;split [1454/161]&gt; Fold10"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#cross-validation-cell_tr-1",
+    "href": "slides/tidymodels/part_4.html#cross-validation-cell_tr-1",
+    "title": "tidymodels - Evaluating models",
+    "section": "Cross-validation cell_tr",
+    "text": "Cross-validation cell_tr\nWhat is in this?\n\ncell_rs &lt;- vfold_cv(cell_tr)\ncell_rs$splits[1:3]\n#&gt; [[1]]\n#&gt; &lt;Analysis/Assess/Total&gt;\n#&gt; &lt;1453/162/1615&gt;\n#&gt; \n#&gt; [[2]]\n#&gt; &lt;Analysis/Assess/Total&gt;\n#&gt; &lt;1453/162/1615&gt;\n#&gt; \n#&gt; [[3]]\n#&gt; &lt;Analysis/Assess/Total&gt;\n#&gt; &lt;1453/162/1615&gt;\n\n\nTalk about a list column, storing non-atomic types in dataframe"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#cross-validation-cell_tr-2",
+    "href": "slides/tidymodels/part_4.html#cross-validation-cell_tr-2",
+    "title": "tidymodels - Evaluating models",
+    "section": "Cross-validation cell_tr",
+    "text": "Cross-validation cell_tr\n\nvfold_cv(cell_tr, v = 5)\n#&gt; #  5-fold cross-validation \n#&gt; # A tibble: 5 × 2\n#&gt;   splits             id   \n#&gt;   &lt;list&gt;             &lt;chr&gt;\n#&gt; 1 &lt;split [1292/323]&gt; Fold1\n#&gt; 2 &lt;split [1292/323]&gt; Fold2\n#&gt; 3 &lt;split [1292/323]&gt; Fold3\n#&gt; 4 &lt;split [1292/323]&gt; Fold4\n#&gt; 5 &lt;split [1292/323]&gt; Fold5"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#cross-validation-cell_tr-3",
+    "href": "slides/tidymodels/part_4.html#cross-validation-cell_tr-3",
+    "title": "tidymodels - Evaluating models",
+    "section": "Cross-validation cell_tr",
+    "text": "Cross-validation cell_tr\n\nvfold_cv(cell_tr, strata = class)\n#&gt; #  10-fold cross-validation using stratification \n#&gt; # A tibble: 10 × 2\n#&gt;    splits             id    \n#&gt;    &lt;list&gt;             &lt;chr&gt; \n#&gt;  1 &lt;split [1453/162]&gt; Fold01\n#&gt;  2 &lt;split [1453/162]&gt; Fold02\n#&gt;  3 &lt;split [1453/162]&gt; Fold03\n#&gt;  4 &lt;split [1453/162]&gt; Fold04\n#&gt;  5 &lt;split [1453/162]&gt; Fold05\n#&gt;  6 &lt;split [1454/161]&gt; Fold06\n#&gt;  7 &lt;split [1454/161]&gt; Fold07\n#&gt;  8 &lt;split [1454/161]&gt; Fold08\n#&gt;  9 &lt;split [1454/161]&gt; Fold09\n#&gt; 10 &lt;split [1454/161]&gt; Fold10\n\n\nStratification often helps, with very little downside"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#cross-validation-cell_tr-4",
+    "href": "slides/tidymodels/part_4.html#cross-validation-cell_tr-4",
+    "title": "tidymodels - Evaluating models",
+    "section": "Cross-validation cell_tr",
+    "text": "Cross-validation cell_tr\nWe’ll use this setup:\n\nset.seed(123)\ncell_rs &lt;- vfold_cv(cell_tr, v = 10, strata = class)\ncell_rs\n#&gt; #  10-fold cross-validation using stratification \n#&gt; # A tibble: 10 × 2\n#&gt;    splits             id    \n#&gt;    &lt;list&gt;             &lt;chr&gt; \n#&gt;  1 &lt;split [1453/162]&gt; Fold01\n#&gt;  2 &lt;split [1453/162]&gt; Fold02\n#&gt;  3 &lt;split [1453/162]&gt; Fold03\n#&gt;  4 &lt;split [1453/162]&gt; Fold04\n#&gt;  5 &lt;split [1453/162]&gt; Fold05\n#&gt;  6 &lt;split [1454/161]&gt; Fold06\n#&gt;  7 &lt;split [1454/161]&gt; Fold07\n#&gt;  8 &lt;split [1454/161]&gt; Fold08\n#&gt;  9 &lt;split [1454/161]&gt; Fold09\n#&gt; 10 &lt;split [1454/161]&gt; Fold10\n\n\nSet the seed when creating resamples"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#fit-our-model-to-the-resamples",
+    "href": "slides/tidymodels/part_4.html#fit-our-model-to-the-resamples",
+    "title": "tidymodels - Evaluating models",
+    "section": "Fit our model to the resamples",
+    "text": "Fit our model to the resamples\n\ntree_res &lt;- fit_resamples(tree_wflow, cell_rs, metrics = cls_metrics)\ntree_res\n#&gt; # Resampling results\n#&gt; # 10-fold cross-validation using stratification \n#&gt; # A tibble: 10 × 4\n#&gt;    splits             id     .metrics         .notes          \n#&gt;    &lt;list&gt;             &lt;chr&gt;  &lt;list&gt;           &lt;list&gt;          \n#&gt;  1 &lt;split [1453/162]&gt; Fold01 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt;\n#&gt;  2 &lt;split [1453/162]&gt; Fold02 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt;\n#&gt;  3 &lt;split [1453/162]&gt; Fold03 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt;\n#&gt;  4 &lt;split [1453/162]&gt; Fold04 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt;\n#&gt;  5 &lt;split [1453/162]&gt; Fold05 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt;\n#&gt;  6 &lt;split [1454/161]&gt; Fold06 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt;\n#&gt;  7 &lt;split [1454/161]&gt; Fold07 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt;\n#&gt;  8 &lt;split [1454/161]&gt; Fold08 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt;\n#&gt;  9 &lt;split [1454/161]&gt; Fold09 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt;\n#&gt; 10 &lt;split [1454/161]&gt; Fold10 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt;"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#evaluating-model-performance",
+    "href": "slides/tidymodels/part_4.html#evaluating-model-performance",
+    "title": "tidymodels - Evaluating models",
+    "section": "Evaluating model performance",
+    "text": "Evaluating model performance\n\ntree_res %&gt;% collect_metrics()\n#&gt; # A tibble: 3 × 6\n#&gt;   .metric     .estimator  mean     n std_err .config             \n#&gt;   &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               \n#&gt; 1 brier_class binary     0.137    10 0.00366 Preprocessor1_Model1\n#&gt; 2 kap         binary     0.613    10 0.0144  Preprocessor1_Model1\n#&gt; 3 roc_auc     binary     0.854    10 0.00563 Preprocessor1_Model1\n\n\nWe can reliably measure performance using only the training data 🎉"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#evaluating-model-performance-1",
+    "href": "slides/tidymodels/part_4.html#evaluating-model-performance-1",
+    "title": "tidymodels - Evaluating models",
+    "section": "Evaluating model performance",
+    "text": "Evaluating model performance\n\n# Save the assessment set results\nctrl_rs &lt;- control_resamples(save_pred = TRUE)\ntree_res &lt;- fit_resamples(tree_wflow, cell_rs, metrics = cls_metrics, control = ctrl_rs)\n\ntree_preds &lt;- collect_predictions(tree_res)\ntree_preds\n#&gt; # A tibble: 1,615 × 7\n#&gt;    id     .pred_PS .pred_WS  .row .pred_class class .config             \n#&gt;    &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt; &lt;fct&gt;       &lt;fct&gt; &lt;chr&gt;               \n#&gt;  1 Fold01    0.943   0.0566    10 PS          PS    Preprocessor1_Model1\n#&gt;  2 Fold01    0.943   0.0566    20 PS          PS    Preprocessor1_Model1\n#&gt;  3 Fold01    0.763   0.237     25 PS          PS    Preprocessor1_Model1\n#&gt;  4 Fold01    0.214   0.786     31 WS          PS    Preprocessor1_Model1\n#&gt;  5 Fold01    0.763   0.237     41 PS          PS    Preprocessor1_Model1\n#&gt;  6 Fold01    0.943   0.0566    48 PS          PS    Preprocessor1_Model1\n#&gt;  7 Fold01    0.943   0.0566    52 PS          PS    Preprocessor1_Model1\n#&gt;  8 Fold01    0.214   0.786     60 WS          PS    Preprocessor1_Model1\n#&gt;  9 Fold01    0.943   0.0566    61 PS          PS    Preprocessor1_Model1\n#&gt; 10 Fold01    0.214   0.786     91 WS          PS    Preprocessor1_Model1\n#&gt; # ℹ 1,605 more rows"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#section-2",
+    "href": "slides/tidymodels/part_4.html#section-2",
+    "title": "tidymodels - Evaluating models",
+    "section": "",
+    "text": "tree_preds %&gt;% \n  ggplot(aes(.pred_PS)) + \n  geom_histogram(col = \"white\", bins = 30) + \n  facet_wrap(~ class, ncol = 1)"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#where-are-the-fitted-models",
+    "href": "slides/tidymodels/part_4.html#where-are-the-fitted-models",
+    "title": "tidymodels - Evaluating models",
+    "section": "Where are the fitted models?",
+    "text": "Where are the fitted models?\n\ntree_res\n#&gt; # Resampling results\n#&gt; # 10-fold cross-validation using stratification \n#&gt; # A tibble: 10 × 5\n#&gt;    splits             id     .metrics         .notes           .predictions\n#&gt;    &lt;list&gt;             &lt;chr&gt;  &lt;list&gt;           &lt;list&gt;           &lt;list&gt;      \n#&gt;  1 &lt;split [1453/162]&gt; Fold01 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n#&gt;  2 &lt;split [1453/162]&gt; Fold02 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n#&gt;  3 &lt;split [1453/162]&gt; Fold03 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n#&gt;  4 &lt;split [1453/162]&gt; Fold04 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n#&gt;  5 &lt;split [1453/162]&gt; Fold05 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n#&gt;  6 &lt;split [1454/161]&gt; Fold06 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n#&gt;  7 &lt;split [1454/161]&gt; Fold07 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n#&gt;  8 &lt;split [1454/161]&gt; Fold08 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n#&gt;  9 &lt;split [1454/161]&gt; Fold09 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n#&gt; 10 &lt;split [1454/161]&gt; Fold10 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;\n\n\n🗑️"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#bootstrapping",
+    "href": "slides/tidymodels/part_4.html#bootstrapping",
+    "title": "tidymodels - Evaluating models",
+    "section": "Bootstrapping",
+    "text": "Bootstrapping"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#bootstrapping-cell_tr",
+    "href": "slides/tidymodels/part_4.html#bootstrapping-cell_tr",
+    "title": "tidymodels - Evaluating models",
+    "section": "Bootstrapping cell_tr",
+    "text": "Bootstrapping cell_tr\n\nset.seed(3214)\nbootstraps(cell_tr)\n#&gt; # Bootstrap sampling \n#&gt; # A tibble: 25 × 2\n#&gt;    splits             id         \n#&gt;    &lt;list&gt;             &lt;chr&gt;      \n#&gt;  1 &lt;split [1615/603]&gt; Bootstrap01\n#&gt;  2 &lt;split [1615/589]&gt; Bootstrap02\n#&gt;  3 &lt;split [1615/574]&gt; Bootstrap03\n#&gt;  4 &lt;split [1615/590]&gt; Bootstrap04\n#&gt;  5 &lt;split [1615/591]&gt; Bootstrap05\n#&gt;  6 &lt;split [1615/609]&gt; Bootstrap06\n#&gt;  7 &lt;split [1615/599]&gt; Bootstrap07\n#&gt;  8 &lt;split [1615/579]&gt; Bootstrap08\n#&gt;  9 &lt;split [1615/605]&gt; Bootstrap09\n#&gt; 10 &lt;split [1615/586]&gt; Bootstrap10\n#&gt; # ℹ 15 more rows"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#validation-sets",
+    "href": "slides/tidymodels/part_4.html#validation-sets",
+    "title": "tidymodels - Evaluating models",
+    "section": "Validation sets",
+    "text": "Validation sets\n\nset.seed(853)\nvalidation_split(cell_tr, strata = class)\n#&gt; # Validation Set Split (0.75/0.25)  using stratification \n#&gt; # A tibble: 1 × 2\n#&gt;   splits             id        \n#&gt;   &lt;list&gt;             &lt;chr&gt;     \n#&gt; 1 &lt;split [1211/404]&gt; validation\n\n\nA validation set is just another type of resample.\n\n\nThis function will not go away but we have a better interface for validation in the next rsample release."
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#random-forest-1",
+    "href": "slides/tidymodels/part_4.html#random-forest-1",
+    "title": "tidymodels - Evaluating models",
+    "section": "Random forest 🌳🌲🌴🌵🌳🌳🌴🌲🌵🌴🌳🌵",
+    "text": "Random forest 🌳🌲🌴🌵🌳🌳🌴🌲🌵🌴🌳🌵\n\nEnsemble many decision tree models\nAll the trees vote! 🗳️\nBootstrap aggregating + random predictor sampling\n\n\n\nOften works well without tuning hyperparameters (more on this), as long as there are enough trees"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#create-a-random-forest-model",
+    "href": "slides/tidymodels/part_4.html#create-a-random-forest-model",
+    "title": "tidymodels - Evaluating models",
+    "section": "Create a random forest model",
+    "text": "Create a random forest model\n\nrf_spec &lt;- rand_forest(trees = 1000, mode = \"classification\")\nrf_spec\n#&gt; Random Forest Model Specification (classification)\n#&gt; \n#&gt; Main Arguments:\n#&gt;   trees = 1000\n#&gt; \n#&gt; Computational engine: ranger"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#create-a-random-forest-model-1",
+    "href": "slides/tidymodels/part_4.html#create-a-random-forest-model-1",
+    "title": "tidymodels - Evaluating models",
+    "section": "Create a random forest model",
+    "text": "Create a random forest model\n\nrf_wflow &lt;- workflow(class ~ ., rf_spec)\nrf_wflow\n#&gt; ══ Workflow ════════════════════════════════════════════════════════════════════\n#&gt; Preprocessor: Formula\n#&gt; Model: rand_forest()\n#&gt; \n#&gt; ── Preprocessor ────────────────────────────────────────────────────────────────\n#&gt; class ~ .\n#&gt; \n#&gt; ── Model ───────────────────────────────────────────────────────────────────────\n#&gt; Random Forest Model Specification (classification)\n#&gt; \n#&gt; Main Arguments:\n#&gt;   trees = 1000\n#&gt; \n#&gt; Computational engine: ranger"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#evaluating-model-performance-2",
+    "href": "slides/tidymodels/part_4.html#evaluating-model-performance-2",
+    "title": "tidymodels - Evaluating models",
+    "section": "Evaluating model performance",
+    "text": "Evaluating model performance\n\nctrl_rs &lt;- control_resamples(save_pred = TRUE)\n\n# Random forest uses random numbers so set the seed first\n\nset.seed(2)\nrf_res &lt;- fit_resamples(rf_wflow, cell_rs, control = ctrl_rs, metrics = cls_metrics)\ncollect_metrics(rf_res)\n#&gt; # A tibble: 3 × 6\n#&gt;   .metric     .estimator  mean     n std_err .config             \n#&gt;   &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               \n#&gt; 1 brier_class binary     0.120    10 0.00283 Preprocessor1_Model1\n#&gt; 2 kap         binary     0.625    10 0.0163  Preprocessor1_Model1\n#&gt; 3 roc_auc     binary     0.903    10 0.00495 Preprocessor1_Model1"
+  },
+  {
+    "objectID": "slides/tidymodels/part_4.html#section-4",
+    "href": "slides/tidymodels/part_4.html#section-4",
+    "title": "tidymodels - Evaluating models",
+    "section": "",
+    "text": "collect_predictions(rf_res) %&gt;% \n  ggplot(aes(.pred_PS)) + \n    geom_histogram(col = \"white\", bins = 30) + \n    facet_wrap(~ class, ncol = 1)\n\n\n\n\n\n\n\n\n\n\nhttps://nbisweden.github.io/raukr-2023"
+  },
+  {
+    "objectID": "slides/tidymodels/part_1.html#about-me",
+    "href": "slides/tidymodels/part_1.html#about-me",
+    "title": "tidymodels - introduction",
+    "section": "About me",
+    "text": "About me\n\nBecton-Dickinson (6y): molecular diagnostics for infectious diseases, non-clinical and clinical\nPfizer (12y): nonclinical, Med chem, Comp {bio,chem} support\nRStudio posit PBC (&gt;= 2016): modeling packages\n\nSelected R packages: caret, C50, Cubist, a lot of tidymodels\n\nApplied Predictive Modeling\nFeature Engineering and Selection\nTidy Models with R\nNonclinical Statistics for Pharmaceutical and Biotechnology Industries (ed, auth)"
+  },
+  {
+    "objectID": "slides/tidymodels/part_1.html#some-basic-advice",
+    "href": "slides/tidymodels/part_1.html#some-basic-advice",
+    "title": "tidymodels - introduction",
+    "section": "Some basic advice",
+    "text": "Some basic advice\n\nML models are really bad at determining/quantifying associations and evaluating hypotheses\nYou almost certainly don’t need deep learning unless you have a ton of images.\nBasic statistic (e.g. ANOVA, linear regression, etc) go a long way.\nClustering is over-rated and over-used.\nAnalyze your measurement systems.\nAlways have a data set that could contradict what you think that you know.\nThe only way to be comfortable with your data is to never look at them."
+  },
+  {
+    "objectID": "slides/tidymodels/part_1.html#the-whole-game",
+    "href": "slides/tidymodels/part_1.html#the-whole-game",
+    "title": "tidymodels - introduction",
+    "section": "The Whole Game",
+    "text": "The Whole Game\nWe often begin with a very high-level view of a data analysis project from start to finish.\nThe goal is to give you a sense of strategy instead of a series of tactics.\nI’ll focus on predictive modeling (aka machine learning) on some biological data."
+  },
+  {
+    "objectID": "slides/tidymodels/part_1.html#cell-segmentation-data",
+    "href": "slides/tidymodels/part_1.html#cell-segmentation-data",
+    "title": "tidymodels - introduction",
+    "section": "Cell Segmentation Data",
+    "text": "Cell Segmentation Data\n\n\nHill, LaPan, Li and Haney (2007) develop models to predict which cells in a high content screen were well segmented.\nThe data consists of 56 imaging measurements on 2019 cells.\nThe outcome class is contained in a factor variable called class with levels PS for poorly segmented and WS for well segmented."
+  },
+  {
+    "objectID": "slides/tidymodels/part_1.html#what-is-the-goal",
+    "href": "slides/tidymodels/part_1.html#what-is-the-goal",
+    "title": "tidymodels - introduction",
+    "section": "What is the goal",
+    "text": "What is the goal\nThe authors ran a high-content screening lab and were looking for a tool to:\n\nvalidate/characterize different image analysis parameters.\npre-filter cells prior to analysis/modeling.\n\nSo their goal is to do their best to predict bad image data.\nThere’s not much inference/understanding that is required; be as accurate as possible."
+  },
+  {
+    "objectID": "slides/tidymodels/part_1.html#data-usage",
+    "href": "slides/tidymodels/part_1.html#data-usage",
+    "title": "tidymodels - introduction",
+    "section": "Data Usage",
+    "text": "Data Usage\nWe will immediately split the data into training and testing sets (80% / 20%).\nWhat are some interesting features of these data? We’ll only use our training set to investigate."
+  },
+  {
+    "objectID": "slides/tidymodels/part_1.html#some-key-features",
+    "href": "slides/tidymodels/part_1.html#some-key-features",
+    "title": "tidymodels - introduction",
+    "section": "Some key features",
+    "text": "Some key features\n\n\nclass imbalance\n\n\n\n\n\n\n\n\n\n\nClusters of highly correlated features"
+  },
+  {
+    "objectID": "slides/tidymodels/part_1.html#feature-engineering",
+    "href": "slides/tidymodels/part_1.html#feature-engineering",
+    "title": "tidymodels - introduction",
+    "section": "Feature Engineering",
+    "text": "Feature Engineering\nThis describes the process of having good representations of your predictors so that the model has the easiest possible time fitting the data.\nFor the multicollinearity, we could:\n\nDo nothing and see how that works\nMaybe try feature extraction (e.g. PCA, PLS, and similar)\nFilter out predictions to reduce correlations\nUse a model that is resistant to multicollinearity."
+  },
+  {
+    "objectID": "slides/tidymodels/part_1.html#how-will-we-measure-performance",
+    "href": "slides/tidymodels/part_1.html#how-will-we-measure-performance",
+    "title": "tidymodels - introduction",
+    "section": "How will we measure performance",
+    "text": "How will we measure performance\nWe have to classes; there are a lot of options:\n\nAccuracy and similar.\nROC and PR curves\nBrier scores\n\nWe’ll compute all of these but will focus on Brier scores"
+  },
+  {
+    "objectID": "slides/tidymodels/part_1.html#the-process-of-building-a-model",
+    "href": "slides/tidymodels/part_1.html#the-process-of-building-a-model",
+    "title": "tidymodels - introduction",
+    "section": "The process of building a model",
+    "text": "The process of building a model"
+  },
+  {
+    "objectID": "slides/tidymodels/part_1.html#logistic-regression",
+    "href": "slides/tidymodels/part_1.html#logistic-regression",
+    "title": "tidymodels - introduction",
+    "section": "Logistic regression",
+    "text": "Logistic regression\nI usually start simple. Logistic regression is a commonly used model (both for prediction and inference).\nWe’ll try different versions of logistic regression as well as with different feature representations.\nTo get good measures of performance, we will use resampling methods to compute our results."
+  },
+  {
+    "objectID": "slides/tidymodels/part_1.html#logistic-regression-results",
+    "href": "slides/tidymodels/part_1.html#logistic-regression-results",
+    "title": "tidymodels - introduction",
+    "section": "Logistic regression results",
+    "text": "Logistic regression results"
+  },
+  {
+    "objectID": "slides/tidymodels/part_1.html#filtering-results",
+    "href": "slides/tidymodels/part_1.html#filtering-results",
+    "title": "tidymodels - introduction",
+    "section": "Filtering results",
+    "text": "Filtering results\n\nThe best model retained 49 predictors out of 56."
+  },
+  {
+    "objectID": "slides/tidymodels/part_1.html#partial-least-squares-results",
+    "href": "slides/tidymodels/part_1.html#partial-least-squares-results",
+    "title": "tidymodels - introduction",
+    "section": "Partial Least Squares Results",
+    "text": "Partial Least Squares Results"
+  },
+  {
+    "objectID": "slides/tidymodels/part_1.html#evaluating-more-models",
+    "href": "slides/tidymodels/part_1.html#evaluating-more-models",
+    "title": "tidymodels - introduction",
+    "section": "Evaluating More Models",
+    "text": "Evaluating More Models\nAt this point we would try different models too (e.g. boosting, etc).\nFrom brevity, we’ll stop here to illustrate what occurs next.\nLet’s choose a PLS logistic model as our “final model.”\nHow does this fit work with the test set?\n\nThe Brier score was 0.126."
+  },
+  {
+    "objectID": "slides/tidymodels/part_1.html#test-set-predictions",
+    "href": "slides/tidymodels/part_1.html#test-set-predictions",
+    "title": "tidymodels - introduction",
+    "section": "Test Set Predictions",
+    "text": "Test Set Predictions"
+  },
+  {
+    "objectID": "slides/tidymodels/part_1.html#test-set-calibration",
+    "href": "slides/tidymodels/part_1.html#test-set-calibration",
+    "title": "tidymodels - introduction",
+    "section": "Test Set Calibration",
+    "text": "Test Set Calibration\n\n\n\n\n\n\n\n\n\n\n\nhttps://nbisweden.github.io/raukr-2023/"
   }
 ]

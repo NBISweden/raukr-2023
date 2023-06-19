@@ -410,7 +410,7 @@ Max Kuhn
 </div>
 </div>
 
-  <p class="date">17-Jun-2023</p>
+  <p class="date">19-Jun-2023</p>
 </section>
 <section id="previously" class="slide level2">
 <h2>Previously…</h2>
@@ -731,8 +731,8 @@ Max Kuhn
 <h2>Evaluating model performance</h2>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># Save the assessment set results</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a>ctrl_frog <span class="ot">&lt;-</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb15-3"><a href="#cb15-3"></a>tree_res <span class="ot">&lt;-</span> <span class="fu">fit_resamples</span>(tree_wflow, cell_rs, <span class="at">metrics =</span> cls_metrics, <span class="at">control =</span> ctrl_frog)</span>
+<span id="cb15-2"><a href="#cb15-2"></a>ctrl_rs <span class="ot">&lt;-</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-3"><a href="#cb15-3"></a>tree_res <span class="ot">&lt;-</span> <span class="fu">fit_resamples</span>(tree_wflow, cell_rs, <span class="at">metrics =</span> cls_metrics, <span class="at">control =</span> ctrl_rs)</span>
 <span id="cb15-4"><a href="#cb15-4"></a></span>
 <span id="cb15-5"><a href="#cb15-5"></a>tree_preds <span class="ot">&lt;-</span> <span class="fu">collect_predictions</span>(tree_res)</span>
 <span id="cb15-6"><a href="#cb15-6"></a>tree_preds</span>
@@ -900,13 +900,13 @@ Max Kuhn
 </section>
 <section id="evaluating-model-performance-2" class="slide level2">
 <h2>Evaluating model performance</h2>
-<div class="cell" data-layout-align="center" data-hash="part_4_cache/revealjs/unnamed-chunk-22_f01fa389a06fa793b516c6671cb716f9">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>ctrl_frog <span class="ot">&lt;-</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>)</span>
+<div class="cell" data-layout-align="center" data-hash="part_4_cache/revealjs/unnamed-chunk-22_eafc24814963d80fd885aa54b9b92f28">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>ctrl_rs <span class="ot">&lt;-</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb22-2"><a href="#cb22-2"></a></span>
 <span id="cb22-3"><a href="#cb22-3"></a><span class="co"># Random forest uses random numbers so set the seed first</span></span>
 <span id="cb22-4"><a href="#cb22-4"></a></span>
 <span id="cb22-5"><a href="#cb22-5"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
-<span id="cb22-6"><a href="#cb22-6"></a>rf_res <span class="ot">&lt;-</span> <span class="fu">fit_resamples</span>(rf_wflow, cell_rs, <span class="at">control =</span> ctrl_frog, <span class="at">metrics =</span> cls_metrics)</span>
+<span id="cb22-6"><a href="#cb22-6"></a>rf_res <span class="ot">&lt;-</span> <span class="fu">fit_resamples</span>(rf_wflow, cell_rs, <span class="at">control =</span> ctrl_rs, <span class="at">metrics =</span> cls_metrics)</span>
 <span id="cb22-7"><a href="#cb22-7"></a><span class="fu">collect_metrics</span>(rf_res)</span>
 <span id="cb22-8"><a href="#cb22-8"></a><span class="co">#&gt; # A tibble: 3 × 6</span></span>
 <span id="cb22-9"><a href="#cb22-9"></a><span class="co">#&gt;   .metric     .estimator  mean     n std_err .config             </span></span>
@@ -923,106 +923,14 @@ Max Kuhn
 <span id="cb23-2"><a href="#cb23-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(.pred_PS)) <span class="sc">+</span> </span>
 <span id="cb23-3"><a href="#cb23-3"></a>    <span class="fu">geom_histogram</span>(<span class="at">col =</span> <span class="st">"white"</span>, <span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">+</span> </span>
 <span id="cb23-4"><a href="#cb23-4"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span> class, <span class="at">ncol =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-</div>
-<img data-src="part_4_files/figure-revealjs/unnamed-chunk-23-1.svg" class="r-stretch quarto-figure-center"></section>
-<section id="the-final-fit" class="slide level2 annotation">
-<h2>The final fit</h2>
-<p>Suppose that we are happy with our random forest model.</p>
-<p>Let’s fit the model on the training set and verify our performance using the test set.</p>
-<div class="fragment">
-<p>We’ve shown you <code>fit()</code> and <code>predict()</code> (+ <code>augment()</code>) but there is a shortcut:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># frog_split has train + test info</span></span>
-<span id="cb24-2"><a href="#cb24-2"></a>final_fit <span class="ot">&lt;-</span> <span class="fu">last_fit</span>(rf_wflow, cell_split, <span class="at">metrics =</span> cls_metrics) </span>
-<span id="cb24-3"><a href="#cb24-3"></a></span>
-<span id="cb24-4"><a href="#cb24-4"></a>final_fit</span>
-<span id="cb24-5"><a href="#cb24-5"></a><span class="co">#&gt; # Resampling results</span></span>
-<span id="cb24-6"><a href="#cb24-6"></a><span class="co">#&gt; # Manual resampling </span></span>
-<span id="cb24-7"><a href="#cb24-7"></a><span class="co">#&gt; # A tibble: 1 × 6</span></span>
-<span id="cb24-8"><a href="#cb24-8"></a><span class="co">#&gt;   splits             id               .metrics .notes   .predictions .workflow </span></span>
-<span id="cb24-9"><a href="#cb24-9"></a><span class="co">#&gt;   &lt;list&gt;             &lt;chr&gt;            &lt;list&gt;   &lt;list&gt;   &lt;list&gt;       &lt;list&gt;    </span></span>
-<span id="cb24-10"><a href="#cb24-10"></a><span class="co">#&gt; 1 &lt;split [1615/404]&gt; train/test split &lt;tibble&gt; &lt;tibble&gt; &lt;tibble&gt;     &lt;workflow&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="part_4_files/figure-revealjs/unnamed-chunk-23-1.svg"></p>
+</figure>
 </div>
 </div>
-</section>
-<section id="what-is-in-final_fit" class="slide level2">
-<h2>What is in <code>final_fit</code>?</h2>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">collect_metrics</span>(final_fit)</span>
-<span id="cb25-2"><a href="#cb25-2"></a><span class="co">#&gt; # A tibble: 3 × 4</span></span>
-<span id="cb25-3"><a href="#cb25-3"></a><span class="co">#&gt;   .metric     .estimator .estimate .config             </span></span>
-<span id="cb25-4"><a href="#cb25-4"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;               </span></span>
-<span id="cb25-5"><a href="#cb25-5"></a><span class="co">#&gt; 1 kap         binary         0.578 Preprocessor1_Model1</span></span>
-<span id="cb25-6"><a href="#cb25-6"></a><span class="co">#&gt; 2 brier_class binary         0.123 Preprocessor1_Model1</span></span>
-<span id="cb25-7"><a href="#cb25-7"></a><span class="co">#&gt; 3 roc_auc     binary         0.902 Preprocessor1_Model1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="fragment">
-<p>These are metrics computed with the <strong>test</strong> set</p>
-</div>
-</section>
-<section id="what-is-in-final_fit-1" class="slide level2">
-<h2>What is in <code>final_fit</code>?</h2>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">collect_predictions</span>(final_fit)</span>
-<span id="cb26-2"><a href="#cb26-2"></a><span class="co">#&gt; # A tibble: 404 × 7</span></span>
-<span id="cb26-3"><a href="#cb26-3"></a><span class="co">#&gt;    id               .pred_PS .pred_WS  .row .pred_class class .config           </span></span>
-<span id="cb26-4"><a href="#cb26-4"></a><span class="co">#&gt;    &lt;chr&gt;               &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt; &lt;fct&gt;       &lt;fct&gt; &lt;chr&gt;             </span></span>
-<span id="cb26-5"><a href="#cb26-5"></a><span class="co">#&gt;  1 train/test split   0.843   0.157       1 PS          PS    Preprocessor1_Mod…</span></span>
-<span id="cb26-6"><a href="#cb26-6"></a><span class="co">#&gt;  2 train/test split   0.0937  0.906       6 WS          WS    Preprocessor1_Mod…</span></span>
-<span id="cb26-7"><a href="#cb26-7"></a><span class="co">#&gt;  3 train/test split   0.149   0.851       7 WS          WS    Preprocessor1_Mod…</span></span>
-<span id="cb26-8"><a href="#cb26-8"></a><span class="co">#&gt;  4 train/test split   0.859   0.141      10 PS          WS    Preprocessor1_Mod…</span></span>
-<span id="cb26-9"><a href="#cb26-9"></a><span class="co">#&gt;  5 train/test split   0.120   0.880      11 WS          WS    Preprocessor1_Mod…</span></span>
-<span id="cb26-10"><a href="#cb26-10"></a><span class="co">#&gt;  6 train/test split   0.702   0.298      14 PS          PS    Preprocessor1_Mod…</span></span>
-<span id="cb26-11"><a href="#cb26-11"></a><span class="co">#&gt;  7 train/test split   0.247   0.753      18 WS          WS    Preprocessor1_Mod…</span></span>
-<span id="cb26-12"><a href="#cb26-12"></a><span class="co">#&gt;  8 train/test split   0.991   0.00874    24 PS          PS    Preprocessor1_Mod…</span></span>
-<span id="cb26-13"><a href="#cb26-13"></a><span class="co">#&gt;  9 train/test split   0.978   0.0219     28 PS          PS    Preprocessor1_Mod…</span></span>
-<span id="cb26-14"><a href="#cb26-14"></a><span class="co">#&gt; 10 train/test split   0.861   0.139      32 PS          WS    Preprocessor1_Mod…</span></span>
-<span id="cb26-15"><a href="#cb26-15"></a><span class="co">#&gt; # ℹ 394 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="fragment">
-<p>These are predictions for the <strong>test</strong> set</p>
-</div>
-</section>
-<section id="section-5" class="slide level2">
-<h2></h2>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">collect_predictions</span>(final_fit) <span class="sc">%&gt;%</span></span>
-<span id="cb27-2"><a href="#cb27-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(.pred_PS)) <span class="sc">+</span> </span>
-<span id="cb27-3"><a href="#cb27-3"></a>    <span class="fu">geom_histogram</span>(<span class="at">col =</span> <span class="st">"white"</span>, <span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">+</span> </span>
-<span id="cb27-4"><a href="#cb27-4"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span> class, <span class="at">ncol =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-</div>
-<img data-src="part_4_files/figure-revealjs/unnamed-chunk-27-1.svg" class="r-stretch quarto-figure-center"></section>
-<section id="what-is-in-final_fit-2" class="slide level2">
-<h2>What is in <code>final_fit</code>?</h2>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">extract_workflow</span>(final_fit)</span>
-<span id="cb28-2"><a href="#cb28-2"></a><span class="co">#&gt; ══ Workflow [trained] ══════════════════════════════════════════════════════════</span></span>
-<span id="cb28-3"><a href="#cb28-3"></a><span class="co">#&gt; Preprocessor: Formula</span></span>
-<span id="cb28-4"><a href="#cb28-4"></a><span class="co">#&gt; Model: rand_forest()</span></span>
-<span id="cb28-5"><a href="#cb28-5"></a><span class="co">#&gt; </span></span>
-<span id="cb28-6"><a href="#cb28-6"></a><span class="co">#&gt; ── Preprocessor ────────────────────────────────────────────────────────────────</span></span>
-<span id="cb28-7"><a href="#cb28-7"></a><span class="co">#&gt; class ~ .</span></span>
-<span id="cb28-8"><a href="#cb28-8"></a><span class="co">#&gt; </span></span>
-<span id="cb28-9"><a href="#cb28-9"></a><span class="co">#&gt; ── Model ───────────────────────────────────────────────────────────────────────</span></span>
-<span id="cb28-10"><a href="#cb28-10"></a><span class="co">#&gt; Ranger result</span></span>
-<span id="cb28-11"><a href="#cb28-11"></a><span class="co">#&gt; </span></span>
-<span id="cb28-12"><a href="#cb28-12"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb28-13"><a href="#cb28-13"></a><span class="co">#&gt;  ranger::ranger(x = maybe_data_frame(x), y = y, num.trees = ~1000,      num.threads = 1, verbose = FALSE, seed = sample.int(10^5,          1), probability = TRUE) </span></span>
-<span id="cb28-14"><a href="#cb28-14"></a><span class="co">#&gt; </span></span>
-<span id="cb28-15"><a href="#cb28-15"></a><span class="co">#&gt; Type:                             Probability estimation </span></span>
-<span id="cb28-16"><a href="#cb28-16"></a><span class="co">#&gt; Number of trees:                  1000 </span></span>
-<span id="cb28-17"><a href="#cb28-17"></a><span class="co">#&gt; Sample size:                      1615 </span></span>
-<span id="cb28-18"><a href="#cb28-18"></a><span class="co">#&gt; Number of independent variables:  56 </span></span>
-<span id="cb28-19"><a href="#cb28-19"></a><span class="co">#&gt; Mtry:                             7 </span></span>
-<span id="cb28-20"><a href="#cb28-20"></a><span class="co">#&gt; Target node size:                 10 </span></span>
-<span id="cb28-21"><a href="#cb28-21"></a><span class="co">#&gt; Variable importance mode:         none </span></span>
-<span id="cb28-22"><a href="#cb28-22"></a><span class="co">#&gt; Splitrule:                        gini </span></span>
-<span id="cb28-23"><a href="#cb28-23"></a><span class="co">#&gt; OOB prediction error (Brier s.):  0.1204821</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="fragment">
-<p>Use this for <strong>prediction</strong> on new data, like for deploying</p>
 
 <div class="footer footer-default">
 <p><a href="https://nbisweden.github.io/raukr-2023" class="uri">https://nbisweden.github.io/raukr-2023</a></p>
@@ -1033,7 +941,6 @@ Max Kuhn
 </div>
 <div class="header-logo-right">
 <img data-src="../../assets/logos/nbis-scilifelab.svg">
-</div>
 </div>
 </div>
 </section></section>

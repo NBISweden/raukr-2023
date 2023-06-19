@@ -121,17 +121,17 @@ There's not much inference/understanding that is required; be as accurate as pos
 #| label: cell-split
 #| include: false
 
-set.seed(5935)
+set.seed(5935) # These are different random numbers than what happens later
 cell_split <- initial_split(cells, strata = class)
 cell_tr <- training(cell_split)
 cell_te <- testing(cell_split)
-cell_rs <- vfold_cv(cell_tr, strata = class)
+cell_rs <- vfold_cv(cell_tr, prop = 0.8, strata = class)
 
 ```
 
 ## Data Usage
 
-We will immediately split the data into _training_ and _testing_ sets (75% / 25%). 
+We will immediately split the data into _training_ and _testing_ sets (80% / 20%). 
 
 What are some interesting features of these data? We'll only use our training set to investigate. 
 

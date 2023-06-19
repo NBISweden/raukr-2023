@@ -223,8 +223,8 @@ We can reliably measure performance using only the **training** data 🎉
 
 ```{r}
 # Save the assessment set results
-ctrl_frog <- control_resamples(save_pred = TRUE)
-tree_res <- fit_resamples(tree_wflow, cell_rs, metrics = cls_metrics, control = ctrl_frog)
+ctrl_rs <- control_resamples(save_pred = TRUE)
+tree_res <- fit_resamples(tree_wflow, cell_rs, metrics = cls_metrics, control = ctrl_rs)
 
 tree_preds <- collect_predictions(tree_res)
 tree_preds
@@ -318,12 +318,12 @@ rf_wflow
 
 ```{r}
 #| cache: true
-ctrl_frog <- control_resamples(save_pred = TRUE)
+ctrl_rs <- control_resamples(save_pred = TRUE)
 
 # Random forest uses random numbers so set the seed first
 
 set.seed(2)
-rf_res <- fit_resamples(rf_wflow, cell_rs, control = ctrl_frog, metrics = cls_metrics)
+rf_res <- fit_resamples(rf_wflow, cell_rs, control = ctrl_rs, metrics = cls_metrics)
 collect_metrics(rf_res)
 ```
 
@@ -335,63 +335,6 @@ collect_predictions(rf_res) %>%
     geom_histogram(col = "white", bins = 30) + 
     facet_wrap(~ class, ncol = 1)
 ```
-
-## The final fit   {.annotation}
-
-Suppose that we are happy with our random forest model.
-
-Let's fit the model on the training set and verify our performance using the test set.
-
-. . .
-
-We've shown you `fit()` and `predict()` (+ `augment()`) but there is a shortcut:
-
-```{r}
-# frog_split has train + test info
-final_fit <- last_fit(rf_wflow, cell_split, metrics = cls_metrics) 
-
-final_fit
-```
-
-## What is in `final_fit`? 
-
-```{r}
-collect_metrics(final_fit)
-```
-
-. . .
-
-These are metrics computed with the **test** set
-
-## What is in `final_fit`? 
-
-```{r}
-collect_predictions(final_fit)
-```
-
-. . .
-
-These are predictions for the **test** set
-
-## 
-
-```{r}
-collect_predictions(final_fit) %>%
-  ggplot(aes(.pred_PS)) + 
-    geom_histogram(col = "white", bins = 30) + 
-    facet_wrap(~ class, ncol = 1)
-```
-
-## What is in `final_fit`? 
-
-```{r}
-extract_workflow(final_fit)
-```
-
-. . .
-
-Use this for **prediction** on new data, like for deploying
-
 
 ```{r}
 #| label: teardown
