@@ -13,6 +13,7 @@ format:
 - [Part 3](part_3.html): What makes a model?
 - [Part 4](part_4.html): Evaluating models
 - [Part 5](part_5.html): Feature Engineering
+- [Part 6](part_6.html): Tuning Hyperparameters
 
 We use `renv` to manage package dependencies. Start by opening `tidymodels.Rproj` and you can use `renv::restore()` to get the correct packages loaded. 
 
