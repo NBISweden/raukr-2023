@@ -17,8 +17,6 @@ format:
 
 We use `renv` to manage package dependencies. Start by opening `tidymodels.Rproj` and you can use `renv::restore()` to get the correct packages loaded. 
 
-<a class="btn btn-secondary btn-sm" href="https://xferticket.nbis.se/tickets/-JLSF0YySV3VV0_YoZV5n43VRHJfKF1QiiSoS9rysMo/raukr-tidymodels.zip/download" role="button">{{< fa download >}} raukr-tidymodels.zip</a>
-
 Other resources to learn more: 
 
 - [`tidymodels.org`](https://www.tidymodels.org): Lots of articles and getting started resources.
