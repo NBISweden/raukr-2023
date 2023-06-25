@@ -428,7 +428,11 @@ The aim of this challenge is to recreate the plot below originally published in 
 
 ### Data
 
-Start by reading in the [data](https://www.dropbox.com/s/7imn0eoey9ckxh5/data_economist.csv?dl=1).
+Download the data csv file.
+
+<a class="btn btn-secondary btn-sm" href="https://www.dropbox.com/s/7imn0eoey9ckxh5/data_economist.csv?dl=1" role="button">{{< fa download >}} data_economist.csv</a>
+
+Start by reading in the data.
 
 ```{r}
 ec <- read.csv("assets/data_economist.csv",header=T)
@@ -760,7 +764,11 @@ The aim of this challenge is to recreate the plot below originally published in 
 
 ### Data
 
-Start by reading in the [data](https://www.dropbox.com/s/19p8vku0i9np26b/data_wsj.csv?dl=1). This .csv file has two lines of comments so we need to skip 2 lines while reading in the data. We also add `stringsAsFactors=F` to avoid the automatic conversion of character fields to factor type.
+Download the data csv file.
+
+<a class="btn btn-secondary btn-sm" href="https://www.dropbox.com/s/19p8vku0i9np26b/data_wsj.csv?dl=1" role="button">{{< fa download >}} data_wsj.csv</a>
+
+Start by reading in the data. This .csv file has two lines of comments so we need to skip 2 lines while reading in the data. We also add `stringsAsFactors=F` to avoid the automatic conversion of character fields to factor type.
 
 ```{r}
 me <- read.csv("assets/data_wsj.csv",header=T,stringsAsFactors=F,skip=2)
