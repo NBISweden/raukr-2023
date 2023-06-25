@@ -3203,7 +3203,7 @@
     "href": "slides/shiny/index.html#section-2",
     "title": "Interactive web apps with Shiny",
     "section": "",
-    "text": "Thank you! Questions?\n\n\n         _                      \nplatform x86_64-apple-darwin17.0\nos       darwin17.0             \nmajor    4                      \nminor    2.3                    \n\n\n2023 • SciLifeLab • NBIS • RaukR"
+    "text": "Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
   },
   {
     "objectID": "slides/tidyverse/index.html#learning-outcomes",
