@@ -11,7 +11,7 @@
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/reveal-header-1.0.0/add_header.js" defer="true"></script>
 <link href="../../site_libs/quarto-contrib/reveal-header-1.0.0/add_header.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.104">
+  <meta name="generator" content="quarto-1.3.433">
 
   <meta name="author" content="Marcin Kierczak">
   <title>Best Coding Practises</title>
@@ -409,7 +409,7 @@ Marcin Kierczak
 </div>
 </div>
 
-  <p class="date">13-Jun-2023</p>
+  <p class="date">27-Jun-2023</p>
 </section>
 
 <section id="learning-outcomes" class="slide level2">
@@ -449,14 +449,14 @@ Marcin Kierczak
 </ul>
 <div class="fragment">
 <ul>
-<li><p><strong>Debugging</strong> — my code does not run 🙍</p></li>
+<li><p><strong>Debugging</strong> — my code does not run 😞</p></li>
 <li><p><strong>Profiling</strong> — now it does run but… out of memory 💣</p></li>
-<li><p><strong>Optimization</strong> — making things better 👷‍♀️</p></li>
+<li><p><strong>Optimization</strong> — making things better 👷‍♂️</p></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li><p><strong>Vectorization</strong> — more details on optimization via vectorization ⏫</p></li>
+<li><p><strong>Vectorization</strong> — more details on optimization via vectorization ↕️</p></li>
 <li><p><strong>Parallelization</strong> — run things in parallel, rule them all! 💍</p></li>
 </ul>
 </div>
@@ -497,7 +497,7 @@ Marcin Kierczak
 </section>
 <section id="naming-style" class="slide level2">
 <h2>Naming Style</h2>
-<p>Variable names that are legal are not necessarily a good style and they may be dangerous ☠️:</p>
+<p>Variable names that are legal are not necessarily a good style and they may be dangerous 💀:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>F</span>
 <span id="cb1-2"><a href="#cb1-2"></a>T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -666,7 +666,7 @@ Marcin Kierczak
 <ul>
 <li>avoid accessing and modifying globals
 <ul>
-<li>avoid 🚫 <code>a &lt;&lt;- 42</code></li>
+<li>avoid ⛔ <code>a &lt;&lt;- 42</code></li>
 <li>and 🆗 use a <strong>closure</strong> instead</li>
 </ul></li>
 </ul>
@@ -698,7 +698,7 @@ Marcin Kierczak
 <li>use <strong>data</strong> as the <strong>very first</strong> argument for <code>%&gt;%</code> pipes sake:
 <ul>
 <li><code>myfun &lt;- function(x, arg)</code> 🆗</li>
-<li><code>myfun &lt;- function(arg, x)</code> 🚷</li>
+<li><code>myfun &lt;- function(arg, x)</code> ⛔</li>
 </ul></li>
 </ul>
 <div class="fragment">
@@ -706,7 +706,7 @@ Marcin Kierczak
 <li>set arguments to defaults — better too many args than too few:
 <ul>
 <li><code>myfun &lt;- function(x, seed = 42)</code> 🆗</li>
-<li><code>myfun &lt;- function(x, ...)</code> 🔕</li>
+<li><code>myfun &lt;- function(x, ...)</code> 🙅‍♂️</li>
 </ul></li>
 </ul>
 </div>
@@ -760,11 +760,11 @@ Marcin Kierczak
 <h3 id="thank-you-questions">Thank you! Questions?</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>         _                     
-platform x86_64-conda-linux-gnu
-os       linux-gnu             
-major    4                     
-minor    2.2                   </code></pre>
+<pre><code>         _                  
+platform x86_64-pc-linux-gnu
+os       linux-gnu          
+major    4                  
+minor    2.3                </code></pre>
 </div>
 </div>
 <p><span class="smaller">2023 • <a href="https://www.scilifelab.se/">SciLifeLab</a> • <a href="https://nbis.se/">NBIS</a> • <a href="https://nbisweden.github.io/workshop-RaukR-2306/">RaukR</a></span></p>
@@ -1108,9 +1108,10 @@ minor    2.2                   </code></pre>
         // clear code selection
         e.clearSelection();
       });
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      function tippyHover(el, contentFn) {
         const config = {
           allowHTML: true,
+          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -1120,17 +1121,8 @@ minor    2.2                   </code></pre>
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start',
+          placement: 'bottom-start'
         };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 

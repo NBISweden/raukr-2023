@@ -39,7 +39,7 @@ div.reveal-header {
   margin: var(--header-margin);
   padding-left: 1vw;
   padding-top: 5px;
-  height: 100%;
+  height: auto;
   width: auto;
   max-width: max(60px, 10vw);
   max-height: max(60px, 10vh);
@@ -49,7 +49,7 @@ div.reveal-header {
   margin: var(--header-margin);
   padding-right: 1vw;
   padding-top: 5px;
-  height: 100%;
+  height: auto;
   width: auto;
   max-width: max(60px, 10vw);
   max-height: max(60px, 10vh);

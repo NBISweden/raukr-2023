@@ -11,7 +11,7 @@
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/reveal-header-1.0.0/add_header.js" defer="true"></script>
 <link href="../../site_libs/quarto-contrib/reveal-header-1.0.0/add_header.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.104">
+  <meta name="generator" content="quarto-1.3.433">
 
   <meta name="author" content="Marcin Kierczak">
   <title>Tidy work in Tidyverse</title>
@@ -392,6 +392,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&amp;family=Nunito:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap" rel="stylesheet">
+  
   <script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
   <link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 </head>
@@ -411,7 +412,7 @@ Marcin Kierczak
 </div>
 </div>
 
-  <p class="date">13-Jun-2023</p>
+  <p class="date">27-Jun-2023</p>
 </section>
 
 <section id="learning-outcomes" class="slide level2">
@@ -450,7 +451,7 @@ Marcin Kierczak
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong></strong></p>
+<p><strong>Warning</strong></p>
 </div>
 <div class="callout-content">
 <p>☠️ There are still some people out there talking about <em>the tidyverse curse</em> though… ☠️<br></p>
@@ -542,13 +543,13 @@ Marcin Kierczak
 <p><img data-src="index_files/figure-revealjs/unnamed-chunk-3-1.png" width="288"></p>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>       V1                 V2         
- Min.   :-2.28112   Min.   :-1.1420  
- 1st Qu.:-0.32123   1st Qu.:-0.1408  
- Median :-0.14609   Median : 0.5019  
- Mean   :-0.08406   Mean   : 0.4140  
- 3rd Qu.: 0.14861   3rd Qu.: 0.8561  
- Max.   : 1.58156   Max.   : 2.0084  </code></pre>
+<pre><code>       V1                V2         
+ Min.   :-1.7845   Min.   :-2.2556  
+ 1st Qu.:-0.4140   1st Qu.:-0.7914  
+ Median : 0.3771   Median :-0.1386  
+ Mean   : 0.1313   Mean   :-0.1667  
+ 3rd Qu.: 0.6717   3rd Qu.: 0.5689  
+ Max.   : 1.7395   Max.   : 2.2863  </code></pre>
 </div>
 </div>
 </div>
@@ -578,12 +579,12 @@ Marcin Kierczak
 </section>
 <section id="other-types-of-magrittr-pipes-1" class="slide level2">
 <h2>Other Types of <code>magrittr</code> Pipes — %&lt;&gt;%</h2>
-<p>It exists but can lead to somewhat confusing code! ☠️</p>
+<p>It exists but can lead to somewhat confusing code! 💀</p>
 <p><code>x %&lt;&gt;% f</code> <span class="math inline">\(\equiv\)</span> <code>x &lt;- f(x)</code></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>M <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">16</span>), <span class="at">nrow=</span><span class="dv">4</span>); M <span class="sc">%&lt;&gt;%</span> <span class="fu">colSums</span>(); M</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -1.286790  1.685884  4.175473 -6.551196</code></pre>
+<pre><code>[1] -0.6989181 -0.2663241 -0.9810612  0.8953174</code></pre>
 </div>
 </div>
 </section>
@@ -625,9 +626,9 @@ Coefficients:
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>M <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">4</span>) <span class="sc">%&gt;%</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> <span class="dv">2</span>)</span>
 <span id="cb18-2"><a href="#cb18-2"></a>M <span class="sc">%&gt;%</span> <span class="st">`</span><span class="at">%*%</span><span class="st">`</span>(., .)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           [,1]       [,2]
-[1,]  3.2283999 -0.6942443
-[2,] -0.8356774  2.5787059</code></pre>
+<pre><code>          [,1]       [,2]
+[1,]  7.788073  0.2613652
+[2,] -4.643986 -0.1556185</code></pre>
 </div>
 </div>
 </div>
@@ -727,18 +728,18 @@ Use 'functions' to extract the individual functions. </code></pre>
 <span id="cb28-6"><a href="#cb28-6"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 50 × 4
-       x      y     z outcome
-   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
- 1     1 0.238   1.06 -1.28  
- 2     1 0.871   1.76  2.25  
- 3     1 0.137   1.02  0.350 
- 4     1 0.994   1.99 -0.833 
- 5     1 0.0404  1.00  1.39  
- 6     1 0.312   1.10 -0.441 
- 7     1 0.0412  1.00 -1.22  
- 8     1 0.362   1.13 -0.940 
- 9     1 0.777   1.60  0.104 
-10     1 0.0903  1.01  0.0855
+       x     y     z outcome
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+ 1     1 0.152  1.02   0.230
+ 2     1 0.112  1.01  -1.39 
+ 3     1 0.283  1.08   0.340
+ 4     1 0.879  1.77  -0.411
+ 5     1 0.182  1.03  -0.731
+ 6     1 0.960  1.92  -0.141
+ 7     1 0.936  1.88   1.67 
+ 8     1 0.822  1.68   0.785
+ 9     1 0.745  1.55  -0.360
+10     1 0.751  1.56   0.289
 # ℹ 40 more rows</code></pre>
 </div>
 </div>
@@ -1043,11 +1044,11 @@ Levels: mountains swamps seaside</code></pre>
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong></strong></p>
+<p><strong>Caution</strong></p>
 </div>
 <div class="callout-content">
-<p>🚤 Be careful with floating point comparisons!<br>
-🦜 Also, rows with comparison resulting in <code>NA</code> are skipped by default!</p>
+<p>⛵ Be careful with floating point comparisons!<br>
+🏴‍☠️ Also, rows with comparison resulting in <code>NA</code> are skipped by default!</p>
 </div>
 </div>
 </div>
@@ -1089,7 +1090,7 @@ Levels: mountains swamps seaside</code></pre>
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong></strong></p>
+<p><strong>Caution</strong></p>
 </div>
 <div class="callout-content">
 <p>The <code>NA</code>s always end up at the end of the rearranged tibble.</p>
@@ -1143,7 +1144,7 @@ Levels: mountains swamps seaside</code></pre>
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong></strong></p>
+<p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
 <p><code>rename</code> is a variant of <code>select</code>, here used with <code>everything()</code> to move <code>x</code> to the beginning and rename it to <code>var_x</code></p>
@@ -1173,7 +1174,7 @@ Levels: mountains swamps seaside</code></pre>
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong></strong></p>
+<p><strong>Tip</strong></p>
 </div>
 <div class="callout-content">
 <p>use <code>everything()</code> to bring some columns to the front</p>
@@ -1226,7 +1227,7 @@ Levels: mountains swamps seaside</code></pre>
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong></strong></p>
+<p><strong>Caution</strong></p>
 </div>
 <div class="callout-content">
 <p>Only the transformed variables will be retained.</p>
@@ -1600,7 +1601,7 @@ Levels: mountains swamps seaside</code></pre>
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong></strong></p>
+<p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
 <p>Here, <code>sep</code> is here interpreted as the position to split on. It can also be a <em>regular expression</em> or a delimiting string/character. Pretty flexible approach!</p>
@@ -1659,13 +1660,13 @@ Levels: mountains swamps seaside</code></pre>
 <pre><code># A tibble: 7 × 4
   cut       continent clarity price
   &lt;ord&gt;     &lt;chr&gt;     &lt;ord&gt;   &lt;int&gt;
-1 Fair      Aus       &lt;NA&gt;       NA
-2 Fair      Eur       &lt;NA&gt;       NA
-3 Good      Aus       VS1       327
-4 Good      Aus       SI2       335
-5 Good      Eur       &lt;NA&gt;       NA
-6 Very Good Aus       &lt;NA&gt;       NA
-7 Very Good Eur       VVS2      336</code></pre>
+1 Fair      Eur       &lt;NA&gt;       NA
+2 Good      Eur       VS1       327
+3 Good      Eur       SI2       335
+4 Very Good Eur       VVS2      336
+5 Premium   Eur       SI1       326
+6 Premium   Eur       VS2       334
+7 Ideal     Eur       SI2       326</code></pre>
 </div>
 </div>
 </div>
@@ -2119,11 +2120,11 @@ Levels: mountains swamps seaside</code></pre>
 <h3 id="thank-you-questions">Thank you! Questions?</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>         _                     
-platform x86_64-conda-linux-gnu
-os       linux-gnu             
-major    4                     
-minor    2.2                   </code></pre>
+<pre><code>         _                  
+platform x86_64-pc-linux-gnu
+os       linux-gnu          
+major    4                  
+minor    2.3                </code></pre>
 </div>
 </div>
 <p><span class="smaller">2023 • <a href="https://www.scilifelab.se/">SciLifeLab</a> • <a href="https://nbis.se/">NBIS</a> • <a href="https://nbisweden.github.io/workshop-RaukR-2306/">RaukR</a></span></p>
@@ -2467,9 +2468,10 @@ minor    2.2                   </code></pre>
         // clear code selection
         e.clearSelection();
       });
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      function tippyHover(el, contentFn) {
         const config = {
           allowHTML: true,
+          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -2479,17 +2481,8 @@ minor    2.2                   </code></pre>
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start',
+          placement: 'bottom-start'
         };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 

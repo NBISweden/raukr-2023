@@ -11,7 +11,7 @@
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/reveal-header-1.0.0/add_header.js" defer="true"></script>
 <link href="../../site_libs/quarto-contrib/reveal-header-1.0.0/add_header.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.104">
+  <meta name="generator" content="quarto-1.3.433">
 
   <meta name="author" content="Sebastian DiLorenzo">
   <title>R packages</title>
@@ -409,7 +409,7 @@ Sebastian DiLorenzo
 </div>
 </div>
 
-  <p class="date">13-Jun-2023</p>
+  <p class="date">27-Jun-2023</p>
 </section>
 
 <section>
@@ -1142,7 +1142,7 @@ call_me("Maeby")
 <pre><code>  ---
   title: "Vignette Title"
   author: "Vignette Author"
-  date: "2023-06-12"
+  date: "2023-08-04"
   output: rmarkdown::html_vignette
   vignette: &gt;
     %\VignetteIndexEntry{Vignette Title}
@@ -1187,7 +1187,7 @@ call_me("Maeby")
 <pre><code>  ---
   title: "typicalr"
   author: "Sebastian DiLorenzo"
-  date: "2023-06-12"
+  date: "2023-08-04"
   output: rmarkdown::html_vignette
   vignette: &gt;
     %\VignetteIndexEntry{typicalr}
@@ -1761,11 +1761,11 @@ timesTwo &lt;- function(x) {
 <h3 id="thank-you-questions">Thank you! Questions?</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>         _                     
-platform x86_64-conda-linux-gnu
-os       linux-gnu             
-major    4                     
-minor    2.2                   </code></pre>
+<pre><code>         _                  
+platform x86_64-pc-linux-gnu
+os       linux-gnu          
+major    4                  
+minor    2.3                </code></pre>
 </div>
 </div>
 <p><span class="smaller">2023 • <a href="https://www.scilifelab.se/">SciLifeLab</a> • <a href="https://nbis.se/">NBIS</a> • <a href="https://nbisweden.github.io/workshop-RaukR-2306/">RaukR</a></span></p>
@@ -2109,9 +2109,10 @@ minor    2.2                   </code></pre>
         // clear code selection
         e.clearSelection();
       });
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      function tippyHover(el, contentFn) {
         const config = {
           allowHTML: true,
+          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -2121,17 +2122,8 @@ minor    2.2                   </code></pre>
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start',
+          placement: 'bottom-start'
         };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 

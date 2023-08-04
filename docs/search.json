@@ -788,7 +788,7 @@
     "href": "slides/coding/index.html#topics-of-this-block",
     "title": "Best Coding Practises",
     "section": "Topics of This Block",
-    "text": "Topics of This Block\n\n\nStyle — _howTo_style.yourCode?\nStructure — how to think 🤔 about the code and manufacture your own building 🚧 blocks\n\n\n\nDebugging — my code does not run 🙍\nProfiling — now it does run but… out of memory 💣\nOptimization — making things better 👷‍♀️\n\n\n\n\nVectorization — more details on optimization via vectorization ⏫\nParallelization — run things in parallel, rule them all! 💍"
+    "text": "Topics of This Block\n\n\nStyle — _howTo_style.yourCode?\nStructure — how to think 🤔 about the code and manufacture your own building 🚧 blocks\n\n\n\nDebugging — my code does not run 😞\nProfiling — now it does run but… out of memory 💣\nOptimization — making things better 👷‍♂️\n\n\n\n\nVectorization — more details on optimization via vectorization ↕️\nParallelization — run things in parallel, rule them all! 💍"
   },
   {
     "objectID": "slides/coding/index.html#what-is-coding-style",
@@ -809,7 +809,7 @@
     "href": "slides/coding/index.html#naming-style",
     "title": "Best Coding Practises",
     "section": "Naming Style",
-    "text": "Naming Style\nVariable names that are legal are not necessarily a good style and they may be dangerous ☠️:\n\nF\nT\n\n[1] FALSE\n[1] TRUE\n\n\n\nF + T  \n\n[1] 1\n\n\n\nF &lt;- 3  \nF + T  \n\n[1] 4\n\n\ndo not do this!\n\nunless you are a politician 🕴…\nAvoid T and F as variable names."
+    "text": "Naming Style\nVariable names that are legal are not necessarily a good style and they may be dangerous 💀:\n\nF\nT\n\n[1] FALSE\n[1] TRUE\n\n\n\nF + T  \n\n[1] 1\n\n\n\nF &lt;- 3  \nF + T  \n\n[1] 4\n\n\ndo not do this!\n\nunless you are a politician 🕴…\nAvoid T and F as variable names."
   },
   {
     "objectID": "slides/coding/index.html#customary-variable-names",
@@ -844,14 +844,14 @@
     "href": "slides/coding/index.html#how-to-write-functions",
     "title": "Best Coding Practises",
     "section": "How to write functions",
-    "text": "How to write functions\n\navoid accessing and modifying globals\n\navoid 🚫 a &lt;&lt;- 42\nand 🆗 use a closure instead\n\n\n\n\nnew_counter &lt;- function() {\n  i &lt;- 0\n  function() {\n    # do something useful, then ...\n    i &lt;&lt;- i + 1\n    i\n  }\n}\n\ncounter1 &lt;- new_counter(); counter2 &lt;- new_counter()\ncounter1(); counter1(); counter2()\n\n[1] 1\n[1] 2\n[1] 1\n\n\nbased on Stackoverflow answer"
+    "text": "How to write functions\n\navoid accessing and modifying globals\n\navoid ⛔ a &lt;&lt;- 42\nand 🆗 use a closure instead\n\n\n\n\nnew_counter &lt;- function() {\n  i &lt;- 0\n  function() {\n    # do something useful, then ...\n    i &lt;&lt;- i + 1\n    i\n  }\n}\n\ncounter1 &lt;- new_counter(); counter2 &lt;- new_counter()\ncounter1(); counter1(); counter2()\n\n[1] 1\n[1] 2\n[1] 1\n\n\nbased on Stackoverflow answer"
   },
   {
     "objectID": "slides/coding/index.html#how-to-write-functions-1",
     "href": "slides/coding/index.html#how-to-write-functions-1",
     "title": "Best Coding Practises",
     "section": "How to write functions",
-    "text": "How to write functions\n\nuse data as the very first argument for %&gt;% pipes sake:\n\nmyfun &lt;- function(x, arg) 🆗\nmyfun &lt;- function(arg, x) 🚷\n\n\n\n\nset arguments to defaults — better too many args than too few:\n\nmyfun &lt;- function(x, seed = 42) 🆗\nmyfun &lt;- function(x, ...) 🔕\n\n\n\n\n\nremember that global defaults can be changed by options"
+    "text": "How to write functions\n\nuse data as the very first argument for %&gt;% pipes sake:\n\nmyfun &lt;- function(x, arg) 🆗\nmyfun &lt;- function(arg, x) ⛔\n\n\n\n\nset arguments to defaults — better too many args than too few:\n\nmyfun &lt;- function(x, seed = 42) 🆗\nmyfun &lt;- function(x, ...) 🙅‍♂️\n\n\n\n\n\nremember that global defaults can be changed by options"
   },
   {
     "objectID": "slides/coding/index.html#wrapper-function",
@@ -872,7 +872,7 @@
     "href": "slides/coding/index.html#section-1",
     "title": "Best Coding Practises",
     "section": "",
-    "text": "Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
+    "text": "Thank you! Questions?\n\n\n         _                  \nplatform x86_64-pc-linux-gnu\nos       linux-gnu          \nmajor    4                  \nminor    2.3                \n\n\n2023 • SciLifeLab • NBIS • RaukR"
   },
   {
     "objectID": "slides/debugging/index.html#run-forrest-run",
@@ -914,7 +914,7 @@
     "href": "slides/debugging/index.html#final-thoughts-on-floating",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Final thoughts on floating",
-    "text": "Final thoughts on floating\n\nhead(unlist(.Machine))\n\n    double.eps double.neg.eps    double.xmin    double.xmax    double.base \n  2.220446e-16   1.110223e-16  2.225074e-308  1.797693e+308   2.000000e+00 \n double.digits \n  5.300000e+01 \n\n\n\n\nhead(unlist(.Platform))\n\n                    OS.type                    file.sep \n                     \"unix\"                         \"/\" \n                 dynlib.ext                         GUI \n                      \".so\"                       \"X11\" \n                     endian                     pkgType \n                   \"little\" \"mac.binary.big-sur-x86_64\""
+    "text": "Final thoughts on floating\n\nhead(unlist(.Machine))\n\n    double.eps double.neg.eps    double.xmin    double.xmax    double.base \n  2.220446e-16   1.110223e-16  2.225074e-308  1.797693e+308   2.000000e+00 \n double.digits \n  5.300000e+01 \n\n\n\n\nhead(unlist(.Platform))\n\n   OS.type   file.sep dynlib.ext        GUI     endian    pkgType \n    \"unix\"        \"/\"   \".dylib\"  \"unknown\"   \"little\"   \"source\""
   },
   {
     "objectID": "slides/debugging/index.html#handling-errors",
@@ -977,14 +977,14 @@
     "href": "slides/debugging/index.html#profiling-proc.time",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Profiling – proc.time()",
-    "text": "Profiling – proc.time()\nProfiling is the process of identifying memory and time bottlenecks 🍾 in your code.\n\nproc.time()\n\n   user  system elapsed \n  2.073   0.206   2.342 \n\n\n\nuser time – CPU time charged for the execution of user instructions of the calling process,\nsystem time – CPU time charged for execution by the system on behalf of the calling process,\nelapsed time – total CPU time elapsed for the currently running R process.\n\n\n\npt1 &lt;- proc.time()\ntmp &lt;- runif(n =  10e5)\npt2 &lt;- proc.time()\npt2 - pt1\n\n   user  system elapsed \n  0.016   0.002   0.019"
+    "text": "Profiling – proc.time()\nProfiling is the process of identifying memory and time bottlenecks 🍶 in your code.\n\nproc.time()\n\n   user  system elapsed \n  1.426   0.147   2.113 \n\n\n\nuser time – CPU time charged for the execution of user instructions of the calling process,\nsystem time – CPU time charged for execution by the system on behalf of the calling process,\nelapsed time – total CPU time elapsed for the currently running R process.\n\n\n\npt1 &lt;- proc.time()\ntmp &lt;- runif(n =  10e5)\npt2 &lt;- proc.time()\npt2 - pt1\n\n   user  system elapsed \n  0.006   0.001   0.007"
   },
   {
     "objectID": "slides/debugging/index.html#profiling-system.time",
     "href": "slides/debugging/index.html#profiling-system.time",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Profiling – system.time()",
-    "text": "Profiling – system.time()\n\nsystem.time(runif(n = 10e6))\nsystem.time(rnorm(n = 10e6))\n\n   user  system elapsed \n  0.224   0.020   0.243 \n   user  system elapsed \n  0.413   0.001   0.415 \n\n\n\nAn alternative approach is to use tic and toc statements from the tictoc package.\n\nlibrary(tictoc)\ntic()\ntmp1 &lt;- runif(n = 10e6)\ntoc()\n\n0.21 sec elapsed"
+    "text": "Profiling – system.time()\n\nsystem.time(runif(n = 10e6))\nsystem.time(rnorm(n = 10e6))\n\n   user  system elapsed \n  0.125   0.006   0.132 \n   user  system elapsed \n  0.230   0.005   0.235 \n\n\n\nAn alternative approach is to use tic and toc statements from the tictoc package.\n\nlibrary(tictoc)\ntic()\ntmp1 &lt;- runif(n = 10e6)\ntoc()\n\n0.062 sec elapsed"
   },
   {
     "objectID": "slides/debugging/index.html#profiling-in-action",
@@ -1005,7 +1005,7 @@
     "href": "slides/debugging/index.html#profiling-our-functions",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Profiling our functions",
-    "text": "Profiling our functions\n\n\np1 &lt;- system.time(fun_fill_loop1(n = 10e4, \"runif\")) # 1 - loop, no alloc\np2 &lt;- system.time(fun_fill_loop2(n = 10e4, \"runif\")) # 2 - loop, alloc \np3 &lt;- system.time(fun_fill_vec1(n = 10e4, \"runif\"))  # 3 - vector, no alloc\np4 &lt;- system.time(fun_fill_vec2(n = 10e4, \"runif\"))  # 4 - vector, alloc\n\n\n\n\n\n\nfn\nuser.self\nsys.self\nelapsed\n\n\n\n\nfn1\n14.887\n9.326\n24.465\n\n\nfn2\n0.558\n0.021\n0.580\n\n\nfn3\n0.001\n0.000\n0.001\n\n\nfn4\n0.002\n0.000\n0.002\n\n\n\n\n\nThe system.time() function is not the most accurate though. During the lab, we will experiment with package microbenchmark."
+    "text": "Profiling our functions\n\n\np1 &lt;- system.time(fun_fill_loop1(n = 10e4, \"runif\")) # 1 - loop, no alloc\np2 &lt;- system.time(fun_fill_loop2(n = 10e4, \"runif\")) # 2 - loop, alloc \np3 &lt;- system.time(fun_fill_vec1(n = 10e4, \"runif\"))  # 3 - vector, no alloc\np4 &lt;- system.time(fun_fill_vec2(n = 10e4, \"runif\"))  # 4 - vector, alloc\n\n\n\n\n\n\nfn\nuser.self\nsys.self\nelapsed\n\n\n\n\nfn1\n7.007\n1.563\n8.570\n\n\nfn2\n0.262\n0.015\n0.276\n\n\nfn3\n0.001\n0.000\n0.001\n\n\nfn4\n0.001\n0.000\n0.000\n\n\n\n\n\nThe system.time() function is not the most accurate though. During the lab, we will experiment with package microbenchmark."
   },
   {
     "objectID": "slides/debugging/index.html#more-advanced-profiling",
@@ -1061,21 +1061,21 @@
     "href": "slides/debugging/index.html#copy-on-modify",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Copy-on-modify",
-    "text": "Copy-on-modify\n\nlibrary(pryr)\norder &lt;- 1024\nmatrix_A &lt;- matrix(rnorm(order^2), nrow = order)\nmatrix_B &lt;- matrix_A\n\n\nCheck where the objects are in the memory:\n\n\n\naddress(matrix_A)\naddress(matrix_B)\n\n[1] \"0x7f87bd306000\"\n[1] \"0x7f87bd306000\"\n\n\n\n\nWhat happens if we modify a value in one of the matrices?\n\n\n\nmatrix_B[1,1] &lt;- 1\naddress(matrix_A)\naddress(matrix_B)\n\n[1] \"0x7f87bd306000\"\n[1] \"0x7f87bdb07000\""
+    "text": "Copy-on-modify\n\nlibrary(pryr)\norder &lt;- 1024\nmatrix_A &lt;- matrix(rnorm(order^2), nrow = order)\nmatrix_B &lt;- matrix_A\n\n\nCheck where the objects are in the memory:\n\n\n\naddress(matrix_A)\naddress(matrix_B)\n\n[1] \"0x118000000\"\n[1] \"0x118000000\"\n\n\n\n\nWhat happens if we modify a value in one of the matrices?\n\n\n\nmatrix_B[1,1] &lt;- 1\naddress(matrix_A)\naddress(matrix_B)\n\n[1] \"0x118000000\"\n[1] \"0x118804000\""
   },
   {
     "objectID": "slides/debugging/index.html#avoid-copying-by-allocating-memory",
     "href": "slides/debugging/index.html#avoid-copying-by-allocating-memory",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Avoid copying by allocating memory",
-    "text": "Avoid copying by allocating memory\nNo memory allocation\n\nf1 &lt;- function(to = 3, silent=F) {\n  tmp &lt;- c()\n  for (i in 1:to) {\n    a1 &lt;- address(tmp)\n    tmp &lt;- c(tmp, i)\n    a2 &lt;- address(tmp)\n    if (!silent) { print(paste0(a1, \" --&gt; \", a2)) } \n  }\n}\nf1()\n\n[1] \"0x7f87ca80ece0 --&gt; 0x7f87d64ed2a8\"\n[1] \"0x7f87d64ed2a8 --&gt; 0x7f87d64ed628\"\n[1] \"0x7f87d64ed628 --&gt; 0x7f87d5f82fc8\""
+    "text": "Avoid copying by allocating memory\nNo memory allocation\n\nf1 &lt;- function(to = 3, silent=F) {\n  tmp &lt;- c()\n  for (i in 1:to) {\n    a1 &lt;- address(tmp)\n    tmp &lt;- c(tmp, i)\n    a2 &lt;- address(tmp)\n    if (!silent) { print(paste0(a1, \" --&gt; \", a2)) } \n  }\n}\nf1()\n\n[1] \"0x15a80f4e0 --&gt; 0x13aab2158\"\n[1] \"0x13aab2158 --&gt; 0x13aaa05c8\"\n[1] \"0x13aaa05c8 --&gt; 0x159317708\""
   },
   {
     "objectID": "slides/debugging/index.html#avoid-copying-by-allocating-memory-cted.",
     "href": "slides/debugging/index.html#avoid-copying-by-allocating-memory-cted.",
     "title": "Debugging, Profiling, and Optimization",
     "section": "Avoid copying by allocating memory cted.",
-    "text": "Avoid copying by allocating memory cted.\nWith memory allocation\n\nf2 &lt;- function(to = 3, silent = FALSE) {\n  tmp &lt;- vector(length = to, mode='numeric')\n  for (i in 1:to) {\n    a1 &lt;- address(tmp)\n    tmp[i] &lt;- i\n    a2 &lt;- address(tmp)\n    if(!silent) { print(paste0(a1, \" --&gt; \", a2)) }\n  }\n}\nf2()\n\n[1] \"0x7f87d4cfa888 --&gt; 0x7f87d4cfa888\"\n[1] \"0x7f87d4cfa888 --&gt; 0x7f87d4cfa888\"\n[1] \"0x7f87d4cfa888 --&gt; 0x7f87d4cfa888\""
+    "text": "Avoid copying by allocating memory cted.\nWith memory allocation\n\nf2 &lt;- function(to = 3, silent = FALSE) {\n  tmp &lt;- vector(length = to, mode='numeric')\n  for (i in 1:to) {\n    a1 &lt;- address(tmp)\n    tmp[i] &lt;- i\n    a2 &lt;- address(tmp)\n    if(!silent) { print(paste0(a1, \" --&gt; \", a2)) }\n  }\n}\nf2()\n\n[1] \"0x129363bb8 --&gt; 0x129363bb8\"\n[1] \"0x129363bb8 --&gt; 0x129363bb8\"\n[1] \"0x129363bb8 --&gt; 0x129363bb8\""
   },
   {
     "objectID": "slides/debugging/index.html#allocating-memory-benchmark.",
@@ -1110,7 +1110,7 @@
     "href": "slides/debugging/index.html#section-1",
     "title": "Debugging, Profiling, and Optimization",
     "section": "",
-    "text": "Thank you! Questions?\n\n\n         _                    \nplatform x86_64-apple-darwin20\nos       darwin20             \nmajor    4                    \nminor    3.0                  \n\n\n2023 • SciLifeLab • NBIS • RaukR"
+    "text": "Thank you! Questions?\n\n\n         _                         \nplatform aarch64-apple-darwin20.0.0\nos       darwin20.0.0              \nmajor    4                         \nminor    2.2                       \n\n\n2023 • SciLifeLab • NBIS • RaukR"
   },
   {
     "objectID": "slides/demo/index.html#introduction",
@@ -1208,14 +1208,14 @@
     "href": "slides/demo/index.html#code-formatting",
     "title": "Demo Slides",
     "section": "Code formatting",
-    "text": "Code formatting\nInline code\n\nCode can be defined inline where `this` looks like this.\nR code can be executed inline `r Sys.Date()` producing 2023-06-12.\n\nLigatures\n== != && ++ |&gt; &lt;&gt; &lt;- &lt;= &lt;~ /= |=&gt; -&gt;&gt;\n== != && ++ |&gt; &lt;&gt; &lt;- &lt;= &lt;~ /= |=&gt; -&gt;&gt;\nCode font used is JetBrains Mono. For full set of ligatures, see here."
+    "text": "Code formatting\nInline code\n\nCode can be defined inline where `this` looks like this.\nR code can be executed inline `r Sys.Date()` producing 2023-08-04.\n\nLigatures\n== != && ++ |&gt; &lt;&gt; &lt;- &lt;= &lt;~ /= |=&gt; -&gt;&gt;\n== != && ++ |&gt; &lt;&gt; &lt;- &lt;= &lt;~ /= |=&gt; -&gt;&gt;\nCode font used is JetBrains Mono. For full set of ligatures, see here."
   },
   {
     "objectID": "slides/demo/index.html#code-formatting-1",
     "href": "slides/demo/index.html#code-formatting-1",
     "title": "Demo Slides",
     "section": "Code formatting",
-    "text": "Code formatting\n\n\nCode chunks\nCode can also be defined inside chunks.\n```\nThis is code\n```\nThis is code\nR code is executed inside code blocks like this\n```{r}\nSys.Date()\n```\nwhich shows the code and output.\n\nSys.Date()\n\n[1] \"2023-06-12\"\n\n\n\nThe code and results can be hidden by\n```{r}\n#| echo: false\n#| results: hide\ndata(iris)\n```\n\ndata(iris)\nhead(iris[1:3,1:2])\n\n  Sepal.Length Sepal.Width\n1          5.1         3.5\n2          4.9         3.0\n3          4.7         3.2\n\n\nThese are called chunk options. For more options, see here and complete list here."
+    "text": "Code formatting\n\n\nCode chunks\nCode can also be defined inside chunks.\n```\nThis is code\n```\nThis is code\nR code is executed inside code blocks like this\n```{r}\nSys.Date()\n```\nwhich shows the code and output.\n\nSys.Date()\n\n[1] \"2023-08-04\"\n\n\n\nThe code and results can be hidden by\n```{r}\n#| echo: false\n#| results: hide\ndata(iris)\n```\n\ndata(iris)\nhead(iris[1:3,1:2])\n\n  Sepal.Length Sepal.Width\n1          5.1         3.5\n2          4.9         3.0\n3          4.7         3.2\n\n\nThese are called chunk options. For more options, see here and complete list here."
   },
   {
     "objectID": "slides/demo/index.html#code-highlighting",
@@ -1397,14 +1397,14 @@
     "href": "slides/demo/index.html#general-tips",
     "title": "Demo Slides",
     "section": "General tips",
-    "text": "General tips\n\nReplace assets/cover.jpg to change cover slide picture\nReplace assets/end.jpg to change end slide picture\nAdd custom css under YAML css: \"styles.css\"\nIf content overflows the slide in vertical direction, add class .scrollable\n\n\n\n\n                                              sysname \n                                              \"Linux\" \n                                              release \n                                  \"5.15.0-73-generic\" \n                                              version \n\"#80~20.04.1-Ubuntu SMP Wed May 17 14:58:14 UTC 2023\" \n                                             nodename \n                                              \"zorin\" \n                                              machine \n                                             \"x86_64\" \n                                                login \n                                                \"roy\" \n                                                 user \n                                                \"roy\" \n                                       effective_user \n                                                \"roy\" \n\n\n\n\nExport HTML to PDF using PDF export mode by pressing e\nFor complete Quarto revealjs documentation, click here"
+    "text": "General tips\n\nReplace assets/cover.jpg to change cover slide picture\nReplace assets/end.jpg to change end slide picture\nAdd custom css under YAML css: \"styles.css\"\nIf content overflows the slide in vertical direction, add class .scrollable\n\n\n\n\n                                      sysname \n                                      \"Linux\" \n                                      release \n                        \"5.15.49-linuxkit-pr\" \n                                      version \n\"#1 SMP PREEMPT Thu May 25 07:27:39 UTC 2023\" \n                                     nodename \n                               \"633e142b54b4\" \n                                      machine \n                                     \"x86_64\" \n                                        login \n                                    \"unknown\" \n                                         user \n                                   \"royfr474\" \n                               effective_user \n                                   \"royfr474\" \n\n\n\n\nExport HTML to PDF using PDF export mode by pressing e\nFor complete Quarto revealjs documentation, click here"
   },
   {
     "objectID": "slides/demo/index.html#section",
     "href": "slides/demo/index.html#section",
     "title": "Demo Slides",
     "section": "",
-    "text": "Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\nGraphics from freepik, Pexels\n2023 • SciLifeLab • NBIS • RaukR"
+    "text": "Thank you! Questions?\n\n\n         _                  \nplatform x86_64-pc-linux-gnu\nos       linux-gnu          \nmajor    4                  \nminor    2.3                \n\n\nGraphics from freepik, Pexels\n2023 • SciLifeLab • NBIS • RaukR"
   },
   {
     "objectID": "slides/ggplot/index.html#graphs",
@@ -1698,7 +1698,7 @@
     "href": "slides/ggplot/index.html#section-1",
     "title": "Plotting with ggplot2",
     "section": "",
-    "text": "Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
+    "text": "Thank you! Questions?\n\n\n         _                  \nplatform x86_64-pc-linux-gnu\nos       linux-gnu          \nmajor    4                  \nminor    2.3                \n\n\n2023 • SciLifeLab • NBIS • RaukR"
   },
   {
     "objectID": "slides/git/index.html#overview",
@@ -1796,7 +1796,7 @@
     "href": "slides/git/index.html#section",
     "title": "git and R",
     "section": "",
-    "text": "Thank you! Questions?\n\n\n         _                     \nplatform aarch64-apple-darwin20\nos       darwin20              \nmajor    4                     \nminor    3.0                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
+    "text": "Thank you! Questions?\n\n\n         _                  \nplatform x86_64-pc-linux-gnu\nos       linux-gnu          \nmajor    4                  \nminor    2.3                \n\n\n2023 • SciLifeLab • NBIS • RaukR"
   },
   {
     "objectID": "slides/index.html",
@@ -1978,7 +1978,7 @@
     "href": "slides/ml/index.html#section",
     "title": "Mathematical statistics and machine learning in R",
     "section": "",
-    "text": "Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
+    "text": "Thank you! Questions?\n\n\n         _                  \nplatform x86_64-pc-linux-gnu\nos       linux-gnu          \nmajor    4                  \nminor    2.3                \n\n\n2023 • SciLifeLab • NBIS • RaukR"
   },
   {
     "objectID": "slides/oop/index.html#oop-example",
@@ -2090,7 +2090,7 @@
     "href": "slides/oop/index.html#custom-str-methods",
     "title": "Object-Oriented Programming Models in R",
     "section": "Custom str Methods",
-    "text": "Custom str Methods\nSome S3 classes provide a custom str, e.g.:\n\ntime &lt;- strptime(\"2018-06-07\", \"%Y-%m-%d\")\n\n\n\n\nstr(time)\n\n POSIXlt[1:1], format: \"2018-06-07\"\n\n\n\n\nstr(unclass(time))\n\nList of 11\n $ sec   : num 0\n $ min   : int 0\n $ hour  : int 0\n $ mday  : int 7\n $ mon   : int 5\n $ year  : int 118\n $ wday  : int 4\n $ yday  : int 157\n $ isdst : int 1\n $ zone  : chr \"CEST\"\n $ gmtoff: int NA"
+    "text": "Custom str Methods\nSome S3 classes provide a custom str, e.g.:\n\ntime &lt;- strptime(\"2018-06-07\", \"%Y-%m-%d\")\n\n\n\n\nstr(time)\n\n POSIXlt[1:1], format: \"2018-06-07\"\n\n\n\n\nstr(unclass(time))\n\nList of 11\n $ sec   : num 0\n $ min   : int 0\n $ hour  : int 0\n $ mday  : int 7\n $ mon   : int 5\n $ year  : int 118\n $ wday  : int 4\n $ yday  : int 157\n $ isdst : int 0\n $ zone  : chr \"UTC\"\n $ gmtoff: int NA\n - attr(*, \"tzone\")= chr [1:3] \"Etc/UTC\" \"UTC\" \"UTC\""
   },
   {
     "objectID": "slides/oop/index.html#generic-methods-and-method-dispatch",
@@ -2132,7 +2132,7 @@
     "href": "slides/oop/index.html#r-and-design-pattern",
     "title": "Object-Oriented Programming Models in R",
     "section": "R and Design Pattern",
-    "text": "R and Design Pattern\n\nstrategy — apply()\ndecorator — system_time()\n\n\nsystem.time(x &lt;- runif(n = 100000))\nx[1:5]\n\n   user  system elapsed \n  0.002   0.000   0.002 \n[1] 0.04409963 0.41315999 0.85541047 0.33540768 0.90221173\n\n\n\nwrapper\n\n\nmy_plot &lt;- function(...) {\n  plot(..., col = 'blue', las = 1, cex = .5, pch = 19, cex.axis = .7)\n}\n\n\nSingleton see this gist\nFluent function interface — tidyverse functions take data x as the very first argument and return object similar to x so that they can be chained by %&gt;%\n\nEven more patterns here."
+    "text": "R and Design Pattern\n\nstrategy — apply()\ndecorator — system_time()\n\n\nsystem.time(x &lt;- runif(n = 100000))\nx[1:5]\n\n   user  system elapsed \n  0.003   0.001   0.002 \n[1] 0.9856442 0.5410706 0.8289487 0.1911164 0.6286497\n\n\n\nwrapper\n\n\nmy_plot &lt;- function(...) {\n  plot(..., col = 'blue', las = 1, cex = .5, pch = 19, cex.axis = .7)\n}\n\n\nSingleton see this gist\nFluent function interface — tidyverse functions take data x as the very first argument and return object similar to x so that they can be chained by %&gt;%\n\nEven more patterns here."
   },
   {
     "objectID": "slides/oop/index.html#safe-s3-constructor",
@@ -2209,7 +2209,7 @@
     "href": "slides/oop/index.html#section-1",
     "title": "Object-Oriented Programming Models in R",
     "section": "",
-    "text": "Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
+    "text": "Thank you! Questions?\n\n\n         _                  \nplatform x86_64-pc-linux-gnu\nos       linux-gnu          \nmajor    4                  \nminor    2.3                \n\n\n2023 • SciLifeLab • NBIS • RaukR"
   },
   {
     "objectID": "slides/packages/index.html#what-is-an-r-package",
@@ -2328,14 +2328,14 @@
     "href": "slides/packages/index.html#vignettes",
     "title": "R packages",
     "section": "vignettes/",
-    "text": "vignettes/\n\n\n\nA more complete guide to your package\n\nFor user/you\nExamples and use cases\n\nknitr & rmarkdown\n\nknitr: add r code to markdown\n\nvignettes/package-vignette.Rmd\n\nusethis::use_vignette(\"typicalr-vignette\")\n\nVignettes are a long-form guide, or manual, to the package that details what the functions in the package can do. It can also show and give examples of what the package is designed to do, using multiple functions in sequence. If functional documentation shows just a part, think of the vignette as a book chapter showing what your package can do. It can look very different if you intend it for your users or for yourself to read at a later date. You can use many things to create the vignette, but like with roxygen2 probably the easiest is to use knitr and rmarkdown.\n\n\ntypicalr-vignette.Rmd\n  ---\n  title: \"Vignette Title\"\n  author: \"Vignette Author\"\n  date: \"2023-06-12\"\n  output: rmarkdown::html_vignette\n  vignette: &gt;\n    %\\VignetteIndexEntry{Vignette Title}\n    %\\VignetteEngine{knitr::rmarkdown}\n    %\\VignetteEncoding{UTF-8}\n  ---\n\n\n\nWhat we are seeing here is the top metadata of a template for a vignette that I created using usethis::use_vignette(\"typicalr-vignette\") which created typicalr-vignette.Rmd and the vignettes/ directory. It also edits DESCRIPTION, adding knitr and rmarkdown to suggests, and adding VignetteBuilder: knitr. You are free to edit any part of the rmarkdown file but should not change the structure of the metadata. Only add the title in both places where it says “Vignette title” and your name as author. You can also change the output to pdf vignette for example. Luckily you have already gone through rmarkdown, so we dont need to talk about that, =)."
+    "text": "vignettes/\n\n\n\nA more complete guide to your package\n\nFor user/you\nExamples and use cases\n\nknitr & rmarkdown\n\nknitr: add r code to markdown\n\nvignettes/package-vignette.Rmd\n\nusethis::use_vignette(\"typicalr-vignette\")\n\nVignettes are a long-form guide, or manual, to the package that details what the functions in the package can do. It can also show and give examples of what the package is designed to do, using multiple functions in sequence. If functional documentation shows just a part, think of the vignette as a book chapter showing what your package can do. It can look very different if you intend it for your users or for yourself to read at a later date. You can use many things to create the vignette, but like with roxygen2 probably the easiest is to use knitr and rmarkdown.\n\n\ntypicalr-vignette.Rmd\n  ---\n  title: \"Vignette Title\"\n  author: \"Vignette Author\"\n  date: \"2023-08-04\"\n  output: rmarkdown::html_vignette\n  vignette: &gt;\n    %\\VignetteIndexEntry{Vignette Title}\n    %\\VignetteEngine{knitr::rmarkdown}\n    %\\VignetteEncoding{UTF-8}\n  ---\n\n\n\nWhat we are seeing here is the top metadata of a template for a vignette that I created using usethis::use_vignette(\"typicalr-vignette\") which created typicalr-vignette.Rmd and the vignettes/ directory. It also edits DESCRIPTION, adding knitr and rmarkdown to suggests, and adding VignetteBuilder: knitr. You are free to edit any part of the rmarkdown file but should not change the structure of the metadata. Only add the title in both places where it says “Vignette title” and your name as author. You can also change the output to pdf vignette for example. Luckily you have already gone through rmarkdown, so we dont need to talk about that, =)."
   },
   {
     "objectID": "slides/packages/index.html#vignettes-1",
     "href": "slides/packages/index.html#vignettes-1",
     "title": "R packages",
     "section": "vignettes/",
-    "text": "vignettes/\n\n\n\nA more complete guide to your package\n\nFor user/you\nExamples and use cases\n\nknitr & rmarkdown\n\nknitr: add r code to markdown\n\nvignettes/package-vignette.Rmd\n\nusethis::use_vignette(\"typicalr-vignette\")\n\ntypicalr-vignette.Rmd\n  ---\n  title: \"typicalr\"\n  author: \"Sebastian DiLorenzo\"\n  date: \"2023-06-12\"\n  output: rmarkdown::html_vignette\n  vignette: &gt;\n    %\\VignetteIndexEntry{typicalr}\n    %\\VignetteEngine{knitr::rmarkdown}\n    %\\VignetteEncoding{UTF-8}\n  ---"
+    "text": "vignettes/\n\n\n\nA more complete guide to your package\n\nFor user/you\nExamples and use cases\n\nknitr & rmarkdown\n\nknitr: add r code to markdown\n\nvignettes/package-vignette.Rmd\n\nusethis::use_vignette(\"typicalr-vignette\")\n\ntypicalr-vignette.Rmd\n  ---\n  title: \"typicalr\"\n  author: \"Sebastian DiLorenzo\"\n  date: \"2023-08-04\"\n  output: rmarkdown::html_vignette\n  vignette: &gt;\n    %\\VignetteIndexEntry{typicalr}\n    %\\VignetteEngine{knitr::rmarkdown}\n    %\\VignetteEncoding{UTF-8}\n  ---"
   },
   {
     "objectID": "slides/packages/index.html#namespace",
@@ -2419,7 +2419,7 @@
     "href": "slides/packages/index.html#section-1",
     "title": "R packages",
     "section": "",
-    "text": "Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
+    "text": "Thank you! Questions?\n\n\n         _                  \nplatform x86_64-pc-linux-gnu\nos       linux-gnu          \nmajor    4                  \nminor    2.3                \n\n\n2023 • SciLifeLab • NBIS • RaukR"
   },
   {
     "objectID": "slides/parallelization/index.html#overview",
@@ -2454,21 +2454,21 @@
     "href": "slides/parallelization/index.html#plansequential",
     "title": "Parallelization in R",
     "section": "plan(sequential)",
-    "text": "plan(sequential)\n\nBuilding block: variable %&lt;-% {expression(s)}\n\n\nfuture::plan(sequential)\n\na %&lt;-% {\n  Sys.sleep(3)\n  a &lt;- 1\n}\nb %&lt;-% {\n  Sys.sleep(3)\n  b &lt;- 2\n}\n\na + b\n\n\nIn programming, a future is an abstraction for a value that may be available at some point in the future. The state of a future can either be unresolved or resolved. As soon as it is resolved, the value is available instantaneously. If the value is queried while the future is still unresolved, the current process is blocked until the future is resolved. It is possible to check whether a future is resolved or not without blocking.\n\n\n\n\n\n[1] 3\n   user  system elapsed \n  0.048   0.000   6.054"
+    "text": "plan(sequential)\n\nBuilding block: variable %&lt;-% {expression(s)}\n\n\nfuture::plan(sequential)\n\na %&lt;-% {\n  Sys.sleep(3)\n  a &lt;- 1\n}\nb %&lt;-% {\n  Sys.sleep(3)\n  b &lt;- 2\n}\n\na + b\n\n\nIn programming, a future is an abstraction for a value that may be available at some point in the future. The state of a future can either be unresolved or resolved. As soon as it is resolved, the value is available instantaneously. If the value is queried while the future is still unresolved, the current process is blocked until the future is resolved. It is possible to check whether a future is resolved or not without blocking.\n\n\n\n\n\n[1] 3\n   user  system elapsed \n  0.061   0.004   6.076"
   },
   {
     "objectID": "slides/parallelization/index.html#planmultisession-planmulticore",
     "href": "slides/parallelization/index.html#planmultisession-planmulticore",
     "title": "Parallelization in R",
     "section": "plan(multisession) & plan(multicore)",
-    "text": "plan(multisession) & plan(multicore)\n\n\n\nplan(multicore)\n\na %&lt;-% {\n  Sys.sleep(3)\n  a &lt;- 1\n}\nb %&lt;-% {\n  Sys.sleep(3)\n  b &lt;- 2\n}\n\na + b\n\n\n\n[1] 3\n   user  system elapsed \n  0.034   0.029   3.041 \n\n\n\nNote: To compute plan(multicore) the rmarkdown must be rendered from terminal r console, as rstudio does not support multicore. rmarkdown::render(\"parallelization_Sebastian.Rmd\")\n\n\n\navailableCores()\n\nsystem \n    12"
+    "text": "plan(multisession) & plan(multicore)\n\n\n\nplan(multicore)\n\na %&lt;-% {\n  Sys.sleep(3)\n  a &lt;- 1\n}\nb %&lt;-% {\n  Sys.sleep(3)\n  b &lt;- 2\n}\n\na + b\n\n\n\n[1] 3\n   user  system elapsed \n  0.129   0.072   3.154 \n\n\n\nNote: To compute plan(multicore) the rmarkdown must be rendered from terminal r console, as rstudio does not support multicore. rmarkdown::render(\"parallelization_Sebastian.Rmd\")\n\n\n\navailableCores()\n\nsystem \n     6"
   },
   {
     "objectID": "slides/parallelization/index.html#planmultisession-planmulticore-1",
     "href": "slides/parallelization/index.html#planmultisession-planmulticore-1",
     "title": "Parallelization in R",
     "section": "plan(multisession) & plan(multicore)",
-    "text": "plan(multisession) & plan(multicore)\n\nplan(multicore)\n\na %&lt;-% {\n  Sys.sleep(3)\n  a &lt;- 1\n}\nb %&lt;-% {\n  Sys.sleep(3)\n  b &lt;- 2\n}\nc %&lt;-% {\n  Sys.sleep(3)\n  c &lt;- 3\n}\n...\nk %&lt;-% {\n  Sys.sleep(3)\n  e &lt;- 5\n}\n\na + b + c + d + e + f + g + h + i + j + k\n\n\n\n\n[1] 60\n   user  system elapsed \n  0.156   0.127   3.145"
+    "text": "plan(multisession) & plan(multicore)\n\nplan(multicore)\n\na %&lt;-% {\n  Sys.sleep(3)\n  a &lt;- 1\n}\nb %&lt;-% {\n  Sys.sleep(3)\n  b &lt;- 2\n}\nc %&lt;-% {\n  Sys.sleep(3)\n  c &lt;- 3\n}\n...\nk %&lt;-% {\n  Sys.sleep(3)\n  e &lt;- 5\n}\n\na + b + c + d + e + f + g + h + i + j + k\n\n\n\n\n[1] 60\n   user  system elapsed \n  0.701   0.298   6.392"
   },
   {
     "objectID": "slides/parallelization/index.html#plancluster",
@@ -2482,7 +2482,7 @@
     "href": "slides/parallelization/index.html#section-1",
     "title": "Parallelization in R",
     "section": "",
-    "text": "Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
+    "text": "Thank you! Questions?\n\n\n         _                  \nplatform x86_64-pc-linux-gnu\nos       linux-gnu          \nmajor    4                  \nminor    2.3                \n\n\n2023 • SciLifeLab • NBIS • RaukR"
   },
   {
     "objectID": "slides/publishing/index.html#publishing",
@@ -2559,7 +2559,7 @@
     "href": "slides/publishing/index.html#rmarkdown",
     "title": "Publishing with Quarto",
     "section": "RMarkdown",
-    "text": "RMarkdown\n\nMarkdown + embedded R chunks\nRMarkdown mostly uses Pandoc markdown\nR code can be executed inline\n\nToday’s date is `r date()`\nToday’s date is Mon Jun 12 09:54:12 2023\n\nR code can be executed in code chunks\n\n```{r}\ndate()\n```\n\nBy default, input source code and output results are displayed.\n\n\ndate()\n\n[1] \"Mon Jun 12 09:54:13 2023\""
+    "text": "RMarkdown\n\nMarkdown + embedded R chunks\nRMarkdown mostly uses Pandoc markdown\nR code can be executed inline\n\nToday’s date is `r date()`\nToday’s date is Fri Aug 4 10:59:46 2023\n\nR code can be executed in code chunks\n\n```{r}\ndate()\n```\n\nBy default, input source code and output results are displayed.\n\n\ndate()\n\n[1] \"Fri Aug  4 10:59:46 2023\""
   },
   {
     "objectID": "slides/publishing/index.html#rmarkdown-chunk-options",
@@ -2657,7 +2657,7 @@
     "href": "slides/publishing/index.html#section",
     "title": "Publishing with Quarto",
     "section": "",
-    "text": "Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
+    "text": "Thank you! Questions?\n\n\n         _                  \nplatform x86_64-pc-linux-gnu\nos       linux-gnu          \nmajor    4                  \nminor    2.3                \n\n\n2023 • SciLifeLab • NBIS • RaukR"
   },
   {
     "objectID": "slides/publishing/index.html#compared-to-rmd",
@@ -2692,7 +2692,7 @@
     "href": "slides/reticulate/index.html#importing-python-modules",
     "title": "Reticulate",
     "section": "Importing Python modules",
-    "text": "Importing Python modules\n\ndatetime &lt;- import(\"datetime\")\ntodays_r_date &lt;- datetime$datetime$now()\n\n\n\ntodays_r_date\nclass(todays_r_date)\n\n[1] \"2023-06-12 09:54:21 CEST\"\n[1] \"POSIXct\" \"POSIXt\" \n\n\n\n\nObjects are automatically converted to R types, unless otherwise specified\n\n\n\ndatetime &lt;- import(\"datetime\", convert = FALSE)\ntodays_py_date &lt;- datetime$datetime$now()\n\n\n\n\ntodays_py_date\nclass(todays_py_date)\n\ndatetime.datetime(2023, 6, 12, 9, 54, 21, 279746)\n[1] \"datetime.datetime\"     \"datetime.date\"         \"python.builtin.object\""
+    "text": "Importing Python modules\n\ndatetime &lt;- import(\"datetime\")\ntodays_r_date &lt;- datetime$datetime$now()\n\n\n\ntodays_r_date\nclass(todays_r_date)\n\n[1] \"2023-08-04 11:00:22 UTC\"\n[1] \"POSIXct\" \"POSIXt\" \n\n\n\n\nObjects are automatically converted to R types, unless otherwise specified\n\n\n\ndatetime &lt;- import(\"datetime\", convert = FALSE)\ntodays_py_date &lt;- datetime$datetime$now()\n\n\n\n\ntodays_py_date\nclass(todays_py_date)\n\ndatetime.datetime(2023, 8, 4, 11, 0, 22, 351864)\n[1] \"datetime.datetime\"     \"datetime.date\"         \"python.builtin.object\""
   },
   {
     "objectID": "slides/reticulate/index.html#importing-built-in-python-functions",
@@ -2965,7 +2965,7 @@
     "href": "slides/scripting/index.html#r-functions-2",
     "title": "Functions and scripts",
     "section": "R Functions",
-    "text": "R Functions\nThe pieces that make a function\n\nfunction_name &lt;- function(param1, param2 = 20, ...){\n  param1*2 # Operational space\n  param1+param2 # What is returned. Alt, use return(param1+param2)\n}\n\n\nfunction_name : Name of the function\nfunction() : Parameters. User input\n\nparam1 : No default value. Required.\nparam2 = 20 : Default value\n... : ellipses pass other arguments into function\n\nfunction(){} : The function body\nreturn : the last line or invoked with return() function.\n\n\nA parameter is a variable in the declaration of the function. An argument is the actual value of the variable that gets passed to the function.\n\n\n\n\n\n\n\n\nTip\n\n\nHow to a function to workspace\n\ncopy paste\nsource() / library()"
+    "text": "R Functions\nThe pieces that make a function\n\nfunction_name &lt;- function(param1, param2 = 20, ...){\n  param1*2 # Operational space\n  param1+param2 # What is returned. Alt, use return(param1+param2)\n}\n\n\nfunction_name : Name of the function\nfunction() : Parameters. User input\n\nparam1 : No default value. Required.\nparam2 = 20 : Default value\n... : ellipses pass other arguments into function\n\nfunction(){} : The function body\nreturn : the last line or invoked with return() function.\n\n\nA parameter is a variable in the declaration of the function. An argument is the actual value of the variable that gets passed to the function.\n\n\n\n\n\n\n\n\nTip\n\n\nHow to add a function to your workspace\n\ncopy paste\nsource() / library()"
   },
   {
     "objectID": "slides/scripting/index.html#r-scripts-as-standalone-tools",
@@ -2993,7 +2993,7 @@
     "href": "slides/scripting/index.html#parsing-arguments---positional",
     "title": "Functions and scripts",
     "section": "Parsing arguments - Positional",
-    "text": "Parsing arguments - Positional\nExample: ./myscript.R inputfile.vcf outputfile.vcf\n\ncommandArgs()\n\nUse commandArgs() to capture whatever was passed into R as it was executed. To be clear; this is a command that is within the Rscript file.\n\n\ntrailingOnly = TRUE\n\nAdd trailingOnly = TRUE to suppress the first few items and get the arguments you passed to the script.\n\nA standard arg, but not default, that you can use when invoking commandArgs() is trailingOnly = TRUE, which basically tells it to start counting the input from after the Rscript arguments. As you can see here when we invoke it without this parameter it returns the script itself, in this case R studio. But with it the invocation is clear, there were no trailing command line arguments.\n\n\n\n\ncommandArgs()\n\n[1] \"/home/roy/miniconda3/envs/r-4.2/lib/R/bin/exec/R\"\n[2] \"--no-echo\"                                       \n[3] \"--no-restore\"                                    \n[4] \"--file=/opt/quarto/share/rmd/rmd.R\"              \n\n\n\ncommandArgs(trailingOnly = TRUE)\n\ncharacter(0)"
+    "text": "Parsing arguments - Positional\nExample: ./myscript.R inputfile.vcf outputfile.vcf\n\ncommandArgs()\n\nUse commandArgs() to capture whatever was passed into R as it was executed. To be clear; this is a command that is within the Rscript file.\n\n\ntrailingOnly = TRUE\n\nAdd trailingOnly = TRUE to suppress the first few items and get the arguments you passed to the script.\n\nA standard arg, but not default, that you can use when invoking commandArgs() is trailingOnly = TRUE, which basically tells it to start counting the input from after the Rscript arguments. As you can see here when we invoke it without this parameter it returns the script itself, in this case R studio. But with it the invocation is clear, there were no trailing command line arguments.\n\n\n\n\ncommandArgs()\n\n[1] \"/usr/local/lib/R/bin/exec/R\"        \"--no-save\"                         \n[3] \"--no-restore\"                       \"--no-echo\"                         \n[5] \"--no-restore\"                       \"--file=/opt/quarto/share/rmd/rmd.R\"\n\n\n\ncommandArgs(trailingOnly = TRUE)\n\ncharacter(0)"
   },
   {
     "objectID": "slides/scripting/index.html#parsing-arguments---flags",
@@ -3028,7 +3028,7 @@
     "href": "slides/scripting/index.html#section-1",
     "title": "Functions and scripts",
     "section": "",
-    "text": "Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
+    "text": "Thank you! Questions?\n\n\n         _                  \nplatform x86_64-pc-linux-gnu\nos       linux-gnu          \nmajor    4                  \nminor    2.3                \n\n\n2023 • SciLifeLab • NBIS • RaukR"
   },
   {
     "objectID": "slides/shiny/index.html#contents",
@@ -3259,7 +3259,7 @@
     "href": "slides/tidyverse/index.html#other-types-of-pipes-t-1",
     "title": "Tidy work in Tidyverse",
     "section": "Other Types of Pipes — %T>%",
-    "text": "Other Types of Pipes — %T&gt;%\n\n\n\n\nrnorm(50) %&gt;% \n  matrix(ncol = 2) %T&gt;% \n  plot() %&gt;% \n  summary()\n\n\n\n\n\n\n\n       V1                 V2         \n Min.   :-2.28112   Min.   :-1.1420  \n 1st Qu.:-0.32123   1st Qu.:-0.1408  \n Median :-0.14609   Median : 0.5019  \n Mean   :-0.08406   Mean   : 0.4140  \n 3rd Qu.: 0.14861   3rd Qu.: 0.8561  \n Max.   : 1.58156   Max.   : 2.0084"
+    "text": "Other Types of Pipes — %T&gt;%\n\n\n\n\nrnorm(50) %&gt;% \n  matrix(ncol = 2) %T&gt;% \n  plot() %&gt;% \n  summary()\n\n\n\n\n\n\n\n       V1                V2         \n Min.   :-1.7845   Min.   :-2.2556  \n 1st Qu.:-0.4140   1st Qu.:-0.7914  \n Median : 0.3771   Median :-0.1386  \n Mean   : 0.1313   Mean   :-0.1667  \n 3rd Qu.: 0.6717   3rd Qu.: 0.5689  \n Max.   : 1.7395   Max.   : 2.2863"
   },
   {
     "objectID": "slides/tidyverse/index.html#other-types-of-magrittr-pipes",
@@ -3273,7 +3273,7 @@
     "href": "slides/tidyverse/index.html#other-types-of-magrittr-pipes-1",
     "title": "Tidy work in Tidyverse",
     "section": "Other Types of magrittr Pipes — %<>%",
-    "text": "Other Types of magrittr Pipes — %&lt;&gt;%\nIt exists but can lead to somewhat confusing code! ☠️\nx %&lt;&gt;% f \\(\\equiv\\) x &lt;- f(x)\n\nM &lt;- matrix(rnorm(16), nrow=4); M %&lt;&gt;% colSums(); M\n\n[1] -1.286790  1.685884  4.175473 -6.551196"
+    "text": "Other Types of magrittr Pipes — %&lt;&gt;%\nIt exists but can lead to somewhat confusing code! 💀\nx %&lt;&gt;% f \\(\\equiv\\) x &lt;- f(x)\n\nM &lt;- matrix(rnorm(16), nrow=4); M %&lt;&gt;% colSums(); M\n\n[1] -0.6989181 -0.2663241 -0.9810612  0.8953174"
   },
   {
     "objectID": "slides/tidyverse/index.html#native-r-pipe",
@@ -3287,7 +3287,7 @@
     "href": "slides/tidyverse/index.html#placeholders-in-magrittr-pipes",
     "title": "Tidy work in Tidyverse",
     "section": "Placeholders in magrittr Pipes",
-    "text": "Placeholders in magrittr Pipes\nSometimes we want to pass the resulting data to other than the first argument of the next function in chain. magritter provides placeholder mechanism for this:\n\nx %&gt;% f(y, .) \\(\\equiv\\) f(y, x),\nx %&gt;% f(y, z = .) \\(\\equiv\\) f(y, z = x).\n\n\n\nM &lt;- rnorm(4) %&gt;% matrix(nrow = 2)\nM %&gt;% `%*%`(., .)\n\n           [,1]       [,2]\n[1,]  3.2283999 -0.6942443\n[2,] -0.8356774  2.5787059"
+    "text": "Placeholders in magrittr Pipes\nSometimes we want to pass the resulting data to other than the first argument of the next function in chain. magritter provides placeholder mechanism for this:\n\nx %&gt;% f(y, .) \\(\\equiv\\) f(y, x),\nx %&gt;% f(y, z = .) \\(\\equiv\\) f(y, z = x).\n\n\n\nM &lt;- rnorm(4) %&gt;% matrix(nrow = 2)\nM %&gt;% `%*%`(., .)\n\n          [,1]       [,2]\n[1,]  7.788073  0.2613652\n[2,] -4.643986 -0.1556185"
   },
   {
     "objectID": "slides/tidyverse/index.html#placeholders-for-nested-expressions",
@@ -3329,7 +3329,7 @@
     "href": "slides/tidyverse/index.html#tibbles-from-scratch-with-tibble",
     "title": "Tidy work in Tidyverse",
     "section": "Tibbles from scratch with tibble",
-    "text": "Tibbles from scratch with tibble\n\n  tibble(\n    x = 1,          # recycling\n    y = runif(50), \n    z = x + y^2,\n    outcome = rnorm(50)\n  )\n\n# A tibble: 50 × 4\n       x      y     z outcome\n   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;\n 1     1 0.238   1.06 -1.28  \n 2     1 0.871   1.76  2.25  \n 3     1 0.137   1.02  0.350 \n 4     1 0.994   1.99 -0.833 \n 5     1 0.0404  1.00  1.39  \n 6     1 0.312   1.10 -0.441 \n 7     1 0.0412  1.00 -1.22  \n 8     1 0.362   1.13 -0.940 \n 9     1 0.777   1.60  0.104 \n10     1 0.0903  1.01  0.0855\n# ℹ 40 more rows"
+    "text": "Tibbles from scratch with tibble\n\n  tibble(\n    x = 1,          # recycling\n    y = runif(50), \n    z = x + y^2,\n    outcome = rnorm(50)\n  )\n\n# A tibble: 50 × 4\n       x     y     z outcome\n   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;\n 1     1 0.152  1.02   0.230\n 2     1 0.112  1.01  -1.39 \n 3     1 0.283  1.08   0.340\n 4     1 0.879  1.77  -0.411\n 5     1 0.182  1.03  -0.731\n 6     1 0.960  1.92  -0.141\n 7     1 0.936  1.88   1.67 \n 8     1 0.822  1.68   0.785\n 9     1 0.745  1.55  -0.360\n10     1 0.751  1.56   0.289\n# ℹ 40 more rows"
   },
   {
     "objectID": "slides/tidyverse/index.html#more-on-tibbles",
@@ -3448,7 +3448,7 @@
     "href": "slides/tidyverse/index.html#floating-point-and-tidyverse",
     "title": "Tidy work in Tidyverse",
     "section": "Floating point and tidyverse",
-    "text": "Floating point and tidyverse\n\n\n\n\n\n\nCaution\n\n\n🚤 Be careful with floating point comparisons!\n🦜 Also, rows with comparison resulting in NA are skipped by default!\n\n\n\n\n\nbijou %&gt;% filter(near(0.23, carat) | is.na(carat)) %&gt;% head(n = 4)\n\n# A tibble: 2 × 10\n  carat cut   color clarity depth table price     x     y     z\n  &lt;dbl&gt; &lt;ord&gt; &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1  0.23 Ideal E     SI2      61.5    55   326  3.95  3.98  2.43\n2  0.23 Good  E     VS1      56.9    65   327  4.05  4.07  2.31"
+    "text": "Floating point and tidyverse\n\n\n\n\n\n\nCaution\n\n\n⛵ Be careful with floating point comparisons!\n🏴‍☠️ Also, rows with comparison resulting in NA are skipped by default!\n\n\n\n\n\nbijou %&gt;% filter(near(0.23, carat) | is.na(carat)) %&gt;% head(n = 4)\n\n# A tibble: 2 × 10\n  carat cut   color clarity depth table price     x     y     z\n  &lt;dbl&gt; &lt;ord&gt; &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1  0.23 Ideal E     SI2      61.5    55   326  3.95  3.98  2.43\n2  0.23 Good  E     VS1      56.9    65   327  4.05  4.07  2.31"
   },
   {
     "objectID": "slides/tidyverse/index.html#rearranging-observations-using-arrange",
@@ -3560,7 +3560,7 @@
     "href": "slides/tidyverse/index.html#completing-missing-values-using-complete",
     "title": "Tidy work in Tidyverse",
     "section": "Completing Missing Values Using complete",
-    "text": "Completing Missing Values Using complete\n\nbijou %&gt;% head(n = 10) %&gt;% select(cut, clarity, price) %&gt;% \n  mutate(continent = sample(c('Aus', 'Eur'), size = 6, replace = T)) -&gt; missing_stones\n\n\n\nmissing_stones %&gt;% complete(cut, continent) %&gt;% head(n = 7)\n\n\n\n\n\n# A tibble: 7 × 4\n  cut       continent clarity price\n  &lt;ord&gt;     &lt;chr&gt;     &lt;ord&gt;   &lt;int&gt;\n1 Fair      Aus       &lt;NA&gt;       NA\n2 Fair      Eur       &lt;NA&gt;       NA\n3 Good      Aus       VS1       327\n4 Good      Aus       SI2       335\n5 Good      Eur       &lt;NA&gt;       NA\n6 Very Good Aus       &lt;NA&gt;       NA\n7 Very Good Eur       VVS2      336"
+    "text": "Completing Missing Values Using complete\n\nbijou %&gt;% head(n = 10) %&gt;% select(cut, clarity, price) %&gt;% \n  mutate(continent = sample(c('Aus', 'Eur'), size = 6, replace = T)) -&gt; missing_stones\n\n\n\nmissing_stones %&gt;% complete(cut, continent) %&gt;% head(n = 7)\n\n\n\n\n\n# A tibble: 7 × 4\n  cut       continent clarity price\n  &lt;ord&gt;     &lt;chr&gt;     &lt;ord&gt;   &lt;int&gt;\n1 Fair      Eur       &lt;NA&gt;       NA\n2 Good      Eur       VS1       327\n3 Good      Eur       SI2       335\n4 Very Good Eur       VVS2      336\n5 Premium   Eur       SI1       326\n6 Premium   Eur       VS2       334\n7 Ideal     Eur       SI2       326"
   },
   {
     "objectID": "slides/tidyverse/index.html#combining-datasets",
@@ -3609,7 +3609,7 @@
     "href": "slides/tidyverse/index.html#section-1",
     "title": "Tidy work in Tidyverse",
     "section": "",
-    "text": "Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
+    "text": "Thank you! Questions?\n\n\n         _                  \nplatform x86_64-pc-linux-gnu\nos       linux-gnu          \nmajor    4                  \nminor    2.3                \n\n\n2023 • SciLifeLab • NBIS • RaukR"
   },
   {
     "objectID": "slides/vectorization/index.html#learning-outcomes",
@@ -3630,7 +3630,7 @@
     "href": "slides/vectorization/index.html#repeating-actions-vectorization",
     "title": "Vectorization in R",
     "section": "Repeating actions — vectorization",
-    "text": "Repeating actions — vectorization\nLet us compare the time of execution of the vectorized version (vector with 10,000 elements):\n\nvec &lt;- c(1:1e6)\npeakRAM::peakRAM(vec &lt;- vec + 1)\n\n  Function_Call Elapsed_Time_sec Total_RAM_Used_MiB Peak_RAM_Used_MiB\n1    vec&lt;-vec+1            0.004                3.8               7.6\n\n\n\nto the loop version:\n\nvec &lt;- c(1:1e6)\nloop &lt;- function(vec) {\n  for (i in vec) {\n    vec[i] &lt;- vec[i] + 1\n  }\n  return(vec)\n}\npeakRAM::peakRAM(loop(vec))\n\n  Function_Call Elapsed_Time_sec Total_RAM_Used_MiB Peak_RAM_Used_MiB\n1     loop(vec)             0.06                7.6               7.7"
+    "text": "Repeating actions — vectorization\nLet us compare the time of execution of the vectorized version (vector with 10,000 elements):\n\nvec &lt;- c(1:1e6)\npeakRAM::peakRAM(vec &lt;- vec + 1)\n\n  Function_Call Elapsed_Time_sec Total_RAM_Used_MiB Peak_RAM_Used_MiB\n1    vec&lt;-vec+1            0.003                3.8               7.6\n\n\n\nto the loop version:\n\nvec &lt;- c(1:1e6)\nloop &lt;- function(vec) {\n  for (i in vec) {\n    vec[i] &lt;- vec[i] + 1\n  }\n  return(vec)\n}\npeakRAM::peakRAM(loop(vec))\n\n  Function_Call Elapsed_Time_sec Total_RAM_Used_MiB Peak_RAM_Used_MiB\n1     loop(vec)            0.076                7.6               7.7"
   },
   {
     "objectID": "slides/vectorization/index.html#vectorization-the-problem",
@@ -3679,7 +3679,7 @@
     "href": "slides/vectorization/index.html#section-1",
     "title": "Vectorization in R",
     "section": "",
-    "text": "Thank you! Questions?\n\n\n         _                     \nplatform x86_64-conda-linux-gnu\nos       linux-gnu             \nmajor    4                     \nminor    2.2                   \n\n\n2023 • SciLifeLab • NBIS • RaukR"
+    "text": "Thank you! Questions?\n\n\n         _                  \nplatform x86_64-pc-linux-gnu\nos       linux-gnu          \nmajor    4                  \nminor    2.3                \n\n\n2023 • SciLifeLab • NBIS • RaukR"
   },
   {
     "objectID": "slides/vectorization/index.html#recursion-iteration",
@@ -3693,7 +3693,7 @@
     "href": "slides/vectorization/index.html#recursion-iteration-really",
     "title": "Vectorization in R",
     "section": "Recursion == iteration, really?",
-    "text": "Recursion == iteration, really?\nMore writing for the iterative version, right? What about the time efficiency?\nThe recursive version:\n\npeakRAM::peakRAM(factorial_rec(1000))\n\n        Function_Call Elapsed_Time_sec Total_RAM_Used_MiB Peak_RAM_Used_MiB\n1 factorial_rec(1000)            0.003                  0               0.1\n\n\nAnd the iterative one:\n\npeakRAM::peakRAM(factorial_iter(1000))\n\n         Function_Call Elapsed_Time_sec Total_RAM_Used_MiB Peak_RAM_Used_MiB\n1 factorial_iter(1000)            0.003                  0               0.1"
+    "text": "Recursion == iteration, really?\nMore writing for the iterative version, right? What about the time efficiency?\nThe recursive version:\n\npeakRAM::peakRAM(factorial_rec(1000))\n\nAnd the iterative one:\n\npeakRAM::peakRAM(factorial_iter(1000))\n\n         Function_Call Elapsed_Time_sec Total_RAM_Used_MiB Peak_RAM_Used_MiB\n1 factorial_iter(1000)            0.003                  0               0.1"
   },
   {
     "objectID": "slides/shiny/index.html#interactive-documents-quarto",
